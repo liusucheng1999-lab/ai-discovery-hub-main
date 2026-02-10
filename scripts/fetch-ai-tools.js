@@ -1,253 +1,283 @@
 // scripts/fetch-ai-tools.js
-// 自动抓取AI工具并存入Supabase
+// 自动抓取AI工具 - Product Hunt + GitHub
 
-// Supabase 配置（从环境变量读取）
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_KEY;
 
-// 从网页抓取AI工具信息
-async function fetchAITools() {
-  console.log('开始抓取AI工具...');
-  
-  // 使用备用方法：抓取 There's An AI For That 的最新工具
-  const tools = await fetchFromTAAIF();
-  
-  console.log(`抓取到 ${tools.length} 个工具`);
-  return tools;
-}
-
-// 从 There's An AI For That 获取数据
-async function fetchFromTAAIF() {
-  try {
-    const response = await fetch('https://theresanaiforthat.com/api/tools/?limit=10&sort=-created', {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-      }
-    });
-    
-    if (!response.ok) {
-      console.log('API请求失败，使用备用数据');
-      return getBackupTools();
-    }
-    
-    const data = await response.json();
-    
-    if (data && data.results) {
-      return data.results.map(item => ({
-        name: item.name || item.title,
-        tagline: item.description || item.tagline || '一款AI工具',
-        websiteUrl: item.url || item.website || 'https://example.com',
-        category: mapCategory(item.category),
-        pricingType: mapPricing(item.pricing),
-        isChinaAvailable: false
-      }));
-    }
-    
-    return getBackupTools();
-  } catch (err) {
-    console.log('抓取失败:', err.message);
-    return getBackupTools();
-  }
-}
-
-// 分类映射
-function mapCategory(cat) {
-  const map = {
-    'chatbot': 'chat',
-    'writing': 'writing',
-    'image': 'image',
-    'video': 'video',
-    'audio': 'audio',
-    'code': 'coding',
-    'search': 'search',
-    'productivity': 'office'
-  };
-  return map[cat?.toLowerCase()] || 'chat';
-}
-
-// 价格映射
-function mapPricing(pricing) {
-  if (!pricing) return 'freemium';
-  const p = pricing.toLowerCase();
-  if (p.includes('free')) return 'free';
-  if (p.includes('open')) return 'opensource';
-  if (p.includes('paid')) return 'paid';
-  return 'freemium';
-}
-
-// 备用数据：从 RSS 或热门列表
-function getBackupTools() {
-  console.log('使用备用数据源...');
-  
-  // 返回一些近期热门的AI工具
-  const today = new Date().toISOString().split('T')[0];
-  
-  return [
-    {
-      name: 'Grok 2',
-      tagline: 'xAI推出的对话AI，集成在X平台',
-      websiteUrl: 'https://x.ai',
-      category: 'chat',
-      pricingType: 'freemium',
-      isChinaAvailable: false
-    },
-    {
-      name: 'Claude 3.5 Sonnet',
-      tagline: 'Anthropic最新最强的AI助手',
-      websiteUrl: 'https://claude.ai',
-      category: 'chat',
-      pricingType: 'freemium',
-      isChinaAvailable: false
-    },
-    {
-      name: 'Gemini 2.0',
-      tagline: 'Google最新多模态AI模型',
-      websiteUrl: 'https://gemini.google.com',
-      category: 'chat',
-      pricingType: 'freemium',
-      isChinaAvailable: false
-    },
-    {
-      name: 'Sora',
-      tagline: 'OpenAI文字生成视频模型',
-      websiteUrl: 'https://openai.com/sora',
-      category: 'video',
-      pricingType: 'paid',
-      isChinaAvailable: false
-    },
-    {
-      name: 'Ideogram 2.0',
-      tagline: 'AI图片生成工具，擅长文字渲染',
-      websiteUrl: 'https://ideogram.ai',
-      category: 'image',
-      pricingType: 'freemium',
-      isChinaAvailable: false
-    }
-  ];
-}
-
-// 检查工具是否已存在于 tools 表
-async function checkExistsInTools(name, websiteUrl) {
-  const url = `${SUPABASE_URL}/rest/v1/tools?or=(name.ilike.${encodeURIComponent(name)},website_url.ilike.${encodeURIComponent(websiteUrl)})`;
-  
-  const response = await fetch(url, {
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`
-    }
-  });
-  
-  const data = await response.json();
-  return Array.isArray(data) && data.length > 0;
-}
-
-// 检查是否在待审核列表中
-async function checkExistsInSubmissions(name, websiteUrl) {
-  const url = `${SUPABASE_URL}/rest/v1/tool_submissions?or=(name.ilike.${encodeURIComponent(name)},website_url.ilike.${encodeURIComponent(websiteUrl)})`;
-  
-  const response = await fetch(url, {
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`
-    }
-  });
-  
-  const data = await response.json();
-  return Array.isArray(data) && data.length > 0;
-}
-
-// 保存新工具到待审核表
-async function saveToSubmissions(tool) {
-  const response = await fetch(
-    `${SUPABASE_URL}/rest/v1/tool_submissions`,
-    {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({
-        name: tool.name,
-        website_url: tool.websiteUrl,
-        tagline: tool.tagline,
-        category: tool.category,
-        pricing_type: tool.pricingType,
-        is_china_available: tool.isChinaAvailable,
-        note: '自动抓取 - ' + new Date().toISOString().split('T')[0],
-        status: 'pending'
-      })
-    }
-  );
-  
-  if (response.ok) {
-    console.log(`✅ 已添加: ${tool.name}`);
-    return true;
-  } else {
-    const err = await response.text();
-    console.log(`❌ 添加失败: ${tool.name} - ${err}`);
-    return false;
-  }
-}
+// Product Hunt API 配置
+const PH_API_KEY = 'fe-eS5eQ2EWwk_BxdmRSP69d0WKjw_gnFUYd2DBsrIg';
+const PH_API_SECRET = 'rTDOAGFr87E3lokpEdpP4mWEWOq3tv3hHBuv10FqvH4';
 
 // 主函数
 async function main() {
   console.log('========================================');
-  console.log('AI工具自动抓取任务开始');
+  console.log('AI工具自动抓取任务');
   console.log('时间:', new Date().toISOString());
-  console.log('========================================');
+  console.log('========================================\n');
   
   if (!SUPABASE_URL || !SUPABASE_KEY) {
-    console.error('错误：缺少 SUPABASE_URL 或 SUPABASE_KEY 环境变量');
+    console.error('错误：缺少环境变量');
     process.exit(1);
   }
   
-  console.log('Supabase URL:', SUPABASE_URL);
-  console.log('Supabase Key:', SUPABASE_KEY ? '已设置' : '未设置');
+  const allTools = [];
   
-  try {
-    // 1. 抓取工具
-    const tools = await fetchAITools();
+  // 数据源1：Product Hunt 最新 AI 产品
+  console.log('📡 抓取 Product Hunt...');
+  const phTools = await fetchProductHunt();
+  allTools.push(...phTools);
+  console.log(`   获取 ${phTools.length} 个\n`);
+  
+  // 数据源2：GitHub Trending AI 项目
+  console.log('📡 抓取 GitHub Trending...');
+  const githubTools = await fetchGitHubTrending();
+  allTools.push(...githubTools);
+  console.log(`   获取 ${githubTools.length} 个\n`);
+  
+  console.log(`总计: ${allTools.length} 个工具待检查\n`);
+  
+  // 逐个检查并保存
+  let newCount = 0;
+  let existsCount = 0;
+  
+  for (const tool of allTools) {
+    const exists = await checkExists(tool.name, tool.websiteUrl);
     
-    let newCount = 0;
-    let existsCount = 0;
-    
-    // 2. 逐个检查并保存
-    for (const tool of tools) {
-      console.log(`\n检查: ${tool.name}`);
-      
-      // 检查是否已存在于 tools 表
-      const existsInTools = await checkExistsInTools(tool.name, tool.websiteUrl);
-      if (existsInTools) {
-        console.log(`⏭️ 已在工具库中: ${tool.name}`);
-        existsCount++;
-        continue;
-      }
-      
-      // 检查是否已在待审核列表
-      const existsInPending = await checkExistsInSubmissions(tool.name, tool.websiteUrl);
-      if (existsInPending) {
-        console.log(`⏭️ 已在待审核中: ${tool.name}`);
-        existsCount++;
-        continue;
-      }
-      
-      // 保存新工具
-      const saved = await saveToSubmissions(tool);
-      if (saved) newCount++;
+    if (exists) {
+      existsCount++;
+      continue;
     }
     
-    console.log('\n========================================');
-    console.log(`任务完成！`);
-    console.log(`新增: ${newCount} 个工具`);
-    console.log(`已存在: ${existsCount} 个工具`);
-    console.log('========================================');
+    const saved = await saveToSubmissions(tool);
+    if (saved) newCount++;
     
-  } catch (err) {
-    console.error('任务执行出错:', err);
-    process.exit(1);
+    await sleep(100);
   }
+  
+  console.log('\n========================================');
+  console.log(`完成！新增 ${newCount} 个，已存在 ${existsCount} 个`);
+  console.log('========================================');
+}
+
+// 获取 Product Hunt Access Token
+async function getPHAccessToken() {
+  try {
+    const response = await fetch('https://api.producthunt.com/v2/oauth/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        client_id: PH_API_KEY,
+        client_secret: PH_API_SECRET,
+        grant_type: 'client_credentials'
+      })
+    });
+    
+    if (!response.ok) {
+      console.log('   获取 PH Token 失败:', response.status);
+      return null;
+    }
+    
+    const data = await response.json();
+    return data.access_token;
+  } catch (err) {
+    console.log('   PH Token 错误:', err.message);
+    return null;
+  }
+}
+
+// 抓取 Product Hunt 最新 AI 产品
+async function fetchProductHunt() {
+  try {
+    const token = await getPHAccessToken();
+    
+    if (!token) {
+      console.log('   无法获取 Product Hunt Token，跳过');
+      return [];
+    }
+    
+    // GraphQL 查询最新的 AI 相关产品
+    const query = `
+      query {
+        posts(first: 30, order: NEWEST) {
+          edges {
+            node {
+              id
+              name
+              tagline
+              website
+              topics {
+                edges {
+                  node {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+    
+    const response = await fetch('https://api.producthunt.com/v2/api/graphql', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query })
+    });
+    
+    if (!response.ok) {
+      console.log('   PH API 请求失败:', response.status);
+      return [];
+    }
+    
+    const data = await response.json();
+    
+    if (!data.data || !data.data.posts) {
+      console.log('   PH 数据格式异常');
+      return [];
+    }
+    
+    // 过滤出 AI 相关的产品
+    const aiKeywords = ['ai', 'artificial intelligence', 'machine learning', 'gpt', 'llm', 'chatbot', 'generative'];
+    
+    const tools = [];
+    
+    for (const edge of data.data.posts.edges) {
+      const post = edge.node;
+      
+      // 检查是否 AI 相关
+      const topics = post.topics?.edges?.map(e => e.node.name.toLowerCase()) || [];
+      const isAI = topics.some(t => aiKeywords.some(k => t.includes(k))) ||
+                   post.name.toLowerCase().includes('ai') ||
+                   post.tagline.toLowerCase().includes('ai');
+      
+      if (isAI && post.website) {
+        tools.push({
+          name: post.name,
+          tagline: post.tagline.slice(0, 100),
+          websiteUrl: post.website,
+          category: guessCategory(post.tagline, topics),
+          pricingType: 'freemium',
+          isChinaAvailable: false,
+          source: 'Product Hunt'
+        });
+      }
+    }
+    
+    return tools;
+  } catch (err) {
+    console.log('   Product Hunt 抓取失败:', err.message);
+    return [];
+  }
+}
+
+// 根据描述猜测分类
+function guessCategory(tagline, topics) {
+  const text = (tagline + ' ' + topics.join(' ')).toLowerCase();
+  
+  if (text.includes('video') || text.includes('视频')) return 'video';
+  if (text.includes('image') || text.includes('photo') || text.includes('art') || text.includes('draw')) return 'image';
+  if (text.includes('music') || text.includes('audio') || text.includes('voice') || text.includes('sound')) return 'audio';
+  if (text.includes('code') || text.includes('developer') || text.includes('programming')) return 'coding';
+  if (text.includes('write') || text.includes('writing') || text.includes('text') || text.includes('content')) return 'writing';
+  if (text.includes('search')) return 'search';
+  if (text.includes('productivity') || text.includes('document') || text.includes('pdf')) return 'office';
+  if (text.includes('agent') || text.includes('automat')) return 'agent';
+  if (text.includes('api') || text.includes('model') || text.includes('deploy')) return 'dev';
+  
+  return 'chat'; // 默认对话类
+}
+
+// GitHub Trending AI 项目
+async function fetchGitHubTrending() {
+  try {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    const dateStr = oneWeekAgo.toISOString().split('T')[0];
+    
+    const response = await fetch(
+      `https://api.github.com/search/repositories?q=topic:artificial-intelligence+created:>${dateStr}&sort=stars&per_page=20`,
+      {
+        headers: {
+          'Accept': 'application/vnd.github.v3+json',
+          'User-Agent': 'AI-Fetcher'
+        }
+      }
+    );
+    
+    if (!response.ok) return [];
+    
+    const data = await response.json();
+    
+    return (data.items || []).map(repo => ({
+      name: repo.name,
+      tagline: (repo.description || '开源AI项目').slice(0, 100),
+      websiteUrl: repo.homepage || repo.html_url,
+      category: 'dev',
+      pricingType: 'opensource',
+      isChinaAvailable: true,
+      source: 'GitHub'
+    }));
+  } catch (err) {
+    console.log('   GitHub 抓取失败:', err.message);
+    return [];
+  }
+}
+
+// 检查是否存在
+async function checkExists(name, websiteUrl) {
+  // 检查 tools 表
+  const toolsUrl = `${SUPABASE_URL}/rest/v1/tools?or=(name.ilike.${encodeURIComponent(name)},website_url.ilike.${encodeURIComponent(websiteUrl)})`;
+  const toolsRes = await fetch(toolsUrl, {
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+  });
+  const toolsData = await toolsRes.json();
+  if (Array.isArray(toolsData) && toolsData.length > 0) return true;
+  
+  // 检查 submissions 表
+  const subUrl = `${SUPABASE_URL}/rest/v1/tool_submissions?or=(name.ilike.${encodeURIComponent(name)},website_url.ilike.${encodeURIComponent(websiteUrl)})`;
+  const subRes = await fetch(subUrl, {
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+  });
+  const subData = await subRes.json();
+  return Array.isArray(subData) && subData.length > 0;
+}
+
+// 保存到待审核表
+async function saveToSubmissions(tool) {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/tool_submissions`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify({
+      name: tool.name,
+      website_url: tool.websiteUrl,
+      tagline: tool.tagline,
+      category: tool.category,
+      pricing_type: tool.pricingType,
+      is_china_available: tool.isChinaAvailable || false,
+      note: `来源: ${tool.source} - ${new Date().toISOString().split('T')[0]}`,
+      status: 'pending'
+    })
+  });
+  
+  if (response.ok) {
+    console.log(`✅ ${tool.name}`);
+    return true;
+  }
+  return false;
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 main();
