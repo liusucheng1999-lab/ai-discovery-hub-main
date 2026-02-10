@@ -1,5 +1,5 @@
 // scripts/fetch-ai-tools.js
-// 自动抓取AI工具 - Product Hunt + GitHub
+// 自动抓取AI工具 - Product Hunt + GitHub + 自动翻译
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_KEY;
@@ -11,7 +11,7 @@ const PH_API_SECRET = 'rTDOAGFr87E3lokpEdpP4mWEWOq3tv3hHBuv10FqvH4';
 // 主函数
 async function main() {
   console.log('========================================');
-  console.log('AI工具自动抓取任务');
+  console.log('AI工具自动抓取任务（带翻译）');
   console.log('时间:', new Date().toISOString());
   console.log('========================================\n');
   
@@ -34,9 +34,11 @@ async function main() {
   allTools.push(...githubTools);
   console.log(`   获取 ${githubTools.length} 个\n`);
   
-  console.log(`总计: ${allTools.length} 个工具待检查\n`);
+  console.log(`总计: ${allTools.length} 个工具待处理\n`);
   
-  // 逐个检查并保存
+  // 翻译并保存
+  console.log('🔄 开始翻译和保存...\n');
+  
   let newCount = 0;
   let existsCount = 0;
   
@@ -48,15 +50,59 @@ async function main() {
       continue;
     }
     
+    // 翻译描述
+    const translatedTagline = await translateToChineseSimple(tool.tagline);
+    tool.tagline = translatedTagline;
+    
     const saved = await saveToSubmissions(tool);
     if (saved) newCount++;
     
-    await sleep(100);
+    await sleep(500); // 翻译接口需要间隔
   }
   
   console.log('\n========================================');
   console.log(`完成！新增 ${newCount} 个，已存在 ${existsCount} 个`);
   console.log('========================================');
+}
+
+// 简单翻译函数（使用免费接口）
+async function translateToChineseSimple(text) {
+  if (!text) return '';
+  
+  // 如果已经是中文，直接返回
+  if (/[\u4e00-\u9fa5]/.test(text)) {
+    return text;
+  }
+  
+  try {
+    // 使用 Google 翻译的免费接口
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=zh-CN&dt=t&q=${encodeURIComponent(text)}`;
+    
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      }
+    });
+    
+    if (!response.ok) {
+      console.log(`   翻译失败: ${text.slice(0, 30)}...`);
+      return text; // 翻译失败返回原文
+    }
+    
+    const data = await response.json();
+    
+    // 提取翻译结果
+    if (data && data[0] && data[0][0] && data[0][0][0]) {
+      const translated = data[0][0][0];
+      console.log(`   翻译: ${text.slice(0, 30)}... → ${translated.slice(0, 30)}...`);
+      return translated;
+    }
+    
+    return text;
+  } catch (err) {
+    console.log(`   翻译错误: ${err.message}`);
+    return text; // 出错返回原文
+  }
 }
 
 // 获取 Product Hunt Access Token
@@ -97,7 +143,6 @@ async function fetchProductHunt() {
       return [];
     }
     
-    // GraphQL 查询最新的 AI 相关产品
     const query = `
       query {
         posts(first: 30, order: NEWEST) {
@@ -141,24 +186,24 @@ async function fetchProductHunt() {
       return [];
     }
     
-    // 过滤出 AI 相关的产品
-    const aiKeywords = ['ai', 'artificial intelligence', 'machine learning', 'gpt', 'llm', 'chatbot', 'generative'];
+    const aiKeywords = ['ai', 'artificial intelligence', 'machine learning', 'gpt', 'llm', 'chatbot', 'generative', 'neural', 'deep learning'];
     
     const tools = [];
     
     for (const edge of data.data.posts.edges) {
       const post = edge.node;
       
-      // 检查是否 AI 相关
       const topics = post.topics?.edges?.map(e => e.node.name.toLowerCase()) || [];
       const isAI = topics.some(t => aiKeywords.some(k => t.includes(k))) ||
                    post.name.toLowerCase().includes('ai') ||
-                   post.tagline.toLowerCase().includes('ai');
+                   post.tagline.toLowerCase().includes('ai') ||
+                   post.tagline.toLowerCase().includes('gpt') ||
+                   post.tagline.toLowerCase().includes('llm');
       
       if (isAI && post.website) {
         tools.push({
           name: post.name,
-          tagline: post.tagline.slice(0, 100),
+          tagline: post.tagline.slice(0, 150),
           websiteUrl: post.website,
           category: guessCategory(post.tagline, topics),
           pricingType: 'freemium',
@@ -180,16 +225,16 @@ function guessCategory(tagline, topics) {
   const text = (tagline + ' ' + topics.join(' ')).toLowerCase();
   
   if (text.includes('video') || text.includes('视频')) return 'video';
-  if (text.includes('image') || text.includes('photo') || text.includes('art') || text.includes('draw')) return 'image';
-  if (text.includes('music') || text.includes('audio') || text.includes('voice') || text.includes('sound')) return 'audio';
-  if (text.includes('code') || text.includes('developer') || text.includes('programming')) return 'coding';
-  if (text.includes('write') || text.includes('writing') || text.includes('text') || text.includes('content')) return 'writing';
-  if (text.includes('search')) return 'search';
-  if (text.includes('productivity') || text.includes('document') || text.includes('pdf')) return 'office';
-  if (text.includes('agent') || text.includes('automat')) return 'agent';
-  if (text.includes('api') || text.includes('model') || text.includes('deploy')) return 'dev';
+  if (text.includes('image') || text.includes('photo') || text.includes('art') || text.includes('draw') || text.includes('design')) return 'image';
+  if (text.includes('music') || text.includes('audio') || text.includes('voice') || text.includes('sound') || text.includes('speech')) return 'audio';
+  if (text.includes('code') || text.includes('developer') || text.includes('programming') || text.includes('github')) return 'coding';
+  if (text.includes('write') || text.includes('writing') || text.includes('content') || text.includes('copy') || text.includes('blog')) return 'writing';
+  if (text.includes('search') || text.includes('research')) return 'search';
+  if (text.includes('productivity') || text.includes('document') || text.includes('pdf') || text.includes('meeting') || text.includes('note')) return 'office';
+  if (text.includes('agent') || text.includes('automat') || text.includes('workflow')) return 'agent';
+  if (text.includes('api') || text.includes('model') || text.includes('deploy') || text.includes('train')) return 'dev';
   
-  return 'chat'; // 默认对话类
+  return 'chat';
 }
 
 // GitHub Trending AI 项目
@@ -200,7 +245,7 @@ async function fetchGitHubTrending() {
     const dateStr = oneWeekAgo.toISOString().split('T')[0];
     
     const response = await fetch(
-      `https://api.github.com/search/repositories?q=topic:artificial-intelligence+created:>${dateStr}&sort=stars&per_page=20`,
+      `https://api.github.com/search/repositories?q=topic:artificial-intelligence+created:>${dateStr}&sort=stars&per_page=15`,
       {
         headers: {
           'Accept': 'application/vnd.github.v3+json',
@@ -215,7 +260,7 @@ async function fetchGitHubTrending() {
     
     return (data.items || []).map(repo => ({
       name: repo.name,
-      tagline: (repo.description || '开源AI项目').slice(0, 100),
+      tagline: (repo.description || '开源AI项目').slice(0, 150),
       websiteUrl: repo.homepage || repo.html_url,
       category: 'dev',
       pricingType: 'opensource',
@@ -230,7 +275,6 @@ async function fetchGitHubTrending() {
 
 // 检查是否存在
 async function checkExists(name, websiteUrl) {
-  // 检查 tools 表
   const toolsUrl = `${SUPABASE_URL}/rest/v1/tools?or=(name.ilike.${encodeURIComponent(name)},website_url.ilike.${encodeURIComponent(websiteUrl)})`;
   const toolsRes = await fetch(toolsUrl, {
     headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
@@ -238,7 +282,6 @@ async function checkExists(name, websiteUrl) {
   const toolsData = await toolsRes.json();
   if (Array.isArray(toolsData) && toolsData.length > 0) return true;
   
-  // 检查 submissions 表
   const subUrl = `${SUPABASE_URL}/rest/v1/tool_submissions?or=(name.ilike.${encodeURIComponent(name)},website_url.ilike.${encodeURIComponent(websiteUrl)})`;
   const subRes = await fetch(subUrl, {
     headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
