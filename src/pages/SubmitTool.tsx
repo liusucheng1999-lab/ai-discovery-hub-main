@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Helmet } from "react-helmet-async";
-import { categories } from "@/lib/mock-data";
+import { categories as mockCategories } from "@/lib/mock-data";
+import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { CheckCircle2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const schema = z.object({
   name: z.string().trim().min(1, "请输入工具名称").max(50),
@@ -29,6 +31,13 @@ type FormData = z.infer<typeof schema>;
 
 export default function SubmitTool() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const { toast } = useToast();
+  
+  // 先使用 mock 数据，确保页面不会空白
+  const [categories, setCategories] = useState(mockCategories);
+  const [dataSource, setDataSource] = useState<'mock' | 'supabase'>('mock');
+  
   const form = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: { name: "", url: "", tagline: "", category: "", notes: "" },
@@ -36,8 +45,84 @@ export default function SubmitTool() {
 
   const taglineValue = form.watch("tagline") || "";
 
-  const onSubmit = (_data: FormData) => {
-    setSubmitted(true);
+  // 组件加载后尝试从 Supabase 获取分类数据
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        console.log('正在从Supabase加载分类数据...')
+        
+        const { data, error } = await supabase
+          .from('categories')
+          .select('*')
+          .order('sort_order')
+        
+        if (error) {
+          console.log('Supabase加载分类失败，使用mock数据:', error)
+          return
+        }
+        
+        if (data && data.length > 0) {
+          console.log('Supabase加载分类成功，共', data.length, '个分类')
+          setCategories(data as any)
+          setDataSource('supabase')
+        } else {
+          console.log('Supabase返回空分类数据，使用mock数据')
+        }
+      } catch (err) {
+        console.log('Supabase连接失败，使用mock数据:', err)
+      }
+    }
+    
+    loadCategories()
+  }, [])
+
+  const onSubmit = async (data: FormData) => {
+    setSubmitting(true);
+    
+    try {
+      console.log('正在提交工具到数据库:', data.name)
+      
+      const submitData = {
+        name: data.name,
+        website_url: data.url,
+        tagline: data.tagline,
+        category: data.category,
+        pricing_type: data.pricingType,
+        is_china_available: data.chinaAvailable === 'yes',
+        note: data.notes
+      };
+      
+      const { data: result, error } = await supabase
+        .from('tool_submissions')
+        .insert([submitData])
+        .select()
+      
+      if (error) {
+        console.log('提交失败:', error)
+        toast({
+          title: "提交失败",
+          description: error.message || "请稍后重试",
+          variant: "destructive"
+        });
+        return
+      }
+      
+      console.log('提交成功:', result)
+      setSubmitted(true);
+      toast({
+        title: "提交成功！",
+        description: "我们将在24小时内审核"
+      });
+    } catch (err) {
+      console.log('提交异常:', err)
+      toast({
+        title: "提交失败",
+        description: "网络异常，请稍后重试",
+        variant: "destructive"
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const reset = () => {
@@ -78,6 +163,10 @@ export default function SubmitTool() {
         <meta name="description" content="提交AI工具收录 - AI创客" />
       </Helmet>
       <main className="mx-auto max-w-[640px] px-6 pt-24 pb-12">
+      {/* 数据来源指示器 */}
+      <div className="text-xs text-muted-foreground mb-4 text-right">
+        数据源: {dataSource === 'supabase' ? '🟢 Supabase' : '🟡 Mock'}
+      </div>
       <div className="mb-4">
         <Link to="/" className="text-purple-600 hover:text-purple-700 hover:underline transition-colors">
           ← 返回AI导航
@@ -180,8 +269,8 @@ export default function SubmitTool() {
                 </FormItem>
               )} />
 
-              <Button type="submit" className="w-full bg-gradient-primary text-white h-11 text-base">
-                提交
+              <Button type="submit" className="w-full bg-gradient-primary text-white h-11 text-base" disabled={submitting}>
+                {submitting ? "提交中..." : "提交"}
               </Button>
             </form>
           </Form>

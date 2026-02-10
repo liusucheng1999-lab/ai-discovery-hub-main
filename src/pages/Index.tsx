@@ -1,6 +1,7 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
-import { tools, categories, pricingLabels } from "@/lib/mock-data";
+import { pricingLabels } from "@/lib/mock-data";
+import { supabase } from "@/lib/supabase";
 import ToolCard from "@/components/ToolCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
@@ -24,12 +25,12 @@ const pricingFilters = [
 
 const chinaFilters = [
   { value: "all", label: "全部" },
-  { value: "yes", label: "🇨🇳 国内可用" },
+  { value: "yes", label: " 国内可用" },
   { value: "no", label: "需翻墙" },
 ];
 
 interface IndexPageProps {
-  searchQuery: string;
+  searchQuery?: string;
 }
 
 export default function IndexPage({ searchQuery }: IndexPageProps) {
@@ -39,6 +40,62 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
   const [sortBy, setSortBy] = useState("popular");
   const [page, setPage] = useState(1);
 
+  // 初始状态设为空数组，不要用 mock 数据
+  const [tools, setTools] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // 从 Supabase 加载数据
+  useEffect(() => {
+    async function loadData() {
+      setLoading(true);
+      try {
+        console.log('首页：正在从Supabase加载数据');
+
+        // 同时加载分类和工具
+        const [categoriesResult, toolsResult] = await Promise.all([
+          supabase.from('categories').select('*').order('sort_order'),
+          supabase.from('tools').select('*').eq('status', 'active').order('view_count', { ascending: false })
+        ]);
+
+        if (categoriesResult.data) {
+          const allCategories = [
+            { id: "all", name: "全部", icon: "" },
+            ...categoriesResult.data
+          ];
+          setCategories(allCategories);
+        }
+
+        if (toolsResult.data) {
+          // 转换字段名
+          const formattedTools = toolsResult.data.map(t => ({
+            id: t.id,
+            name: t.name,
+            tagline: t.tagline,
+            description: t.description || t.tagline,
+            websiteUrl: t.website_url,
+            category: t.category,
+            tags: t.tags || [],
+            pricingType: t.pricing_type,
+            isChinaAvailable: t.is_china_available,
+            isChineseSupported: t.is_chinese_supported || false,
+            rating: t.rating || 0,
+            ratingCount: t.rating_count || 0,
+            viewCount: t.view_count || 0,
+            screenshots: t.screenshots || [],
+            createdAt: t.created_at || new Date().toISOString().split('T')[0]
+          }));
+          setTools(formattedTools);
+        }
+      } catch (err) {
+        console.log('首页：加载数据失败', err);
+      }
+      setLoading(false);
+    }
+    loadData();
+  }, []);
+
+  // 计算分类数量（基于当前工具数据）
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     tools.forEach((t) => {
@@ -46,7 +103,7 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
     });
     counts["all"] = tools.length;
     return counts;
-  }, []);
+  }, [tools]);
 
   const filtered = useMemo(() => {
     let result = [...tools];
@@ -68,13 +125,23 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
     else if (sortBy === "rating") result.sort((a, b) => b.rating - a.rating);
 
     return result;
-  }, [activeCategory, pricingFilter, chinaFilter, searchQuery, sortBy]);
+  }, [tools, activeCategory, pricingFilter, chinaFilter, searchQuery, sortBy]);
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paged = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
   // Reset page when filters change
-  useMemo(() => setPage(1), [activeCategory, pricingFilter, chinaFilter, searchQuery, sortBy]);
+  useEffect(() => setPage(1), [activeCategory, pricingFilter, chinaFilter, searchQuery, sortBy]);
+
+  // 加载中时显示 loading 状态
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
+        <p className="ml-3">加载中...</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -149,7 +216,9 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
       </div>
 
       {/* Results count */}
-      <p className="text-sm text-muted-foreground mb-4">找到 {filtered.length} 个工具</p>
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground mb-4">找到 {filtered.length} 个工具</p>
+      </div>
 
       {/* Tool Grid */}
       {paged.length > 0 ? (
@@ -197,7 +266,7 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
           </Pagination>
         </div>
       )}
-    </main>
+      </main>
     </>
   );
 }
