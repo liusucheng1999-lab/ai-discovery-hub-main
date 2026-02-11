@@ -10,7 +10,7 @@ export default function Footer() {
             提交工具
           </Link>
           <span>·</span>
-          <a href="mailto:contact@aimaker.com" className="hover:text-foreground transition-colors">
+          <a href="mailto:liusucheng1999@gmail.com" className="hover:text-foreground transition-colors">
             联系我们
           </a>
           <span>·</span>

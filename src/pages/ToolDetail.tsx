@@ -7,7 +7,7 @@ import { getToolLogo } from "@/lib/logo-utils";
 import ToolCard from "@/components/ToolCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Star, Eye, ExternalLink, Share2, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Star, Eye, ExternalLink, Share2, ChevronLeft, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function ToolDetail() {
@@ -22,7 +22,6 @@ export default function ToolDetail() {
   const [userRating, setUserRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [shareText, setShareText] = useState("📤 分享");
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const logoUrl = tool ? getToolLogo(tool.websiteUrl) : '';
 
@@ -309,10 +308,11 @@ export default function ToolDetail() {
           </div>
         </div>
 
-        {/* Basic Info */}
+        {/* Tool Info & Description */}
         <Card className="mt-8">
-          <CardHeader><CardTitle className="text-base">📋 基本信息</CardTitle></CardHeader>
-          <CardContent>
+          <CardHeader><CardTitle className="text-base">📋 工具信息</CardTitle></CardHeader>
+          <CardContent className="space-y-6">
+            {/* 基本信息 */}
             <div className="grid grid-cols-2 gap-y-3 text-sm">
               <div className="text-muted-foreground">分类</div>
               <div>{cat?.icon} {cat?.name}</div>
@@ -337,55 +337,20 @@ export default function ToolDetail() {
                 ))}
               </div>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Description */}
-        <Card className="mt-6">
-          <CardHeader><CardTitle className="text-base">📖 详细介绍</CardTitle></CardHeader>
-          <CardContent>{renderDescription(tool.description)}</CardContent>
-        </Card>
-
-        {/* Screenshots */}
-        <Card className="mt-6">
-          <CardHeader><CardTitle className="text-base">📸 截图展示</CardTitle></CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-3 gap-4">
-              {(tool.screenshots.length > 0 ? tool.screenshots : [1, 2, 3]).map((src: any, i: number) => (
-                <button
-                  key={i}
-                  onClick={() => setLightboxIndex(i)}
-                  className="aspect-video rounded-lg bg-gradient-to-br from-muted to-muted/50 border border-border overflow-hidden hover:ring-2 ring-primary transition-all"
-                >
-                  <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
-                    截图 {i + 1}
-                  </div>
-                </button>
-              ))}
+            
+            {/* 分隔线 */}
+            <div className="border-t border-border"></div>
+            
+            {/* 详细介绍 */}
+            <div>
+              <h3 className="text-base font-medium mb-3">📖 详细介绍</h3>
+              <div className="text-sm text-muted-foreground">
+                {renderDescription(tool.description)}
+              </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Lightbox */}
-        {lightboxIndex !== null && (
-          <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center" onClick={() => setLightboxIndex(null)}>
-            <button onClick={(e) => { e.stopPropagation(); setLightboxIndex((i) => (i! - 1 + 3) % 3); }}
-              className="absolute left-4 text-white p-2 hover:bg-white/10 rounded-full">
-              <ChevronLeft className="h-8 w-8" />
-            </button>
-            <div className="w-[800px] aspect-video bg-gradient-to-br from-muted to-muted/50 rounded-xl flex items-center justify-center text-muted-foreground"
-              onClick={(e) => e.stopPropagation()}>
-              截图 {lightboxIndex + 1}
-            </div>
-            <button onClick={(e) => { e.stopPropagation(); setLightboxIndex((i) => (i! + 1) % 3); }}
-              className="absolute right-4 text-white p-2 hover:bg-white/10 rounded-full">
-              <ChevronRight className="h-8 w-8" />
-            </button>
-            <button onClick={() => setLightboxIndex(null)} className="absolute top-4 right-4 text-white p-2 hover:bg-white/10 rounded-full">
-              <X className="h-6 w-6" />
-            </button>
-          </div>
-        )}
 
         {/* Rating */}
         <Card className="mt-6">
