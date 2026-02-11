@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import ToolDetail from "./pages/ToolDetail";
 import SubmitTool from "./pages/SubmitTool";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => {
                     <Route path="/" element={<Index searchQuery={searchQuery} />} />
                     <Route path="/tools/submit" element={<SubmitTool />} />
                     <Route path="/tools/:id" element={<ToolDetail />} />
+                    <Route path="/admin" element={<Admin />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </div>
