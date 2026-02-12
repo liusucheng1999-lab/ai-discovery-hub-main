@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check, X, Eye, ExternalLink } from "lucide-react";
+import { getToolLogo } from "@/lib/logo-utils";
 
 interface ToolSubmission {
   id: string;
@@ -27,6 +28,7 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [processing, setProcessing] = useState(false);
+  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected'>('pending');
 
   // 加载待审核工具
   useEffect(() => {
@@ -56,44 +58,68 @@ export default function Admin() {
   const handleApprove = async () => {
     if (selectedIds.length === 0) return;
     
+    if (!confirm('确定要审核通过这些工具吗？')) return;
+    
     setProcessing(true);
     try {
+      console.log('开始审核，选中的ID:', selectedIds);
+      
       // 获取选中的工具详情
-      const { data: selectedTools } = await supabase
+      const { data: selectedTools, error: fetchError } = await supabase
         .from('tool_submissions')
         .select('*')
         .in('id', selectedIds);
 
+      if (fetchError) {
+        console.error('获取工具详情失败:', fetchError);
+        alert('获取工具详情失败');
+        return;
+      }
+
+      console.log('获取到的工具:', selectedTools);
+
       if (selectedTools && selectedTools.length > 0) {
-        // 转换并插入到主表
-        const toolsToInsert = selectedTools.map(tool => ({
-          name: tool.name,
-          tagline: tool.tagline,
-          description: tool.tagline,
-          website_url: tool.website_url,
-          category: tool.category,
-          tags: [tool.category],
-          pricing_type: tool.pricing_type,
-          is_china_available: tool.is_china_available,
-          is_chinese_supported: tool.note?.includes('支持中文: true') || false,
-          rating: 0,
-          rating_count: 0,
-          view_count: 0,
-          screenshots: [],
-          status: 'active',
-          created_at: new Date().toISOString()
-        }));
+        // 逐个插入到主表，使用直接插入
+        let successCount = 0;
+        for (const tool of selectedTools) {
+          const toolToInsert = {
+            name: tool.name,
+            tagline: tool.tagline,
+            description: tool.tagline,
+            website_url: tool.website_url,
+            category: tool.category,
+            tags: [tool.category], // 确保是有效的分类
+            pricing_type: tool.pricing_type,
+            is_china_available: tool.is_china_available,
+            is_chinese_supported: tool.note?.includes('支持中文: true') || false,
+            rating: 0,
+            rating_count: 0,
+            view_count: 0,
+            screenshots: [], // 空数组，Supabase 会自动处理
+            status: 'active',
+            created_at: new Date().toISOString()
+          };
 
-        // 插入到主表
-        const { error: insertError } = await supabase
-          .from('tools')
-          .insert(toolsToInsert);
+          console.log('插入工具:', toolToInsert);
 
-        if (insertError) {
-          console.error('插入工具失败:', insertError);
-          alert('插入工具失败，请检查数据');
-          return;
+          // 直接插入到 tools 表
+          const { data, error } = await supabase
+            .from('tools')
+            .insert(toolToInsert);
+
+          if (error) {
+            console.error(`插入工具 ${tool.name} 失败:`, error);
+            console.error('错误详情:', error.details);
+            console.error('错误代码:', error.code);
+            // 继续处理其他工具，不中断整个流程
+            continue;
+          } else {
+            console.log(`成功插入工具 ${tool.name}`);
+            successCount++;
+          }
         }
+
+        console.log(`成功插入 ${successCount} 个工具，开始更新状态`);
 
         // 更新待审核表状态
         const { error: updateError } = await supabase
@@ -105,12 +131,16 @@ export default function Admin() {
           console.error('更新状态失败:', updateError);
           alert('更新状态失败');
         } else {
-          // 刷新列表
-          setSubmissions(prev => 
-            prev.filter(tool => !selectedIds.includes(tool.id))
-          );
+          console.log('状态更新成功，重新获取数据');
+          // 重新获取所有状态的数据
+          const { data: refreshedData } = await supabase
+            .from('tool_submissions')
+            .select('*')
+            .order('created_at', { ascending: false });
+          
+          setSubmissions(refreshedData || []);
           setSelectedIds([]);
-          alert(`成功审核通过 ${selectedTools.length} 个工具！`);
+          alert(`成功审核通过 ${successCount} 个工具！`);
         }
       }
     } catch (err) {
@@ -138,15 +168,19 @@ export default function Admin() {
         console.error('拒绝失败:', error);
         alert('拒绝失败');
       } else {
-        setSubmissions(prev => 
-          prev.filter(tool => !selectedIds.includes(tool.id))
-        );
+        // 重新获取所有状态的数据
+        const { data: refreshedData } = await supabase
+          .from('tool_submissions')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        setSubmissions(refreshedData || []);
         setSelectedIds([]);
-        alert(`已拒绝 ${selectedIds.length} 个工具`);
+        alert('已拒绝选中的工具');
       }
     } catch (err) {
       console.error('拒绝失败:', err);
-      alert('拒绝失败');
+      alert('拒绝失败，请重试');
     } finally {
       setProcessing(false);
     }
@@ -163,16 +197,22 @@ export default function Admin() {
 
   // 全选/取消全选
   const toggleSelectAll = () => {
-    const pendingIds = submissions
-      .filter(tool => tool.status === 'pending')
+    const currentTabIds = submissions
+      .filter(tool => tool.status === activeTab)
       .map(tool => tool.id);
     
-    if (selectedIds.length === pendingIds.length) {
+    if (selectedIds.length === currentTabIds.length) {
       setSelectedIds([]);
     } else {
-      setSelectedIds(pendingIds);
+      setSelectedIds(currentTabIds);
     }
   };
+
+  // 获取当前标签页的数据
+  const currentTabSubmissions = submissions.filter(tool => tool.status === activeTab);
+  const pendingCount = submissions.filter(tool => tool.status === 'pending').length;
+  const approvedCount = submissions.filter(tool => tool.status === 'approved').length;
+  const rejectedCount = submissions.filter(tool => tool.status === 'rejected').length;
 
   if (loading) {
     return (
@@ -183,10 +223,6 @@ export default function Admin() {
     );
   }
 
-  const pendingSubmissions = submissions.filter(tool => tool.status === 'pending');
-  const approvedSubmissions = submissions.filter(tool => tool.status === 'approved');
-  const rejectedSubmissions = submissions.filter(tool => tool.status === 'rejected');
-
   return (
     <>
       <Helmet>
@@ -194,48 +230,54 @@ export default function Admin() {
         <meta name="description" content="AI工具审核管理后台" />
       </Helmet>
       
-      <main className="mx-auto max-w-[1200px] px-6 pt-20 pb-12">
+      <main className="mx-auto max-w-[1400px] px-6 pt-20 pb-12">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">🛠️ 审核管理</h1>
           <p className="text-muted-foreground">管理待审核的AI工具提交</p>
         </div>
 
-        {/* 统计信息 */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-blue-600">{pendingSubmissions.length}</div>
-              <div className="text-sm text-muted-foreground">待审核</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-green-600">{approvedSubmissions.length}</div>
-              <div className="text-sm text-muted-foreground">已通过</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-red-600">{rejectedSubmissions.length}</div>
-              <div className="text-sm text-muted-foreground">已拒绝</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold">{submissions.length}</div>
-              <div className="text-sm text-muted-foreground">总提交</div>
-            </CardContent>
-          </Card>
+        {/* 状态标签页 */}
+        <div className="flex gap-2 mb-6 border-b">
+          <button
+            onClick={() => setActiveTab('pending')}
+            className={`px-4 py-2 font-medium transition-colors ${
+              activeTab === 'pending' 
+                ? 'text-primary border-b-2 border-primary' 
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            待审核 ({pendingCount})
+          </button>
+          <button
+            onClick={() => setActiveTab('approved')}
+            className={`px-4 py-2 font-medium transition-colors ${
+              activeTab === 'approved' 
+                ? 'text-primary border-b-2 border-primary' 
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            已通过 ({approvedCount})
+          </button>
+          <button
+            onClick={() => setActiveTab('rejected')}
+            className={`px-4 py-2 font-medium transition-colors ${
+              activeTab === 'rejected' 
+                ? 'text-primary border-b-2 border-primary' 
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            已拒绝 ({rejectedCount})
+          </button>
         </div>
 
-        {/* 批量操作 */}
-        {pendingSubmissions.length > 0 && (
+        {/* 批量操作 - 只在待审核页面显示 */}
+        {activeTab === 'pending' && currentTabSubmissions.length > 0 && (
           <div className="flex items-center gap-4 mb-6">
             <Button
               variant="outline"
               onClick={toggleSelectAll}
             >
-              {selectedIds.length === pendingSubmissions.length ? '取消全选' : '全选'}
+              {selectedIds.length === currentTabSubmissions.length ? '取消全选' : '全选'}
             </Button>
             <Button
               onClick={handleApprove}
@@ -256,97 +298,120 @@ export default function Admin() {
           </div>
         )}
 
-        {/* 待审核列表 */}
-        {pendingSubmissions.length > 0 && (
+        {/* 工具表格 */}
+        {currentTabSubmissions.length > 0 && (
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">📋 待审核工具 ({pendingSubmissions.length})</CardTitle>
+              <CardTitle className="text-base">
+                {activeTab === 'pending' && '📋 待审核工具'}
+                {activeTab === 'approved' && '✅ 已通过工具'}
+                {activeTab === 'rejected' && '❌ 已拒绝工具'}
+                ({currentTabSubmissions.length})
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {pendingSubmissions.map((tool) => (
-                  <div 
-                    key={tool.id}
-                    className={`border rounded-lg p-4 cursor-pointer transition-colors ${
-                      selectedIds.includes(tool.id) 
-                        ? 'border-primary bg-primary/5' 
-                        : 'border-border hover:border-primary/50'
-                    }`}
-                    onClick={() => toggleSelection(tool.id)}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="border-b">
+                      {activeTab === 'pending' && (
+                        <th className="text-left p-3">
                           <input
                             type="checkbox"
-                            checked={selectedIds.includes(tool.id)}
-                            onChange={() => {}}
+                            checked={selectedIds.length === currentTabSubmissions.length}
+                            onChange={toggleSelectAll}
                             className="h-4 w-4"
                           />
-                          <h3 className="font-semibold text-lg">{tool.name}</h3>
+                        </th>
+                      )}
+                      <th className="text-left p-3">工具</th>
+                      <th className="text-left p-3">分类</th>
+                      <th className="text-left p-3">价格</th>
+                      <th className="text-left p-3">国内可用</th>
+                      <th className="text-left p-3">官网</th>
+                      <th className="text-left p-3">备注</th>
+                      <th className="text-left p-3">提交时间</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentTabSubmissions.map((tool) => (
+                      <tr 
+                        key={tool.id}
+                        className={`border-b hover:bg-muted/50 transition-colors ${
+                          selectedIds.includes(tool.id) ? 'bg-primary/5' : ''
+                        }`}
+                      >
+                        {activeTab === 'pending' && (
+                          <td className="p-3">
+                            <input
+                              type="checkbox"
+                              checked={selectedIds.includes(tool.id)}
+                              onChange={() => toggleSelection(tool.id)}
+                              className="h-4 w-4"
+                            />
+                          </td>
+                        )}
+                        <td className="p-3">
+                          <div className="flex items-center gap-3">
+                            <img 
+                              src={getToolLogo(tool.website_url)} 
+                              alt={tool.name}
+                              className="w-10 h-10 rounded-lg border"
+                              onError={(e) => {
+                                e.currentTarget.src = `https://www.google.com/s2/favicons?domain=${tool.website_url}&sz=64`;
+                              }}
+                            />
+                            <div>
+                              <div className="font-semibold">{tool.name}</div>
+                              <div className="text-sm text-muted-foreground line-clamp-1">{tool.tagline}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="p-3">
+                          <Badge variant="outline">{tool.category}</Badge>
+                        </td>
+                        <td className="p-3">
+                          <Badge variant="secondary">{tool.pricing_type}</Badge>
+                        </td>
+                        <td className="p-3">
                           <Badge variant={tool.is_china_available ? 'default' : 'secondary'}>
-                            {tool.is_china_available ? '🇨🇳 国内可用' : '🌍 需翻墙'}
+                            {tool.is_china_available ? '🇨🇳 可用' : '🌍 需翻墙'}
                           </Badge>
-                        </div>
-                        
-                        <p className="text-muted-foreground mb-3">{tool.tagline}</p>
-                        
-                        <div className="grid grid-cols-2 gap-4 text-sm">
-                          <div>
-                            <span className="text-muted-foreground">分类：</span>
-                            <span className="ml-1">{tool.category}</span>
-                          </div>
-                          <div>
-                            <span className="text-muted-foreground">价格：</span>
-                            <span className="ml-1">{tool.pricing_type}</span>
-                          </div>
-                          <div>
-                            <span className="text-muted-foreground">官网：</span>
-                            <a 
-                              href={tool.website_url} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-primary hover:underline ml-1"
-                            >
-                              访问链接
-                            </a>
-                          </div>
-                          <div className="col-span-2">
-                            <span className="text-muted-foreground">备注：</span>
-                            <span className="ml-1">{tool.note}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                        </td>
+                        <td className="p-3">
+                          <a 
+                            href={tool.website_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-primary hover:underline flex items-center gap-1"
+                          >
+                            访问
+                            <ExternalLink className="h-3 w-3" />
+                          </a>
+                        </td>
+                        <td className="p-3 text-sm text-muted-foreground max-w-xs truncate">
+                          {tool.note}
+                        </td>
+                        <td className="p-3 text-sm text-muted-foreground">
+                          {new Date(tool.created_at).toLocaleDateString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </CardContent>
           </Card>
         )}
 
-        {/* 已审核列表 */}
-        {(approvedSubmissions.length > 0 || rejectedSubmissions.length > 0) && (
+        {/* 空状态 */}
+        {currentTabSubmissions.length === 0 && (
           <Card>
-            <CardHeader>
-              <CardTitle className="text-base">📋 已审核工具</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {[...approvedSubmissions, ...rejectedSubmissions].map((tool) => (
-                  <div key={tool.id} className="border rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-semibold text-lg">{tool.name}</h3>
-                      <Badge variant={tool.status === 'approved' ? 'default' : 'secondary'}>
-                        {tool.status === 'approved' ? '✅ 已通过' : '❌ 已拒绝'}
-                      </Badge>
-                    </div>
-                    <p className="text-muted-foreground mb-2">{tool.tagline}</p>
-                    <div className="text-sm text-muted-foreground">
-                      <span>分类：{tool.category} | 价格：{tool.pricing_type}</span>
-                    </div>
-                  </div>
-                ))}
+            <CardContent className="py-12 text-center">
+              <div className="text-muted-foreground">
+                {activeTab === 'pending' && '暂无待审核工具'}
+                {activeTab === 'approved' && '暂无已通过工具'}
+                {activeTab === 'rejected' && '暂无已拒绝工具'}
               </div>
             </CardContent>
           </Card>

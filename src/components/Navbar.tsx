@@ -1,8 +1,11 @@
-import { Search, Sun, Moon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Search, Sun, Moon, LogOut, Menu, X } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "./ThemeProvider";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/contexts/AuthContext";
+import { useState, useEffect } from "react";
 
 interface NavbarProps {
   searchQuery: string;
@@ -11,6 +14,19 @@ interface NavbarProps {
 
 export default function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
   const { theme, toggleTheme } = useTheme();
+  const { isLoggedIn, username, logout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-border bg-card/80 backdrop-blur-xl">
@@ -31,16 +47,41 @@ export default function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
 
         <div className="flex-grow" />
 
-        <Link
-          to="/tools/submit"
-          className="text-sm text-muted-foreground hover:text-primary transition-colors"
-        >
-          提交工具
-        </Link>
-
-        <Button variant="ghost" size="icon" onClick={toggleTheme}>
-          {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-        </Button>
+        <div className="flex items-center gap-2">
+          {isLoggedIn ? (
+            <>
+              <Link
+                to="/admin"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                审核管理
+              </Link>
+              <Link
+                to="/manage"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                工具管理
+              </Link>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <span>{username}</span>
+                <Button variant="ghost" size="sm" onClick={handleLogout}>
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              管理员登录
+            </Link>
+          )}
+          
+          <Button variant="ghost" size="icon" onClick={toggleTheme}>
+            {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+          </Button>
+        </div>
       </div>
     </header>
   );
