@@ -22,3 +22,20 @@ export function getToolLogo(websiteUrl: string): string {
     return '';
   }
 }
+
+/**
+ * Get fallback icon URL if primary fails
+ * @param websiteUrl - The website URL
+ * @returns Fallback icon URL
+ */
+export function getFallbackLogo(websiteUrl: string): string {
+  try {
+    const url = new URL(websiteUrl);
+    const domain = url.hostname.replace(/^www\./, '');
+    
+    // Use Google favicon as fallback
+    return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+  } catch (error) {
+    return '';
+  }
+}

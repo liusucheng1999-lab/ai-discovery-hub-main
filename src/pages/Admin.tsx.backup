@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check, X, Eye, ExternalLink, Bot, AlertCircle, Star, Copy, Calendar, Clock, Play, Trash2 } from "lucide-react";
-import { getToolLogo, getFallbackLogo } from "@/lib/logo-utils";
+import { getToolLogo } from "@/lib/logo-utils";
 
 interface ToolSubmission {
   id: string;
@@ -47,64 +47,23 @@ export default function Admin() {
     currentTool: '',
     status: 'idle' as 'idle' | 'processing' | 'completed' | 'error'
   });
-  
-  // 流式输出状态
-  const [streamingToolId, setStreamingToolId] = useState<string | null>(null);
-  const [streamingContent, setStreamingContent] = useState<string>('');
 
   // 加载待审核工具
   useEffect(() => {
     async function loadSubmissions() {
       try {
-        console.log('开始加载工具提交数据...');
-        
-        // 先测试数据库连接
-        console.log('测试数据库连接...');
-        const { data: testData, error: testError } = await supabase
-          .from('tool_submissions')
-          .select('count')
-          .limit(1);
-        
-        console.log('数据库连接测试结果:', { testData, testError });
-        
-        if (testError) {
-          console.error('数据库连接失败:', testError);
-          alert('数据库连接失败，请检查配置');
-          return;
-        }
-        
-        // 加载实际数据，包含AI审核结果
         const { data, error } = await supabase
           .from('tool_submissions')
           .select('*')
           .order('created_at', { ascending: false });
 
-        console.log('工具提交数据加载结果:', { data, error });
-        
         if (error) {
           console.error('加载待审核工具失败:', error);
-          alert('加载数据失败: ' + error.message);
         } else {
-          console.log('设置submissions数据:', data?.length || 0, '条记录');
           setSubmissions(data || []);
-          
-          // 加载已保存的AI审核结果
-          const savedReviews: AIReviewCache = {};
-          data?.forEach(tool => {
-            if (tool.ai_review_result) {
-              savedReviews[tool.id] = tool.ai_review_result;
-            }
-          });
-          setAiReviews(savedReviews);
-          console.log('加载了', Object.keys(savedReviews).length, '个已保存的AI审核结果');
-          
-          if (data?.length === 0) {
-            console.log('数据库中没有工具提交数据');
-          }
         }
       } catch (err) {
-        console.error('加载数据异常:', err);
-        alert('加载数据异常: ' + err);
+        console.error('加载数据失败:', err);
       } finally {
         setLoading(false);
       }
@@ -115,39 +74,21 @@ export default function Admin() {
 
   // 加载审核日志
   useEffect(() => {
-    let logsTableExists = true;
-    
     async function loadReviewLogs() {
       try {
         const logs = await autoAiReviewService.getReviewLogs();
         setReviewLogs(logs);
-        logsTableExists = true;
-      } catch (err: any) {
-        if (err?.message?.includes('ai_review_logs') || err?.code === 'PGRST205') {
-          if (logsTableExists) {
-            console.log('AI审核日志表不存在，跳过加载');
-            logsTableExists = false;
-          }
-          setReviewLogs([]);
-        } else {
-          console.error('加载审核日志失败:', err);
-        }
+      } catch (err) {
+        console.error('加载审核日志失败:', err);
       }
     }
 
     loadReviewLogs();
     
-    // 只有在表存在时才设置定时刷新
-    let interval: NodeJS.Timeout | null = null;
-    if (logsTableExists) {
-      interval = setInterval(() => {
-        loadReviewLogs();
-      }, 30000);
-    }
+    // 设置定时刷新（每30秒刷新一次日志）
+    const interval = setInterval(loadReviewLogs, 30000);
     
-    return () => {
-      if (interval) clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   // 手动触发自动AI审核
@@ -456,71 +397,21 @@ export default function Admin() {
     }
   };
 
-  // AI审核单个工具（流式输出）
+  // AI审核单个工具
   const handleAiReview = async (toolId: string) => {
     const tool = submissions.find(t => t.id === toolId);
     if (!tool) return;
 
     setAiProcessing(prev => [...prev, toolId]);
-    setStreamingToolId(toolId);
-    setStreamingContent('');
     
     try {
-      // 获取现有工具进行重复检测
-      const existingTools = submissions.filter(t => t.id !== toolId);
-      
-      const result = await deepSeekService.reviewToolStream(
-        tool, 
-        existingTools,
-        (chunk: string) => {
-          setStreamingContent(prev => prev + chunk);
-        }
-      );
-      
-      // 保存AI审核结果到数据库
-      const { error: saveError } = await supabase
-        .from('tool_submissions')
-        .update({
-          ai_review_result: result,
-          ai_review_date: new Date().toISOString()
-        })
-        .eq('id', toolId);
-      
-      if (saveError) {
-        console.error('保存AI审核结果失败:', saveError);
-        
-        // 检查是否是字段不存在的错误
-        if (saveError.message.includes('ai_review_result') || saveError.code === 'PGRST204') {
-          console.warn('ai_review_result 字段不存在，需要在Supabase控制台手动添加');
-          
-          // 显示用户友好的错误提示
-          const errorMessage = document.createElement('div');
-          errorMessage.textContent = '⚠️ 数据库字段缺失，请联系管理员添加AI审核结果存储字段';
-          errorMessage.className = 'fixed top-4 right-4 bg-orange-500 text-white px-4 py-2 rounded-lg z-50 max-w-md';
-          document.body.appendChild(errorMessage);
-          
-          setTimeout(() => {
-            if (document.body.contains(errorMessage)) {
-              document.body.removeChild(errorMessage);
-            }
-          }, 5000);
-        } else {
-          alert('保存AI审核结果失败: ' + saveError.message);
-        }
-        
-        // 即使保存失败，也更新本地状态
-      } else {
-        console.log('✅ AI审核结果已保存到数据库');
-      }
-      
+      const result = await deepSeekService.reviewTool(tool);
       setAiReviews(prev => ({ ...prev, [toolId]: result }));
     } catch (error) {
       console.error('AI审核失败:', error);
       alert('AI审核失败，请重试');
     } finally {
       setAiProcessing(prev => prev.filter(id => id !== toolId));
-      setStreamingToolId(null);
-      setStreamingContent('');
     }
   };
 
@@ -550,33 +441,13 @@ export default function Admin() {
   };
 
   // 应用AI优化建议
-  const handleApplyOptimization = async (toolId: string) => {
+  const applyAiOptimizations = async (toolId: string) => {
     const review = aiReviews[toolId];
     const tool = submissions.find(t => t.id === toolId);
     
-    if (!review || !tool) {
-      alert('未找到AI审核结果或工具信息');
-      return;
-    }
-
-    // 确认对话框
-    const confirmed = window.confirm(
-      `确定要应用AI优化建议吗？\n\n` +
-      `原名称: ${tool.name}\n` +
-      `优化名称: ${review.optimized_name || '无'}\n\n` +
-      `原简介: ${tool.tagline}\n` +
-      `优化简介: ${review.optimized_tagline || '无'}`
-    );
-
-    if (!confirmed) return;
+    if (!review || !tool) return;
 
     try {
-      // 显示加载状态
-      const loadingMessage = document.createElement('div');
-      loadingMessage.textContent = '正在应用优化建议...';
-      loadingMessage.className = 'fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-lg z-50';
-      document.body.appendChild(loadingMessage);
-
       const { error } = await supabase
         .from('tool_submissions')
         .update({
@@ -586,31 +457,11 @@ export default function Admin() {
         })
         .eq('id', toolId);
 
-      // 移除加载提示
-      document.body.removeChild(loadingMessage);
-
       if (error) {
         console.error('应用AI优化失败:', error);
-        
-        // 显示错误提示
-        const errorMessage = document.createElement('div');
-        errorMessage.textContent = '应用AI优化失败';
-        errorMessage.className = 'fixed top-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg z-50';
-        document.body.appendChild(errorMessage);
-        
-        setTimeout(() => {
-          document.body.removeChild(errorMessage);
-        }, 3000);
+        alert('应用AI优化失败');
       } else {
-        // 显示成功提示
-        const successMessage = document.createElement('div');
-        successMessage.textContent = '✅ AI优化建议已应用';
-        successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg z-50';
-        document.body.appendChild(successMessage);
-        
-        setTimeout(() => {
-          document.body.removeChild(successMessage);
-        }, 3000);
+        alert('AI优化建议已应用');
         
         // 重新加载数据
         const { data: refreshedData } = await supabase
@@ -619,22 +470,10 @@ export default function Admin() {
           .order('created_at', { ascending: false });
         
         setSubmissions(refreshedData || []);
-        
-        // 关闭详情弹窗
-        setShowAiReview(null);
       }
     } catch (error) {
       console.error('应用AI优化异常:', error);
-      
-      // 显示错误提示
-      const errorMessage = document.createElement('div');
-      errorMessage.textContent = '应用AI优化失败';
-      errorMessage.className = 'fixed top-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg z-50';
-      document.body.appendChild(errorMessage);
-      
-      setTimeout(() => {
-        document.body.removeChild(errorMessage);
-      }, 3000);
+      alert('应用AI优化失败');
     }
   };
 
@@ -868,21 +707,7 @@ export default function Admin() {
                               alt={tool.name}
                               className="w-8 h-8 rounded-lg border"
                               onError={(e) => {
-                                // 静默处理图标加载错误，使用fallback
-                                const fallbackUrl = getFallbackLogo(tool.website_url);
-                                if (fallbackUrl && e.currentTarget.src !== fallbackUrl) {
-                                  e.currentTarget.src = fallbackUrl;
-                                } else {
-                                  // 如果fallback也失败，隐藏图片或使用默认图标
-                                  e.currentTarget.style.display = 'none';
-                                  const parent = e.currentTarget.parentElement;
-                                  if (parent && !parent.querySelector('.fallback-icon')) {
-                                    const fallback = document.createElement('div');
-                                    fallback.className = 'fallback-icon w-8 h-8 rounded-lg border bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600';
-                                    fallback.textContent = tool.name.charAt(0).toUpperCase();
-                                    parent.insertBefore(fallback, e.currentTarget);
-                                  }
-                                }
+                                e.currentTarget.src = `https://www.google.com/s2/favicons?domain=${tool.website_url}&sz=64`;
                               }}
                             />
                             <div className="flex-1 min-w-0">
@@ -896,25 +721,24 @@ export default function Admin() {
                         </td>
                         <td className="p-3">
                           <div className="flex flex-col gap-1">
-                            {/* 人工审批状态 */}
                             <Badge 
                               variant={tool.status === 'approved' ? 'default' : 
                                        tool.status === 'rejected' ? 'destructive' : 'secondary'}
-                              className="text-xs"
+                              className="text-xs w-fit"
                             >
                               {tool.status === 'approved' ? '✅ 已通过' : 
-                               tool.status === 'rejected' ? '❌ 已拒绝' : '⏳ 待审批'}
+                               tool.status === 'rejected' ? '❌ 已拒绝' : '⏳ 待审核'}
                             </Badge>
-                            
-                            {/* AI审核状态 */}
-                            {tool.status === 'pending' && (
-                              <Badge 
-                                variant={aiReviews[tool.id] ? 'default' : 'outline'}
-                                className="text-xs"
-                              >
-                                {aiReviews[tool.id] ? '🤖 AI已审核' : '🔄 待AI审核'}
+                            <div className="flex gap-1">
+                              <Badge variant="outline" className="text-xs">
+                                {tool.pricing_type}
                               </Badge>
-                            )}
+                              {tool.is_china_available && (
+                                <Badge variant="outline" className="text-xs text-green-600">
+                                  🇨🇳
+                                </Badge>
+                              )}
+                            </div>
                           </div>
                         </td>
                         <td className="p-3 text-xs text-muted-foreground">
@@ -926,36 +750,24 @@ export default function Admin() {
                               <Button
                                 size="sm"
                                 variant="outline"
-                                onClick={() => {
-                                  console.log('点击详情按钮:', tool.id, tool.name);
-                                  setShowAiReview(tool.id);
-                                }}
+                                onClick={() => setShowAiReview(tool.id)}
                                 className="h-7 px-2 text-xs"
                               >
                                 <Eye className="h-3 w-3 mr-1" />
                                 详情
                               </Button>
-                              
-                              {aiProcessing.includes(tool.id) ? (
-                                <div className="flex items-center gap-1">
-                                  <div className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full" />
-                                  <span className="text-xs text-muted-foreground">AI审核中</span>
-                                </div>
-                              ) : aiReviews[tool.id] ? (
-                                <div className="flex items-center gap-1">
-                                  <Badge 
-                                    variant={aiReviews[tool.id].recommendation === 'approve' ? 'default' : 
-                                             aiReviews[tool.id].recommendation === 'reject' ? 'destructive' : 'secondary'}
-                                    className="text-xs cursor-pointer"
-                                    onClick={() => setShowAiReview(tool.id)}
-                                  >
-                                    {aiReviews[tool.id].recommendation === 'approve' ? '👍 通过' : 
-                                     aiReviews[tool.id].recommendation === 'reject' ? '👎 拒绝' : '🤔 人工'}
-                                  </Badge>
-                                  <span className="text-xs text-muted-foreground">
-                                    ({(aiReviews[tool.id].confidence * 100).toFixed(0)}%)
-                                  </span>
-                                </div>
+                              {aiReviews[tool.id] ? (
+                                <Badge 
+                                  variant={aiReviews[tool.id].recommendation === 'approve' ? 'default' : 
+                                           aiReviews[tool.id].recommendation === 'reject' ? 'destructive' : 'secondary'}
+                                  className="text-xs cursor-pointer"
+                                  onClick={() => setShowAiReview(tool.id)}
+                                >
+                                  <Star className="h-3 w-3 mr-1" />
+                                  {aiReviews[tool.id].confidence.toFixed(2)}
+                                </Badge>
+                              ) : aiProcessing.includes(tool.id) ? (
+                                <div className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full" />
                               ) : (
                                 <Button
                                   size="sm"
@@ -964,7 +776,7 @@ export default function Admin() {
                                   className="h-7 px-2 text-xs text-purple-600 hover:text-purple-700"
                                 >
                                   <Bot className="h-3 w-3 mr-1" />
-                                  AI审核
+                                  审核
                                 </Button>
                               )}
                             </div>
@@ -1129,302 +941,372 @@ export default function Admin() {
         )}
 
         {/* AI审核结果弹窗 */}
-        {showAiReview && (() => {
-          const tool = submissions.find(t => t.id === showAiReview);
-          const review = aiReviews[showAiReview];
-          
-          console.log('弹窗调试:', {
-            showAiReview,
-            toolFound: !!tool,
-            reviewFound: !!review,
-            toolId: tool?.id,
-            toolName: tool?.name,
-            submissionsLength: submissions.length
-          });
-          
-          if (!tool) {
-            return (
-              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                <div className="bg-white rounded-lg max-w-md w-full p-6">
-                  <div className="text-center py-12">
-                    <p className="text-muted-foreground">未找到工具信息</p>
-                    <p className="text-xs text-muted-foreground mt-2">
-                      调试信息: showAiReview={showAiReview}, submissions数量={submissions.length}
-                    </p>
-                    <Button 
-                      className="mt-4" 
-                      onClick={() => setShowAiReview(null)}
-                    >
-                      关闭
-                    </Button>
-                  </div>
+        {showAiReview && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold flex items-center gap-2">
+                    <Bot className="h-5 w-5 text-purple-600" />
+                    工具详情与AI审核
+                  </h3>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowAiReview(null)}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
                 </div>
-              </div>
-            );
-          }
-          
-          return (
-            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-              <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold flex items-center gap-2">
-                      <Bot className="h-5 w-5 text-purple-600" />
-                      工具详情与AI审核
-                    </h3>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setShowAiReview(null)}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
 
-                  <div className="space-y-6">
-                    {/* 工具基本信息 */}
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-lg">📋 工具基本信息</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div>
-                            <h4 className="font-semibold mb-2">核心信息</h4>
-                            <div className="space-y-2 text-sm">
-                              <p><strong>名称:</strong> {tool?.name}</p>
-                              <p><strong>简介:</strong> {tool?.tagline}</p>
-                              <p><strong>分类:</strong> <Badge variant="outline">{tool?.category}</Badge></p>
-                              <p><strong>价格:</strong> <Badge variant="secondary">{tool?.pricing_type}</Badge></p>
-                              <p><strong>国内可用:</strong> 
-                                <Badge variant={tool?.is_china_available ? 'default' : 'secondary'}>
-                                  {tool?.is_china_available ? '🇨🇳 可用' : '🌍 需翻墙'}
-                                </Badge>
-                              </p>
-                            </div>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold mb-2">链接与备注</h4>
-                            <div className="space-y-2 text-sm">
-                              <p>
-                                <strong>官网:</strong>{' '}
-                                <a 
-                                  href={tool?.website_url} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="text-primary hover:underline flex items-center gap-1 inline"
-                                >
-                                  访问网站
-                                  <ExternalLink className="h-3 w-3" />
-                                </a>
-                              </p>
-                              <p><strong>提交时间:</strong> {new Date(tool?.created_at || '').toLocaleString()}</p>
-                              <p><strong>当前状态:</strong> 
-                                <Badge 
-                                  variant={tool?.status === 'approved' ? 'default' : 
-                                           tool?.status === 'rejected' ? 'destructive' : 'secondary'}
-                                >
-                                  {tool?.status === 'approved' ? '✅ 已通过' : 
-                                   tool?.status === 'rejected' ? '❌ 已拒绝' : '⏳ 待审核'}
-                                </Badge>
-                              </p>
-                              {tool?.note && (
-                                <div>
-                                  <strong>备注:</strong>
-                                  <p className="text-muted-foreground mt-1">{tool.note}</p>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    {/* AI审核结果 */}
-                    {review ? (
+                {(() => {
+                  const review = aiReviews[showAiReview];
+                  const tool = submissions.find(t => t.id === showAiReview);
+                  
+                  return (
+                    <div className="space-y-6">
+                      {/* 工具基本信息 */}
                       <Card>
                         <CardHeader>
-                          <CardTitle className="text-lg flex items-center gap-2">
-                            🤖 AI审核结果
-                            <Badge 
-                              variant={review.recommendation === 'approve' ? 'default' : 
-                                       review.recommendation === 'reject' ? 'destructive' : 'secondary'}
-                            >
-                              {review.recommendation === 'approve' ? '建议通过' : 
-                               review.recommendation === 'reject' ? '建议拒绝' : '需要人工审核'}
-                            </Badge>
-                            <Badge variant="outline">
-                              置信度: {(review.confidence * 100).toFixed(1)}%
-                            </Badge>
-                          </CardTitle>
+                          <CardTitle className="text-lg">📋 工具基本信息</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          {/* 质量评分 */}
-                          <div>
-                            <h4 className="font-semibold mb-3">质量评分</h4>
-                            <div className="grid grid-cols-2 gap-4">
-                              <div>
-                                <div className="flex items-center justify-between mb-1">
-                                  <span className="text-sm">成熟度</span>
-                                  <span className="text-sm font-semibold">{review.maturity_score}/10</span>
-                                </div>
-                                <div className="w-full bg-gray-200 rounded-full h-2">
-                                  <div 
-                                    className="bg-blue-600 h-2 rounded-full" 
-                                    style={{ width: `${(review.maturity_score / 10) * 100}%` }}
-                                  />
-                                </div>
-                              </div>
-                              <div>
-                                <div className="flex items-center justify-between mb-1">
-                                  <span className="text-sm">有趣度</span>
-                                  <span className="text-sm font-semibold">{review.interest_score}/10</span>
-                                </div>
-                                <div className="w-full bg-gray-200 rounded-full h-2">
-                                  <div 
-                                    className="bg-green-600 h-2 rounded-full" 
-                                    style={{ width: `${(review.interest_score / 10) * 100}%` }}
-                                  />
-                                </div>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-semibold mb-2">核心信息</h4>
+                              <div className="space-y-2 text-sm">
+                                <p><strong>名称:</strong> {tool?.name}</p>
+                                <p><strong>简介:</strong> {tool?.tagline}</p>
+                                <p><strong>分类:</strong> <Badge variant="outline">{tool?.category}</Badge></p>
+                                <p><strong>价格:</strong> <Badge variant="secondary">{tool?.pricing_type}</Badge></p>
+                                <p><strong>国内可用:</strong> 
+                                  <Badge variant={tool?.is_china_available ? 'default' : 'secondary'}>
+                                    {tool?.is_china_available ? '🇨🇳 可用' : '🌍 需翻墙'}
+                                  </Badge>
+                                </p>
                               </div>
                             </div>
-                          </div>
-
-                          {/* 质量评估 */}
-                          <div>
-                            <h4 className="font-semibold mb-2">质量评估</h4>
-                            <p className="text-sm text-muted-foreground bg-gray-50 p-3 rounded-lg">
-                              {review.quality_assessment}
-                            </p>
-                          </div>
-
-                          {/* 重复检测 */}
-                          <div>
-                            <h4 className="font-semibold mb-2">重复检测</h4>
-                            <div className="flex items-center gap-2 mb-2">
-                              <Badge variant={review.is_duplicate ? 'destructive' : 'default'}>
-                                {review.is_duplicate ? '⚠️ 发现重复' : '✅ 无重复'}
-                              </Badge>
-                            </div>
-                            {review.duplicate_tools && review.duplicate_tools.length > 0 && (
-                              <div className="space-y-2">
-                                {review.duplicate_tools.map((dup, index) => (
-                                  <div key={index} className="text-sm bg-orange-50 p-2 rounded border border-orange-200">
-                                    <p><strong>相似工具:</strong> {dup.name}</p>
-                                    <p><strong>相似度:</strong> {(dup.similarity * 100).toFixed(1)}%</p>
-                                    <p><strong>相似原因:</strong> {dup.similarity_reason}</p>
+                            <div>
+                              <h4 className="font-semibold mb-2">链接与备注</h4>
+                              <div className="space-y-2 text-sm">
+                                <p>
+                                  <strong>官网:</strong>{' '}
+                                  <a 
+                                    href={tool?.website_url} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="text-primary hover:underline flex items-center gap-1 inline"
+                                  >
+                                    访问网站
+                                    <ExternalLink className="h-3 w-3" />
+                                  </a>
+                                </p>
+                                <p><strong>提交时间:</strong> {new Date(tool?.created_at || '').toLocaleString()}</p>
+                                <p><strong>当前状态:</strong> 
+                                  <Badge 
+                                    variant={tool?.status === 'approved' ? 'default' : 
+                                             tool?.status === 'rejected' ? 'destructive' : 'secondary'}
+                                  >
+                                    {tool?.status === 'approved' ? '✅ 已通过' : 
+                                     tool?.status === 'rejected' ? '❌ 已拒绝' : '⏳ 待审核'}
+                                  </Badge>
+                                </p>
+                                {tool?.note && (
+                                  <div>
+                                    <strong>备注:</strong>
+                                    <p className="text-muted-foreground mt-1">{tool.note}</p>
                                   </div>
-                                ))}
+                                )}
                               </div>
-                            )}
-                          </div>
-
-                          {/* 优化建议 */}
-                          <div>
-                            <h4 className="font-semibold mb-2">💡 优化建议</h4>
-                            <div className="space-y-3">
-                              <div>
-                                <p className="text-sm font-medium text-blue-600">优化后的名称:</p>
-                                <p className="text-sm bg-blue-50 p-2 rounded">{review.optimized_name}</p>
-                              </div>
-                              <div>
-                                <p className="text-sm font-medium text-green-600">优化后的简介:</p>
-                                <p className="text-sm bg-green-50 p-2 rounded">{review.optimized_tagline}</p>
-                              </div>
-                              {review.optimized_description && (
-                                <div>
-                                  <p className="text-sm font-medium text-purple-600">优化后的描述:</p>
-                                  <p className="text-sm bg-purple-50 p-2 rounded whitespace-pre-wrap">
-                                    {review.optimized_description}
-                                  </p>
-                                </div>
-                              )}
-                              {review.suggested_tags && review.suggested_tags.length > 0 && (
-                                <div>
-                                  <p className="text-sm font-medium text-orange-600">建议标签:</p>
-                                  <div className="flex flex-wrap gap-1 mt-1">
-                                    {review.suggested_tags.map((tag, index) => (
-                                      <Badge key={index} variant="outline" className="text-xs">
-                                        {tag}
-                                      </Badge>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
                             </div>
-                          </div>
-
-                          {/* 推理过程 */}
-                          <div>
-                            <h4 className="font-semibold mb-2">🧠 推理过程</h4>
-                            <p className="text-sm text-muted-foreground bg-gray-50 p-3 rounded-lg whitespace-pre-wrap">
-                              {review.reasoning}
-                            </p>
-                          </div>
-
-                          {/* 操作按钮 */}
-                          <div className="flex items-center gap-2 pt-4 border-t">
-                            <Button
-                              size="sm"
-                              onClick={() => handleApplyOptimization(showAiReview)}
-                              className="bg-purple-600 hover:bg-purple-700"
-                            >
-                              <Copy className="h-3 w-3 mr-1" />
-                              应用优化建议
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => copyAiContent(review.reasoning)}
-                            >
-                              <Copy className="h-3 w-3 mr-1" />
-                              复制推理过程
-                            </Button>
                           </div>
                         </CardContent>
                       </Card>
-                    ) : (
-                      <Card>
-                        <CardContent className="py-12 text-center">
-                          <Bot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                          <p className="text-muted-foreground">暂无AI审核结果</p>
-                          
-                          {/* 流式输出显示 */}
-                          {aiProcessing.includes(showAiReview) && streamingToolId === showAiReview && (
-                            <div className="mt-6 text-left">
-                              <div className="flex items-center gap-2 mb-3">
-                                <div className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full" />
-                                <span className="text-sm font-medium">AI正在审核中...</span>
+
+                      {/* AI审核结果 */}
+                      {review ? (
+                        <Card>
+                          <CardHeader>
+                            <CardTitle className="text-lg flex items-center gap-2">
+                              🤖 AI审核结果
+                              <Badge 
+                                variant={review.recommendation === 'approve' ? 'default' : 
+                                         review.recommendation === 'reject' ? 'destructive' : 'secondary'}
+                              >
+                                {review.recommendation === 'approve' ? '建议通过' : 
+                                 review.recommendation === 'reject' ? '建议拒绝' : '需要人工审核'}
+                              </Badge>
+                              <Badge variant="outline">
+                                置信度: {(review.confidence * 100).toFixed(1)}%
+                              </Badge>
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="space-y-4">
+                            {/* 质量评分 */}
+                            <div>
+                              <h4 className="font-semibold mb-3">质量评分</h4>
+                              <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                  <div className="flex items-center justify-between mb-1">
+                                    <span className="text-sm">成熟度</span>
+                                    <span className="text-sm font-semibold">{review.maturity_score}/10</span>
+                                  </div>
+                                  <div className="w-full bg-gray-200 rounded-full h-2">
+                                    <div 
+                                      className="bg-blue-600 h-2 rounded-full" 
+                                      style={{ width: `${(review.maturity_score / 10) * 100}%` }}
+                                    />
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="flex items-center justify-between mb-1">
+                                    <span className="text-sm">有趣度</span>
+                                    <span className="text-sm font-semibold">{review.interest_score}/10</span>
+                                  </div>
+                                  <div className="w-full bg-gray-200 rounded-full h-2">
+                                    <div 
+                                      className="bg-green-600 h-2 rounded-full" 
+                                      style={{ width: `${(review.interest_score / 10) * 100}%` }}
+                                    />
+                                  </div>
+                                </div>
                               </div>
-                              
-                              <div className="bg-gray-50 p-4 rounded-lg max-h-60 overflow-y-auto">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                                  <span className="text-xs font-medium text-gray-600">实时思考过程:</span>
+                            </div>
+
+                            {/* 质量评估 */}
+                            <div>
+                              <h4 className="font-semibold mb-2">质量评估</h4>
+                              <p className="text-sm text-muted-foreground bg-gray-50 p-3 rounded-lg">
+                                {review.quality_assessment}
+                              </p>
+                            </div>
+
+                            {/* 重复检测 */}
+                            <div>
+                              <h4 className="font-semibold mb-2">重复检测</h4>
+                              <div className="flex items-center gap-2 mb-2">
+                                <Badge variant={review.is_duplicate ? 'destructive' : 'default'}>
+                                  {review.is_duplicate ? '⚠️ 发现重复' : '✅ 无重复'}
+                                </Badge>
+                              </div>
+                              {review.duplicate_tools && review.duplicate_tools.length > 0 && (
+                                <div className="space-y-2">
+                                  {review.duplicate_tools.map((dup, index) => (
+                                    <div key={index} className="text-sm bg-orange-50 p-2 rounded border border-orange-200">
+                                      <p><strong>相似工具:</strong> {dup.name}</p>
+                                      <p><strong>相似度:</strong> {(dup.similarity * 100).toFixed(1)}%</p>
+                                      <p><strong>相似原因:</strong> {dup.similarity_reason}</p>
+                                    </div>
+                                  ))}
                                 </div>
-                                <div className="text-sm text-gray-700 whitespace-pre-wrap break-words">
-                                  {streamingContent || 'AI正在思考...'}
+                              )}
+                            </div>
+
+                            {/* 优化建议 */}
+                            <div>
+                              <h4 className="font-semibold mb-2">💡 优化建议</h4>
+                              <div className="space-y-3">
+                                <div>
+                                  <p className="text-sm font-medium text-blue-600">优化后的名称:</p>
+                                  <p className="text-sm bg-blue-50 p-2 rounded">{review.optimized_name}</p>
                                 </div>
+                                <div>
+                                  <p className="text-sm font-medium text-green-600">优化后的简介:</p>
+                                  <p className="text-sm bg-green-50 p-2 rounded">{review.optimized_tagline}</p>
+                                </div>
+                                {review.optimized_description && (
+                                  <div>
+                                    <p className="text-sm font-medium text-purple-600">优化后的描述:</p>
+                                    <p className="text-sm bg-purple-50 p-2 rounded whitespace-pre-wrap">
+                                      {review.optimized_description}
+                                    </p>
+                                  </div>
+                                )}
+                                {review.suggested_tags && review.suggested_tags.length > 0 && (
+                                  <div>
+                                    <p className="text-sm font-medium text-orange-600">建议标签:</p>
+                                    <div className="flex flex-wrap gap-1 mt-1">
+                                      {review.suggested_tags.map((tag, index) => (
+                                        <Badge key={index} variant="outline" className="text-xs">
+                                          {tag}
+                                        </Badge>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* 推理过程 */}
+                            <div>
+                              <h4 className="font-semibold mb-2">🧠 推理过程</h4>
+                              <p className="text-sm text-muted-foreground bg-gray-50 p-3 rounded-lg whitespace-pre-wrap">
+                                {review.reasoning}
+                              </p>
+                            </div>
+
+                            {/* 操作按钮 */}
+                            <div className="flex items-center gap-2 pt-4 border-t">
+                              <Button
+                                size="sm"
+                                onClick={() => handleApplyOptimization(showAiReview)}
+                                className="bg-purple-600 hover:bg-purple-700"
+                              >
+                                <Copy className="h-3 w-3 mr-1" />
+                                应用优化建议
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => copyAiContent(review.reasoning)}
+                              >
+                                <Copy className="h-3 w-3 mr-1" />
+                                复制推理过程
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ) : (
+                        <Card>
+                          <CardContent className="py-12 text-center">
+                            <Bot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                            <p className="text-muted-foreground">暂无AI审核结果</p>
+                            <Button
+                              className="mt-4"
+                              onClick={() => handleAiReview(showAiReview)}
+                            >
+                              开始AI审核
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      )}
+                    </div>
+                  );
+                })(})}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 审核日志详情弹窗 */}
+                        </div>
+                        <p className="text-sm text-muted-foreground">{review.quality_assessment}</p>
+                      </div>
+
+                      {/* 重复检测 */}
+                      <div>
+                        <h4 className="font-semibold mb-2">重复检测</h4>
+                        {review.is_duplicate ? (
+                          <div className="space-y-2">
+                            <Badge variant="destructive">发现重复工具</Badge>
+                            {review.duplicate_tools.map((duplicate, index) => (
+                              <div key={index} className="text-sm border rounded p-2">
+                                <p><strong>工具:</strong> {duplicate.name}</p>
+                                <p><strong>相似度:</strong> {(duplicate.similarity * 100).toFixed(1)}%</p>
+                                <p><strong>原因:</strong> {duplicate.similarity_reason}</p>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <Badge variant="default">未发现重复</Badge>
+                        )}
+                      </div>
+
+                      {/* 优化建议 */}
+                      <div>
+                        <h4 className="font-semibold mb-2">优化建议</h4>
+                        <div className="space-y-3">
+                          {review.optimized_name && (
+                            <div>
+                              <label className="text-sm font-medium">优化名称:</label>
+                              <div className="flex items-center gap-2">
+                                <p className="text-sm bg-gray-100 p-2 rounded flex-1">{review.optimized_name}</p>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => copyAiContent(review.optimized_name!)}
+                                >
+                                  <Copy className="h-3 w-3" />
+                                </Button>
                               </div>
                             </div>
                           )}
                           
-                          <Button
-                            className="mt-4"
-                            onClick={() => handleAiReview(showAiReview)}
-                            disabled={aiProcessing.includes(showAiReview)}
-                          >
-                            {aiProcessing.includes(showAiReview) ? '审核中...' : '开始AI审核'}
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    )}
-                  </div>
-                </div>
+                          {review.optimized_tagline && (
+                            <div>
+                              <label className="text-sm font-medium">优化简介:</label>
+                              <div className="flex items-center gap-2">
+                                <p className="text-sm bg-gray-100 p-2 rounded flex-1">{review.optimized_tagline}</p>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => copyAiContent(review.optimized_tagline!)}
+                                >
+                                  <Copy className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </div>
+                          )}
+                          
+                          {review.optimized_description && (
+                            <div>
+                              <label className="text-sm font-medium">优化描述:</label>
+                              <div className="flex items-start gap-2">
+                                <p className="text-sm bg-gray-100 p-2 rounded flex-1 whitespace-pre-wrap">{review.optimized_description}</p>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => copyAiContent(review.optimized_description!)}
+                                >
+                                  <Copy className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </div>
+                          )}
+
+                          {review.suggested_tags && review.suggested_tags.length > 0 && (
+                            <div>
+                              <label className="text-sm font-medium">建议标签:</label>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {review.suggested_tags.map((tag, index) => (
+                                  <Badge key={index} variant="outline">{tag}</Badge>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* 详细推理 */}
+                      <div>
+                        <h4 className="font-semibold mb-2">详细推理</h4>
+                        <div className="bg-gray-50 p-3 rounded text-sm whitespace-pre-wrap">
+                          {review.reasoning}
+                        </div>
+                      </div>
+
+                      {/* 操作按钮 */}
+                      <div className="flex gap-2 pt-4 border-t">
+                        <Button
+                          onClick={() => applyAiOptimizations(showAiReview)}
+                          className="bg-purple-600 hover:bg-purple-700"
+                        >
+                          应用优化建议
+                        </Button>
+                        <Button
+                          variant="outline"
+                          onClick={() => setShowAiReview(null)}
+                        >
+                          关闭
+                        </Button>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             </div>
-          );
-        })()}
+          </div>
+        )}
 
         {/* 审核日志详情弹窗 */}
         {showReviewLog && (

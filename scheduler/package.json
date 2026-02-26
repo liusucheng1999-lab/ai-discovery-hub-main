@@ -1,0 +1,19 @@
+{
+  "name": "ai-review-scheduler",
+  "version": "1.0.0",
+  "description": "AI审核定时任务调度器",
+  "type": "module",
+  "main": "scheduler.js",
+  "scripts": {
+    "start": "node scheduler.js",
+    "dev": "node --watch scheduler.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.95.3",
+    "node-cron": "^3.0.3",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.16.5"
+  }
+}
