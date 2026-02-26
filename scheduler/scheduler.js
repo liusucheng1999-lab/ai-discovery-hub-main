@@ -528,7 +528,19 @@ async function executeReviewResults(reviewResults) {
             view_count: 0,
             screenshots: [],
             status: 'active',
-            created_at: new Date().toISOString()
+            created_at: new Date().toISOString(),
+            // 添加AI质量评估字段
+            ai_quality_score: ((result.maturity_score || 5) + (result.interest_score || 5)) / 2, // 计算综合评分
+            ai_quality_review: JSON.stringify({
+              maturity_score: result.maturity_score || 5,
+              interest_score: result.interest_score || 5,
+              quality_assessment: result.quality_assessment || 'AI审核中未提供质量评估',
+              reasoning: result.reasoning || '',
+              confidence: result.confidence || 0,
+              recommendation: result.ai_recommendation || 'manual_review'
+            }),
+            ai_review_date: new Date().toISOString(),
+            ai_review_notes: `AI审核建议: ${result.ai_recommendation}。${result.quality_assessment ? ' 质量评估: ' + result.quality_assessment : ''}`
           };
 
           const { error: insertError } = await supabase

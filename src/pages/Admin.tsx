@@ -9,7 +9,8 @@ import { autoAiReviewService, type ReviewLog } from "@/lib/auto-ai-review-servic
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, X, Eye, ExternalLink, Bot, AlertCircle, Star, Copy, Calendar, Clock, Play, Trash2 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
+import { Check, X, Eye, ExternalLink, Bot, AlertCircle, Star, Copy, Calendar, Clock, Play, Trash2, Filter } from "lucide-react";
 import { getToolLogo, getFallbackLogo } from "@/lib/logo-utils";
 
 interface ToolSubmission {
@@ -47,6 +48,7 @@ export default function Admin() {
     currentTool: '',
     status: 'idle' as 'idle' | 'processing' | 'completed' | 'error'
   });
+  const [aiReviewFilter, setAiReviewFilter] = useState<'all' | 'approve' | 'manual_review' | 'reject'>('all');
   
   // 流式输出状态
   const [streamingToolId, setStreamingToolId] = useState<string | null>(null);
@@ -74,16 +76,65 @@ export default function Admin() {
         }
         
         // 加载实际数据，包含AI审核结果
-        const { data, error } = await supabase
+        let query = supabase
           .from('tool_submissions')
           .select('*')
           .order('created_at', { ascending: false });
 
+        // 根据筛选条件添加AI审核结果过滤
+        if (aiReviewFilter !== 'all') {
+          console.log('应用AI审核筛选:', aiReviewFilter);
+          if (aiReviewFilter === 'approve') {
+            query = query.not('ai_review_result', 'is', null)
+                         .eq('ai_review_result->>recommendation', 'approve');
+          } else if (aiReviewFilter === 'manual_review') {
+            query = query.not('ai_review_result', 'is', null)
+                         .eq('ai_review_result->>recommendation', 'manual_review');
+          } else if (aiReviewFilter === 'reject') {
+            query = query.not('ai_review_result', 'is', null)
+                         .eq('ai_review_result->>recommendation', 'reject');
+          }
+          console.log('筛选后的查询:', query);
+        }
+
+        const { data, error } = await query;
+
         console.log('工具提交数据加载结果:', { data, error });
+        
+        // 调试：查找Microsoft Copilot
+        if (data && data.length > 0) {
+          console.log('所有工具列表:');
+          data.forEach((tool, index) => {
+            console.log(`${index + 1}. ${tool.name} - ${tool.status}`);
+          });
+          
+          const microsoftCopilot = data.find(tool => 
+            tool.name.toLowerCase().includes('microsoft') && 
+            tool.name.toLowerCase().includes('copilot')
+          );
+          
+          if (microsoftCopilot) {
+            console.log('找到Microsoft Copilot:', microsoftCopilot);
+          } else {
+            console.log('未找到Microsoft Copilot');
+          }
+        }
+        
+        // 调试：检查AI审核结果的数据结构
+        if (data && data.length > 0) {
+          console.log('检查AI审核结果数据结构:');
+          data.forEach((tool, index) => {
+            console.log(`工具 ${index + 1}: ${tool.name}`);
+            console.log(`  ai_review_result:`, tool.ai_review_result);
+            if (tool.ai_review_result) {
+              console.log(`  recommendation:`, tool.ai_review_result.recommendation);
+            }
+          });
+        }
         
         if (error) {
           console.error('加载待审核工具失败:', error);
-          alert('加载数据失败: ' + error.message);
+          alert('加载数据失败，请检查控制台');
         } else {
           console.log('设置submissions数据:', data?.length || 0, '条记录');
           setSubmissions(data || []);
@@ -102,16 +153,16 @@ export default function Admin() {
             console.log('数据库中没有工具提交数据');
           }
         }
-      } catch (err) {
-        console.error('加载数据异常:', err);
-        alert('加载数据异常: ' + err);
+      } catch (error) {
+        console.error('加载数据失败:', error);
+        alert('加载数据失败，请检查控制台');
       } finally {
         setLoading(false);
       }
     }
 
     loadSubmissions();
-  }, []);
+  }, [aiReviewFilter]);
 
   // 加载审核日志
   useEffect(() => {
@@ -330,6 +381,9 @@ export default function Admin() {
         // 逐个插入到主表，使用直接插入
         let successCount = 0;
         for (const tool of selectedTools) {
+          // 获取AI审核结果
+          const aiReview = aiReviews[tool.id];
+          
           const toolToInsert = {
             name: tool.name,
             tagline: tool.tagline,
@@ -345,10 +399,22 @@ export default function Admin() {
             view_count: 0,
             screenshots: [], // 空数组，Supabase 会自动处理
             status: 'active',
-            created_at: new Date().toISOString()
+            created_at: new Date().toISOString(),
+            // 添加AI质量评估字段
+            ai_quality_score: aiReview ? ((aiReview.maturity_score || 5) + (aiReview.interest_score || 5)) / 2 : null,
+            ai_quality_review: aiReview ? JSON.stringify({
+              maturity_score: aiReview.maturity_score || 5,
+              interest_score: aiReview.interest_score || 5,
+              quality_assessment: aiReview.quality_assessment || 'AI审核中未提供质量评估',
+              reasoning: aiReview.reasoning || '',
+              confidence: aiReview.confidence || 0,
+              recommendation: aiReview.recommendation || 'manual_review'
+            }) : null,
+            ai_review_date: aiReview ? new Date().toISOString() : null,
+            ai_review_notes: aiReview ? `AI审核建议: ${aiReview.recommendation}。${aiReview.quality_assessment ? ' 质量评估: ' + aiReview.quality_assessment : ''}` : null
           };
 
-          console.log('插入工具:', toolToInsert);
+          console.log('插入工具（包含AI审核数据）:', toolToInsert);
 
           // 直接插入到 tools 表
           const { data, error } = await supabase
@@ -673,6 +739,28 @@ export default function Admin() {
           <p className="text-muted-foreground">管理待审核的AI工具提交</p>
         </div>
 
+        {/* AI审核结果筛选 */}
+        <div className="mb-6 flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Filter className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm font-medium">AI审核筛选:</span>
+          </div>
+          <Select value={aiReviewFilter} onValueChange={(value: 'all' | 'approve' | 'manual_review' | 'reject') => setAiReviewFilter(value)}>
+            <SelectTrigger className="w-48">
+              {aiReviewFilter === 'all' && '全部'}
+              {aiReviewFilter === 'approve' && '✅ 通过'}
+              {aiReviewFilter === 'manual_review' && '🤖 人工审核'}
+              {aiReviewFilter === 'reject' && '❌ 拒绝'}
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">全部</SelectItem>
+              <SelectItem value="approve">✅ 通过</SelectItem>
+              <SelectItem value="manual_review">🤖 人工审核</SelectItem>
+              <SelectItem value="reject">❌ 拒绝</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
         {/* 状态标签页 */}
         <div className="flex gap-2 mb-6 border-b">
           <button
@@ -839,6 +927,7 @@ export default function Admin() {
                       <th className="text-left p-3">工具信息</th>
                       <th className="text-left p-3">分类</th>
                       <th className="text-left p-3">状态</th>
+                      <th className="text-left p-3">AI审核</th>
                       <th className="text-left p-3">提交时间</th>
                       {activeTab === 'pending' && <th className="text-left p-3">操作</th>}
                     </tr>
@@ -916,6 +1005,29 @@ export default function Admin() {
                               </Badge>
                             )}
                           </div>
+                        </td>
+                        <td className="p-3">
+                          {/* AI审核结果详情 */}
+                          {aiReviews[tool.id] ? (
+                            <div className="flex flex-col gap-1">
+                              <Badge 
+                                variant={aiReviews[tool.id].recommendation === 'approve' ? 'default' : 
+                                         aiReviews[tool.id].recommendation === 'reject' ? 'destructive' : 'secondary'}
+                                className="text-xs"
+                              >
+                                {aiReviews[tool.id].recommendation === 'approve' && '✅ 通过'}
+                                {aiReviews[tool.id].recommendation === 'reject' && '❌ 拒绝'}
+                                {aiReviews[tool.id].recommendation === 'manual_review' && '🤖 人工'}
+                              </Badge>
+                              {aiReviews[tool.id].maturity_score && (
+                                <span className="text-xs text-muted-foreground">
+                                  评分: {aiReviews[tool.id].maturity_score}/10
+                                </span>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-xs text-muted-foreground">未审核</span>
+                          )}
                         </td>
                         <td className="p-3 text-xs text-muted-foreground">
                           {new Date(tool.created_at).toLocaleDateString()}

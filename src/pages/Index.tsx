@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { pricingLabels } from "@/lib/mock-data";
 import { supabase } from "@/lib/supabase";
-import ToolCard from "@/components/ToolCard";
+import ToolCardWithButtons from "@/components/ToolCardWithButtons";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Pagination,
@@ -67,24 +67,45 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
         }
 
         if (toolsResult.data) {
+          console.log('首页：工具数据加载成功，检查AI审核字段');
+          console.log('原始数据示例:', toolsResult.data[0]);
+          
           // 转换字段名
-          const formattedTools = toolsResult.data.map(t => ({
-            id: t.id,
-            name: t.name,
-            tagline: t.tagline,
-            description: t.description || t.tagline,
-            websiteUrl: t.website_url,
-            category: t.category,
-            tags: t.tags || [],
-            pricingType: t.pricing_type,
-            isChinaAvailable: t.is_china_available,
-            isChineseSupported: t.is_chinese_supported || false,
-            rating: t.rating || 0,
-            ratingCount: t.rating_count || 0,
-            viewCount: t.view_count || 0,
-            screenshots: t.screenshots || [],
-            createdAt: t.created_at || new Date().toISOString().split('T')[0]
-          }));
+          const formattedTools = toolsResult.data.map(t => {
+            const aiScore = t.ai_quality_score;
+            
+            console.log(`工具 ${t.name} 的AI审核数据:`, {
+              ai_quality_score: t.ai_quality_score,
+              ai_quality_review: t.ai_quality_review,
+              ai_review_date: t.ai_review_date,
+              ai_review_notes: t.ai_review_notes
+            });
+            
+            const formattedTool = {
+              id: t.id,
+              name: t.name,
+              tagline: t.tagline,
+              description: t.description || t.tagline,
+              websiteUrl: t.website_url,
+              category: t.category,
+              tags: t.tags || [],
+              pricingType: t.pricing_type,
+              isChinaAvailable: t.is_china_available,
+              isChineseSupported: t.is_chinese_supported || false,
+              rating: t.rating || 0,
+              ratingCount: t.rating_count || 0,
+              viewCount: t.view_count || 0,
+              screenshots: t.screenshots || [],
+              createdAt: t.created_at || new Date().toISOString().split('T')[0],
+              // AI质量评估字段
+              aiQualityScore: aiScore,
+              aiQualityReview: t.ai_quality_review,
+              aiReviewDate: t.ai_review_date,
+              aiReviewNotes: t.ai_review_notes
+            };
+            
+            return formattedTool;
+          });
           setTools(formattedTools);
         }
       } catch (err) {
@@ -224,7 +245,7 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
       {paged.length > 0 ? (
         <div className="grid grid-cols-4 gap-5">
           {paged.map((tool) => (
-            <ToolCard key={tool.id} tool={tool} searchQuery={searchQuery} />
+            <ToolCardWithButtons key={tool.id} tool={tool} searchQuery={searchQuery} />
           ))}
         </div>
       ) : (

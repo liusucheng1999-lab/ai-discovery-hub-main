@@ -67,22 +67,27 @@ export default function ToolDetail() {
             ratingCount: toolResult.data.rating_count || 0,
             viewCount: (toolResult.data.view_count || 0) + 1,
             screenshots: toolResult.data.screenshots || [],
-            createdAt: toolResult.data.created_at || new Date().toISOString().split('T')[0]
+            createdAt: toolResult.data.created_at || new Date().toISOString().split('T')[0],
+            // AI质量评估字段
+            aiQualityScore: toolResult.data.ai_quality_score,
+            aiQualityReview: toolResult.data.ai_quality_review,
+            aiReviewDate: toolResult.data.ai_review_date,
+            aiReviewNotes: toolResult.data.ai_review_notes
           };
           
           setTool(formattedTool);
           
           // 更新浏览量
-          supabase
+          const updateResult = await supabase
             .from('tools')
             .update({ view_count: (toolResult.data.view_count || 0) + 1 })
-            .eq('id', id)
-            .then(() => {
-              console.log('浏览量更新成功');
-            })
-            .catch((err) => {
-              console.log('浏览量更新失败', err);
-            });
+            .eq('id', id);
+            
+          if (updateResult.error) {
+            console.log('浏览量更新失败', updateResult.error);
+          } else {
+            console.log('浏览量更新成功');
+          }
           
           // 获取相关工具
           if (toolResult.data.category) {
@@ -337,6 +342,64 @@ export default function ToolDetail() {
                 ))}
               </div>
             </div>
+            
+            {/* AI质量评估 */}
+            {tool.aiQualityScore && (
+              <>
+                {/* 分隔线 */}
+                <div className="border-t border-border"></div>
+                
+                <div>
+                  <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    🤖 AI质量评估
+                    <span className="px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400 text-xs">
+                      评分: {tool.aiQualityScore.toFixed(1)}/10
+                    </span>
+                  </h4>
+                  
+                  <div className="grid grid-cols-2 gap-y-3 text-sm">
+                    <div className="text-muted-foreground">AI评分</div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 bg-muted rounded-full h-2">
+                          <div 
+                            className="bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 h-2 rounded-full"
+                            style={{ width: `${(tool.aiQualityScore / 10) * 100}%` }}
+                          ></div>
+                        </div>
+                        <span className="font-medium">{tool.aiQualityScore.toFixed(1)}</span>
+                      </div>
+                    </div>
+                    
+                    {tool.aiReviewDate && (
+                      <>
+                        <div className="text-muted-foreground">审核时间</div>
+                        <div>{new Date(tool.aiReviewDate).toLocaleDateString('zh-CN')}</div>
+                      </>
+                    )}
+                    
+                    {tool.aiReviewNotes && (
+                      <>
+                        <div className="text-muted-foreground">AI备注</div>
+                        <div className="text-muted-foreground italic">{tool.aiReviewNotes}</div>
+                      </>
+                    )}
+                  </div>
+                  
+                  {tool.aiQualityReview && (
+                    <div className="mt-3 p-3 bg-muted/50 rounded-lg">
+                      <h5 className="font-medium text-sm mb-2">详细评估结果</h5>
+                      <pre className="text-xs text-muted-foreground whitespace-pre-wrap">
+                        {typeof tool.aiQualityReview === 'string' 
+                          ? tool.aiQualityReview 
+                          : JSON.stringify(tool.aiQualityReview, null, 2)
+                        }
+                      </pre>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
             
             {/* 分隔线 */}
             <div className="border-t border-border"></div>

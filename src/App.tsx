@@ -11,13 +11,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
-import ToolDetail from "./pages/ToolDetail";
 import SubmitTool from "./pages/SubmitTool";
 import Login from "./pages/Login";
 import SetupAdmin from "./pages/SetupAdmin";
 import CreateAdmin from "./pages/CreateAdmin";
 import Admin from "./pages/Admin";
-import Manage from "./pages/Manage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,20 +38,10 @@ const App = () => {
                     <Routes>
                       <Route path="/" element={<Index searchQuery={searchQuery} />} />
                       <Route path="/tools/submit" element={<SubmitTool />} />
-                      <Route path="/tools/:id" element={<ToolDetail />} />
                       <Route path="/login" element={<Login />} />
                       <Route path="/setup-admin" element={<SetupAdmin />} />
                       <Route path="/create-admin" element={<CreateAdmin />} />
-                      <Route path="/admin" element={
-                        <ProtectedRoute>
-                          <Admin />
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/manage" element={
-                        <ProtectedRoute>
-                          <Manage />
-                        </ProtectedRoute>
-                      } />
+                      <Route path="/admin" element={<Admin />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </div>

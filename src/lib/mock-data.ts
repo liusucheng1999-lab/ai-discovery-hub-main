@@ -14,6 +14,11 @@ export interface Tool {
   viewCount: number;
   screenshots: string[];
   createdAt: string;
+  // AI质量评估字段
+  aiQualityScore?: number; // AI质量评分 (0-10)
+  aiQualityReview?: any; // AI质量评估详细结果JSON
+  aiReviewDate?: string; // AI审核时间
+  aiReviewNotes?: string; // AI审核备注
 }
 
 export const categories = [
