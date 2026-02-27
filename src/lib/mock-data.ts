@@ -4,6 +4,7 @@ export interface Tool {
   tagline: string;
   description: string;
   websiteUrl: string;
+  logoUrl?: string; // 工具头像URL
   category: string;
   tags: string[];
   pricingType: "free" | "freemium" | "paid" | "opensource";

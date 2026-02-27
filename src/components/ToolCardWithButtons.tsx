@@ -44,7 +44,9 @@ export default function ToolCard({ tool, searchQuery = "", small = false }: Tool
   const cat = categories.find((c) => c.id === tool.category);
   const bgColor = categoryColorMap[tool.category] || "hsl(0,0%,60%)";
   const logoSize = small ? "h-10 w-10 text-lg" : "h-12 w-12 text-xl";
-  const logoUrl = getToolLogo(tool.websiteUrl);
+  
+  // 优先使用数据库中的logo_url，如果没有则动态计算
+  const logoUrl = tool.logoUrl || getToolLogo(tool.websiteUrl);
 
   const handleImageError = () => {
     setImageError(true);

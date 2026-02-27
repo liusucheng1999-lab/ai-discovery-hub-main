@@ -87,6 +87,7 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
               tagline: t.tagline,
               description: t.description || t.tagline,
               websiteUrl: t.website_url,
+              logoUrl: t.logo_url, // 添加logo_url字段
               category: t.category,
               tags: t.tags || [],
               pricingType: t.pricing_type,

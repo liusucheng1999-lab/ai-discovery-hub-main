@@ -49,6 +49,13 @@ export default function Admin() {
     status: 'idle' as 'idle' | 'processing' | 'completed' | 'error'
   });
   const [aiReviewFilter, setAiReviewFilter] = useState<'all' | 'approve' | 'manual_review' | 'reject'>('all');
+  const [sourceFilter, setSourceFilter] = useState<string>(''); // 新增来源筛选状态
+  const [batchReviewProgress, setBatchReviewProgress] = useState({
+    current: 0,
+    total: 0,
+    currentTool: '',
+    isProcessing: false
+  });
   
   // 流式输出状态
   const [streamingToolId, setStreamingToolId] = useState<string | null>(null);
@@ -95,6 +102,13 @@ export default function Admin() {
                          .eq('ai_review_result->>recommendation', 'reject');
           }
           console.log('筛选后的查询:', query);
+        }
+
+        // 添加来源筛选
+        if (sourceFilter.trim()) {
+          console.log('应用来源筛选:', sourceFilter);
+          query = query.ilike('note', `%${sourceFilter.trim()}%`);
+          console.log('来源筛选后的查询:', query);
         }
 
         const { data, error } = await query;
@@ -162,7 +176,7 @@ export default function Admin() {
     }
 
     loadSubmissions();
-  }, [aiReviewFilter]);
+  }, [activeTab, aiReviewFilter, sourceFilter]);
 
   // 加载审核日志
   useEffect(() => {
@@ -357,7 +371,20 @@ export default function Admin() {
   const handleApprove = async () => {
     if (selectedIds.length === 0) return;
     
-    if (!confirm('确定要审核通过这些工具吗？')) return;
+    // 检查是否有AI审核结果和优化建议
+    const toolsWithAI = selectedIds.filter(id => aiReviews[id]);
+    const toolsWithOptimizations = toolsWithAI.filter(id => {
+      const review = aiReviews[id];
+      return review?.optimized_name || review?.optimized_tagline || review?.optimized_description || review?.suggested_tags;
+    });
+    
+    let confirmMessage = `确定要审核通过这 ${selectedIds.length} 个工具吗？`;
+    
+    if (toolsWithOptimizations.length > 0) {
+      confirmMessage += `\n\n🤖 系统将自动应用AI优化建议到 ${toolsWithOptimizations.length} 个工具，包括：\n• 优化后的名称、简介\n• 改进的标签建议\n• 自动获取工具头像`;
+    }
+    
+    if (!confirm(confirmMessage)) return;
     
     setProcessing(true);
     try {
@@ -384,13 +411,25 @@ export default function Admin() {
           // 获取AI审核结果
           const aiReview = aiReviews[tool.id];
           
+          // 应用AI优化建议
+          const optimizedName = aiReview?.optimized_name && aiReview.optimized_name !== tool.name 
+            ? aiReview.optimized_name 
+            : tool.name;
+          const optimizedTagline = aiReview?.optimized_tagline || tool.tagline;
+          const optimizedDescription = aiReview?.optimized_description || tool.tagline;
+          const suggestedTags = aiReview?.suggested_tags || [tool.category];
+          
+          // 获取工具头像
+          const logoUrl = getToolLogo(tool.website_url);
+          
           const toolToInsert = {
-            name: tool.name,
-            tagline: tool.tagline,
-            description: tool.tagline,
+            name: optimizedName,
+            tagline: optimizedTagline,
+            description: optimizedDescription,
             website_url: tool.website_url,
+            logo_url: logoUrl, // 启用logo_url保存
             category: tool.category,
-            tags: [tool.category], // 确保是有效的分类
+            tags: suggestedTags, // 使用AI建议的标签
             pricing_type: tool.pricing_type,
             is_china_available: tool.is_china_available,
             is_chinese_supported: tool.note?.includes('支持中文: true') || false,
@@ -408,10 +447,17 @@ export default function Admin() {
               quality_assessment: aiReview.quality_assessment || 'AI审核中未提供质量评估',
               reasoning: aiReview.reasoning || '',
               confidence: aiReview.confidence || 0,
-              recommendation: aiReview.recommendation || 'manual_review'
+              recommendation: aiReview.recommendation || 'manual_review',
+              // 记录原始信息和优化建议
+              original_name: tool.name,
+              original_tagline: tool.tagline,
+              optimized_name: aiReview?.optimized_name,
+              optimized_tagline: aiReview?.optimized_tagline,
+              optimized_description: aiReview?.optimized_description,
+              suggested_tags: aiReview?.suggested_tags
             }) : null,
             ai_review_date: aiReview ? new Date().toISOString() : null,
-            ai_review_notes: aiReview ? `AI审核建议: ${aiReview.recommendation}。${aiReview.quality_assessment ? ' 质量评估: ' + aiReview.quality_assessment : ''}` : null
+            ai_review_notes: aiReview ? `AI审核建议: ${aiReview.recommendation}。${aiReview.quality_assessment ? ' 质量评估: ' + aiReview.quality_assessment : ''}${aiReview.optimized_name ? '\n优化建议: 名称、简介、标签等已优化' : ''}` : null
           };
 
           console.log('插入工具（包含AI审核数据）:', toolToInsert);
@@ -454,7 +500,20 @@ export default function Admin() {
           
           setSubmissions(refreshedData || []);
           setSelectedIds([]);
-          alert(`成功审核通过 ${successCount} 个工具！`);
+          
+          // 统计优化应用情况
+          const optimizedTools = selectedTools.filter(tool => {
+            const aiReview = aiReviews[tool.id];
+            return aiReview?.optimized_name || aiReview?.optimized_tagline || aiReview?.optimized_description || aiReview?.suggested_tags;
+          });
+          
+          let successMessage = `✅ 成功审核通过 ${successCount} 个工具！`;
+          
+          if (optimizedTools.length > 0) {
+            successMessage += `\n\n🤖 AI优化已应用到 ${optimizedTools.length} 个工具：\n• 自动优化名称和简介\n• 改进标签建议\n• 获取工具头像`;
+          }
+          
+          alert(successMessage);
         }
       }
     } catch (err) {
@@ -595,10 +654,27 @@ export default function Admin() {
     if (selectedIds.length === 0) return;
     
     setAiProcessing(selectedIds);
+    setBatchReviewProgress({
+      current: 0,
+      total: selectedIds.length,
+      currentTool: '',
+      isProcessing: true
+    });
     
     try {
       const selectedTools = submissions.filter(t => selectedIds.includes(t.id));
-      const results = await deepSeekService.reviewToolsBatch(selectedTools);
+      const results = await deepSeekService.reviewToolsBatch(
+        selectedTools,
+        (current, toolName) => {
+          // 更新进度显示
+          setBatchReviewProgress(prev => ({
+            ...prev,
+            current,
+            currentTool: toolName
+          }));
+          console.log(`批量审核进度: ${current}/${selectedTools.length} - ${toolName}`);
+        }
+      );
       
       const newReviews: AIReviewCache = {};
       results.forEach(({ toolId, result }) => {
@@ -606,10 +682,16 @@ export default function Admin() {
       });
       
       setAiReviews(prev => ({ ...prev, ...newReviews }));
-      alert(`已完成 ${results.length} 个工具的AI审核`);
+      
+      const successCount = results.filter(r => r.result.recommendation !== 'manual_review').length;
+      const failCount = results.length - successCount;
+      
+      setBatchReviewProgress(prev => ({ ...prev, isProcessing: false }));
+      alert(`批量审核完成！\n✅ 成功: ${successCount} 个\n❌ 失败: ${failCount} 个\n📊 总计: ${results.length} 个`);
     } catch (error) {
       console.error('批量AI审核失败:', error);
-      alert('批量AI审核失败，请重试');
+      setBatchReviewProgress(prev => ({ ...prev, isProcessing: false }));
+      alert('批量AI审核失败，请重试\n错误信息: ' + error.message);
     } finally {
       setAiProcessing([]);
     }
@@ -761,6 +843,29 @@ export default function Admin() {
           </Select>
         </div>
 
+        {/* 来源筛选 */}
+        <div className="mb-6 flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Filter className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm font-medium">来源筛选:</span>
+          </div>
+          <input
+            type="text"
+            placeholder="输入来源关键词进行模糊搜索..."
+            value={sourceFilter}
+            onChange={(e) => setSourceFilter(e.target.value)}
+            className="px-3 py-2 border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md w-80"
+          />
+          {sourceFilter && (
+            <button
+              onClick={() => setSourceFilter('')}
+              className="px-3 py-2 text-sm bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80 transition-colors"
+            >
+              清除
+            </button>
+          )}
+        </div>
+
         {/* 状态标签页 */}
         <div className="flex gap-2 mb-6 border-b">
           <button
@@ -872,12 +977,40 @@ export default function Admin() {
               </Button>
               <Button
                 onClick={handleBatchAiReview}
-                disabled={selectedIds.length === 0 || aiProcessing.length > 0 || autoReviewProcessing}
+                disabled={selectedIds.length === 0 || aiProcessing.length > 0 || autoReviewProcessing || batchReviewProgress.isProcessing}
                 className="bg-purple-600 hover:bg-purple-700"
               >
                 <Bot className="h-4 w-4 mr-2" />
                 批量AI审核 ({selectedIds.length})
               </Button>
+              
+              {/* 批量审核进度显示 */}
+              {batchReviewProgress.isProcessing && (
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-purple-800">
+                      批量AI审核进行中...
+                    </span>
+                    <span className="text-sm text-purple-600">
+                      {batchReviewProgress.current}/{batchReviewProgress.total}
+                    </span>
+                  </div>
+                  <div className="w-full bg-purple-200 rounded-full h-2 mb-2">
+                    <div 
+                      className="bg-purple-600 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${(batchReviewProgress.current / batchReviewProgress.total) * 100}%` }}
+                    />
+                  </div>
+                  {batchReviewProgress.currentTool && (
+                    <p className="text-xs text-purple-700">
+                      正在审核: {batchReviewProgress.currentTool}
+                    </p>
+                  )}
+                  <p className="text-xs text-purple-600 mt-1">
+                    预计剩余时间: {Math.ceil((batchReviewProgress.total - batchReviewProgress.current) * 3)}秒
+                  </p>
+                </div>
+              )}
               <Button
                 onClick={handleApprove}
                 disabled={selectedIds.length === 0 || processing || autoReviewProcessing}
