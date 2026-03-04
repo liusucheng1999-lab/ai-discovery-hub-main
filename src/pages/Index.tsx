@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
-import { pricingLabels } from "@/lib/mock-data";
+import { pricingLabels, Tool } from "@/lib/mock-data";
 import { supabase } from "@/lib/supabase";
 import ToolCardWithButtons from "@/components/ToolCardWithButtons";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -55,7 +55,7 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
         // 同时加载分类和工具
         const [categoriesResult, toolsResult] = await Promise.all([
           supabase.from('categories').select('*').order('sort_order'),
-          supabase.from('tools').select('*').eq('status', 'active').order('view_count', { ascending: false })
+          supabase.from('tools').select('*').in('status', ['approved', 'active']).order('view_count', { ascending: false })
         ]);
 
         if (categoriesResult.data) {
@@ -66,49 +66,35 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
           setCategories(allCategories);
         }
 
+        // 设置工具数据
         if (toolsResult.data) {
-          console.log('首页：工具数据加载成功，检查AI审核字段');
-          console.log('原始数据示例:', toolsResult.data[0]);
+          // 转换数据格式以适配Tool接口
+          const transformedTools: Tool[] = toolsResult.data.map(tool => ({
+            id: tool.id,
+            name: tool.name,
+            tagline: tool.tagline,
+            description: tool.description,
+            websiteUrl: tool.website_url, // 使用websiteUrl而不是website_url
+            category: tool.category,
+            tags: tool.tags || [],
+            pricingType: tool.pricing_type, // 使用pricingType而不是pricing_type
+            isChinaAvailable: tool.is_china_available, // 使用isChinaAvailable
+            isChineseSupported: tool.is_chinese_supported, // 使用isChineseSupported
+            rating: tool.rating || 0,
+            ratingCount: tool.rating_count || 0, // 使用ratingCount
+            viewCount: tool.view_count || 0, // 使用viewCount
+            screenshots: tool.screenshots || [],
+            createdAt: tool.created_at, // 使用createdAt
+            logoUrl: tool.logo_url, // 如果tools表有logo_url字段
+            aiQualityScore: tool.ai_quality_score, // 使用aiQualityScore
+            aiQualityReview: tool.ai_quality_review, // 使用aiQualityReview
+            aiReviewDate: tool.ai_review_date, // 使用aiReviewDate
+            aiReviewNotes: tool.ai_review_notes // 使用aiReviewNotes
+          }));
           
-          // 转换字段名
-          const formattedTools = toolsResult.data.map(t => {
-            const aiScore = t.ai_quality_score;
-            
-            console.log(`工具 ${t.name} 的AI审核数据:`, {
-              ai_quality_score: t.ai_quality_score,
-              ai_quality_review: t.ai_quality_review,
-              ai_review_date: t.ai_review_date,
-              ai_review_notes: t.ai_review_notes
-            });
-            
-            const formattedTool = {
-              id: t.id,
-              name: t.name,
-              tagline: t.tagline,
-              description: t.description || t.tagline,
-              websiteUrl: t.website_url,
-              logoUrl: t.logo_url, // 添加logo_url字段
-              category: t.category,
-              tags: t.tags || [],
-              pricingType: t.pricing_type,
-              isChinaAvailable: t.is_china_available,
-              isChineseSupported: t.is_chinese_supported || false,
-              rating: t.rating || 0,
-              ratingCount: t.rating_count || 0,
-              viewCount: t.view_count || 0,
-              screenshots: t.screenshots || [],
-              createdAt: t.created_at || new Date().toISOString().split('T')[0],
-              // AI质量评估字段
-              aiQualityScore: aiScore,
-              aiQualityReview: t.ai_quality_review,
-              aiReviewDate: t.ai_review_date,
-              aiReviewNotes: t.ai_review_notes
-            };
-            
-            return formattedTool;
-          });
-          setTools(formattedTools);
+          setTools(transformedTools);
         }
+
       } catch (err) {
         console.log('首页：加载数据失败', err);
       }

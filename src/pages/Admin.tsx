@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet-async";
 import { supabase } from "@/lib/supabase";
 import { deepSeekService, type AIReviewResult } from "@/lib/deepseek-service";
 import { autoAiReviewService, type ReviewLog } from "@/lib/auto-ai-review-service";
+import { batchReviewService, type BatchReviewProgress } from "@/lib/batch-review-service";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -35,7 +36,7 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [processing, setProcessing] = useState(false);
-  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected' | 'logs'>('pending');
+  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected'>('pending');
   const [aiReviews, setAiReviews] = useState<AIReviewCache>({});
   const [aiProcessing, setAiProcessing] = useState<string[]>([]);
   const [showAiReview, setShowAiReview] = useState<string | null>(null);
@@ -57,6 +58,13 @@ export default function Admin() {
     isProcessing: false
   });
   
+  // 后台任务状态
+  const [currentTaskId, setCurrentTaskId] = useState<string | null>(null);
+  const [taskProgress, setTaskProgress] = useState<BatchReviewProgress | null>(null);
+  const [showTaskStatus, setShowTaskStatus] = useState(false);
+  const [showTaskHistory, setShowTaskHistory] = useState(false);
+  const [taskHistory, setTaskHistory] = useState<any[]>([]);
+  
   // 流式输出状态
   const [streamingToolId, setStreamingToolId] = useState<string | null>(null);
   const [streamingContent, setStreamingContent] = useState<string>('');
@@ -70,7 +78,7 @@ export default function Admin() {
         // 先测试数据库连接
         console.log('测试数据库连接...');
         const { data: testData, error: testError } = await supabase
-          .from('tool_submissions')
+          .from('tools')
           .select('count')
           .limit(1);
         
@@ -84,7 +92,7 @@ export default function Admin() {
         
         // 加载实际数据，包含AI审核结果
         let query = supabase
-          .from('tool_submissions')
+          .from('tools')
           .select('*')
           .order('created_at', { ascending: false });
 
@@ -178,6 +186,79 @@ export default function Admin() {
     loadSubmissions();
   }, [activeTab, aiReviewFilter, sourceFilter]);
 
+  // 监控后台任务进度
+  useEffect(() => {
+    if (!currentTaskId) return;
+
+    const interval = setInterval(async () => {
+      const progress = await batchReviewService.getTaskProgress(currentTaskId);
+      setTaskProgress(progress);
+
+      if (progress && (progress.status === 'completed' || progress.status === 'failed' || progress.status === 'cancelled')) {
+        // 任务完成，获取结果
+        if (progress.status === 'completed') {
+          const results = await batchReviewService.getTaskResults(currentTaskId);
+          if (results) {
+            // 更新本地AI审核结果
+            setAiReviews(prev => ({ ...prev, ...results }));
+            
+            const successCount = Object.values(results).filter((r: any) => r.recommendation !== 'manual_review').length;
+            const failCount = Object.keys(results).length - successCount;
+            
+            alert(`后台批量审核完成！\n✅ 成功: ${successCount} 个\n❌ 失败: ${failCount} 个\n📊 总计: ${Object.keys(results).length} 个`);
+          }
+        } else if (progress.status === 'failed') {
+          alert(`后台批量审核失败: ${progress.error}`);
+        }
+        
+        // 重置状态
+        setCurrentTaskId(null);
+        setTaskProgress(null);
+        setShowTaskStatus(false);
+        clearInterval(interval);
+      }
+    }, 2000); // 每2秒检查一次
+
+    return () => clearInterval(interval);
+  }, [currentTaskId]);
+
+  // 页面加载时检查是否有正在进行的任务
+  useEffect(() => {
+    const checkRunningTasks = async () => {
+      try {
+        const tasks = await batchReviewService.getUserTasks('admin', 5);
+        const runningTask = tasks.find(task => task.status === 'running');
+        
+        if (runningTask) {
+          console.log('发现正在进行的任务:', runningTask.id);
+          setCurrentTaskId(runningTask.id);
+          setShowTaskStatus(true);
+          
+          // 立即获取进度
+          const progress = await batchReviewService.getTaskProgress(runningTask.id);
+          setTaskProgress(progress);
+        }
+        
+        // 加载任务历史
+        setTaskHistory(tasks);
+      } catch (error) {
+        console.log('检查运行中任务失败:', error);
+      }
+    };
+    
+    checkRunningTasks();
+  }, []); // 只在页面加载时执行一次
+
+  // 刷新任务历史
+  const refreshTaskHistory = async () => {
+    try {
+      const tasks = await batchReviewService.getUserTasks('admin', 10);
+      setTaskHistory(tasks);
+    } catch (error) {
+      console.error('刷新任务历史失败:', error);
+    }
+  };
+
   // 加载审核日志
   useEffect(() => {
     let logsTableExists = true;
@@ -228,7 +309,7 @@ export default function Admin() {
     try {
       // 获取待审核工具数量
       const { data: pendingTools } = await supabase
-        .from('tool_submissions')
+        .from('tools')
         .select('id, name')
         .eq('status', 'pending');
       
@@ -280,9 +361,10 @@ export default function Admin() {
         setReviewLogs(logs);
         
         const { data: refreshedData } = await supabase
-          .from('tool_submissions')
-          .select('*')
-          .order('created_at', { ascending: false });
+        .from('tools')
+        .select('*')
+        .in('status', ['pending', 'approved', 'rejected'])
+        .order('created_at', { ascending: false });
         setSubmissions(refreshedData || []);
         
         // 切换到日志页面
@@ -334,9 +416,10 @@ export default function Admin() {
         setReviewLogs(logs);
         
         const { data: refreshedData } = await supabase
-          .from('tool_submissions')
-          .select('*')
-          .order('created_at', { ascending: false });
+        .from('tools')
+        .select('*')
+        .in('status', ['pending', 'approved', 'rejected'])
+        .order('created_at', { ascending: false });
         
         setSubmissions(refreshedData || []);
       } else {
@@ -390,9 +473,9 @@ export default function Admin() {
     try {
       console.log('开始审核，选中的ID:', selectedIds);
       
-      // 获取选中的工具详情
+      // 获取选中的工具详情（现在从tools表获取）
       const { data: selectedTools, error: fetchError } = await supabase
-        .from('tool_submissions')
+        .from('tools')
         .select('*')
         .in('id', selectedIds);
 
@@ -405,7 +488,7 @@ export default function Admin() {
       console.log('获取到的工具:', selectedTools);
 
       if (selectedTools && selectedTools.length > 0) {
-        // 逐个插入到主表，使用直接插入
+        // 直接更新tools表中的状态，而不是插入新记录
         let successCount = 0;
         for (const tool of selectedTools) {
           // 获取AI审核结果
@@ -419,26 +502,18 @@ export default function Admin() {
           const optimizedDescription = aiReview?.optimized_description || tool.tagline;
           const suggestedTags = aiReview?.suggested_tags || [tool.category];
           
-          // 获取工具头像
-          const logoUrl = getToolLogo(tool.website_url);
-          
-          const toolToInsert = {
+          // 准备更新数据
+          const toolToUpdate = {
             name: optimizedName,
             tagline: optimizedTagline,
             description: optimizedDescription,
-            website_url: tool.website_url,
-            logo_url: logoUrl, // 启用logo_url保存
             category: tool.category,
             tags: suggestedTags, // 使用AI建议的标签
             pricing_type: tool.pricing_type,
             is_china_available: tool.is_china_available,
             is_chinese_supported: tool.note?.includes('支持中文: true') || false,
-            rating: 0,
-            rating_count: 0,
-            view_count: 0,
-            screenshots: [], // 空数组，Supabase 会自动处理
-            status: 'active',
-            created_at: new Date().toISOString(),
+            status: 'approved', // 更新为已通过
+            updated_at: new Date().toISOString(),
             // 添加AI质量评估字段
             ai_quality_score: aiReview ? ((aiReview.maturity_score || 5) + (aiReview.interest_score || 5)) / 2 : null,
             ai_quality_review: aiReview ? JSON.stringify({
@@ -457,64 +532,74 @@ export default function Admin() {
               suggested_tags: aiReview?.suggested_tags
             }) : null,
             ai_review_date: aiReview ? new Date().toISOString() : null,
-            ai_review_notes: aiReview ? `AI审核建议: ${aiReview.recommendation}。${aiReview.quality_assessment ? ' 质量评估: ' + aiReview.quality_assessment : ''}${aiReview.optimized_name ? '\n优化建议: 名称、简介、标签等已优化' : ''}` : null
+            ai_review_notes: aiReview?.quality_assessment || null
           };
-
-          console.log('插入工具（包含AI审核数据）:', toolToInsert);
-
-          // 直接插入到 tools 表
-          const { data, error } = await supabase
+          
+          console.log('更新工具:', tool.name, '->', optimizedName);
+          
+          // 更新tools表
+          const { error: updateError } = await supabase
             .from('tools')
-            .insert(toolToInsert);
-
-          if (error) {
-            console.error(`插入工具 ${tool.name} 失败:`, error);
-            console.error('错误详情:', error.details);
-            console.error('错误代码:', error.code);
+            .update(toolToUpdate)
+            .eq('id', tool.id);
+          
+          if (updateError) {
+            console.error(`更新工具 ${tool.name} 失败:`, updateError);
+            console.error('错误详情:', updateError.details);
+            console.error('错误代码:', updateError.code);
             // 继续处理其他工具，不中断整个流程
             continue;
           } else {
-            console.log(`成功插入工具 ${tool.name}`);
+            console.log(`成功更新工具 ${tool.name}`);
             successCount++;
           }
         }
 
-        console.log(`成功插入 ${successCount} 个工具，开始更新状态`);
-
-        // 更新待审核表状态
-        const { error: updateError } = await supabase
-          .from('tool_submissions')
-          .update({ status: 'approved' })
-          .in('id', selectedIds);
-
-        if (updateError) {
-          console.error('更新状态失败:', updateError);
-          alert('更新状态失败');
+        console.log(`成功更新 ${successCount} 个工具`);
+        
+        // 重新加载数据以反映更新
+        const { data: refreshedData, error: refreshError } = await supabase
+          .from('tools')
+          .select('*')
+          .in('status', ['pending', 'approved', 'rejected'])
+          .order('created_at', { ascending: false });
+        
+        if (refreshError) {
+          console.error('重新加载数据失败:', refreshError);
         } else {
-          console.log('状态更新成功，重新获取数据');
-          // 重新获取所有状态的数据
-          const { data: refreshedData } = await supabase
-            .from('tool_submissions')
-            .select('*')
-            .order('created_at', { ascending: false });
+          const transformedSubmissions: ToolSubmission[] = (refreshedData || []).map(tool => ({
+            id: tool.id,
+            name: tool.name,
+            tagline: tool.tagline,
+            website_url: tool.website_url,
+            category: tool.category,
+            tags: tool.tags || [],
+            pricing_type: tool.pricing_type,
+            is_china_available: tool.is_china_available,
+            note: tool.note,
+            status: tool.status,
+            created_at: tool.created_at,
+            ai_review_result: tool.ai_review_result,
+            ai_review_date: tool.ai_review_date
+          }));
           
-          setSubmissions(refreshedData || []);
-          setSelectedIds([]);
-          
-          // 统计优化应用情况
-          const optimizedTools = selectedTools.filter(tool => {
-            const aiReview = aiReviews[tool.id];
-            return aiReview?.optimized_name || aiReview?.optimized_tagline || aiReview?.optimized_description || aiReview?.suggested_tags;
-          });
-          
-          let successMessage = `✅ 成功审核通过 ${successCount} 个工具！`;
-          
-          if (optimizedTools.length > 0) {
-            successMessage += `\n\n🤖 AI优化已应用到 ${optimizedTools.length} 个工具：\n• 自动优化名称和简介\n• 改进标签建议\n• 获取工具头像`;
-          }
-          
-          alert(successMessage);
+          setSubmissions(transformedSubmissions);
         }
+        
+        setSelectedIds([]);
+        
+        let successMessage = `✅ 成功审核通过 ${successCount} 个工具！`;
+        
+        const optimizedTools = selectedTools.filter(tool => {
+          const aiReview = aiReviews[tool.id];
+          return aiReview?.optimized_name || aiReview?.optimized_tagline || aiReview?.optimized_description || aiReview?.suggested_tags;
+        });
+        
+        if (optimizedTools.length > 0) {
+          successMessage += `\n\n🤖 AI优化已应用到 ${optimizedTools.length} 个工具：\n• 自动优化名称和简介\n• 改进标签建议\n• 获取工具头像`;
+        }
+        
+        alert(successMessage);
       }
     } catch (err) {
       console.error('审核失败:', err);
@@ -533,7 +618,7 @@ export default function Admin() {
     setProcessing(true);
     try {
       const { error } = await supabase
-        .from('tool_submissions')
+        .from('tools')
         .update({ status: 'rejected' })
         .in('id', selectedIds);
 
@@ -543,9 +628,10 @@ export default function Admin() {
       } else {
         // 重新获取所有状态的数据
         const { data: refreshedData } = await supabase
-          .from('tool_submissions')
-          .select('*')
-          .order('created_at', { ascending: false });
+        .from('tools')
+        .select('*')
+        .in('status', ['pending', 'approved', 'rejected'])
+        .order('created_at', { ascending: false });
         
         setSubmissions(refreshedData || []);
         setSelectedIds([]);
@@ -604,7 +690,7 @@ export default function Admin() {
       
       // 保存AI审核结果到数据库
       const { error: saveError } = await supabase
-        .from('tool_submissions')
+        .from('tools')
         .update({
           ai_review_result: result,
           ai_review_date: new Date().toISOString()
@@ -652,6 +738,61 @@ export default function Admin() {
   // 批量AI审核
   const handleBatchAiReview = async () => {
     if (selectedIds.length === 0) return;
+    
+    // 检查是否支持后台任务
+    try {
+      // 测试表是否存在
+      const { error } = await supabase
+        .from('batch_review_tasks')
+        .select('id')
+        .limit(1);
+      
+      if (error) {
+        console.log('后台任务表不存在，使用前端执行');
+        return handleFrontendBatchReview();
+      }
+    } catch (err) {
+      console.log('检查后台任务表失败，使用前端执行');
+      return handleFrontendBatchReview();
+    }
+    
+    // 确认对话框
+    const confirmMessage = `确定要开始批量AI审核吗？\n\n📊 审核信息:\n• 工具数量: ${selectedIds.length} 个\n• 预计时间: ${Math.ceil(selectedIds.length * 3)} 秒\n• 执行方式: 后台任务（页面关闭后继续运行）\n\n✅ 优势:\n• 页面关闭后任务继续执行\n• 审核结果自动保存\n• 可随时查看进度`;
+    
+    if (!confirm(confirmMessage)) return;
+    
+    try {
+      // 提交后台任务
+      const { taskId, message } = await batchReviewService.submitBatchReviewTask(
+        selectedIds,
+        'admin' // 可以是用户ID或其他标识
+      );
+      
+      console.log('后台任务已提交:', taskId);
+      alert(message);
+      
+      // 设置当前任务ID，开始监控进度
+      setCurrentTaskId(taskId);
+      setShowTaskStatus(true);
+      
+      // 清空选择
+      setSelectedIds([]);
+      
+    } catch (error) {
+      console.error('提交批量审核任务失败:', error);
+      alert('提交批量审核任务失败: ' + error.message + '\n\n将使用前端执行模式');
+      return handleFrontendBatchReview();
+    }
+  };
+
+  // 前端批量审核（备用方案）
+  const handleFrontendBatchReview = async () => {
+    if (selectedIds.length === 0) return;
+    
+    // 确认对话框
+    const confirmMessage = `确定要开始批量AI审核吗？\n\n📊 审核信息:\n• 工具数量: ${selectedIds.length} 个\n• 预计时间: ${Math.ceil(selectedIds.length * 3)} 秒\n• 执行方式: 前端执行（页面关闭会中断）\n\n⚠️ 注意:\n• 请勿关闭页面\n• 审核期间保持页面活跃`;
+    
+    if (!confirm(confirmMessage)) return;
     
     setAiProcessing(selectedIds);
     setBatchReviewProgress({
@@ -726,7 +867,7 @@ export default function Admin() {
       document.body.appendChild(loadingMessage);
 
       const { error } = await supabase
-        .from('tool_submissions')
+        .from('tools')
         .update({
           name: review.optimized_name || tool.name,
           tagline: review.optimized_tagline || tool.tagline,
@@ -762,9 +903,10 @@ export default function Admin() {
         
         // 重新加载数据
         const { data: refreshedData } = await supabase
-          .from('tool_submissions')
-          .select('*')
-          .order('created_at', { ascending: false });
+        .from('tools')
+        .select('*')
+        .in('status', ['pending', 'approved', 'rejected'])
+        .order('created_at', { ascending: false });
         
         setSubmissions(refreshedData || []);
         
@@ -817,8 +959,39 @@ export default function Admin() {
       
       <main className="mx-auto max-w-[1400px] px-6 pt-20 pb-12">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">🛠️ 审核管理</h1>
-          <p className="text-muted-foreground">管理待审核的AI工具提交</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">🛠️ 审核管理</h1>
+              <p className="text-muted-foreground">管理待审核的AI工具提交</p>
+            </div>
+            <div className="flex items-center gap-3">
+              {/* 任务历史按钮 */}
+              <Button
+                variant="outline"
+                onClick={() => setShowTaskHistory(!showTaskHistory)}
+                className="flex items-center gap-2"
+              >
+                <Clock className="h-4 w-4" />
+                任务历史
+                {taskHistory.filter(t => t.status === 'running').length > 0 && (
+                  <Badge variant="destructive" className="ml-1">
+                    {taskHistory.filter(t => t.status === 'running').length}
+                  </Badge>
+                )}
+              </Button>
+              
+              {/* 刷新任务历史按钮 */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={refreshTaskHistory}
+                className="flex items-center gap-1"
+              >
+                <Play className="h-4 w-4" />
+                刷新
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* AI审核结果筛选 */}
@@ -866,6 +1039,229 @@ export default function Admin() {
           )}
         </div>
 
+        {/* 任务历史面板 */}
+        {showTaskHistory && (
+          <Card className="mb-6">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Clock className="h-5 w-5" />
+                  批量审核任务历史
+                </CardTitle>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowTaskHistory(false)}
+                >
+                  ✕
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {taskHistory.length === 0 ? (
+                <p className="text-muted-foreground text-center py-4">暂无任务历史</p>
+              ) : (
+                <div className="space-y-3">
+                  {taskHistory.map((task) => (
+                    <div key={task.id} className="border rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <Badge variant={
+                            task.status === 'running' ? 'destructive' :
+                            task.status === 'completed' ? 'default' :
+                            task.status === 'failed' ? 'destructive' :
+                            task.status === 'cancelled' ? 'secondary' :
+                            task.status === 'stopped' ? 'secondary' :
+                            'secondary'
+                          }>
+                            {task.status === 'running' && '🚀 运行中'}
+                            {task.status === 'completed' && '✅ 已完成'}
+                            {task.status === 'failed' && '❌ 失败'}
+                            {task.status === 'cancelled' && '⏹️ 已取消'}
+                            {task.status === 'stopped' && '⏸️ 已停止'}
+                            {task.status === 'pending' && '⏳ 准备中'}
+                          </Badge>
+                          <span className="text-sm text-muted-foreground">
+                            {task.total_tools} 个工具
+                          </span>
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {new Date(task.created_at).toLocaleString('zh-CN')}
+                        </div>
+                      </div>
+                      
+                      {/* 停止状态提示 */}
+                      {task.status === 'stopped' && (
+                        <div className="text-sm text-orange-600 bg-orange-50 p-2 rounded">
+                          ⏸️ 任务已停止，已审核 ${task.completed_tools || 0}/${task.total_tools} 个工具
+                        </div>
+                      )}
+                      
+                      {/* 准备中提示 */}
+                      {task.status === 'pending' && (
+                        <div className="text-sm text-blue-600 bg-blue-50 p-2 rounded">
+                          💡 任务已创建，将在1秒后自动开始执行
+                        </div>
+                      )}
+                      
+                      {/* 进度条 */}
+                      {task.status === 'running' && (
+                        <div className="mb-2">
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-xs text-muted-foreground">
+                              进度: {task.completed_tools}/{task.total_tools}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              {Math.round((task.completed_tools / task.total_tools) * 100)}%
+                            </span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div 
+                              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                              style={{ width: `${(task.completed_tools / task.total_tools) * 100}%` }}
+                            />
+                          </div>
+                          {task.current_tool_name && (
+                            <p className="text-xs text-muted-foreground mt-1">
+                              正在审核: {task.current_tool_name}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* 错误信息 */}
+                      {task.status === 'failed' && task.error_message && (
+                        <div className="text-sm text-red-600 bg-red-50 p-2 rounded">
+                          错误: {task.error_message}
+                        </div>
+                      )}
+                      
+                      {/* 任务ID */}
+                      <div className="text-xs text-muted-foreground mt-2">
+                        任务ID: {task.id}
+                      </div>
+                      
+                      {/* 操作按钮 */}
+                      {task.status === 'stopped' && (
+                        <div className="flex gap-2 mt-3">
+                          <Button
+                            variant="default"
+                            size="sm"
+                            onClick={async () => {
+                              if (confirm('确定要重新开始这个任务吗？将从停止的地方继续执行。')) {
+                                const success = await batchReviewService.startTask(task.id);
+                                if (success) {
+                                  refreshTaskHistory();
+                                  alert('任务已重新开始');
+                                } else {
+                                  alert('重新开始任务失败');
+                                }
+                              }
+                            }}
+                          >
+                            重新开始
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={async () => {
+                              if (confirm('确定要删除这个任务吗？')) {
+                                await supabase
+                                  .from('batch_review_tasks')
+                                  .delete()
+                                  .eq('id', task.id);
+                                refreshTaskHistory();
+                              }
+                            }}
+                          >
+                            删除任务
+                          </Button>
+                        </div>
+                      )}
+                      
+                      {task.status === 'pending' && (
+                        <div className="flex gap-2 mt-3">
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            disabled
+                          >
+                            ⏳ 等待自动开始...
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={async () => {
+                              if (confirm('确定要删除这个任务吗？')) {
+                                await supabase
+                                  .from('batch_review_tasks')
+                                  .delete()
+                                  .eq('id', task.id);
+                                refreshTaskHistory();
+                              }
+                            }}
+                          >
+                            删除任务
+                          </Button>
+                        </div>
+                      )}
+                      
+                      {task.status === 'running' && (
+                        <div className="flex gap-2 mt-3">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              setCurrentTaskId(task.id);
+                              setShowTaskStatus(true);
+                            }}
+                          >
+                            查看进度
+                          </Button>
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            onClick={async () => {
+                              if (confirm('确定要停止这个任务吗？停止后已审核的结果会保留。')) {
+                                const success = await batchReviewService.stopTask(task.id);
+                                if (success) {
+                                  refreshTaskHistory();
+                                  alert('任务已停止');
+                                } else {
+                                  alert('停止任务失败');
+                                }
+                              }
+                            }}
+                          >
+                            停止任务
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={async () => {
+                              if (confirm('确定要取消这个任务吗？')) {
+                                const success = await batchReviewService.cancelTask(task.id);
+                                if (success) {
+                                  refreshTaskHistory();
+                                  alert('任务已取消');
+                                } else {
+                                  alert('取消任务失败');
+                                }
+                              }
+                            }}
+                          >
+                            取消任务
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
+
         {/* 状态标签页 */}
         <div className="flex gap-2 mb-6 border-b">
           <button
@@ -898,75 +1294,11 @@ export default function Admin() {
           >
             已拒绝 ({rejectedCount})
           </button>
-          <button
-            onClick={() => setActiveTab('logs')}
-            className={`px-4 py-2 font-medium transition-colors ${
-              activeTab === 'logs' 
-                ? 'text-primary border-b-2 border-primary' 
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            AI审核日志 ({reviewLogs.filter(l => l.status === 'pending').length})
-          </button>
-        </div>
-
-        {/* 自动AI审核按钮 */}
-        <div className="mb-6">
-          <Button
-            onClick={handleAutoReview}
-            disabled={autoReviewProcessing}
-            className="bg-purple-600 hover:bg-purple-700"
-          >
-            <Bot className="h-4 w-4 mr-2" />
-            {autoReviewProcessing ? 'AI审核中...' : '开始自动AI审核'}
-          </Button>
         </div>
 
         {/* 批量操作 - 只在待审核页面显示 */}
         {activeTab === 'pending' && currentTabSubmissions.length > 0 && (
           <div className="space-y-4 mb-6">
-            {/* 自动AI审核进度显示 */}
-            {autoReviewProgress.status !== 'idle' && (
-              <Card className="border-purple-200 bg-purple-50">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium text-purple-900">
-                          🤖 自动AI审核进度
-                        </span>
-                        <span className="text-sm text-purple-700">
-                          {autoReviewProgress.current} / {autoReviewProgress.total}
-                        </span>
-                      </div>
-                      <div className="w-full bg-purple-200 rounded-full h-2">
-                        <div 
-                          className="bg-purple-600 h-2 rounded-full transition-all duration-300"
-                          style={{ 
-                            width: autoReviewProgress.total > 0 
-                              ? `${(autoReviewProgress.current / autoReviewProgress.total) * 100}%` 
-                              : '0%' 
-                          }}
-                        />
-                      </div>
-                      <div className="mt-2 text-sm text-purple-700">
-                        当前处理: {autoReviewProgress.currentTool}
-                      </div>
-                    </div>
-                    {autoReviewProgress.status === 'processing' && (
-                      <div className="animate-spin h-5 w-5 border-2 border-purple-600 border-t-transparent rounded-full" />
-                    )}
-                    {autoReviewProgress.status === 'completed' && (
-                      <div className="text-green-600">✅</div>
-                    )}
-                    {autoReviewProgress.status === 'error' && (
-                      <div className="text-red-600">❌</div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-            
             <div className="flex items-center gap-4 flex-wrap">
               <Button
                 variant="outline"
@@ -977,7 +1309,7 @@ export default function Admin() {
               </Button>
               <Button
                 onClick={handleBatchAiReview}
-                disabled={selectedIds.length === 0 || aiProcessing.length > 0 || autoReviewProcessing || batchReviewProgress.isProcessing}
+                disabled={selectedIds.length === 0 || aiProcessing.length > 0 || autoReviewProcessing || batchReviewProgress.isProcessing || taskProgress?.isProcessing}
                 className="bg-purple-600 hover:bg-purple-700"
               >
                 <Bot className="h-4 w-4 mr-2" />
@@ -1011,6 +1343,41 @@ export default function Admin() {
                   </p>
                 </div>
               )}
+              
+              {/* 后台任务状态显示 */}
+              {showTaskStatus && taskProgress && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-blue-800">
+                      🚀 后台批量审核进行中...
+                    </span>
+                    <span className="text-sm text-blue-600">
+                      {taskProgress.current}/{taskProgress.total}
+                    </span>
+                  </div>
+                  <div className="w-full bg-blue-200 rounded-full h-2 mb-2">
+                    <div 
+                      className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${(taskProgress.current / taskProgress.total) * 100}%` }}
+                    />
+                  </div>
+                  {taskProgress.currentTool && (
+                    <p className="text-xs text-blue-700">
+                      正在审核: {taskProgress.currentTool}
+                    </p>
+                  )}
+                  <p className="text-xs text-blue-600 mt-1">
+                    任务ID: {taskProgress.taskId}
+                  </p>
+                  <p className="text-xs text-blue-600">
+                    状态: {taskProgress.status === 'running' ? '运行中' : taskProgress.status}
+                  </p>
+                  <p className="text-xs text-green-600 mt-2">
+                    💡 页面关闭后任务将继续运行
+                  </p>
+                </div>
+              )}
+              
               <Button
                 onClick={handleApprove}
                 disabled={selectedIds.length === 0 || processing || autoReviewProcessing}
@@ -1235,142 +1602,6 @@ export default function Admin() {
               </div>
             </CardContent>
           </Card>
-        )}
-
-        {/* AI审核日志页面 */}
-        {activeTab === 'logs' && (
-          <div className="space-y-4">
-            {/* 日志页面头部 */}
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-semibold">📊 AI审核日志</h2>
-                <p className="text-muted-foreground text-sm mt-1">
-                  查看所有AI审核记录和执行状态
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="outline" className="text-xs">
-                  自动刷新: 30秒
-                </Badge>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={async () => {
-                    const logs = await autoAiReviewService.getReviewLogs();
-                    setReviewLogs(logs);
-                  }}
-                >
-                  <Play className="h-3 w-3 mr-1" />
-                  刷新
-                </Button>
-              </div>
-            </div>
-            
-            {reviewLogs.length > 0 ? (
-              reviewLogs.map((log) => (
-                <Card key={log.id} className={`border-l-4 ${
-                  log.status === 'pending' ? 'border-l-orange-500' :
-                  log.status === 'confirmed' ? 'border-l-blue-500' :
-                  log.status === 'executed' ? 'border-l-green-500' :
-                  'border-l-gray-500'
-                }`}>
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <Calendar className="h-5 w-5 text-muted-foreground" />
-                        <div>
-                          <CardTitle className="text-lg">
-                            {new Date(log.review_date).toLocaleDateString('zh-CN')} 的AI审核
-                          </CardTitle>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Badge variant={
-                              log.status === 'pending' ? 'secondary' :
-                              log.status === 'confirmed' ? 'default' :
-                              log.status === 'executed' ? 'default' :
-                              'outline'
-                            }>
-                              {log.status === 'pending' ? '待确认' :
-                               log.status === 'confirmed' ? '已确认' :
-                               log.status === 'executed' ? '已执行' :
-                               '已取消'}
-                            </Badge>
-                            <span className="text-sm text-muted-foreground">
-                              {new Date(log.created_at).toLocaleString()}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {log.status === 'pending' && (
-                          <>
-                            <Button
-                              size="sm"
-                              onClick={() => handleConfirmReview(log.id)}
-                              className="bg-green-600 hover:bg-green-700"
-                            >
-                              <Play className="h-4 w-4 mr-1" />
-                              执行审核
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleCancelReview(log.id)}
-                            >
-                              <Trash2 className="h-4 w-4 mr-1" />
-                              取消
-                            </Button>
-                          </>
-                        )}
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => setShowReviewLog(log)}
-                        >
-                          <Eye className="h-4 w-4 mr-1" />
-                          查看详情
-                        </Button>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-4 gap-4 mb-4">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-blue-600">{log.total_tools}</div>
-                        <div className="text-sm text-muted-foreground">总工具数</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-green-600">{log.approved_count}</div>
-                        <div className="text-sm text-muted-foreground">建议通过</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-red-600">{log.rejected_count}</div>
-                        <div className="text-sm text-muted-foreground">建议拒绝</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-orange-600">{log.manual_review_count}</div>
-                        <div className="text-sm text-muted-foreground">需人工审核</div>
-                      </div>
-                    </div>
-                    
-                    {log.summary && (
-                      <div className="bg-gray-50 p-3 rounded text-sm">
-                        <div className="font-medium mb-2">审核摘要:</div>
-                        <pre className="whitespace-pre-wrap text-xs">{log.summary}</pre>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))
-            ) : (
-              <Card>
-                <CardContent className="py-12 text-center">
-                  <div className="text-muted-foreground">
-                    暂无AI审核日志
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
         )}
 
         {/* AI审核结果弹窗 */}

@@ -57,7 +57,7 @@ class AutoAiReviewService {
       
       // 获取所有待审核工具
       const { data: pendingTools, error: fetchError } = await supabase
-        .from('tool_submissions')
+        .from('tools')
         .select('*')
         .eq('status', 'pending')
         .order('created_at', { ascending: false });
@@ -341,58 +341,29 @@ class AutoAiReviewService {
       for (const result of reviewResults) {
         try {
           if (result.ai_recommendation === 'approve') {
-            // 通过审核，插入到主表
-            const { data: tool, error: fetchError } = await supabase
-              .from('tool_submissions')
-              .select('*')
-              .eq('id', result.tool_id)
-              .single();
-
-            if (fetchError || !tool) {
-              console.error(`获取工具 ${result.tool_id} 失败:`, fetchError);
-              errorCount++;
-              continue;
-            }
-
-            const toolToInsert = {
-              name: result.optimized_name || tool.name,
-              tagline: result.optimized_tagline || tool.tagline,
-              description: tool.tagline,
-              website_url: tool.website_url,
-              category: tool.category,
-              tags: [tool.category],
-              pricing_type: tool.pricing_type,
-              is_china_available: tool.is_china_available,
-              is_chinese_supported: tool.note?.includes('支持中文: true') || false,
-              rating: 0,
-              rating_count: 0,
-              view_count: 0,
-              screenshots: [],
-              status: 'active',
-              created_at: new Date().toISOString()
-            };
-
-            const { error: insertError } = await supabase
+            // 通过审核，直接更新tools表状态为approved
+            const { error: updateError } = await supabase
               .from('tools')
-              .insert(toolToInsert);
+              .update({ 
+                status: 'approved',
+                ai_review_date: new Date().toISOString()
+              })
+              .eq('id', result.tool_id);
 
-            if (insertError) {
-              console.error(`插入工具 ${result.tool_id} 失败:`, insertError);
+            if (updateError) {
+              console.error(`更新工具 ${result.tool_id} 失败:`, updateError);
               errorCount++;
             } else {
-              // 更新待审核表状态
-              await supabase
-                .from('tool_submissions')
-                .update({ status: 'approved' })
-                .eq('id', result.tool_id);
-              
               successCount++;
             }
           } else if (result.ai_recommendation === 'reject') {
             // 拒绝审核
             const { error } = await supabase
-              .from('tool_submissions')
-              .update({ status: 'rejected' })
+              .from('tools')
+              .update({ 
+                status: 'rejected',
+                ai_review_date: new Date().toISOString()
+              })
               .eq('id', result.tool_id);
 
             if (error) {
