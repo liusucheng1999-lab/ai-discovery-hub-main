@@ -26,7 +26,7 @@ export const categories = [
   { id: "all", name: "全部", icon: "🔥" },
   { id: "chat", name: "对话", icon: "📝" },
   { id: "writing", name: "写作", icon: "✍️" },
-  { id: "image", name: "绘画", icon: "🎨" },
+  { id: "image", name: "图像", icon: "🎨" },
   { id: "video", name: "视频", icon: "🎬" },
   { id: "audio", name: "音频", icon: "🎵" },
   { id: "coding", name: "编程", icon: "💻" },

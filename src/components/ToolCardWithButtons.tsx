@@ -72,8 +72,8 @@ export default function ToolCard({ tool, searchQuery = "", small = false }: Tool
 
   return (
     <>
-      <div className="group rounded-xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:border-primary/50 relative overflow-hidden">
-        <div className="flex items-start gap-3">
+      <div className="group rounded-xl border border-border bg-card p-3 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:border-primary/50 relative overflow-hidden">
+        <div className="flex items-start gap-2.5">
           <div className={`${logoSize} shrink-0 rounded-lg flex items-center justify-center relative overflow-hidden`}>
             {!imageError && logoUrl && (
               <>
@@ -99,62 +99,32 @@ export default function ToolCard({ tool, searchQuery = "", small = false }: Tool
             )}
           </div>
           <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2">
-              <h3 className={`font-semibold truncate ${small ? "text-sm" : "text-base"}`}>
-                <HighlightText text={tool.name} query={searchQuery} />
-              </h3>
-            </div>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
-              <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-              <span>{tool.rating}</span>
-              {!small && <span>({tool.ratingCount.toLocaleString()}人评分)</span>}
-            </div>
+            <h3 className={`font-semibold truncate ${small ? "text-sm" : "text-base"}`}>
+              <HighlightText text={tool.name} query={searchQuery} />
+            </h3>
+            <p className={`mt-1 text-muted-foreground line-clamp-2 ${small ? "text-xs" : "text-sm"}`}>
+              <HighlightText text={tool.tagline} query={searchQuery} />
+            </p>
           </div>
         </div>
 
-        <p className={`mt-2 text-muted-foreground line-clamp-2 ${small ? "text-xs" : "text-sm"}`}>
-          <HighlightText text={tool.tagline} query={searchQuery} />
-        </p>
-
-        <div className="mt-3 flex flex-wrap items-center gap-1.5">
-          {cat && (
-            <span className="inline-flex items-center gap-0.5 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
-              {cat.icon} {cat.name}
-            </span>
-          )}
-          <span className={`rounded-full px-2 py-0.5 text-xs ${pricingColorMap[tool.pricingType]}`}>
-            {pricingLabels[tool.pricingType]}
-          </span>
-          {tool.isChinaAvailable && (
-            <span className="rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-xs text-emerald-600 dark:text-emerald-400">
-              🇨🇳
-            </span>
-          )}
-        </div>
-
-        {!small && (
-          <div className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
-            <Eye className="h-3 w-3" />
-            <span>{tool.viewCount.toLocaleString()} 次浏览</span>
+        {/* 悬浮时显示的详细信息 - 覆盖整个卡片 */}
+        <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-card/95 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          {/* 简洁的文字按钮 */}
+          <div className="flex gap-3">
+            <button
+              onClick={handleVisitWebsite}
+              className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all duration-200"
+            >
+              访问
+            </button>
+            <button
+              onClick={handleViewDetails}
+              className="px-4 py-2 text-sm font-medium border border-border bg-muted/80 hover:bg-muted rounded-lg transition-all duration-200"
+            >
+              详情
+            </button>
           </div>
-        )}
-
-        {/* 按钮区域 */}
-        <div className="mt-4 flex gap-2">
-          <button
-            onClick={handleVisitWebsite}
-            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-sm font-medium bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-lg hover:from-primary/90 hover:to-primary/70 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
-          >
-            <ExternalLink className="h-4 w-4" />
-            访问官网
-          </button>
-          <button
-            onClick={handleViewDetails}
-            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-sm font-medium border border-border bg-muted/50 hover:bg-muted hover:border-primary/50 rounded-lg transition-all duration-200 transform hover:scale-105"
-          >
-            <Info className="h-4 w-4" />
-            查看详情
-          </button>
         </div>
       </div>
 

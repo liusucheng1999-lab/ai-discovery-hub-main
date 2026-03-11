@@ -957,7 +957,7 @@ export default function Admin() {
         <meta name="description" content="AI工具审核管理后台" />
       </Helmet>
       
-      <main className="mx-auto max-w-[1400px] px-6 pt-20 pb-12">
+      <main className="mx-auto max-w-[1400px] px-6 pt-24 pb-12">
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>

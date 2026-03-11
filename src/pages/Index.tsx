@@ -13,21 +13,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const ITEMS_PER_PAGE = 20;
-
-const pricingFilters = [
-  { value: "all", label: "全部" },
-  { value: "free", label: "免费" },
-  { value: "freemium", label: "免费增值" },
-  { value: "paid", label: "付费" },
-  { value: "opensource", label: "开源" },
-];
-
-const chinaFilters = [
-  { value: "all", label: "全部" },
-  { value: "yes", label: " 国内可用" },
-  { value: "no", label: "需翻墙" },
-];
+const ITEMS_PER_PAGE = 100;
 
 interface IndexPageProps {
   searchQuery?: string;
@@ -35,15 +21,41 @@ interface IndexPageProps {
 
 export default function IndexPage({ searchQuery }: IndexPageProps) {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [pricingFilter, setPricingFilter] = useState("all");
-  const [chinaFilter, setChinaFilter] = useState("all");
-  const [sortBy, setSortBy] = useState("popular");
+  const [sortBy, setSortBy] = useState("newest");
   const [page, setPage] = useState(1);
 
   // 初始状态设为空数组，不要用 mock 数据
   const [tools, setTools] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // 智能分页显示函数
+  const getVisiblePages = (totalPages: number, currentPage: number) => {
+    const delta = 2; // 当前页前后显示的页数
+    const range = [];
+    const rangeWithDots = [];
+    let l;
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= currentPage - delta && i <= currentPage + delta)) {
+        range.push(i);
+      }
+    }
+
+    range.forEach((i) => {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l !== 1) {
+          rangeWithDots.push('...');
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    });
+
+    return rangeWithDots;
+  };
 
   // 从 Supabase 加载数据
   useEffect(() => {
@@ -61,7 +73,11 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
         if (categoriesResult.data) {
           const allCategories = [
             { id: "all", name: "全部", icon: "" },
-            ...categoriesResult.data
+            ...categoriesResult.data.map(cat => ({
+              ...cat,
+              // 确保显示"图像"而不是"绘画"
+              name: cat.name === '绘画' ? '图像' : cat.name
+            }))
           ];
           setCategories(allCategories);
         }
@@ -117,9 +133,6 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
     let result = [...tools];
 
     if (activeCategory !== "all") result = result.filter((t) => t.category === activeCategory);
-    if (pricingFilter !== "all") result = result.filter((t) => t.pricingType === pricingFilter);
-    if (chinaFilter === "yes") result = result.filter((t) => t.isChinaAvailable);
-    if (chinaFilter === "no") result = result.filter((t) => !t.isChinaAvailable);
 
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
@@ -133,13 +146,13 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
     else if (sortBy === "rating") result.sort((a, b) => b.rating - a.rating);
 
     return result;
-  }, [tools, activeCategory, pricingFilter, chinaFilter, searchQuery, sortBy]);
+  }, [tools, activeCategory, searchQuery, sortBy]);
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paged = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
   // Reset page when filters change
-  useEffect(() => setPage(1), [activeCategory, pricingFilter, chinaFilter, searchQuery, sortBy]);
+  useEffect(() => setPage(1), [activeCategory, searchQuery, sortBy]);
 
   // 加载中时显示 loading 状态
   if (loading) {
@@ -157,60 +170,30 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
         <title>AI创客 - 发现最好用的AI工具</title>
         <meta name="description" content="AI创客 - 精选200+优质AI工具，帮你发现最好用的AI应用" />
       </Helmet>
-      <main className="mx-auto max-w-[1280px] px-6 pt-20 pb-12">
-      {/* Category Tabs */}
-      <div className="flex gap-1 border-b border-border overflow-x-auto pb-0">
-        {categories.map((cat) => (
-          <button
-            key={cat.id}
-            onClick={() => setActiveCategory(cat.id)}
-            className={`shrink-0 px-4 py-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
-              activeCategory === cat.id
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {cat.icon} {cat.name} ({categoryCounts[cat.id] || 0})
-          </button>
-        ))}
-      </div>
-
-      {/* Filters & Sort */}
-      <div className="flex items-center justify-between py-4 gap-4 flex-wrap">
-        <div className="flex items-center gap-2 flex-wrap">
-          {/* Pricing chips */}
-          {pricingFilters.map((f) => (
+      <main className="mx-auto max-w-[1280px] px-6 pt-24 pb-12">
+      {/* Category Tabs - 吸顶 */}
+      <div className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b border-border -mx-6 px-6 py-0">
+        <div className="flex gap-1 border-b border-border overflow-x-auto pb-0">
+          {categories.map((cat) => (
             <button
-              key={f.value}
-              onClick={() => setPricingFilter(f.value)}
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
-                pricingFilter === f.value
-                  ? "bg-primary text-primary-foreground"
-                  : "border border-border text-muted-foreground hover:text-foreground"
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`shrink-0 px-4 py-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
+                activeCategory === cat.id
+                  ? "border-primary text-primary"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
               }`}
             >
-              {f.label}
-            </button>
-          ))}
-
-          <div className="mx-2 h-4 w-px bg-border" />
-
-          {/* China availability chips */}
-          {chinaFilters.map((f) => (
-            <button
-              key={f.value}
-              onClick={() => setChinaFilter(f.value)}
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
-                chinaFilter === f.value
-                  ? "bg-primary text-primary-foreground"
-                  : "border border-border text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {f.label}
+              {cat.icon} {cat.name} ({categoryCounts[cat.id] || 0})
             </button>
           ))}
         </div>
+      </div>
 
+      {/* Results count & Sort */}
+      <div className="flex items-center justify-between py-4 gap-4 flex-wrap">
+        <p className="text-sm text-muted-foreground">找到 {filtered.length} 个工具</p>
+        
         <Select value={sortBy} onValueChange={setSortBy}>
           <SelectTrigger className="w-[160px]">
             <SelectValue />
@@ -221,11 +204,6 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
             <SelectItem value="rating">评分最高</SelectItem>
           </SelectContent>
         </Select>
-      </div>
-
-      {/* Results count */}
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground mb-4">找到 {filtered.length} 个工具</p>
       </div>
 
       {/* Tool Grid */}
@@ -253,17 +231,24 @@ export default function IndexPage({ searchQuery }: IndexPageProps) {
                   className={page <= 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
                 />
               </PaginationItem>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
-                <PaginationItem key={n}>
-                  <PaginationLink
-                    isActive={page === n}
-                    onClick={() => setPage(n)}
-                    className="cursor-pointer"
-                  >
-                    {n}
-                  </PaginationLink>
+              
+              {/* 智能分页显示 */}
+              {getVisiblePages(totalPages, page).map((pageNum, index) => (
+                <PaginationItem key={index}>
+                  {pageNum === "..." ? (
+                    <span className="px-3 py-2 text-sm text-muted-foreground">...</span>
+                  ) : (
+                    <PaginationLink
+                      isActive={page === pageNum}
+                      onClick={() => setPage(pageNum as number)}
+                      className="cursor-pointer"
+                    >
+                      {pageNum}
+                    </PaginationLink>
+                  )}
                 </PaginationItem>
               ))}
+              
               <PaginationItem>
                 <PaginationNext
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
