@@ -78,7 +78,7 @@ class AutoAiReviewService {
       progressCallback?.(0, pendingTools.length, '开始AI审核...');
 
       // 批量AI审核
-      const reviewResults = await deepSeekService.reviewToolsBatch(
+      const reviewResults = await deepSeekService.instance.reviewToolsBatch(
         pendingTools,
         (current, toolName) => {
           progressCallback?.(current, pendingTools.length, `正在审核: ${toolName}`);

@@ -30,19 +30,60 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
   const { toast } = useToast();
   const { isLoggedIn, username } = useAuth();
 
-  console.log('ToolDetailModal - AI审核数据检查:', {
+  console.log('ToolDetailModal - 完整工具数据检查:', tool);
+  console.log('ToolDetailModal - AI搜索数据检查:', {
     toolName: tool?.name,
-    aiQualityScore: tool?.aiQualityScore,
-    aiQualityReview: tool?.aiQualityReview,
-    aiReviewDate: tool?.aiReviewDate,
-    aiReviewNotes: tool?.aiReviewNotes
+    websiteUrl: tool?.websiteUrl,
+    pricingType: tool?.pricingType,
+    ai_match_score: (tool as any)?.ai_match_score,
+    ai_match_reason: (tool as any)?.ai_match_reason
   });
 
-  if (!tool || !isOpen) return null;
+  if (!tool || !isOpen) {
+    console.log('ToolDetailModal - 早期返回:', { tool: !!tool, isOpen });
+    return null;
+  }
+
+  console.log('ToolDetailModal - 开始渲染工具详情:', tool.name);
+  
+  // 详细检查每个字段
+  console.log('ToolDetailModal - 字段检查:', {
+    name: tool.name,
+    tagline: tool.tagline,
+    description: tool.description,
+    websiteUrl: tool.websiteUrl,
+    category: tool.category,
+    pricingType: tool.pricingType,
+    isChinaAvailable: tool.isChinaAvailable,
+    isChineseSupported: tool.isChineseSupported,
+    rating: tool.rating,
+    ratingCount: tool.ratingCount,
+    viewCount: tool.viewCount,
+    tags: tool.tags,
+    createdAt: tool.createdAt
+  });
 
   const cat = categories.find((c) => c.id === tool.category);
   const bgColor = categoryColorMap[tool.category] || "hsl(0,0%,60%)";
-  const logoUrl = getToolLogo(tool.websiteUrl);
+  const logoUrl = getToolLogo(tool.websiteUrl || '');
+
+  // 安全的字段访问
+  const safeTool = {
+    ...tool,
+    name: tool.name || '未知工具',
+    tagline: tool.tagline || '',
+    description: tool.description || '暂无描述',
+    websiteUrl: tool.websiteUrl || '',
+    category: tool.category || 'other',
+    pricingType: tool.pricingType || 'free',
+    isChinaAvailable: tool.isChinaAvailable || false,
+    isChineseSupported: tool.isChineseSupported || false,
+    rating: tool.rating || 0,
+    ratingCount: tool.ratingCount || 0,
+    viewCount: tool.viewCount || 0,
+    tags: tool.tags || [],
+    createdAt: tool.createdAt || new Date().toISOString()
+  };
 
   const handleImageError = () => setImageError(true);
   const handleImageLoad = () => setImageLoaded(true);
@@ -52,8 +93,8 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
   
     try {
       // 计算新的平均分
-      const newRatingCount = (tool.ratingCount || 0) + 1;
-      const newRating = ((tool.rating || 0) * (tool.ratingCount || 0) + r) / newRatingCount;
+      const newRatingCount = (safeTool.ratingCount || 0) + 1;
+      const newRating = ((safeTool.rating || 0) * (safeTool.ratingCount || 0) + r) / newRatingCount;
       
       // 更新数据库
       await supabase
@@ -62,7 +103,7 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
           rating: Math.round(newRating * 10) / 10,  // 保留1位小数
           rating_count: newRatingCount 
         })
-        .eq('id', tool.id);
+        .eq('id', safeTool.id);
       
       // 更新本地状态
       tool.rating = Math.round(newRating * 10) / 10;
@@ -77,15 +118,15 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
 
   const handleEdit = () => {
     setEditForm({
-      name: tool.name,
-      tagline: tool.tagline,
-      description: tool.description,
-      websiteUrl: tool.websiteUrl,
-      category: tool.category,
-      tags: tool.tags,
-      pricingType: tool.pricingType,
-      isChinaAvailable: tool.isChinaAvailable,
-      isChineseSupported: tool.isChineseSupported
+      name: safeTool.name,
+      tagline: safeTool.tagline,
+      description: safeTool.description,
+      websiteUrl: safeTool.websiteUrl,
+      category: safeTool.category,
+      tags: safeTool.tags,
+      pricingType: safeTool.pricingType,
+      isChinaAvailable: safeTool.isChinaAvailable,
+      isChineseSupported: safeTool.isChineseSupported
     });
     setIsEditing(true);
   };
@@ -129,7 +170,9 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
   };
 
   const handleVisitWebsite = () => {
-    window.open(tool.websiteUrl, '_blank', 'noopener,noreferrer');
+    if (safeTool.websiteUrl) {
+      window.open(safeTool.websiteUrl, '_blank', 'noopener,noreferrer');
+    }
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -176,7 +219,7 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
               
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-bold">{tool.name}</h2>
+                  <h2 className="text-xl font-bold">{safeTool.name}</h2>
                   <button
                     onClick={onClose}
                     className="p-2 rounded-full bg-muted/80 hover:bg-muted transition-colors"
@@ -184,7 +227,7 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                     <X className="h-4 w-4" />
                   </button>
                 </div>
-                <p className="text-muted-foreground text-sm mt-1">{tool.tagline}</p>
+                <p className="text-muted-foreground text-sm mt-1">{safeTool.tagline}</p>
                 
                 <div className="flex flex-wrap items-center gap-2 mt-2">
                   {cat && (
@@ -192,17 +235,18 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                       {cat.icon} {cat.name}
                     </span>
                   )}
-                  <span className={`rounded-full px-2 py-0.5 text-xs ${pricingColorMap[tool.pricingType]}`}>
-                    {pricingLabels[tool.pricingType]}
+                  <span className={`rounded-full px-2 py-0.5 text-xs ${pricingColorMap[safeTool.pricingType]}`}>
+                    {pricingLabels[safeTool.pricingType]}
                   </span>
-                  {tool.isChinaAvailable && (
+                  {safeTool.isChinaAvailable && (
                     <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-600 dark:text-emerald-400">
                       🇨🇳 国内可用
                     </span>
                   )}
-                  {tool.aiQualityScore && (
+                  {/* AI搜索匹配度显示 */}
+                  {(tool as any)?.ai_match_score && (
                     <span className="rounded-full bg-blue-500/15 px-2 py-0.5 text-xs text-blue-600 dark:text-blue-400">
-                      AI:{tool.aiQualityScore.toFixed(1)}
+                      🤖 AI匹配 {Math.round((tool as any).ai_match_score * 100)}%
                     </span>
                   )}
                 </div>
@@ -210,11 +254,11 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                 <div className="flex items-center gap-3 mt-2 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                    {tool.rating} ({tool.ratingCount.toLocaleString()}人评分)
+                    {safeTool.rating} ({safeTool.ratingCount.toLocaleString()}人评分)
                   </span>
                   <span className="flex items-center gap-1">
                     <Eye className="h-4 w-4" />
-                    {tool.viewCount.toLocaleString()}次浏览
+                    {safeTool.viewCount.toLocaleString()}次浏览
                   </span>
                 </div>
               </div>
@@ -224,15 +268,25 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
             <div className="mb-4">
               <h3 className="font-semibold mb-2 text-sm">📖 详细介绍</h3>
               <div className="text-sm text-muted-foreground leading-relaxed">
-                {tool.description}
+                {safeTool.description}
               </div>
             </div>
+
+            {/* AI匹配原因 */}
+            {(tool as any)?.ai_match_reason && (
+              <div className="mb-4">
+                <h3 className="font-semibold mb-2 text-sm">🤖 AI推荐理由</h3>
+                <div className="text-sm text-blue-600 dark:text-blue-400 leading-relaxed bg-blue-50 dark:bg-blue-950/20 p-3 rounded-lg">
+                  {(tool as any).ai_match_reason}
+                </div>
+              </div>
+            )}
 
             {/* 用户评分 */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-sm font-medium">为这个工具评分</h3>
-                <span className="text-sm text-muted-foreground">{tool.rating} ({tool.ratingCount.toLocaleString()}人评分)</span>
+                <span className="text-sm text-muted-foreground">{safeTool.rating} ({safeTool.ratingCount.toLocaleString()}人评分)</span>
               </div>
               <div className="flex items-center gap-2">
                 {[1, 2, 3, 4, 5].map((r) => (
@@ -305,6 +359,16 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                 </div>
                 
                 <div>
+                  <label className="block text-sm font-medium mb-1">详细介绍</label>
+                  <textarea
+                    value={editForm.description || ''}
+                    onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+                    className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    rows={3}
+                  />
+                </div>
+                
+                <div>
                   <label className="block text-sm font-medium mb-1">官网地址</label>
                   <input
                     type="url"
@@ -317,11 +381,11 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                 <div>
                   <label className="block text-sm font-medium mb-1">分类</label>
                   <select
-                    value={editForm.category || ''}
+                    value={editForm.category || tool.category}
                     onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
                     className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
                   >
-                    {categories.filter(c => c.id !== 'all').map(cat => (
+                    {categories.map((cat) => (
                       <option key={cat.id} value={cat.id}>
                         {cat.icon} {cat.name}
                       </option>
@@ -330,9 +394,9 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">收费类型</label>
+                  <label className="block text-sm font-medium mb-1">价格类型</label>
                   <select
-                    value={editForm.pricingType || ''}
+                    value={editForm.pricingType || tool.pricingType}
                     onChange={(e) => setEditForm({ ...editForm, pricingType: e.target.value as any })}
                     className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
                   >
@@ -347,160 +411,41 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                   <label className="flex items-center gap-2 text-sm">
                     <input
                       type="checkbox"
-                      checked={editForm.isChinaAvailable || false}
+                      checked={editForm.isChinaAvailable ?? tool.isChinaAvailable}
                       onChange={(e) => setEditForm({ ...editForm, isChinaAvailable: e.target.checked })}
                       className="rounded border-border"
                     />
-                    国内可用
+                    中国可用
                   </label>
                   
                   <label className="flex items-center gap-2 text-sm">
                     <input
                       type="checkbox"
-                      checked={editForm.isChineseSupported || false}
+                      checked={editForm.isChineseSupported ?? tool.isChineseSupported}
                       onChange={(e) => setEditForm({ ...editForm, isChineseSupported: e.target.checked })}
                       className="rounded border-border"
                     />
                     支持中文
                   </label>
                 </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-1">详细介绍</label>
-                  <textarea
-                    value={editForm.description || ''}
-                    onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-                    rows={4}
-                    className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
-                  />
-                </div>
-                
-                <div className="flex gap-3 pt-2">
-                  <button
-                    onClick={handleSaveEdit}
-                    className="flex-1 px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-                  >
-                    保存更改
-                  </button>
-                  <button
-                    onClick={handleCancelEdit}
-                    className="flex-1 px-4 py-2 text-sm font-medium border border-border bg-background hover:bg-muted rounded-lg transition-colors"
-                  >
-                    取消
-                  </button>
-                </div>
+              </div>
+              
+              <div className="flex gap-2 mt-4">
+                <button
+                  onClick={handleSaveEdit}
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  保存
+                </button>
+                <button
+                  onClick={handleCancelEdit}
+                  className="flex-1 px-4 py-2 border border-border rounded-lg hover:bg-muted transition-colors"
+                >
+                  取消
+                </button>
               </div>
             </div>
           )}
-
-          {/* 详细信息 */}
-          <div className="p-6 space-y-6">
-            {/* AI质量评估 */}
-            <div className="p-4 bg-blue-50/50 dark:bg-blue-950/20 rounded-xl border border-blue-200/50 dark:border-blue-800/50">
-              <h3 className="font-semibold mb-3 flex items-center gap-2">
-                🤖 AI质量评估
-                {tool.aiQualityScore && (
-                  <span className="px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400 text-xs">
-                    评分: {tool.aiQualityScore.toFixed(1)}/10
-                  </span>
-                )}
-              </h3>
-              
-              <div className="space-y-3">
-                {tool.aiQualityScore ? (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">AI评分</span>
-                    <div className="flex items-center gap-2">
-                      <div className="w-24 bg-muted rounded-full h-2">
-                        <div 
-                          className="bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 h-2 rounded-full"
-                          style={{ width: `${(tool.aiQualityScore / 10) * 100}%` }}
-                        ></div>
-                      </div>
-                      <span className="font-medium text-sm">{tool.aiQualityScore.toFixed(1)}</span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">AI评分</span>
-                    <span className="text-sm text-muted-foreground">暂无评分</span>
-                  </div>
-                )}
-                
-                {tool.aiReviewDate ? (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">审核时间</span>
-                    <span className="text-sm">{new Date(tool.aiReviewDate).toLocaleDateString('zh-CN')}</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">审核时间</span>
-                    <span className="text-sm text-muted-foreground">暂无审核记录</span>
-                  </div>
-                )}
-                
-                {tool.aiReviewNotes ? (
-                  <div>
-                    <div className="text-sm text-muted-foreground mb-1">AI备注</div>
-                    <div className="text-sm text-muted-foreground italic">{tool.aiReviewNotes}</div>
-                  </div>
-                ) : (
-                  <div>
-                    <div className="text-sm text-muted-foreground mb-1">AI备注</div>
-                    <div className="text-sm text-muted-foreground italic">暂无备注信息</div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* 工具信息 */}
-            <div className="p-4 bg-background rounded-xl border border-border">
-              <h3 className="font-semibold mb-3 text-sm">📋 工具信息</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">分类</span>
-                  <span>{cat?.icon} {cat?.name}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">收费类型</span>
-                  <span>{pricingLabels[tool.pricingType]}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">国内可用</span>
-                  <span>{tool.isChinaAvailable ? "✅ 可直接访问" : "❌ 需翻墙"}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">中文支持</span>
-                  <span>{tool.isChineseSupported ? "✅ 支持中文" : "❌ 暂不支持"}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">官网</span>
-                  <a 
-                    href={tool.websiteUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline text-sm break-all"
-                  >
-                    {tool.websiteUrl}
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* 标签 */}
-            {tool.tags.length > 0 && (
-              <div className="p-4 bg-background rounded-xl border border-border">
-                <h3 className="font-semibold mb-3 text-sm">🏷️ 标签</h3>
-                <div className="flex flex-wrap gap-2">
-                  {tool.tags.map((tag: string) => (
-                    <span key={tag} className="rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </div>

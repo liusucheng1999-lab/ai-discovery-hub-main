@@ -20,6 +20,9 @@ export interface Tool {
   aiQualityReview?: any; // AI质量评估详细结果JSON
   aiReviewDate?: string; // AI审核时间
   aiReviewNotes?: string; // AI审核备注
+  // 新增分类字段
+  main_category?: string; // 主分类
+  sub_category?: string; // 子分类
 }
 
 export const categories = [

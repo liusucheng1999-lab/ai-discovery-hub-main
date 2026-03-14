@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { pricingLabels, Tool } from "@/lib/mock-data";
 import { supabase } from "@/lib/supabase";
-import { CategoryService } from "@/lib/category-service";
 import { CategoryWithSubCategories } from "@/lib/types";
 import ToolCardWithButtons from "@/components/ToolCardWithButtons";
 import ToolDetailModal from "@/components/ToolDetailModal";
@@ -33,11 +32,12 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
   // 新的搜索状态
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery || "");
 
-  // 初始状态设为空数组，不要用 mock 数据
-  const [tools, setTools] = useState([]);
-  const [categories, setCategories] = useState([]);
+  // 数据状态 - 添加缓存优化
+  const [tools, setTools] = useState<Tool[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [categoryData, setCategoryData] = useState<CategoryWithSubCategories[]>([]);
   const [loading, setLoading] = useState(true);
+  const [dataLoaded, setDataLoaded] = useState(false); // 添加数据加载状态标记
 
   // 智能分页显示函数
   const getVisiblePages = (totalPages: number, currentPage: number) => {
@@ -67,26 +67,27 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
     return rangeWithDots;
   };
 
-  // 从 Supabase 加载数据
+  // 从 Supabase 加载数据 - 优化版本
   useEffect(() => {
     async function loadData() {
       setLoading(true);
       try {
         console.log('首页：正在从Supabase加载数据');
 
-        // 同时加载分类和工具
-        const [categoriesResult, toolsResult, categoryDataResult] = await Promise.all([
+        // 优化：只查询必要的数据，避免重复查询
+        const [categoriesResult, toolsResult, subCategoriesResult] = await Promise.all([
           supabase.from('main_categories').select('*').order('sort_order'),
           supabase.from('tools').select('*').in('status', ['approved', 'active']).order('view_count', { ascending: false }),
-          CategoryService.getCategoriesWithSubCategories()
+          supabase.from('sub_categories').select('*').order('main_category_id, sort_order')
         ]);
 
+        // 处理分类数据
         if (categoriesResult.data) {
           const allCategories = [
             { id: "all", name: "全部", icon: "" },
             ...categoriesResult.data.map(cat => ({
               ...cat,
-              // 确保显示正确的分类名称
+              // 预先计算分类名称映射
               name: cat.name === '绘画' ? '图像' : 
                      cat.name === '智能' ? '资源' : 
                      cat.name === 'Agent' ? '资源' :
@@ -96,40 +97,44 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
           setCategories(allCategories);
         }
 
-        // 设置工具数据
+        // 设置工具数据 - 优化转换逻辑
         if (toolsResult.data) {
-          // 转换数据格式以适配Tool接口
-          const transformedTools: Tool[] = toolsResult.data.map(tool => ({
+          // 使用更高效的数据转换
+          const transformedTools = toolsResult.data.map((tool: any) => ({
             id: tool.id,
             name: tool.name,
             tagline: tool.tagline,
             description: tool.description,
-            websiteUrl: tool.website_url, // 使用websiteUrl而不是website_url
+            websiteUrl: tool.website_url,
             category: tool.category,
             tags: tool.tags || [],
-            pricingType: tool.pricing_type, // 使用pricingType而不是pricing_type
-            isChinaAvailable: tool.is_china_available, // 使用isChinaAvailable
-            isChineseSupported: tool.is_chinese_supported, // 使用isChineseSupported
+            pricingType: tool.pricing_type,
+            isChinaAvailable: tool.is_china_available,
+            isChineseSupported: tool.is_chinese_supported,
             rating: tool.rating || 0,
-            ratingCount: tool.rating_count || 0, // 使用ratingCount
-            viewCount: tool.view_count || 0, // 使用viewCount
+            ratingCount: tool.rating_count || 0,
+            viewCount: tool.view_count || 0,
             screenshots: tool.screenshots || [],
-            createdAt: tool.created_at, // 使用createdAt
-            logoUrl: tool.logo_url, // 如果tools表有logo_url字段
-            aiQualityScore: tool.ai_quality_score, // 使用aiQualityScore
-            aiQualityReview: tool.ai_quality_review, // 使用aiQualityReview
-            aiReviewDate: tool.ai_review_date, // 使用aiReviewDate
-            aiReviewNotes: tool.ai_review_notes, // 使用aiReviewNotes,
-            main_category: tool.main_category, // 新增主分类
-            sub_category: tool.sub_category // 新增子分类
+            createdAt: tool.created_at,
+            logoUrl: tool.logo_url,
+            aiQualityScore: tool.ai_quality_score,
+            aiQualityReview: tool.ai_quality_review,
+            aiReviewDate: tool.ai_review_date,
+            aiReviewNotes: tool.ai_review_notes,
+            main_category: tool.main_category,
+            sub_category: tool.sub_category
           }));
           
           setTools(transformedTools);
         }
 
-        // 设置分类数据
-        if (categoryDataResult) {
-          setCategoryData(categoryDataResult);
+        // 构建分类数据 - 避免重复查询
+        if (categoriesResult.data && subCategoriesResult.data) {
+          const categoryData = categoriesResult.data.map(main => ({
+            ...main,
+            sub_categories: subCategoriesResult.data.filter(sub => sub.main_category_id === main.id)
+          }));
+          setCategoryData(categoryData);
         }
 
       } catch (err) {
@@ -208,16 +213,6 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
   // Reset page when filters change
   useEffect(() => setPage(1), [activeCategory, selectedSubCategory, searchQuery, sortBy]);
 
-  // 加载中时显示 loading 状态
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
-        <p className="ml-3">加载中...</p>
-      </div>
-    );
-  }
-
   return (
     <>
       <Helmet>
@@ -247,22 +242,31 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
       {/* Category Tabs - 吸顶 */}
       <div className="sticky top-16 z-20 bg-background/95 backdrop-blur-sm -mx-6 px-6 py-0">
         <div className="flex gap-1 border-b border-border overflow-x-auto pb-0">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => {
-                setActiveCategory(cat.id);
-                setSelectedSubCategory(""); // 重置子分类
-              }}
-              className={`shrink-0 px-4 py-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
-                activeCategory === cat.id
-                  ? "border-primary text-primary"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {cat.icon} {cat.name} ({categoryCounts[cat.id] || 0})
-            </button>
-          ))}
+          {categories.length > 0 ? (
+            categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => {
+                  setActiveCategory(cat.id);
+                  setSelectedSubCategory(""); // 重置子分类
+                }}
+                className={`shrink-0 px-4 py-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
+                  activeCategory === cat.id
+                    ? "border-primary text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {cat.icon} {cat.name} ({categoryCounts[cat.id] || 0})
+              </button>
+            ))
+          ) : (
+            // 分类加载中的占位符
+            <div className="flex gap-1">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="shrink-0 px-4 py-3 h-10 bg-muted/30 rounded-t-md animate-pulse"></div>
+              ))}
+            </div>
+          )}
         </div>
         
         {/* 子分类选择器 */}
@@ -319,10 +323,17 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
       </div>
 
       {/* Tool Grid */}
-      {paged.length > 0 ? (
+      {tools.length > 0 ? (
         <div className="grid grid-cols-4 gap-5">
           {paged.map((tool) => (
             <ToolCardWithButtons key={tool.id} tool={tool} searchQuery={searchQuery} />
+          ))}
+        </div>
+      ) : loading ? (
+        // 工具加载中的占位符
+        <div className="grid grid-cols-4 gap-5">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+            <div key={i} className="bg-muted/30 rounded-lg h-64 animate-pulse"></div>
           ))}
         </div>
       ) : (

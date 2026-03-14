@@ -185,7 +185,7 @@ export class BatchReviewService {
           console.log(`审核工具 ${i + 1}/${tools.length}: ${tool.name}`);
 
           // 调用AI审核
-          const result = await deepSeekService.reviewTool(tool);
+          const result = await deepSeekService.instance.reviewTool(tool);
 
           // 保存审核结果到ai_review_results表
           const { error: saveError } = await supabase

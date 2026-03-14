@@ -1,18 +1,11 @@
-import { Search, Sun, Moon, LogOut, Menu, X } from "lucide-react";
+import { Sun, Moon, LogOut, Menu, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "./ThemeProvider";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import { useState, useEffect } from "react";
 
-interface NavbarProps {
-  searchQuery: string;
-  onSearchChange: (query: string) => void;
-}
-
-export default function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
+export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const { isLoggedIn, username, logout } = useAuth();
   const navigate = useNavigate();
@@ -34,16 +27,6 @@ export default function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
         <Link to="/" className="text-xl font-bold text-gradient shrink-0">
           AI创客
         </Link>
-
-        <div className="relative w-[400px]">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="搜索AI工具..."
-            className="pl-9 rounded-lg"
-          />
-        </div>
 
         <div className="flex-grow" />
 

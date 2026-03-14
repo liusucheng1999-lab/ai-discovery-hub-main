@@ -47,6 +47,10 @@ export default function ToolCard({ tool, searchQuery = "", small = false }: Tool
   
   // 优先使用数据库中的logo_url，如果没有则动态计算
   const logoUrl = tool.logoUrl || getToolLogo(tool.websiteUrl);
+  
+  // AI搜索匹配度信息
+  const aiMatchScore = (tool as any).ai_match_score;
+  const aiMatchReason = (tool as any).ai_match_reason;
 
   const handleImageError = () => {
     setImageError(true);
@@ -99,12 +103,29 @@ export default function ToolCard({ tool, searchQuery = "", small = false }: Tool
             )}
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className={`font-semibold truncate ${small ? "text-sm" : "text-base"}`}>
-              <HighlightText text={tool.name} query={searchQuery} />
-            </h3>
+            <div className="flex items-center gap-2">
+              <h3 className={`font-semibold truncate ${small ? "text-sm" : "text-base"}`}>
+                <HighlightText text={tool.name} query={searchQuery} />
+              </h3>
+              {/* AI搜索匹配度显示 */}
+              {aiMatchScore && (
+                <div className="flex items-center gap-1 shrink-0">
+                  <Sparkles className="h-3 w-3 text-blue-500" />
+                  <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">
+                    {Math.round(aiMatchScore * 100)}%
+                  </span>
+                </div>
+              )}
+            </div>
             <p className={`mt-1 text-muted-foreground line-clamp-2 ${small ? "text-xs" : "text-sm"}`}>
               <HighlightText text={tool.tagline} query={searchQuery} />
             </p>
+            {/* AI匹配原因 */}
+            {aiMatchReason && (
+              <p className="mt-1 text-xs text-blue-600 dark:text-blue-400 line-clamp-2">
+                {aiMatchReason}
+              </p>
+            )}
           </div>
         </div>
 

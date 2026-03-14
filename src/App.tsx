@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,8 +20,6 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
@@ -33,10 +30,10 @@ const App = () => {
               <Sonner />
               <BrowserRouter>
                 <div className="flex min-h-screen flex-col">
-                  <Navbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+                  <Navbar />
                   <div className="flex-1">
                     <Routes>
-                      <Route path="/" element={<Index searchQuery={searchQuery} />} />
+                      <Route path="/" element={<Index />} />
                       <Route path="/tools/submit" element={<SubmitTool />} />
                       <Route path="/login" element={<Login />} />
                       <Route path="/setup-admin" element={<SetupAdmin />} />

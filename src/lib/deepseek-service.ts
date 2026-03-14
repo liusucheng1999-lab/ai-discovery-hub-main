@@ -535,5 +535,16 @@ ${existingTools.map(t => t.name).join(', ')}`;
   }
 }
 
-export const deepSeekService = new DeepSeekService();
+// 延迟初始化DeepSeekService，避免在首页加载时初始化
+let deepSeekServiceInstance: DeepSeekService | null = null;
+
+export const deepSeekService = {
+  get instance() {
+    if (!deepSeekServiceInstance) {
+      deepSeekServiceInstance = new DeepSeekService();
+    }
+    return deepSeekServiceInstance;
+  }
+};
+
 export type { AIReviewResult, ToolSubmission, ExistingTool };

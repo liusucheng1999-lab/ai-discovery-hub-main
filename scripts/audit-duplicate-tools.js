@@ -1,7 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = 'https://enzduxajblrfbbdktieo.supabase.co'
-const supabaseKey = 'sb_publishable_qsN5GVEkSWOQ3_E7bHtTaA_Y_ZM0Yo4'
+const supabaseUrl = process.env.SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('缺少环境变量：SUPABASE_URL 以及 SUPABASE_ANON_KEY（或 SUPABASE_SERVICE_ROLE_KEY）')
+}
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
