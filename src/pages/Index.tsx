@@ -85,13 +85,23 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
       setLoading(true);
       try {
         console.log('首页：正在从Supabase加载数据');
+        
+        // 强制清除缓存
+        localStorage.removeItem('tools-cache');
+        localStorage.removeItem('categories-cache');
 
         // 优化：只查询必要的数据，避免重复查询
         const [categoriesResult, toolsResult, subCategoriesResult] = await Promise.all([
           supabase.from('main_categories').select('*').order('sort_order'),
-          supabase.from('tools').select('*').eq('status', 'active').order('view_count', { ascending: false }),
+          supabase.from('tools').select('*', { count: 'exact' }).eq('status', 'active').order('view_count', { ascending: false }).limit(2000),
           supabase.from('sub_categories').select('*').order('main_category_id, sort_order')
         ]);
+
+        console.log('工具查询结果:', {
+          总数: toolsResult.data?.length || 0,
+          状态: 'active',
+          数据: toolsResult.data?.slice(0, 3) // 只显示前3条用于调试
+        });
 
         // 处理分类数据
         if (categoriesResult.data) {
@@ -108,6 +118,8 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
 
         // 设置工具数据 - 优化转换逻辑
         if (toolsResult.data) {
+          console.log('🔍 原始查询结果长度:', toolsResult.data.length);
+          
           // 使用更高效的数据转换
           const transformedTools = toolsResult.data.map((tool: any) => ({
             id: tool.id,
@@ -134,6 +146,7 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
             sub_category: tool.sub_category
           }));
           
+          console.log('🔍 转换后工具数组长度:', transformedTools.length);
           setTools(transformedTools);
         }
 
@@ -164,14 +177,51 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
   // 计算分类数量（基于当前工具数据）
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
-    tools.forEach((t) => {
-      // 优先使用新的main_category字段，如果没有则使用旧的category字段
-      const category = t.main_category || t.category;
-      counts[category] = (counts[category] || 0) + 1;
+
+    const mainCategoryIds = new Set(
+      categories
+        .map((c: any) => c?.id)
+        .filter((id: any) => typeof id === 'string' && id && id !== 'all')
+    );
+
+    const nameToId = new Map<string, string>();
+    categories.forEach((c: any) => {
+      if (typeof c?.id === 'string' && c.id && typeof c?.name === 'string' && c.name) {
+        nameToId.set(c.name, c.id);
+      }
     });
-    counts["all"] = tools.length;
+
+    let allCount = 0;
+    let uncategorizedCount = 0;
+
+    tools.forEach((t) => {
+      let mainId = t.main_category;
+
+      // 兼容旧数据：如果 main_category 缺失，但 category 是中文主分类名，则映射到主分类 id
+      if (!mainId && typeof t.category === 'string' && t.category) {
+        const mappedId = nameToId.get(t.category);
+        if (mappedId) mainId = mappedId;
+      }
+
+      if (typeof mainId === 'string' && mainId && mainCategoryIds.has(mainId)) {
+        counts[mainId] = (counts[mainId] || 0) + 1;
+        allCount += 1;
+      } else {
+        uncategorizedCount += 1;
+      }
+    });
+
+    counts["all"] = allCount;
+
+    console.log('分类计数:', {
+      "工具数组长度": tools.length,
+      "可归类工具数": allCount,
+      "未归类/异常分类工具数": uncategorizedCount,
+      "各分类计数": counts
+    });
+
     return counts;
-  }, [tools]);
+  }, [tools, categories]);
 
   const filtered = useMemo(() => {
     console.log('筛选逻辑执行:', { searchQuery });
