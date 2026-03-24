@@ -1,11 +1,122 @@
-import { useState } from "react";
-import { X, ExternalLink, Star, Eye, Info, Edit } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, ExternalLink, Star, Eye, Info, Edit, Trash2 } from "lucide-react";
 import { type Tool, categoryColorMap, categories, pricingLabels } from "@/lib/mock-data";
 import { getToolLogo } from "@/lib/logo-utils";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+
+// 分类名称映射
+const categoryNames: Record<string, string> = {
+  'chat': '对话',
+  'writing': '写作',
+  'visual': '视觉',
+  'audio': '音频',
+  'coding': '编程',
+  'office': '办公',
+  'tools': '工具',
+  'career': '职场'
+};
+
+// 子分类名称映射
+const subCategoryNames: Record<string, string> = {
+  // 对话类
+  'chat_domestic': '国产模型',
+  'chat_overseas': '海外模型',
+  'chat_fun': '趣味聊天',
+  
+  // 写作类
+  'writing_copy': '文案创作',
+  'writing_academic': '论文学术',
+  'writing_novel': '小说网文',
+  'writing_document': '文档解析',
+  
+  // 视觉类
+  'visual_image_gen': '图像生成',
+  'visual_image_process': '图像处理',
+  'visual_creative': '创意设计',
+  'visual_video': '视频数字人',
+  
+  // 音频类
+  'audio_music': '音乐生成',
+  'audio_voice': '配音克隆',
+  'audio_transcribe': '语音转写',
+  'audio_edit': '音频编辑',
+  
+  // 编程类
+  'coding_code': '代码编写',
+  'coding_ai': 'AI工程',
+  'coding_dev': '开发工具',
+  'coding_agent': '智能体开发',
+  
+  // 办公类
+  'office_ppt': 'PPT演示',
+  'office_doc': '文档协同',
+  'office_data': '数据表格',
+  'office_mind': '思维导图',
+  
+  // 工具类
+  'tools_search': '智能搜索',
+  'tools_efficiency': '效率工具',
+  'tools_learn': '学习科研',
+  'tools_niche': '小众工具',
+  
+  // 职场类
+  'career_job': '求职辅助',
+  'career_legal': '法律合规',
+  'career_work': '职场工具'
+};
+
+// 子分类选项映射
+const subCategoryOptions: Record<string, Array<{id: string, name: string}>> = {
+  'chat': [
+    { id: 'chat_domestic', name: '国产模型' },
+    { id: 'chat_overseas', name: '海外模型' },
+    { id: 'chat_fun', name: '趣味聊天' }
+  ],
+  'writing': [
+    { id: 'writing_copy', name: '文案创作' },
+    { id: 'writing_academic', name: '论文学术' },
+    { id: 'writing_novel', name: '小说网文' },
+    { id: 'writing_document', name: '文档解析' }
+  ],
+  'visual': [
+    { id: 'visual_image_gen', name: '图像生成' },
+    { id: 'visual_image_process', name: '图像处理' },
+    { id: 'visual_creative', name: '创意设计' },
+    { id: 'visual_video', name: '视频数字人' }
+  ],
+  'audio': [
+    { id: 'audio_music', name: '音乐生成' },
+    { id: 'audio_voice', name: '配音克隆' },
+    { id: 'audio_transcribe', name: '语音转写' },
+    { id: 'audio_edit', name: '音频编辑' }
+  ],
+  'coding': [
+    { id: 'coding_code', name: '代码编写' },
+    { id: 'coding_ai', name: 'AI工程' },
+    { id: 'coding_dev', name: '开发工具' },
+    { id: 'coding_agent', name: '智能体开发' }
+  ],
+  'office': [
+    { id: 'office_ppt', name: 'PPT演示' },
+    { id: 'office_doc', name: '文档协同' },
+    { id: 'office_data', name: '数据表格' },
+    { id: 'office_mind', name: '思维导图' }
+  ],
+  'tools': [
+    { id: 'tools_search', name: '智能搜索' },
+    { id: 'tools_efficiency', name: '效率工具' },
+    { id: 'tools_learn', name: '学习科研' },
+    { id: 'tools_niche', name: '小众工具' }
+  ],
+  'career': [
+    { id: 'career_job', name: '求职辅助' },
+    { id: 'career_legal', name: '法律合规' },
+    { id: 'career_work', name: '职场工具' }
+  ]
+};
 
 const pricingColorMap: Record<string, string> = {
   free: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
@@ -123,6 +234,8 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
       description: safeTool.description,
       websiteUrl: safeTool.websiteUrl,
       category: safeTool.category,
+      main_category: (tool as any).main_category || '',
+      sub_category: (tool as any).sub_category || '',
       tags: safeTool.tags,
       pricingType: safeTool.pricingType,
       isChinaAvailable: safeTool.isChinaAvailable,
@@ -141,6 +254,8 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
           description: editForm.description,
           website_url: editForm.websiteUrl,
           category: editForm.category,
+          main_category: editForm.main_category,
+          sub_category: editForm.sub_category,
           tags: editForm.tags,
           pricing_type: editForm.pricingType,
           is_china_available: editForm.isChinaAvailable,
@@ -161,6 +276,32 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
     } catch (err) {
       console.error('保存失败:', err);
       toast({ title: "保存失败", description: "请稍后重试" });
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!confirm(`确定要删除工具"${safeTool.name}"吗？此操作不可恢复。`)) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('tools')
+        .delete()
+        .eq('id', tool.id);
+
+      if (error) {
+        throw error;
+      }
+
+      toast({ title: "删除成功", description: "工具已被删除" });
+      onClose();
+      
+      // 触发页面刷新以更新列表
+      window.location.reload();
+    } catch (err) {
+      console.error('删除失败:', err);
+      toast({ title: "删除失败", description: "请稍后重试" });
     }
   };
 
@@ -311,13 +452,22 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
             {/* 操作按钮 */}
             <div className="flex gap-3">
               {isLoggedIn && (
-                <button
-                  onClick={handleEdit}
-                  className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-xl transition-all duration-200"
-                >
-                  <Edit className="h-4 w-4" />
-                  编辑
-                </button>
+                <>
+                  <button
+                    onClick={handleEdit}
+                    className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-xl transition-all duration-200"
+                  >
+                    <Edit className="h-4 w-4" />
+                    编辑
+                  </button>
+                  <button
+                    onClick={handleDelete}
+                    className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-all duration-200"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    删除
+                  </button>
+                </>
               )}
               <button
                 onClick={handleVisitWebsite}
@@ -379,7 +529,40 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">分类</label>
+                  <label className="block text-sm font-medium mb-1">主分类</label>
+                  <select
+                    value={editForm.main_category || (tool as any).main_category || ''}
+                    onChange={(e) => setEditForm({ ...editForm, main_category: e.target.value, sub_category: '' })}
+                    className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  >
+                    <option value="">请选择主分类</option>
+                    {Object.entries(categoryNames).map(([id, name]) => (
+                      <option key={id} value={id}>
+                        {name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-1">二级分类</label>
+                  <select
+                    value={editForm.sub_category || (tool as any).sub_category || ''}
+                    onChange={(e) => setEditForm({ ...editForm, sub_category: e.target.value })}
+                    className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    disabled={!editForm.main_category && !(tool as any).main_category}
+                  >
+                    <option value="">请选择二级分类</option>
+                    {subCategoryOptions[editForm.main_category || (tool as any).main_category || '']?.map((sub) => (
+                      <option key={sub.id} value={sub.id}>
+                        {sub.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-1">旧版分类（兼容性）</label>
                   <select
                     value={editForm.category || tool.category}
                     onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
