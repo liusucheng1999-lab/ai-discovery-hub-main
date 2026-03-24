@@ -250,7 +250,7 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
   };
 
   const handleDelete = async () => {
-    console.log('=== 开始删除工具（通过API）===');
+    console.log('=== 开始删除工具 ===');
     console.log('工具名称:', safeTool.name);
     console.log('工具ID:', tool.id);
     console.log('登录状态:', isLoggedIn);
@@ -285,27 +285,29 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
         deleteButton.disabled = true;
       }
       
-      console.log('正在通过API删除工具ID:', tool.id);
+      console.log('正在删除工具ID:', tool.id);
       
-      // 调用删除API
-      const response = await fetch('/api/delete-tool-simple', {
-        method: 'POST',
+      // 使用服务密钥直接调用Supabase REST API
+      const response = await fetch(`${process.env.VITE_SUPABASE_URL}/rest/v1/tools?id=eq.${tool.id}`, {
+        method: 'DELETE',
         headers: {
+          'apikey': process.env.VITE_SUPABASE_SERVICE_KEY,
+          'Authorization': `Bearer ${process.env.VITE_SUPABASE_SERVICE_KEY}`,
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          toolId: tool.id
-        })
+          'Prefer': 'return=representation'
+        }
       });
 
-      const result = await response.json();
-      console.log('API删除结果:', result);
-
+      console.log('删除API响应状态:', response.status);
+      
       if (!response.ok) {
-        throw new Error(result.error || '删除失败');
+        const errorText = await response.text();
+        console.error('删除失败:', errorText);
+        throw new Error(`删除失败: ${errorText}`);
       }
 
-      console.log('✅ 删除成功，API返回:', result);
+      const data = await response.json();
+      console.log('✅ 删除成功，删除的数据:', data);
       
       // 显示成功消息
       alert('删除成功！工具已被删除。');
