@@ -10,6 +10,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
+import CategoryPage from "./pages/CategoryPage";
+import ToolDetailPage from "./pages/ToolDetailPage";
 import SubmitTool from "./pages/SubmitTool";
 import Login from "./pages/Login";
 import SetupAdmin from "./pages/SetupAdmin";
@@ -34,6 +36,12 @@ const App = () => {
                   <div className="flex-1">
                     <Routes>
                       <Route path="/" element={<Index />} />
+                      <Route path="/ai-writing" element={<CategoryPage />} />
+                      <Route path="/ai-drawing" element={<CategoryPage />} />
+                      <Route path="/ai-office" element={<CategoryPage />} />
+                      <Route path="/ai-video" element={<CategoryPage />} />
+                      <Route path="/ai-code" element={<CategoryPage />} />
+                      <Route path="/tool/:toolId" element={<ToolDetailPage />} />
                       <Route path="/tools/submit" element={<SubmitTool />} />
                       <Route path="/login" element={<Login />} />
                       <Route path="/setup-admin" element={<SetupAdmin />} />

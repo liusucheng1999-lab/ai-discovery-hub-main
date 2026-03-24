@@ -1,14 +1,36 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
+
+# 允许抓取首页
+Allow: /
+
+# 允许抓取分类页面
+Allow: /ai-writing
+Allow: /ai-drawing
+Allow: /ai-office
+Allow: /ai-video
+Allow: /ai-code
+
+# 允许抓取工具页面
+Allow: /tool/
+
+# 禁止抓取管理页面
+Disallow: /admin/
+Disallow: /login
+Disallow: /setup-admin
+Disallow: /create-admin
+Disallow: /tools/submit
+
+# 禁止抓取API和静态资源
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /*.json$
+
+# 站点地图
+Sitemap: https://aimakerbox.com/sitemap.xml
+
+# 爬取延迟（可选）
+Crawl-delay: 1

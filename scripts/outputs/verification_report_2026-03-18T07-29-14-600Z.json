@@ -1,0 +1,176 @@
+{
+  "metadata": {
+    "verificationTime": "2026-03-18T07:29:14.594Z",
+    "operation": "category_update_verification"
+  },
+  "summary": {
+    "totalTools": 1000,
+    "categorizedTools": 1000,
+    "categorizationRate": "100.0",
+    "uncategorizedTools": 0
+  },
+  "categoryStats": {
+    "search": 37,
+    "chat": 363,
+    "coding": 121,
+    "image": 108,
+    "video": 145,
+    "audio": 70,
+    "writing": 96,
+    "office": 60
+  },
+  "subCategoryStats": {
+    "search_search_smart": 37,
+    "chat_chat_general": 356,
+    "coding_coding_generation": 121,
+    "image_image_generation": 101,
+    "video_video_generation": 145,
+    "audio_audio_synthesis": 70,
+    "writing_writing_marketing": 96,
+    "image_image_editing": 7,
+    "office_office_meeting": 4,
+    "office_office_document": 55,
+    "chat_chat_professional": 7,
+    "office_office_presentation": 1
+  },
+  "integrity": {
+    "totalIssues": 0,
+    "issues": {
+      "invalidMainCategories": [],
+      "invalidSubCategories": [],
+      "orphanedSubCategories": [],
+      "missingSubCategories": []
+    }
+  },
+  "distribution": {
+    "totalTools": 1000,
+    "categoryDistribution": {
+      "coding_coding_generation": 109,
+      "office_office_document": 54,
+      "video_video_generation": 147,
+      "image_image_generation": 85,
+      "chat_chat_general": 379,
+      "audio_audio_synthesis": 68,
+      "writing_writing_marketing": 97,
+      "office_office_meeting": 4,
+      "search_search_smart": 37,
+      "chat_chat_professional": 9,
+      "image_image_editing": 5,
+      "image_image_design": 5,
+      "office_office_presentation": 1
+    },
+    "viewDistribution": {
+      "coding_coding_generation": 507396,
+      "office_office_document": 261624,
+      "video_video_generation": 763253,
+      "image_image_generation": 416985,
+      "chat_chat_general": 1832838,
+      "audio_audio_synthesis": 351391,
+      "writing_writing_marketing": 496373,
+      "office_office_meeting": 23701,
+      "search_search_smart": 179146,
+      "chat_chat_professional": 40924,
+      "image_image_editing": 17391,
+      "image_image_design": 17457,
+      "office_office_presentation": 3457
+    },
+    "emptyCategories": [],
+    "sparseCategories": [
+      {
+        "category": "office_office_presentation",
+        "count": 1
+      }
+    ],
+    "popularCategories": [
+      {
+        "category": "chat_chat_general",
+        "count": 379
+      },
+      {
+        "category": "video_video_generation",
+        "count": 147
+      },
+      {
+        "category": "coding_coding_generation",
+        "count": 109
+      },
+      {
+        "category": "writing_writing_marketing",
+        "count": 97
+      },
+      {
+        "category": "image_image_generation",
+        "count": 85
+      },
+      {
+        "category": "audio_audio_synthesis",
+        "count": 68
+      },
+      {
+        "category": "office_office_document",
+        "count": 54
+      },
+      {
+        "category": "search_search_smart",
+        "count": 37
+      },
+      {
+        "category": "chat_chat_professional",
+        "count": 9
+      },
+      {
+        "category": "image_image_editing",
+        "count": 5
+      }
+    ],
+    "highViewCategories": [
+      {
+        "category": "chat_chat_general",
+        "views": 1832838
+      },
+      {
+        "category": "video_video_generation",
+        "views": 763253
+      },
+      {
+        "category": "coding_coding_generation",
+        "views": 507396
+      },
+      {
+        "category": "writing_writing_marketing",
+        "views": 496373
+      },
+      {
+        "category": "image_image_generation",
+        "views": 416985
+      },
+      {
+        "category": "audio_audio_synthesis",
+        "views": 351391
+      },
+      {
+        "category": "office_office_document",
+        "views": 261624
+      },
+      {
+        "category": "search_search_smart",
+        "views": 179146
+      },
+      {
+        "category": "chat_chat_professional",
+        "views": 40924
+      },
+      {
+        "category": "office_office_meeting",
+        "views": 23701
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "low",
+      "type": "distribution",
+      "message": "发现1个稀疏分类（少于3个工具），考虑合并或重新分类"
+    }
+  ]
+}

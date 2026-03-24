@@ -1,0 +1,249 @@
+{
+  "metadata": {
+    "verificationTime": "2026-03-18T06:57:53.099Z",
+    "operation": "category_update_verification"
+  },
+  "summary": {
+    "totalTools": 1000,
+    "categorizedTools": 1000,
+    "categorizationRate": "100.0",
+    "uncategorizedTools": 0
+  },
+  "categoryStats": {
+    "chat": 163,
+    "tools": 396,
+    "coding": 94,
+    "video": 90,
+    "writing": 65,
+    "image": 57,
+    "ai_agent": 55,
+    "audio": 26,
+    "office": 37,
+    "search": 17
+  },
+  "subCategoryStats": {
+    "chat_chat_professional": 82,
+    "tools_tools_model": 392,
+    "chat_chat_general": 79,
+    "coding_coding_generation": 89,
+    "video_video_generation": 85,
+    "writing_writing_academic": 9,
+    "image_image_editing": 4,
+    "ai_agent_ai_platform": 54,
+    "audio_audio_composition": 12,
+    "writing_writing_marketing": 44,
+    "image_image_generation": 50,
+    "office_office_presentation": 10,
+    "audio_audio_synthesis": 14,
+    "coding_coding_documentation": 5,
+    "office_office_document": 22,
+    "writing_writing_business": 2,
+    "image_image_design": 3,
+    "search_search_smart": 17,
+    "writing_writing_translation": 10,
+    "chat_chat_companion": 2,
+    "tools_tools_prompt": 2,
+    "video_video_editing": 5,
+    "tools_tools_framework": 1,
+    "ai_agent_ai_other": 1,
+    "office_office_data": 5,
+    "tools_tools_detection": 1
+  },
+  "integrity": {
+    "totalIssues": 1,
+    "issues": {
+      "invalidMainCategories": [],
+      "invalidSubCategories": [
+        {
+          "id": 1773199528523,
+          "name": "稿定AI社区",
+          "invalidSubCategory": "ai_other"
+        }
+      ],
+      "orphanedSubCategories": [],
+      "missingSubCategories": []
+    }
+  },
+  "distribution": {
+    "totalTools": 1000,
+    "categoryDistribution": {
+      "coding_coding_generation": 75,
+      "office_office_document": 21,
+      "tools_tools_model": 436,
+      "chat_chat_general": 61,
+      "ai_agent_ai_platform": 53,
+      "video_video_generation": 86,
+      "office_office_presentation": 10,
+      "audio_audio_composition": 12,
+      "writing_writing_marketing": 45,
+      "chat_chat_professional": 83,
+      "search_search_smart": 17,
+      "coding_coding_documentation": 5,
+      "office_office_data": 5,
+      "image_image_generation": 38,
+      "audio_audio_synthesis": 14,
+      "writing_writing_academic": 9,
+      "writing_writing_translation": 10,
+      "tools_tools_prompt": 2,
+      "writing_writing_business": 2,
+      "tools_tools_framework": 1,
+      "image_image_design": 3,
+      "video_video_editing": 5,
+      "chat_chat_companion": 2,
+      "tools_tools_detection": 1,
+      "ai_agent_ai_other": 1,
+      "image_image_editing": 3
+    },
+    "viewDistribution": {
+      "coding_coding_generation": 348970,
+      "office_office_document": 93314,
+      "tools_tools_model": 2239314,
+      "chat_chat_general": 270145,
+      "ai_agent_ai_platform": 272940,
+      "video_video_generation": 465784,
+      "office_office_presentation": 48083,
+      "audio_audio_composition": 58704,
+      "writing_writing_marketing": 229057,
+      "chat_chat_professional": 357716,
+      "search_search_smart": 87312,
+      "coding_coding_documentation": 26410,
+      "office_office_data": 21600,
+      "image_image_generation": 175227,
+      "audio_audio_synthesis": 68654,
+      "writing_writing_academic": 41053,
+      "writing_writing_translation": 39764,
+      "tools_tools_prompt": 8889,
+      "writing_writing_business": 9029,
+      "tools_tools_framework": 5495,
+      "image_image_design": 10759,
+      "video_video_editing": 12928,
+      "chat_chat_companion": 7768,
+      "tools_tools_detection": 4009,
+      "ai_agent_ai_other": 3922,
+      "image_image_editing": 5090
+    },
+    "emptyCategories": [],
+    "sparseCategories": [
+      {
+        "category": "tools_tools_prompt",
+        "count": 2
+      },
+      {
+        "category": "writing_writing_business",
+        "count": 2
+      },
+      {
+        "category": "tools_tools_framework",
+        "count": 1
+      },
+      {
+        "category": "chat_chat_companion",
+        "count": 2
+      },
+      {
+        "category": "tools_tools_detection",
+        "count": 1
+      },
+      {
+        "category": "ai_agent_ai_other",
+        "count": 1
+      }
+    ],
+    "popularCategories": [
+      {
+        "category": "tools_tools_model",
+        "count": 436
+      },
+      {
+        "category": "video_video_generation",
+        "count": 86
+      },
+      {
+        "category": "chat_chat_professional",
+        "count": 83
+      },
+      {
+        "category": "coding_coding_generation",
+        "count": 75
+      },
+      {
+        "category": "chat_chat_general",
+        "count": 61
+      },
+      {
+        "category": "ai_agent_ai_platform",
+        "count": 53
+      },
+      {
+        "category": "writing_writing_marketing",
+        "count": 45
+      },
+      {
+        "category": "image_image_generation",
+        "count": 38
+      },
+      {
+        "category": "office_office_document",
+        "count": 21
+      },
+      {
+        "category": "search_search_smart",
+        "count": 17
+      }
+    ],
+    "highViewCategories": [
+      {
+        "category": "tools_tools_model",
+        "views": 2239314
+      },
+      {
+        "category": "video_video_generation",
+        "views": 465784
+      },
+      {
+        "category": "chat_chat_professional",
+        "views": 357716
+      },
+      {
+        "category": "coding_coding_generation",
+        "views": 348970
+      },
+      {
+        "category": "ai_agent_ai_platform",
+        "views": 272940
+      },
+      {
+        "category": "chat_chat_general",
+        "views": 270145
+      },
+      {
+        "category": "writing_writing_marketing",
+        "views": 229057
+      },
+      {
+        "category": "image_image_generation",
+        "views": 175227
+      },
+      {
+        "category": "office_office_document",
+        "views": 93314
+      },
+      {
+        "category": "search_search_smart",
+        "views": 87312
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "type": "integrity",
+      "message": "发现1个无效子分类，需要修正"
+    },
+    {
+      "priority": "low",
+      "type": "distribution",
+      "message": "发现6个稀疏分类（少于3个工具），考虑合并或重新分类"
+    }
+  ]
+}

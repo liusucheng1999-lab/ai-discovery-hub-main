@@ -39,6 +39,18 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
   const [loading, setLoading] = useState(true);
   const [dataLoaded, setDataLoaded] = useState(false); // 添加数据加载状态标记
 
+  // 分类URL映射 - 更新为最终标准分类体系
+  const categoryUrlMap: Record<string, string> = {
+    '对话': '/ai-chat',
+    '写作': '/ai-writing',
+    '视觉': '/ai-visual',
+    '音频': '/ai-audio',
+    '编程': '/ai-coding',
+    '办公': '/ai-office',
+    '工具': '/ai-tools',
+    '职场': '/ai-career'
+  };
+
   // 智能分页显示函数
   const getVisiblePages = (totalPages: number, currentPage: number) => {
     const delta = 2; // 当前页前后显示的页数
@@ -87,11 +99,8 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
             { id: "all", name: "全部", icon: "" },
             ...categoriesResult.data.map(cat => ({
               ...cat,
-              // 预先计算分类名称映射
-              name: cat.name === '绘画' ? '图像' : 
-                     cat.name === '智能' ? '资源' : 
-                     cat.name === 'Agent' ? '资源' :
-                     cat.name
+              // 使用新的标准分类名称，无需额外映射
+              name: cat.name
             }))
           ];
           setCategories(allCategories);
@@ -216,8 +225,10 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
   return (
     <>
       <Helmet>
-        <title>AI创客 - 发现最好用的AI工具</title>
-        <meta name="description" content="AI创客 - 精选200+优质AI工具，帮你发现最好用的AI应用" />
+        <title>AI创客 - 全网AI工具导航 | 免费AI工具大全</title>
+        <meta name="description" content="AI创客是专业AI工具导航网站，收录AI写作、AI绘画、AI办公、AI剪辑、AI代码等优质工具，免费无广告，实时更新，一站式找到所有AI工具。" />
+        <meta name="keywords" content="AI工具导航,免费AI工具,AI工具大全,AI工具汇总,AI写作工具,AI绘画工具,AI办公工具,AI剪辑工具,AI代码工具" />
+        <link rel="canonical" href="https://aimakerbox.com" />
       </Helmet>
       <main className="mx-auto max-w-[1280px] px-6 pt-24 pb-12">
       
@@ -225,7 +236,7 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
       <div className="py-8 relative z-30">
         <div className="flex flex-col items-center max-w-4xl mx-auto px-6">
           <h1 className="text-4xl font-bold text-center mb-3 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            发现最好用的AI工具
+            AI创客 - 发现全网好用的AI工具
           </h1>
           <p className="text-muted-foreground text-center mb-10 text-lg max-w-2xl">
             支持关键词搜索和AI智能搜索，精准匹配您的需求

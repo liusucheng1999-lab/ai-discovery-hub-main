@@ -1,0 +1,2266 @@
+{
+  "metadata": {
+    "reclassificationTime": "2026-03-18T07:29:01.996Z",
+    "operation": "ai_agent_category_reclassification"
+  },
+  "summary": {
+    "totalTools": 249,
+    "successCount": 249,
+    "failCount": 0,
+    "successRate": "100.0"
+  },
+  "results": [
+    {
+      "id": 1773198968809,
+      "name": "萌动AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198310677,
+      "name": "Kacha AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199504217,
+      "name": "新AutoClaw",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198307851,
+      "name": "Faceswapper",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210995686,
+      "name": "Logo Diffusion",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200074746,
+      "name": "Quest AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 1773197971345,
+      "name": "灵构AI笔记",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209721284,
+      "name": "笔面通",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199526192,
+      "name": "Seele AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199513924,
+      "name": "Operator",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210646277,
+      "name": "Reading Coach",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210113744,
+      "name": "合同嗖嗖",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210644818,
+      "name": "Trancy",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198505966,
+      "name": "Museland",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210972772,
+      "name": "鹿班",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209738325,
+      "name": "YOO简历",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209607088,
+      "name": "Otter.ai",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "office",
+      "newSubCategory": "office_meeting",
+      "reasoning": "识别为办公类：办公效率工具 -> 会议辅助：会议工具"
+    },
+    {
+      "id": 1773211011435,
+      "name": "Poly",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210961316,
+      "name": "小墨鹰编辑器",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209318182,
+      "name": "Miro AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200320112,
+      "name": "AiBiao",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210997098,
+      "name": "Realibox AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209310942,
+      "name": "印象图记",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200318595,
+      "name": "VoxDeck",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198734334,
+      "name": "音秘",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198733991,
+      "name": "音剪",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200085524,
+      "name": "Fronty",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210960400,
+      "name": "PagePop",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 41,
+      "name": "Gradio",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 39,
+      "name": "Ollama",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198305829,
+      "name": "remove.bg",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 5,
+      "name": "AutoGPT",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "识别为对话类：AI对话和助手工具 -> 通用对话：通用对话工具"
+    },
+    {
+      "id": 1773197946487,
+      "name": "YouMind",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773197962019,
+      "name": "MidReal",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773197972814,
+      "name": "文思助手",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话和助手工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773198322798,
+      "name": "网易AI创意工坊",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198503143,
+      "name": "通义星尘",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198141555,
+      "name": "Writer",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198133745,
+      "name": "Texta",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198134417,
+      "name": "ClosersCopy",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773198486682,
+      "name": "Z.ai",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198299568,
+      "name": "秒绘AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198304306,
+      "name": "如果相机",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198722036,
+      "name": "Tunee",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话和助手工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773198755628,
+      "name": "OptimizerAI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198752519,
+      "name": "Wondercraft",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198750462,
+      "name": "Adobe Podcast",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198773532,
+      "name": "Krisp",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198772728,
+      "name": "LALAL.AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198796009,
+      "name": "通义听悟",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "office",
+      "newSubCategory": "office_meeting",
+      "reasoning": "识别为办公类：办公效率工具 -> 会议辅助：会议工具"
+    },
+    {
+      "id": 1773198973733,
+      "name": "磁力开创",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198971123,
+      "name": "即创",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198969715,
+      "name": "KomikoAI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198973013,
+      "name": "内容特工队",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198967178,
+      "name": "NextCut AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199026917,
+      "name": "Duix",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198961990,
+      "name": "TapNow",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198990996,
+      "name": "妙播",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198979549,
+      "name": "通义灵眸",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199002661,
+      "name": "Humva",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198998315,
+      "name": "Flow Studio",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话和助手工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773198996987,
+      "name": "神笔马良",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198994464,
+      "name": "SkyReels",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773198992670,
+      "name": "秒创",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199017413,
+      "name": "飞影数字人",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199016382,
+      "name": "讯飞虚拟人",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199013261,
+      "name": "度加创作工具",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199139806,
+      "name": "即构数智人",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209612884,
+      "name": "Airgram",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "office",
+      "newSubCategory": "office_meeting",
+      "reasoning": "识别为办公类：办公效率工具 -> 会议辅助：会议工具"
+    },
+    {
+      "id": 1773199158526,
+      "name": "来画",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199495556,
+      "name": "爱派AiPy",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199494979,
+      "name": "Atoms",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199499696,
+      "name": "Manus",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199501858,
+      "name": "金灵AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199505482,
+      "name": "QoderWork",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199506855,
+      "name": "EvoMap",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199507705,
+      "name": "happycapy",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199508850,
+      "name": "Genspark",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199523474,
+      "name": "元气AI Bot",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话和助手工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773199512149,
+      "name": "MiniMax Agent",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199512223,
+      "name": "Lovart",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773199514190,
+      "name": "GenFlow",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199515173,
+      "name": "Skywork",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199516810,
+      "name": "小云雀",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199517077,
+      "name": "Tabbit",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199519000,
+      "name": "切问学术",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199520732,
+      "name": "Leewow",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199523652,
+      "name": "WorkAny",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199528363,
+      "name": "Tbox",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199529330,
+      "name": "椒图AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199531086,
+      "name": "遨虾",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773199533040,
+      "name": "Tago",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199535195,
+      "name": "NeoDomain",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199536052,
+      "name": "MuleRun",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199536658,
+      "name": "Opera Neon",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199528523,
+      "name": "稿定AI社区",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199538644,
+      "name": "Fellou",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199539020,
+      "name": "Dia",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199540606,
+      "name": "TabTab",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199541015,
+      "name": "酷宣AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199542640,
+      "name": "月亮树AI选品",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199543174,
+      "name": "如此AI员工",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199544710,
+      "name": "MasterAgent",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199544974,
+      "name": "Teamo",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199546651,
+      "name": "SciMaster",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773199549669,
+      "name": "FinGenius",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199549802,
+      "name": "RoboNeo",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199550952,
+      "name": "混沌Deep Innovation",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199551748,
+      "name": "BrowserOS",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199553456,
+      "name": "Jaaz",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773199554484,
+      "name": "CoCo",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话和助手工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773199555930,
+      "name": "Bloom",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199556262,
+      "name": "Bobby",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199558126,
+      "name": "Fairies",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199560098,
+      "name": "FloweAI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199560360,
+      "name": "AutoGLM沉思",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199562251,
+      "name": "CRIC深度智联",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773199562331,
+      "name": "rabbitOS intern",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200083366,
+      "name": "Codiga",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200079025,
+      "name": "AirOps",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200095636,
+      "name": "HeyCLI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200091867,
+      "name": "Hocoos",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200090393,
+      "name": "Fig",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200084056,
+      "name": "Locofy",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200314380,
+      "name": "NarraLand",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200310376,
+      "name": "飞象老师",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200309682,
+      "name": "PicDoc",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200308480,
+      "name": "Diagrimo",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200316150,
+      "name": "清言PPT",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "office",
+      "newSubCategory": "office_presentation",
+      "reasoning": "识别为办公类：办公效率工具 -> 演示制作：PPT工具"
+    },
+    {
+      "id": 1773200334334,
+      "name": "auxi",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200330152,
+      "name": "Chronicle",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200327928,
+      "name": "beautiful.ai",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200323995,
+      "name": "希沃白板",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200322733,
+      "name": "Powerpresent AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200321995,
+      "name": "Decktopus AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200383422,
+      "name": "北极九章",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200382970,
+      "name": "轻云图",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200379934,
+      "name": "百度GBI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200378729,
+      "name": "vika维格云",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200375104,
+      "name": "Tomoro",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200376548,
+      "name": "Shortcut",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "office",
+      "newSubCategory": "office_document",
+      "reasoning": "识别为办公类：办公效率工具 -> 文档处理：通用办公工具"
+    },
+    {
+      "id": 1773200374041,
+      "name": "察言观数AskTable",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209309708,
+      "name": "小画桌",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209308135,
+      "name": "妙办画板",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209305395,
+      "name": "自由画布",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209304404,
+      "name": "ProcessOn",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209303212,
+      "name": "畅图AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209301612,
+      "name": "博思白板",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209300884,
+      "name": "TreeMind树图",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773200385769,
+      "name": "Rows",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209472526,
+      "name": "OmniBox小黑",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209471621,
+      "name": "凹凸工坊",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209470209,
+      "name": "Wisfile",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209468612,
+      "name": "小绿鲸",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209467475,
+      "name": "txyz",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209319873,
+      "name": "Ayoa Ultimate",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209317920,
+      "name": "Taskade",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209317160,
+      "name": "AmyMind",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209315159,
+      "name": "Whimsical",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209313701,
+      "name": "GitMind思乎",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209312109,
+      "name": "知犀AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209482899,
+      "name": "匡优AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209481624,
+      "name": "腾讯问卷",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209494386,
+      "name": "PandaGPT",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话和助手工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773209490492,
+      "name": "印象AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209724776,
+      "name": "51mee",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209723288,
+      "name": "理聘AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209722770,
+      "name": "AI面试帮",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209718781,
+      "name": "牛面",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209717933,
+      "name": "面多多",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209717002,
+      "name": "求职方舟",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209610960,
+      "name": "Fireflies.ai",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "office",
+      "newSubCategory": "office_meeting",
+      "reasoning": "识别为办公类：办公效率工具 -> 会议辅助：会议工具"
+    },
+    {
+      "id": 1773209737950,
+      "name": "神笔简历",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209736612,
+      "name": "蓝字典AI求职",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209735345,
+      "name": "职得简历",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209729698,
+      "name": "智面星",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209728401,
+      "name": "Mercor",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209727203,
+      "name": "DINQ",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209726134,
+      "name": "TelehireAI面试",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773209725702,
+      "name": "LovTalent",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210630799,
+      "name": "AI分享圈",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210629845,
+      "name": "堆友AI学习",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210628135,
+      "name": "AI大学堂",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210106281,
+      "name": "吾律AI律师",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210639115,
+      "name": "动手学深度学习",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210638318,
+      "name": "DeepLearning.AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210637932,
+      "name": "Elements of AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210636884,
+      "name": "Coursera",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210634059,
+      "name": "fast.ai",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210632941,
+      "name": "Day of AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210632125,
+      "name": "OpenAI Academy",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210952227,
+      "name": "Pixso AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210951144,
+      "name": "Holopix AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210947541,
+      "name": "Figma AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210947337,
+      "name": "墨刀AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210944925,
+      "name": "星流AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210943177,
+      "name": "堆友AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210652140,
+      "name": "ShowMeAI知识社区",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210649543,
+      "name": "Udacity AI学院",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210648632,
+      "name": "阿里云AI学习路线",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210967983,
+      "name": "Looka",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210967398,
+      "name": "标小智LOGO生成器",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210965860,
+      "name": "燕雀光年",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210965285,
+      "name": "UXbot",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话和助手工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773210961992,
+      "name": "美间AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210959060,
+      "name": "爱设计",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210958195,
+      "name": "蚂上有创意",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210953565,
+      "name": "创客贴AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210952560,
+      "name": "Recraft AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210979628,
+      "name": "Pictographic",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210978510,
+      "name": "豆绘AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210977641,
+      "name": "Logoai",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210976534,
+      "name": "AI设计神器",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210975881,
+      "name": "笔格设计",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210971948,
+      "name": "FigJam AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210970780,
+      "name": "居然设计家",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210968608,
+      "name": "智绘设计",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210994353,
+      "name": "Pimento",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210993953,
+      "name": "Motiff 妙多",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210993254,
+      "name": "LogoliveryAI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210991971,
+      "name": "Framer AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210991172,
+      "name": "酷家乐AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210990526,
+      "name": "Ilus AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210988028,
+      "name": "Kittl",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210987534,
+      "name": "Creatie",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210985957,
+      "name": "笔魂AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210985512,
+      "name": "易可图",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210984193,
+      "name": "包图网AI素材库",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210983569,
+      "name": "Collov AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210982654,
+      "name": "匠紫",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211008813,
+      "name": "阿里云智能logo设计",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211007870,
+      "name": "图宇宙",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211006096,
+      "name": "Uizard",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211004703,
+      "name": "illostrationAI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211004296,
+      "name": "千图设计室AI海报",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211002642,
+      "name": "Galileo AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210998955,
+      "name": "Vizcom",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210998919,
+      "name": "模袋云AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773210997226,
+      "name": "Vectorizer.AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211024409,
+      "name": "灵动AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211024177,
+      "name": "羚珑",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211020612,
+      "name": "Khroma",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211019395,
+      "name": "IconifyAI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211019193,
+      "name": "Appicons AI",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211016675,
+      "name": "Logomaster.ai",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211016223,
+      "name": "ColorMagic",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211014755,
+      "name": "Huemint",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211013955,
+      "name": "Color Wheel",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    },
+    {
+      "id": 1773211012031,
+      "name": "Illustroke",
+      "oldMainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_general",
+      "reasoning": "默认分类：对话类（AI相关工具）"
+    }
+  ],
+  "categoryDistribution": {
+    "chat_chat_general": 227,
+    "coding_coding_generation": 4,
+    "office_office_meeting": 4,
+    "chat_chat_professional": 7,
+    "writing_writing_marketing": 1,
+    "video_video_generation": 2,
+    "image_image_generation": 2,
+    "office_office_presentation": 1,
+    "office_office_document": 1
+  }
+}

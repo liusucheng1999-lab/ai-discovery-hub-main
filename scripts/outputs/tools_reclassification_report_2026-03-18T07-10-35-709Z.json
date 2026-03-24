@@ -1,0 +1,4055 @@
+{
+  "metadata": {
+    "reclassificationTime": "2026-03-18T07:10:35.718Z",
+    "operation": "tools_category_reclassification"
+  },
+  "summary": {
+    "totalTools": 447,
+    "successCount": 447,
+    "failCount": 0,
+    "successRate": "100.0"
+  },
+  "results": [
+    {
+      "id": 1773198320597,
+      "name": "6pen Art",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198311096,
+      "name": "Hotpot.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773199143184,
+      "name": "Wonder Studio",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198968809,
+      "name": "萌动AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198756261,
+      "name": "ACE Studio",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198305551,
+      "name": "ARC",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773198318222,
+      "name": "Adobe Firefly",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198310677,
+      "name": "Kacha AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200074746,
+      "name": "Quest AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199526192,
+      "name": "Seele AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199504217,
+      "name": "新AutoClaw",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199005972,
+      "name": "OneStory",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773198311052,
+      "name": "PicTech AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198307851,
+      "name": "Faceswapper",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198145943,
+      "name": "Copysmith",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773198751772,
+      "name": "刺鸟配音",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773197971345,
+      "name": "灵构AI笔记",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210995686,
+      "name": "Logo Diffusion",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 44,
+      "name": "Kapwing",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_editing",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频剪辑：视频编辑"
+    },
+    {
+      "id": 1773198742857,
+      "name": "TTSMaker",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773209721284,
+      "name": "笔面通",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773197951675,
+      "name": "社研通",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773197200861,
+      "name": "智简简历",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：通用写作工具"
+    },
+    {
+      "id": 1773198302419,
+      "name": "Ribbet.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773198982450,
+      "name": "Boba",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198762599,
+      "name": "FakeYou",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198739774,
+      "name": "Lyrics Into Song AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 1773210644818,
+      "name": "Trancy",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198711431,
+      "name": "魔音工坊",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773210646277,
+      "name": "Reading Coach",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198505966,
+      "name": "Museland",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210113744,
+      "name": "合同嗖嗖",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209607088,
+      "name": "Otter.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199172821,
+      "name": "Gencraft",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198130833,
+      "name": "Peppertype.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773198607755,
+      "name": "WisPaper",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773200382022,
+      "name": "Sheet+",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773198955733,
+      "name": "海螺视频",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198321680,
+      "name": "创客贴AI画匠",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773210972772,
+      "name": "鹿班",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 34,
+      "name": "WHEE",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773199004974,
+      "name": "Stable Video",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773197941237,
+      "name": "笔目鱼",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：通用写作工具"
+    },
+    {
+      "id": 1773211011435,
+      "name": "Poly",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209738325,
+      "name": "YOO简历",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 291,
+      "name": "妙话AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773210997098,
+      "name": "Realibox AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210644253,
+      "name": "神经网络入门",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773210961316,
+      "name": "小墨鹰编辑器",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209487157,
+      "name": "PDF.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_document",
+      "reasoning": "识别为办公类：办公效率工具 -> 文档处理：文档工具"
+    },
+    {
+      "id": 1773209318182,
+      "name": "Miro AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200320112,
+      "name": "AiBiao",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209310942,
+      "name": "印象图记",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200373427,
+      "name": "ChatExcel",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_document",
+      "reasoning": "识别为办公类：办公效率工具 -> 文档处理：通用办公工具"
+    },
+    {
+      "id": 1773200335550,
+      "name": "AI灵感PPT",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_presentation",
+      "reasoning": "识别为办公类：办公效率工具 -> 演示制作：PPT工具"
+    },
+    {
+      "id": 1773200318595,
+      "name": "VoxDeck",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198298091,
+      "name": "AI改图神器",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_editing",
+      "reasoning": "识别为图像类：视觉内容工具 -> 图像编辑：图片处理"
+    },
+    {
+      "id": 1773198289386,
+      "name": "堆友AI反应堆",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198735245,
+      "name": "MemoAI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198734334,
+      "name": "音秘",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198733991,
+      "name": "音剪",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 53,
+      "name": "Luma AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199166472,
+      "name": "Rephrase.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 55,
+      "name": "Leonardo AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773200085524,
+      "name": "Fronty",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200301838,
+      "name": "笔格AIPPT",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_presentation",
+      "reasoning": "识别为办公类：办公效率工具 -> 演示制作：PPT工具"
+    },
+    {
+      "id": 1773210960400,
+      "name": "PagePop",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 41,
+      "name": "Gradio",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 39,
+      "name": "Ollama",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198305829,
+      "name": "remove.bg",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198304146,
+      "name": "像素蛋糕",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 245,
+      "name": "NoteKitLM: Supercharge Your NotebookLM",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_documentation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 技术文档：API和文档工具"
+    },
+    {
+      "id": 1773198309633,
+      "name": "Leonardo.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198307980,
+      "name": "ClipDrop",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198306719,
+      "name": "Booltool",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_editing",
+      "reasoning": "识别为图像类：视觉内容工具 -> 图像编辑：图片处理"
+    },
+    {
+      "id": 269,
+      "name": "秒哒",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 272,
+      "name": "Qoder",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 10,
+      "name": "Pika",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 286,
+      "name": "insMind",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 280,
+      "name": "YouWare",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 12,
+      "name": "Suno",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 13,
+      "name": "Udio",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 289,
+      "name": "视觉工厂",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 22,
+      "name": "HeyGen",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198312205,
+      "name": "IconGen",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 47,
+      "name": "Ideogram AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 48,
+      "name": "Kaiber AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 27,
+      "name": "Jasper",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198318494,
+      "name": "Bing Image Creator",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773198317095,
+      "name": "Canva AI图像生成",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198316395,
+      "name": "造梦日记",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198313521,
+      "name": "艾绘",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773197942393,
+      "name": "稿易AI论文",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：通用写作工具"
+    },
+    {
+      "id": 1773197941051,
+      "name": "Paperpal",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_translation",
+      "reasoning": "识别为写作类：文本创作工具 -> 翻译润色：语言处理"
+    },
+    {
+      "id": 1773197939653,
+      "name": "稿定AI文案",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198319574,
+      "name": "Exactly.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773197951218,
+      "name": "材料星AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：通用写作工具"
+    },
+    {
+      "id": 1773197948687,
+      "name": "Loomi",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_documentation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 技术文档：API和文档工具"
+    },
+    {
+      "id": 1773197946487,
+      "name": "YouMind",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773197944471,
+      "name": "沁言学术",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773197957030,
+      "name": "松果AI写作",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773197954866,
+      "name": "Muset",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：通用写作工具"
+    },
+    {
+      "id": 1773197952724,
+      "name": "Rubriq",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_translation",
+      "reasoning": "识别为写作类：文本创作工具 -> 翻译润色：语言处理"
+    },
+    {
+      "id": 1773197949064,
+      "name": "落笔AI写作",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773197964138,
+      "name": "Jasper",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773197959917,
+      "name": "橙篇",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：通用写作工具"
+    },
+    {
+      "id": 1773197957812,
+      "name": "PaperXie智能写作",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773197967844,
+      "name": "Jenni",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：通用写作工具"
+    },
+    {
+      "id": 1773197966654,
+      "name": "Writesonic",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773197963925,
+      "name": "Copy.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773197963125,
+      "name": "掌桥科研AI论文",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773197962019,
+      "name": "MidReal",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773197978915,
+      "name": "Spell.tools",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773197975577,
+      "name": "Cohesive",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773197985255,
+      "name": "创作王",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773197982532,
+      "name": "爱改写",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_translation",
+      "reasoning": "识别为写作类：文本创作工具 -> 翻译润色：语言处理"
+    },
+    {
+      "id": 1773197980603,
+      "name": "悉语",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773197977258,
+      "name": "Magic Write",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773198328124,
+      "name": "Relight",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773198326908,
+      "name": "Skybox AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198324216,
+      "name": "Stockimg AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198322787,
+      "name": "360智绘",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773197985685,
+      "name": "字符狂飙",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_document",
+      "reasoning": "识别为办公类：办公效率工具 -> 文档处理：文档工具"
+    },
+    {
+      "id": 1773198327177,
+      "name": "Facet",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_editing",
+      "reasoning": "识别为图像类：视觉内容工具 -> 图像编辑：图片处理"
+    },
+    {
+      "id": 1773198326419,
+      "name": "行者AI美术",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198324089,
+      "name": "Freepik AI Image Generator",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198322798,
+      "name": "网易AI创意工坊",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198503143,
+      "name": "通义星尘",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198321847,
+      "name": "Visual Electric",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198141806,
+      "name": "小微智能论文",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：通用写作工具"
+    },
+    {
+      "id": 1773198141555,
+      "name": "Writer",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198139921,
+      "name": "AISEO",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773198136976,
+      "name": "Smodin AI Research Paper",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773198136022,
+      "name": "Anyword",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773198133745,
+      "name": "Texta",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198143792,
+      "name": "SurferSEO",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773198141874,
+      "name": "范文喵",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：通用写作工具"
+    },
+    {
+      "id": 1773198140959,
+      "name": "PaperBetter AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：通用写作工具"
+    },
+    {
+      "id": 1773198150111,
+      "name": "Content at Scale",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773198147039,
+      "name": "Frase",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773198150596,
+      "name": "Mark Copy",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "writing",
+      "newSubCategory": "writing_marketing",
+      "reasoning": "识别为写作类：文本创作工具 -> 文案营销：营销内容"
+    },
+    {
+      "id": 1773198149549,
+      "name": "INK",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773198486682,
+      "name": "Z.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198299568,
+      "name": "秒绘AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198297076,
+      "name": "insMind",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773198290581,
+      "name": "阿贝智能",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198287812,
+      "name": "绘蛙",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198301201,
+      "name": "Kira",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198298213,
+      "name": "视觉工厂",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198296677,
+      "name": "呜哩",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198291177,
+      "name": "Midjourney",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198306348,
+      "name": "MagicStudio",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773198305810,
+      "name": "Cutout.Pro",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773198304306,
+      "name": "如果相机",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198299653,
+      "name": "妙话AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198534552,
+      "name": "Whispr",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773198534116,
+      "name": "Replika",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773198608747,
+      "name": "CuspAI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773198595057,
+      "name": "Perplexity",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773198616522,
+      "name": "AlphaSense",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773198615340,
+      "name": "Glean",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773198614793,
+      "name": "XAnswer",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773198613710,
+      "name": "Dexa AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773198610806,
+      "name": "链企AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773198720407,
+      "name": "Noiz AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198718693,
+      "name": "琅琅配音",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198717874,
+      "name": "ElevenLabs",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198717133,
+      "name": "Keevx声音克隆",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198712836,
+      "name": "讯飞智作",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198738621,
+      "name": "网易天音",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 1773198727497,
+      "name": "Nafy AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 1773198726415,
+      "name": "Vemus未音",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 1773198723044,
+      "name": "讯飞听见",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198721393,
+      "name": "MiniMax Audio",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198755628,
+      "name": "OptimizerAI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198755247,
+      "name": "Voicenotes",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198754171,
+      "name": "Fryderyk",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198752519,
+      "name": "Wondercraft",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198750462,
+      "name": "Adobe Podcast",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198749414,
+      "name": "Producer.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 1773198744954,
+      "name": "Sonauto",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 1773198743215,
+      "name": "LOVO AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198771407,
+      "name": "NaturalReader",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198770401,
+      "name": "Audo Studio",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：通用音频工具"
+    },
+    {
+      "id": 1773198769320,
+      "name": "BeatBot",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_prompt",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 1773198766892,
+      "name": "Mubert",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 1773198766494,
+      "name": "音虫",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 1773198765437,
+      "name": "悦音配音",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198764447,
+      "name": "快转字幕",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198762901,
+      "name": "BGM猫",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 1773198760952,
+      "name": "RESEMBLE.AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198792143,
+      "name": "Voicemod",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198789814,
+      "name": "Voice.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198788771,
+      "name": "Voicemaker",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198786883,
+      "name": "MetaVoice",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198786010,
+      "name": "Clipchamp AI旁白生成器",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198785643,
+      "name": "Veed AI Voice Generator",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198784164,
+      "name": "Typecast",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198781305,
+      "name": "Lemonaid",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_composition",
+      "reasoning": "识别为音频类：音频内容工具 -> 音乐创作：音乐生成"
+    },
+    {
+      "id": 1773198780018,
+      "name": "Murf AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198775153,
+      "name": "Play.ht",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198773532,
+      "name": "Krisp",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198772728,
+      "name": "LALAL.AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198947593,
+      "name": "堆友AI视频",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198945358,
+      "name": "Keevx",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198942978,
+      "name": "绘蛙AI视频",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773198796009,
+      "name": "通义听悟",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198795927,
+      "name": "简单听记",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198793864,
+      "name": "Notta",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198792625,
+      "name": "WellSaid",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：语音生成"
+    },
+    {
+      "id": 1773198973733,
+      "name": "磁力开创",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198972138,
+      "name": "智谱清影",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198971123,
+      "name": "即创",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198969715,
+      "name": "KomikoAI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198954068,
+      "name": "可灵AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198953199,
+      "name": "JoyPix",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199027719,
+      "name": "场辞",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199026917,
+      "name": "Duix",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199025617,
+      "name": "开拍",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198963684,
+      "name": "雾象",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198962141,
+      "name": "Higgsfield",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198961990,
+      "name": "TapNow",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198990996,
+      "name": "妙播",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198988194,
+      "name": "Viggle",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198985958,
+      "name": "Hedra",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198983395,
+      "name": "Dream Machine",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198979549,
+      "name": "通义灵眸",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198978959,
+      "name": "SekoTalk",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199004116,
+      "name": "D-ID",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199002661,
+      "name": "Humva",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199001618,
+      "name": "Hotshot",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198999566,
+      "name": "Vizard",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198998315,
+      "name": "Flow Studio",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "识别为AI智能体类：AI平台和智能工具 -> 其他网站：AI相关网站和资源"
+    },
+    {
+      "id": 1773198996987,
+      "name": "神笔马良",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198994464,
+      "name": "SkyReels",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198993275,
+      "name": "元镜",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773198992670,
+      "name": "秒创",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773198991162,
+      "name": "阶跃视频",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199018218,
+      "name": "Video Studio",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199017413,
+      "name": "飞影数字人",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199016382,
+      "name": "讯飞虚拟人",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199013261,
+      "name": "度加创作工具",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199012084,
+      "name": "LensGo",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199010896,
+      "name": "艺映AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199006626,
+      "name": "Noisee AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199146137,
+      "name": "Clipfly",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199139806,
+      "name": "即构数智人",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199138333,
+      "name": "Showrunner",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199137773,
+      "name": "Haiper",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773199032759,
+      "name": "Morph Studio",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199032236,
+      "name": "Gatekeep",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199163444,
+      "name": "DeepBrain",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199160107,
+      "name": "绘影字幕",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773209612884,
+      "name": "Airgram",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199158526,
+      "name": "来画",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199157904,
+      "name": "PixVerse",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199154204,
+      "name": "Typeframes",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199149231,
+      "name": "GoEnhance",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：通用视频工具"
+    },
+    {
+      "id": 1773199182610,
+      "name": "Pictory",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199181657,
+      "name": "Elai.io",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199177307,
+      "name": "BgRem",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：通用视频工具"
+    },
+    {
+      "id": 1773199175498,
+      "name": "Hour One",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199174262,
+      "name": "Synthesys",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199501369,
+      "name": "码上飞",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 1773199495556,
+      "name": "爱派AiPy",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_framework",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199494979,
+      "name": "Atoms",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199183181,
+      "name": "SteveAI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773199523474,
+      "name": "元气AI Bot",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199521464,
+      "name": "Mixboard",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773199518263,
+      "name": "新SkillHub",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773199517077,
+      "name": "Tabbit",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773199539020,
+      "name": "Dia",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200061843,
+      "name": "C知道",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773200059431,
+      "name": "Sketch2Code",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 1773200083366,
+      "name": "Codiga",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200080714,
+      "name": "Deco",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 1773200079025,
+      "name": "AirOps",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200294456,
+      "name": "AiPPT",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_presentation",
+      "reasoning": "识别为办公类：办公效率工具 -> 演示制作：PPT工具"
+    },
+    {
+      "id": 1773200096654,
+      "name": "Codeium",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 1773200095636,
+      "name": "HeyCLI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200094466,
+      "name": "AI Code Reviewer",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：通用编程工具"
+    },
+    {
+      "id": 1773200296264,
+      "name": "咔片PPT",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_documentation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 技术文档：API和文档工具"
+    },
+    {
+      "id": 1773200294474,
+      "name": "扣子PPT",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_presentation",
+      "reasoning": "识别为办公类：办公效率工具 -> 演示制作：PPT工具"
+    },
+    {
+      "id": 1773200091867,
+      "name": "Hocoos",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200091489,
+      "name": "CodeSnippets",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 1773200090393,
+      "name": "Fig",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200084056,
+      "name": "Locofy",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200318293,
+      "name": "麦当秀MindShow",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_presentation",
+      "reasoning": "识别为办公类：办公效率工具 -> 演示制作：PPT工具"
+    },
+    {
+      "id": 1773200314380,
+      "name": "NarraLand",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200312715,
+      "name": "美图AI PPT",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_presentation",
+      "reasoning": "识别为办公类：办公效率工具 -> 演示制作：PPT工具"
+    },
+    {
+      "id": 1773200312394,
+      "name": "夸克PPT",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_presentation",
+      "reasoning": "识别为办公类：办公效率工具 -> 演示制作：PPT工具"
+    },
+    {
+      "id": 1773200310376,
+      "name": "飞象老师",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200309682,
+      "name": "PicDoc",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200308480,
+      "name": "Diagrimo",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200307656,
+      "name": "ChartGen",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773200334334,
+      "name": "auxi",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200333679,
+      "name": "SlidesAI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_document",
+      "reasoning": "识别为办公类：办公效率工具 -> 文档处理：通用办公工具"
+    },
+    {
+      "id": 1773200330152,
+      "name": "Chronicle",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200327928,
+      "name": "beautiful.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200325424,
+      "name": "GAIPPT",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_presentation",
+      "reasoning": "识别为办公类：办公效率工具 -> 演示制作：PPT工具"
+    },
+    {
+      "id": 1773200323995,
+      "name": "希沃白板",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200322733,
+      "name": "Powerpresent AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200321995,
+      "name": "Decktopus AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200321205,
+      "name": "ChatBA",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773200383422,
+      "name": "北极九章",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200382970,
+      "name": "轻云图",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200380572,
+      "name": "Ajelix",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773200379934,
+      "name": "百度GBI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200378729,
+      "name": "vika维格云",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200377072,
+      "name": "爱图表",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773200375104,
+      "name": "Tomoro",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200335855,
+      "name": "MindShow",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 1773209309708,
+      "name": "小画桌",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209309012,
+      "name": "Mapify",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "识别为编程类：软件开发相关工具 -> 代码生成：AI辅助编程"
+    },
+    {
+      "id": 1773209308135,
+      "name": "妙办画板",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209305395,
+      "name": "自由画布",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209304404,
+      "name": "ProcessOn",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209303212,
+      "name": "畅图AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209301612,
+      "name": "博思白板",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209300884,
+      "name": "TreeMind树图",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773200387879,
+      "name": "SheetGod",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_document",
+      "reasoning": "识别为办公类：办公效率工具 -> 文档处理：通用办公工具"
+    },
+    {
+      "id": 1773200385769,
+      "name": "Rows",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209472526,
+      "name": "OmniBox小黑",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209471621,
+      "name": "凹凸工坊",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209470209,
+      "name": "Wisfile",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209468612,
+      "name": "小绿鲸",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209467475,
+      "name": "txyz",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209319873,
+      "name": "Ayoa Ultimate",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209317920,
+      "name": "Taskade",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209317160,
+      "name": "AmyMind",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209315159,
+      "name": "Whimsical",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209313701,
+      "name": "GitMind思乎",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209312109,
+      "name": "知犀AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209482899,
+      "name": "匡优AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209481624,
+      "name": "腾讯问卷",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209478570,
+      "name": "Quivr",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773209477909,
+      "name": "Cubox",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773209477185,
+      "name": "腾讯文档智能助手",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_document",
+      "reasoning": "识别为办公类：办公效率工具 -> 文档处理：文档工具"
+    },
+    {
+      "id": 1773209473592,
+      "name": "智写流程",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_document",
+      "reasoning": "识别为办公类：办公效率工具 -> 文档处理：文档工具"
+    },
+    {
+      "id": 1773209495262,
+      "name": "Rossum.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_document",
+      "reasoning": "识别为办公类：办公效率工具 -> 文档处理：文档工具"
+    },
+    {
+      "id": 1773209494386,
+      "name": "PandaGPT",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "识别为AI智能体类：AI平台和智能工具 -> 其他网站：AI相关网站和资源"
+    },
+    {
+      "id": 1773209490492,
+      "name": "印象AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209488077,
+      "name": "司马阅",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "office",
+      "newSubCategory": "office_document",
+      "reasoning": "识别为办公类：办公效率工具 -> 文档处理：文档工具"
+    },
+    {
+      "id": 1773198602061,
+      "name": "纳米AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773209724776,
+      "name": "51mee",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209723288,
+      "name": "理聘AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209722770,
+      "name": "AI面试帮",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_prompt",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209718781,
+      "name": "牛面",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209717933,
+      "name": "面多多",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209717002,
+      "name": "求职方舟",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_detection",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209715745,
+      "name": "超级简历",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773209610960,
+      "name": "Fireflies.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209737950,
+      "name": "神笔简历",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209736612,
+      "name": "蓝字典AI求职",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209735345,
+      "name": "职得简历",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209730724,
+      "name": "多面鹅",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773209729698,
+      "name": "智面星",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209728401,
+      "name": "Mercor",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209727203,
+      "name": "DINQ",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773209726134,
+      "name": "TelehireAI面试",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210630799,
+      "name": "AI分享圈",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210629845,
+      "name": "堆友AI学习",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210628135,
+      "name": "AI大学堂",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210104985,
+      "name": "iTerms-AI法律",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773210642901,
+      "name": "Kaggle",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773210640047,
+      "name": "MachineLearningMastery",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773210639115,
+      "name": "动手学深度学习",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210638318,
+      "name": "DeepLearning.AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210637932,
+      "name": "Elements of AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210636884,
+      "name": "Coursera",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210634985,
+      "name": "学吧导航",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773210634059,
+      "name": "fast.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210632941,
+      "name": "Day of AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210632125,
+      "name": "OpenAI Academy",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210952227,
+      "name": "Pixso AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210951144,
+      "name": "Holopix AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210947541,
+      "name": "Figma AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210947337,
+      "name": "墨刀AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210944925,
+      "name": "星流AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210943177,
+      "name": "堆友AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210652140,
+      "name": "ShowMeAI知识社区",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210651147,
+      "name": "Google AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "search",
+      "newSubCategory": "search_smart",
+      "reasoning": "识别为搜索类：信息检索和搜索工具 -> 智能搜索：AI驱动的搜索"
+    },
+    {
+      "id": 1773210649543,
+      "name": "Udacity AI学院",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210648632,
+      "name": "阿里云AI学习路线",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210646880,
+      "name": "飞桨AI Studio",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：通用音频工具"
+    },
+    {
+      "id": 1773210967983,
+      "name": "Looka",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210967398,
+      "name": "标小智LOGO生成器",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210965860,
+      "name": "燕雀光年",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210965285,
+      "name": "UXbot",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210963389,
+      "name": "Microsoft Designer",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773210961992,
+      "name": "美间AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210959060,
+      "name": "爱设计",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210958195,
+      "name": "蚂上有创意",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210957009,
+      "name": "魔力工作室",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "audio",
+      "newSubCategory": "audio_synthesis",
+      "reasoning": "识别为音频类：音频内容工具 -> 语音合成：通用音频工具"
+    },
+    {
+      "id": 1773210955403,
+      "name": "GemDesign",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773210953565,
+      "name": "创客贴AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210952560,
+      "name": "Recraft AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210980479,
+      "name": "Fable Prism",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "video",
+      "newSubCategory": "video_generation",
+      "reasoning": "识别为视频类：视频内容工具 -> 视频生成：AI视频创作"
+    },
+    {
+      "id": 1773210979628,
+      "name": "Pictographic",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210978724,
+      "name": "千图网",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773210978510,
+      "name": "豆绘AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210977641,
+      "name": "Logoai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210976534,
+      "name": "AI设计神器",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210975881,
+      "name": "笔格设计",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210974346,
+      "name": "简单设计",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    },
+    {
+      "id": 1773210973269,
+      "name": "Magic Design",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773210971948,
+      "name": "FigJam AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210970780,
+      "name": "居然设计家",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210969889,
+      "name": "MasterGo AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "chat",
+      "newSubCategory": "chat_professional",
+      "reasoning": "识别为对话类：AI对话工具 -> 专业问答：专业领域助手"
+    },
+    {
+      "id": 1773210968608,
+      "name": "智绘设计",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210994353,
+      "name": "Pimento",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210993953,
+      "name": "Motiff 妙多",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210993254,
+      "name": "LogoliveryAI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210991971,
+      "name": "Framer AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210991172,
+      "name": "酷家乐AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210990526,
+      "name": "Ilus AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210989260,
+      "name": "Dzine",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773210988028,
+      "name": "Kittl",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210987534,
+      "name": "Creatie",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210985957,
+      "name": "笔魂AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210985512,
+      "name": "易可图",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210984193,
+      "name": "包图网AI素材库",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210983569,
+      "name": "Collov AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210982654,
+      "name": "匠紫",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211009692,
+      "name": "AIDesign",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773211008813,
+      "name": "阿里云智能logo设计",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211007870,
+      "name": "图宇宙",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211006096,
+      "name": "Uizard",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211004703,
+      "name": "illostrationAI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211004296,
+      "name": "千图设计室AI海报",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211002642,
+      "name": "Galileo AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211001003,
+      "name": "Designs.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_design",
+      "reasoning": "识别为图像类：视觉内容工具 -> 设计辅助：设计工具"
+    },
+    {
+      "id": 1773210998955,
+      "name": "Vizcom",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210998919,
+      "name": "模袋云AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210997226,
+      "name": "Vectorizer.AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211024409,
+      "name": "灵动AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211024177,
+      "name": "羚珑",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211020612,
+      "name": "Khroma",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211019395,
+      "name": "IconifyAI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211019193,
+      "name": "Appicons AI",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211016675,
+      "name": "Logomaster.ai",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211016223,
+      "name": "ColorMagic",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211014755,
+      "name": "Huemint",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211013955,
+      "name": "Color Wheel",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773211013030,
+      "name": "Eva Design System",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "image",
+      "newSubCategory": "image_generation",
+      "reasoning": "识别为图像类：视觉内容工具 -> 绘图生成：AI图像创作"
+    },
+    {
+      "id": 1773211012031,
+      "name": "Illustroke",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "ai_agent",
+      "newSubCategory": "ai_other",
+      "reasoning": "默认分类：AI智能体类（AI相关）"
+    },
+    {
+      "id": 1773210962603,
+      "name": "Calicat",
+      "oldMainCategory": "tools",
+      "oldSubCategory": "tools_model",
+      "newMainCategory": "coding",
+      "newSubCategory": "coding_generation",
+      "reasoning": "默认分类：编程类（开发者工具）"
+    }
+  ],
+  "categoryDistribution": {
+    "image_image_generation": 37,
+    "video_video_generation": 53,
+    "ai_agent_ai_other": 194,
+    "audio_audio_synthesis": 31,
+    "image_image_design": 14,
+    "chat_chat_professional": 8,
+    "writing_writing_marketing": 27,
+    "video_video_editing": 1,
+    "audio_audio_composition": 13,
+    "search_search_smart": 20,
+    "coding_coding_generation": 23,
+    "office_office_document": 9,
+    "office_office_presentation": 8,
+    "image_image_editing": 3,
+    "coding_coding_documentation": 3,
+    "writing_writing_translation": 3
+  }
+}

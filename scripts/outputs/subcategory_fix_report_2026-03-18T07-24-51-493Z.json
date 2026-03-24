@@ -1,0 +1,7027 @@
+{
+  "metadata": {
+    "fixTime": "2026-03-18T07:24:51.494Z",
+    "operation": "invalid_subcategory_fix"
+  },
+  "summary": {
+    "totalTools": 1000,
+    "successCount": 1000,
+    "failCount": 0,
+    "successRate": "100.0"
+  },
+  "results": [
+    {
+      "id": 1773200063768,
+      "name": "Duo Chat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 15,
+      "name": "Windsurf",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773199548335,
+      "name": "MyShell",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198320597,
+      "name": "6pen Art",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198311096,
+      "name": "Hotpot.ai",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773199143184,
+      "name": "Wonder Studio",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198968809,
+      "name": "萌动AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198756261,
+      "name": "ACE Studio",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773200055343,
+      "name": "iFlyCode",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 58,
+      "name": "Cohere AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198310677,
+      "name": "Kacha AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199504217,
+      "name": "新AutoClaw",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199005972,
+      "name": "OneStory",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198311052,
+      "name": "PicTech AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198307851,
+      "name": "Faceswapper",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198145943,
+      "name": "Copysmith",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773199030625,
+      "name": "Google Vids",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 57,
+      "name": "Microsoft Copilot",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773199019188,
+      "name": "Pixfun",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773197982364,
+      "name": "树熊写作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_academic",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197979680,
+      "name": "Typeface AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773210995686,
+      "name": "Logo Diffusion",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198305551,
+      "name": "ARC",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773200074746,
+      "name": "Quest AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198751772,
+      "name": "刺鸟配音",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 255,
+      "name": "NAIL",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773197971345,
+      "name": "灵构AI笔记",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 44,
+      "name": "Kapwing",
+      "mainCategory": "video",
+      "oldSubCategory": "video_editing",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198624295,
+      "name": "Andi",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198593266,
+      "name": "夸克AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198318222,
+      "name": "Adobe Firefly",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198512468,
+      "name": "Cici",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197938162,
+      "name": "笔灵AI写作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_academic",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 294,
+      "name": "Photoroom",
+      "mainCategory": "image",
+      "oldSubCategory": "image_editing",
+      "newSubCategory": "image_editing"
+    },
+    {
+      "id": 1773209721284,
+      "name": "笔面通",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773197951675,
+      "name": "社研通",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773199526192,
+      "name": "Seele AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199513924,
+      "name": "Operator",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199557528,
+      "name": "Suna",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198302419,
+      "name": "Ribbet.ai",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198982450,
+      "name": "Boba",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199180790,
+      "name": "AVCLabs",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 45,
+      "name": "Descript",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198742857,
+      "name": "TTSMaker",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198739774,
+      "name": "Lyrics Into Song AI",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198525679,
+      "name": "HuggingChat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198711431,
+      "name": "魔音工坊",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773210646277,
+      "name": "Reading Coach",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198999733,
+      "name": "寻光",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773200057038,
+      "name": "Project IDX",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198511329,
+      "name": "J1 Assistant",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773199152131,
+      "name": "Artflow",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773197200861,
+      "name": "智简简历",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198975137,
+      "name": "A2E",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773210113744,
+      "name": "合同嗖嗖",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198950980,
+      "name": "Vidu",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198762599,
+      "name": "FakeYou",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773199172821,
+      "name": "Gencraft",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198484648,
+      "name": "千问",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198783448,
+      "name": "Boomy",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198504315,
+      "name": "CueMe",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198607755,
+      "name": "WisPaper",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773200382022,
+      "name": "Sheet+",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773199533306,
+      "name": "FlowMuse AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773210644818,
+      "name": "Trancy",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199160864,
+      "name": "Fliki",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198505966,
+      "name": "Museland",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773197955376,
+      "name": "华文笔杆",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773199020471,
+      "name": "Decohere",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198321680,
+      "name": "创客贴AI画匠",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773210972772,
+      "name": "鹿班",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209738325,
+      "name": "YOO简历",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773197981764,
+      "name": "火龙果写作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773209607088,
+      "name": "Otter.ai",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 34,
+      "name": "WHEE",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 28,
+      "name": "秘塔写作猫",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773199004974,
+      "name": "Stable Video",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773197941237,
+      "name": "笔目鱼",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 32,
+      "name": "RunningHub",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 31,
+      "name": "秒画",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 33,
+      "name": "秒画",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 287,
+      "name": "AI改图神器",
+      "mainCategory": "image",
+      "oldSubCategory": "image_editing",
+      "newSubCategory": "image_editing"
+    },
+    {
+      "id": 277,
+      "name": "Claude Code",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 271,
+      "name": "文心快码",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 268,
+      "name": "TRAE",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773211011435,
+      "name": "Poly",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 274,
+      "name": "OpenCode",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198130833,
+      "name": "Peppertype.ai",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773210644253,
+      "name": "神经网络入门",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773210961316,
+      "name": "小墨鹰编辑器",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209318182,
+      "name": "Miro AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200320112,
+      "name": "AiBiao",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209487157,
+      "name": "PDF.ai",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773209483088,
+      "name": "通义智文",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209485758,
+      "name": "PMAI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198955733,
+      "name": "海螺视频",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773197935031,
+      "name": "蛙蛙写作",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773210997098,
+      "name": "Realibox AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209310942,
+      "name": "印象图记",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200373427,
+      "name": "ChatExcel",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200335550,
+      "name": "AI灵感PPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200318595,
+      "name": "VoxDeck",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200298226,
+      "name": "iSlide AIPPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 291,
+      "name": "妙话AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198298091,
+      "name": "AI改图神器",
+      "mainCategory": "image",
+      "oldSubCategory": "image_editing",
+      "newSubCategory": "image_editing"
+    },
+    {
+      "id": 1773198289386,
+      "name": "堆友AI反应堆",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198301238,
+      "name": "Photoroom",
+      "mainCategory": "image",
+      "oldSubCategory": "image_editing",
+      "newSubCategory": "image_editing"
+    },
+    {
+      "id": 1773198300354,
+      "name": "Krea AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198302886,
+      "name": "万相营造",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198303935,
+      "name": "360智图",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198519536,
+      "name": "MChat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198518755,
+      "name": "Wanderboat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198515976,
+      "name": "百度AI伙伴",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198515073,
+      "name": "Le Chat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198513518,
+      "name": "百川大模型",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198516245,
+      "name": "超级助理",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198517342,
+      "name": "钉钉·个人版",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198538209,
+      "name": "Inworld",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 63,
+      "name": "AI21 Labs",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198733100,
+      "name": "音潮",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198732056,
+      "name": "Mureka",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198731003,
+      "name": "音疯",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198735245,
+      "name": "MemoAI",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198734334,
+      "name": "音秘",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198733991,
+      "name": "音剪",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198736433,
+      "name": "Reecho睿声",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773199023294,
+      "name": "Filmora",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199022210,
+      "name": "Opus Clip",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199021320,
+      "name": "YoYo",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 53,
+      "name": "Luma AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199168091,
+      "name": "录咖",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199167365,
+      "name": "万彩微影",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199166472,
+      "name": "Rephrase.ai",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 54,
+      "name": "Soundraw",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 55,
+      "name": "Leonardo AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 56,
+      "name": "Google Bard",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773200093492,
+      "name": "HTTPie AI",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_documentation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200085524,
+      "name": "Fronty",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200085805,
+      "name": "MarsX",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200087446,
+      "name": "Tabnine",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200301043,
+      "name": "稿定PPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200303635,
+      "name": "百度文库AI助手",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773200303028,
+      "name": "笔灵AIPPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200299473,
+      "name": "Pi智能PPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200301838,
+      "name": "笔格AIPPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200304542,
+      "name": "讯飞智文",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 40,
+      "name": "ComfyUI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 11,
+      "name": "通义千问",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 296,
+      "name": "360智图",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 297,
+      "name": "悟空图像PhotoSir",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 298,
+      "name": "万相营造",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773210960400,
+      "name": "PagePop",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 19,
+      "name": "秘塔AI搜索",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 49,
+      "name": "Unscreen",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 50,
+      "name": "Rytr",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_business",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 52,
+      "name": "ClipDrop",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 16,
+      "name": "Kimi",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 35,
+      "name": "Krea AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 36,
+      "name": "LiblibAI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 38,
+      "name": "Weights & Biases",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 51,
+      "name": "SeaArt AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773211022966,
+      "name": "Alpaca",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 37,
+      "name": "Zapier",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 18,
+      "name": "Coze/扣子",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 17,
+      "name": "Runway",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 41,
+      "name": "Gradio",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 39,
+      "name": "Ollama",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 20,
+      "name": "ChatPDF",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 59,
+      "name": "Stability AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1,
+      "name": "可灵",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 86,
+      "name": "ANIME-VIDEO-DOWNLOADER",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 2,
+      "name": "V0.dev",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 3,
+      "name": "LangChain",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 4,
+      "name": "Replicate",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198305829,
+      "name": "remove.bg",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198304146,
+      "name": "像素蛋糕",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 246,
+      "name": "world-model",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 245,
+      "name": "NoteKitLM: Supercharge Your NotebookLM",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_documentation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 243,
+      "name": "llm-classifier",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_documentation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 256,
+      "name": "maise",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 257,
+      "name": "Microsoft Copilot",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 258,
+      "name": "Ling-1T",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 259,
+      "name": "书生大模型",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 260,
+      "name": "阶跃AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 261,
+      "name": "百小应",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 262,
+      "name": "天工AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 5,
+      "name": "AutoGPT",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 263,
+      "name": "商量SenseChat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 264,
+      "name": "Me.bot",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 265,
+      "name": "Saylo",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 266,
+      "name": "Poe",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198309633,
+      "name": "Leonardo.ai",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198307980,
+      "name": "ClipDrop",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198306719,
+      "name": "Booltool",
+      "mainCategory": "image",
+      "oldSubCategory": "image_editing",
+      "newSubCategory": "image_editing"
+    },
+    {
+      "id": 269,
+      "name": "秒哒",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198309869,
+      "name": "DeepSwapper",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198308245,
+      "name": "Vmake AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 270,
+      "name": "代码小浣熊",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 272,
+      "name": "Qoder",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 275,
+      "name": "Kilo Code",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 276,
+      "name": "Google Antigravity",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 278,
+      "name": "Kiro",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 279,
+      "name": "Codex",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 9,
+      "name": "ChatGPT",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 6,
+      "name": "Notion AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 281,
+      "name": "Zcode",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 282,
+      "name": "CodeBuddy IDE",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 284,
+      "name": "夸克团队",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 285,
+      "name": "呜哩",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 7,
+      "name": "Gamma",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 8,
+      "name": "即梦AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 10,
+      "name": "Pika",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 286,
+      "name": "insMind",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 280,
+      "name": "YouWare",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 14,
+      "name": "Cursor",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 290,
+      "name": "秒绘AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 293,
+      "name": "Kira",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 21,
+      "name": "Dify",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 295,
+      "name": "Ribbet.ai",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 288,
+      "name": "咖图AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 12,
+      "name": "Suno",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 13,
+      "name": "Udio",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 289,
+      "name": "视觉工厂",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 22,
+      "name": "HeyGen",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 60,
+      "name": "Firefly AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198313059,
+      "name": "百度智能云一念",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 23,
+      "name": "Claude",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 24,
+      "name": "Hugging Face",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 25,
+      "name": "Bolt.new",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 26,
+      "name": "文心一言",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 42,
+      "name": "Streamlit",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 43,
+      "name": "Pinecone",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198312551,
+      "name": "言之画",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 61,
+      "name": "Mistral AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 62,
+      "name": "Meta AI",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 46,
+      "name": "Playground AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198312205,
+      "name": "IconGen",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 47,
+      "name": "Ideogram AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 48,
+      "name": "Kaiber AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 27,
+      "name": "Jasper",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198318494,
+      "name": "Bing Image Creator",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198317095,
+      "name": "Canva AI图像生成",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198315743,
+      "name": "奇域AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198316395,
+      "name": "造梦日记",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773197197081,
+      "name": "SkillHub",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198313521,
+      "name": "艾绘",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198313948,
+      "name": "Graviti Diffus",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198315506,
+      "name": "志设",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198316298,
+      "name": "触手AI绘画",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198319308,
+      "name": "简单AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198315038,
+      "name": "秘塔捉捉猫",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197199592,
+      "name": "InStreet",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197198968,
+      "name": "AutoClaw",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 82,
+      "name": "ImageScore AI - 可解释图像质量评估系统",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773197200850,
+      "name": "SheepGeo",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198317227,
+      "name": "超能画布",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198319706,
+      "name": "摩笔马良",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198320166,
+      "name": "画宇宙",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773197939103,
+      "name": "笔灵AI小说",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197939949,
+      "name": "01Agent",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197200354,
+      "name": "WorkBuddy",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197945579,
+      "name": "光速写作",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773197942393,
+      "name": "稿易AI论文",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197941051,
+      "name": "Paperpal",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197939653,
+      "name": "稿定AI文案",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 83,
+      "name": "withJess - the a.i. for your soul",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773197945268,
+      "name": "茅茅虫",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197943762,
+      "name": "维普科创助手",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197943297,
+      "name": "66AI论文",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_academic",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197942810,
+      "name": "千笔AI论文",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_academic",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197938929,
+      "name": "新华妙笔",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773197937040,
+      "name": "讯飞绘文",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198319574,
+      "name": "Exactly.ai",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773197951218,
+      "name": "材料星AI",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197948687,
+      "name": "Loomi",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_documentation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773197946487,
+      "name": "YouMind",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773197944471,
+      "name": "沁言学术",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 84,
+      "name": "learn-coding-by-building",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 85,
+      "name": "Xirea",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773197950243,
+      "name": "ReadPo",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197947627,
+      "name": "超级小说家",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197947739,
+      "name": "墨问",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773197947096,
+      "name": "万能小in",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_academic",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197945544,
+      "name": "GetDraft",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197957030,
+      "name": "松果AI写作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197954866,
+      "name": "Muset",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197957814,
+      "name": "讯飞写作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_business",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197948876,
+      "name": "FeelFish",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197952724,
+      "name": "Rubriq",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197950309,
+      "name": "小鱼AI写作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197951120,
+      "name": "量子探险",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197949064,
+      "name": "落笔AI写作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197954081,
+      "name": "创一AI",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197955679,
+      "name": "千页小说AI",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197953805,
+      "name": "讯飞文书",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773197952608,
+      "name": "QuillBot",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197964138,
+      "name": "Jasper",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197955740,
+      "name": "秘塔写作猫",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197959917,
+      "name": "橙篇",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197957812,
+      "name": "PaperXie智能写作",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773197961235,
+      "name": "彩云小梦",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197964885,
+      "name": "Grammarly",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197966440,
+      "name": "晓语台",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197967783,
+      "name": "DeepL Write",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197963755,
+      "name": "灵犀速写",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197961881,
+      "name": "墨狐AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197959476,
+      "name": "Rytr",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197957299,
+      "name": "公文宝",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773197967844,
+      "name": "Jenni",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197966654,
+      "name": "Writesonic",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197960398,
+      "name": "深言达意",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197963925,
+      "name": "Copy.ai",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197963125,
+      "name": "掌桥科研AI论文",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773197962019,
+      "name": "MidReal",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773197964894,
+      "name": "库宝AI工作助手",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197969797,
+      "name": "魔撰写作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197969263,
+      "name": "Wordvice AI",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_academic",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197965563,
+      "name": "文状元",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773197959781,
+      "name": "迅捷AI写作",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773197958561,
+      "name": "FlowUs AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197972305,
+      "name": "写作蛙",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197978915,
+      "name": "Spell.tools",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197969346,
+      "name": "AI新媒体文章",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197975577,
+      "name": "Cohesive",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197974027,
+      "name": "百度作家平台",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197974334,
+      "name": "Verse",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197977817,
+      "name": "NovelAI",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197980948,
+      "name": "文涌Effidit",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197976219,
+      "name": "WritingPal",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_academic",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197972814,
+      "name": "文思助手",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773197971922,
+      "name": "有道写作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197970112,
+      "name": "宙语Cosmos",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197968803,
+      "name": "有道翻译·AI写作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197972696,
+      "name": "WriteWise",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197974246,
+      "name": "爱创作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197985255,
+      "name": "创作王",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197975761,
+      "name": "万彩AI",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197982532,
+      "name": "爱改写",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197977969,
+      "name": "奇妙文",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197980603,
+      "name": "悉语",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197977258,
+      "name": "Magic Write",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197986210,
+      "name": "XPaper AI",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_academic",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197983729,
+      "name": "易撰",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197987011,
+      "name": "讯飞智检",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197979292,
+      "name": "HyperWrite",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197974721,
+      "name": "Moonbeam",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197983267,
+      "name": "HeyFriday",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197984277,
+      "name": "智搜",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198328124,
+      "name": "Relight",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773197986639,
+      "name": "悟智写作",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198326908,
+      "name": "Skybox AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198324216,
+      "name": "Stockimg AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198322787,
+      "name": "360智绘",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198323636,
+      "name": "Imagine with Meta",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773197985685,
+      "name": "字符狂飙",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773198325420,
+      "name": "175FUN",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198488673,
+      "name": "MiniMax",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198489817,
+      "name": "LongCat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197988238,
+      "name": "Bearly",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773197987207,
+      "name": "5118 SEO优化精灵",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773197988006,
+      "name": "ContentBot",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773197989261,
+      "name": "快文CopyDone",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198327177,
+      "name": "Facet",
+      "mainCategory": "image",
+      "oldSubCategory": "image_editing",
+      "newSubCategory": "image_editing"
+    },
+    {
+      "id": 1773198326419,
+      "name": "行者AI美术",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198324089,
+      "name": "Freepik AI Image Generator",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198322798,
+      "name": "网易AI创意工坊",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198503143,
+      "name": "通义星尘",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198321847,
+      "name": "Visual Electric",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198501066,
+      "name": "Bing新必应",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198325551,
+      "name": "Stable Doodle",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198504607,
+      "name": "造梦次元",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198501732,
+      "name": "Koko AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_companion",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198500490,
+      "name": "Meta AI助手",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198498979,
+      "name": "Character.AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198143708,
+      "name": "AI论文君",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198141806,
+      "name": "小微智能论文",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198141555,
+      "name": "Writer",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198139921,
+      "name": "AISEO",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198136976,
+      "name": "Smodin AI Research Paper",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198138194,
+      "name": "LongShot",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198139311,
+      "name": "Reword",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198136022,
+      "name": "Anyword",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198133745,
+      "name": "Texta",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198144546,
+      "name": "ProWritingAid",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198145336,
+      "name": "Yaara",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 244,
+      "name": "mnemosyne",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198134417,
+      "name": "ClosersCopy",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773198143792,
+      "name": "SurferSEO",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198134614,
+      "name": "Sudowrite",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198141874,
+      "name": "范文喵",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198136039,
+      "name": "Hypotenuse AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198140959,
+      "name": "PaperBetter AI",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198138304,
+      "name": "Jounce",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198145483,
+      "name": "WordTune",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198142534,
+      "name": "笔杆论文",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_academic",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198139527,
+      "name": "Elephas",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198137672,
+      "name": "ParagraphAI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198135108,
+      "name": "WPS智能写作",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773198133184,
+      "name": "Compose AI",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773198150111,
+      "name": "Content at Scale",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198147039,
+      "name": "Frase",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198148803,
+      "name": "星火网文助手",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198477571,
+      "name": "腾讯元宝",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198480365,
+      "name": "Gemini",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198480593,
+      "name": "Flowith",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198147552,
+      "name": "Copymatic",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198146858,
+      "name": "NeuralText",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198483808,
+      "name": "Kimi智能助手",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198482627,
+      "name": "DeepSeek",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198482230,
+      "name": "逗逗AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198476101,
+      "name": "讯飞星火",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198475212,
+      "name": "豆包",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773198485468,
+      "name": "Grok",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198148194,
+      "name": "TextCortex",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198150596,
+      "name": "Mark Copy",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198149549,
+      "name": "INK",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198486682,
+      "name": "Z.ai",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 273,
+      "name": "豆包AI编程",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198507740,
+      "name": "小悟空",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198509329,
+      "name": "紫东太初",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198506793,
+      "name": "百度AI助手",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198494448,
+      "name": "百灵大模型",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198493825,
+      "name": "问小白",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198492486,
+      "name": "华为小艺",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198491367,
+      "name": "智谱清言",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198487726,
+      "name": "Qwen Chat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198511188,
+      "name": "冒泡鸭",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198299568,
+      "name": "秒绘AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198289788,
+      "name": "LiblibAI·哩布哩布AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198297076,
+      "name": "insMind",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198292532,
+      "name": "Stable Diffusion",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198293390,
+      "name": "吐司AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198290581,
+      "name": "阿贝智能",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198287812,
+      "name": "绘蛙",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198296262,
+      "name": "WHEE",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198298082,
+      "name": "咖图AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198509511,
+      "name": "小黄蕉",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_companion",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198294782,
+      "name": "可灵AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198294205,
+      "name": "RunningHub",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198299740,
+      "name": "炉米Lumi",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198301201,
+      "name": "Kira",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198303247,
+      "name": "悟空图像PhotoSir",
+      "mainCategory": "image",
+      "oldSubCategory": "image_editing",
+      "newSubCategory": "image_editing"
+    },
+    {
+      "id": 1773198298213,
+      "name": "视觉工厂",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198290703,
+      "name": "稿定AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198296677,
+      "name": "呜哩",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198292400,
+      "name": "Civitai",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198291177,
+      "name": "Midjourney",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198294820,
+      "name": "通义万相",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 283,
+      "name": "Lovable",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198295895,
+      "name": "秒画",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198293573,
+      "name": "造点AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198306348,
+      "name": "MagicStudio",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198305810,
+      "name": "Cutout.Pro",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 292,
+      "name": "炉米Lumi",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198304306,
+      "name": "如果相机",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198299653,
+      "name": "妙话AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198520824,
+      "name": "Luca面壁露卡",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198522812,
+      "name": "ChitChop",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198523304,
+      "name": "魔搭GPT（ModelScopeGPT）",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198524772,
+      "name": "Forefront",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198521867,
+      "name": "元象XChat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198534552,
+      "name": "Whispr",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198534116,
+      "name": "Replika",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198541828,
+      "name": "应事AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198541085,
+      "name": "对话写作猫",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198540325,
+      "name": "Neeva",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198539445,
+      "name": "360智脑",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198536860,
+      "name": "Pi",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198536162,
+      "name": "Open Assistant",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198533081,
+      "name": "ChatSonic",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198532005,
+      "name": "YouChat AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198531260,
+      "name": "MOSS",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198529624,
+      "name": "Jasper Chat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198529074,
+      "name": "ColossalChat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198527291,
+      "name": "Stable Chat",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198526628,
+      "name": "TigerBot",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198608747,
+      "name": "CuspAI",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198595619,
+      "name": "玻尔",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198595057,
+      "name": "Perplexity",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198597642,
+      "name": "AMiner",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198599206,
+      "name": "点点",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198603404,
+      "name": "百度AI探索版",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198605372,
+      "name": "天工AI搜索",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198607349,
+      "name": "博查AI搜索",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198605849,
+      "name": "Exa AI",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_documentation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198604133,
+      "name": "Felo",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198601673,
+      "name": "知乎直答",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198600104,
+      "name": "Devv",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_documentation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198599014,
+      "name": "心流",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198596738,
+      "name": "SearchGPT",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198610373,
+      "name": "博简智慧专利",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198616522,
+      "name": "AlphaSense",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198612351,
+      "name": "360AI搜索",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198615340,
+      "name": "Glean",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198614793,
+      "name": "XAnswer",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198613710,
+      "name": "Dexa AI",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198610806,
+      "name": "链企AI",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198617624,
+      "name": "Globe Explorer",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198621190,
+      "name": "Consensus",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198623604,
+      "name": "Searcholic",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198622776,
+      "name": "Komo Search",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198621022,
+      "name": "iAsk AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198619500,
+      "name": "Phind",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198618708,
+      "name": "Reportify",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198612756,
+      "name": "问问小宇宙",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198720407,
+      "name": "Noiz AI",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198626119,
+      "name": "ThinkAny",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198718693,
+      "name": "琅琅配音",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198717874,
+      "name": "ElevenLabs",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198629761,
+      "name": "Adot",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773198717133,
+      "name": "Keevx声音克隆",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198712836,
+      "name": "讯飞智作",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198719870,
+      "name": "千音漫语",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198715500,
+      "name": "海绵音乐",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198714392,
+      "name": "讯飞译制",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198630018,
+      "name": "开搜AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198628173,
+      "name": "Qdrant",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198627397,
+      "name": "Miku",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198625437,
+      "name": "Songtell",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198738621,
+      "name": "网易天音",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198727497,
+      "name": "Nafy AI",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198726415,
+      "name": "Vemus未音",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198723044,
+      "name": "讯飞听见",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198721393,
+      "name": "MiniMax Audio",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198740591,
+      "name": "Stable Audio",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198741897,
+      "name": "TextToSpeech",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198730029,
+      "name": "天谱乐",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198729318,
+      "name": "多维视界",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198728096,
+      "name": "TurboScribe",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198725813,
+      "name": "音述AI",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198724153,
+      "name": "NotebookLM",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198722036,
+      "name": "Tunee",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773198755628,
+      "name": "OptimizerAI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198744307,
+      "name": "Uberduck",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198755247,
+      "name": "Voicenotes",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198754171,
+      "name": "Fryderyk",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198747005,
+      "name": "大饼AI变声",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198748705,
+      "name": "Supertone Shift",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198752519,
+      "name": "Wondercraft",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198750462,
+      "name": "Adobe Podcast",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198749414,
+      "name": "Producer.ai",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198744954,
+      "name": "Sonauto",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198743215,
+      "name": "LOVO AI",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198750994,
+      "name": "网易云音乐·X Studio",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198746476,
+      "name": "天工SkyMusic",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198757142,
+      "name": "蓝藻AI",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198771407,
+      "name": "NaturalReader",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198759383,
+      "name": "Audiobox",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198770401,
+      "name": "Audo Studio",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198769320,
+      "name": "BeatBot",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198766892,
+      "name": "Mubert",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198766494,
+      "name": "音虫",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198765437,
+      "name": "悦音配音",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198764447,
+      "name": "快转字幕",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198762901,
+      "name": "BGM猫",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198760952,
+      "name": "RESEMBLE.AI",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198768412,
+      "name": "beatoven.ai",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198761355,
+      "name": "IBM Watson文字转语音",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773198758853,
+      "name": "Deepgram",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_documentation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198772494,
+      "name": "AssemblyAI",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198792143,
+      "name": "Voicemod",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198789814,
+      "name": "Voice.ai",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198788771,
+      "name": "Voicemaker",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198786883,
+      "name": "MetaVoice",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198786010,
+      "name": "Clipchamp AI旁白生成器",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198785643,
+      "name": "Veed AI Voice Generator",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198784164,
+      "name": "Typecast",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198781305,
+      "name": "Lemonaid",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_composition",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198780018,
+      "name": "Murf AI",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198788563,
+      "name": "Speechify",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198775153,
+      "name": "Play.ht",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198773532,
+      "name": "Krisp",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198790486,
+      "name": "Listnr",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198772728,
+      "name": "LALAL.AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198947593,
+      "name": "堆友AI视频",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198945358,
+      "name": "Keevx",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198942978,
+      "name": "绘蛙AI视频",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198796009,
+      "name": "通义听悟",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198795927,
+      "name": "简单听记",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198793864,
+      "name": "Notta",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198792625,
+      "name": "WellSaid",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198952632,
+      "name": "Sora",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198951843,
+      "name": "蝉镜",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198949923,
+      "name": "Pollo AI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198948642,
+      "name": "白日梦",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198946517,
+      "name": "有言",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198944583,
+      "name": "SoundView",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773198794976,
+      "name": "听脑AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773198973733,
+      "name": "磁力开创",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198972138,
+      "name": "智谱清影",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198971123,
+      "name": "即创",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198969715,
+      "name": "KomikoAI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198954068,
+      "name": "可灵AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198953199,
+      "name": "JoyPix",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198973013,
+      "name": "内容特工队",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773198967988,
+      "name": "云幕同声",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198967178,
+      "name": "NextCut AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773198966237,
+      "name": "花生AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198958228,
+      "name": "魔珐星云",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773198956712,
+      "name": "通义万相AI视频",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198956060,
+      "name": "腾讯混元AI视频",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199027719,
+      "name": "场辞",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199026917,
+      "name": "Duix",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199025617,
+      "name": "开拍",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198963684,
+      "name": "雾象",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198962141,
+      "name": "Higgsfield",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198961990,
+      "name": "TapNow",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199029737,
+      "name": "Spikes Studio",
+      "mainCategory": "video",
+      "oldSubCategory": "video_editing",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199028068,
+      "name": "一起剪",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199024535,
+      "name": "曦灵数字人",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198975584,
+      "name": "HitPaw",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773198964845,
+      "name": "造次",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198960507,
+      "name": "MochiAni",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198959892,
+      "name": "献丑AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198958473,
+      "name": "AdsTurbo AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198990996,
+      "name": "妙播",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198988194,
+      "name": "Viggle",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198985958,
+      "name": "Hedra",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198983395,
+      "name": "Dream Machine",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198979549,
+      "name": "通义灵眸",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198978959,
+      "name": "SekoTalk",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198989514,
+      "name": "万兴天幕",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198988741,
+      "name": "Tavus",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198986528,
+      "name": "Vozo",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198985254,
+      "name": "绘想",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198983887,
+      "name": "讯飞绘镜",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198981489,
+      "name": "Medeo",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198980545,
+      "name": "巨日禄",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198978138,
+      "name": "KreadoAI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199004116,
+      "name": "D-ID",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199002661,
+      "name": "Humva",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199001618,
+      "name": "Hotshot",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198999566,
+      "name": "Vizard",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198998315,
+      "name": "Flow Studio",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198996987,
+      "name": "神笔马良",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198994464,
+      "name": "SkyReels",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198993275,
+      "name": "元镜",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198992670,
+      "name": "秒创",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773198991162,
+      "name": "阶跃视频",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199002488,
+      "name": "vivago.ai",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198996945,
+      "name": "Video Ocean",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773198995268,
+      "name": "MOKI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199018218,
+      "name": "Video Studio",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199017413,
+      "name": "飞影数字人",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199016382,
+      "name": "讯飞虚拟人",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199009458,
+      "name": "Etna",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199013261,
+      "name": "度加创作工具",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199012084,
+      "name": "LensGo",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199010896,
+      "name": "艺映AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199006626,
+      "name": "Noisee AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199014544,
+      "name": "WinkStudio",
+      "mainCategory": "video",
+      "oldSubCategory": "video_editing",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199015528,
+      "name": "VMagic",
+      "mainCategory": "video",
+      "oldSubCategory": "video_editing",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199012753,
+      "name": "必剪Studio",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199008689,
+      "name": "Vimi",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199007935,
+      "name": "万兴播爆",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199147878,
+      "name": "Capsule",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199146137,
+      "name": "Clipfly",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199139806,
+      "name": "即构数智人",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199138333,
+      "name": "Showrunner",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199137773,
+      "name": "Haiper",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773199032759,
+      "name": "Morph Studio",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199032236,
+      "name": "Gatekeep",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199140534,
+      "name": "快剪辑",
+      "mainCategory": "video",
+      "oldSubCategory": "video_editing",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199146633,
+      "name": "Captions",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199145156,
+      "name": "LTX Studio",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199144297,
+      "name": "Magicam",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199141871,
+      "name": "闪剪",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199030839,
+      "name": "DomoAI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199163444,
+      "name": "DeepBrain",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199160107,
+      "name": "绘影字幕",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773209612884,
+      "name": "Airgram",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199161987,
+      "name": "Anylang.ai",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199158526,
+      "name": "来画",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199157904,
+      "name": "PixVerse",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199154204,
+      "name": "Typeframes",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199149231,
+      "name": "GoEnhance",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199159563,
+      "name": "奇妙元",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199156824,
+      "name": "Mootion",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199155558,
+      "name": "DreamFace",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199153146,
+      "name": "Kaiber",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199151201,
+      "name": "EbSynth",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199149257,
+      "name": "InVideo AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199182610,
+      "name": "Pictory",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199181657,
+      "name": "Elai.io",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199177307,
+      "name": "BgRem",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199175498,
+      "name": "Hour One",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199170887,
+      "name": "鬼手剪辑GhostCut",
+      "mainCategory": "video",
+      "oldSubCategory": "video_editing",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199174262,
+      "name": "Synthesys",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199179363,
+      "name": "Colossyan",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199178023,
+      "name": "Colourlab.ai",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199175040,
+      "name": "Veed Video Background Remover",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199172592,
+      "name": "模力视频",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199170685,
+      "name": "团队快剪",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199169652,
+      "name": "怪兽AI数字人",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199165181,
+      "name": "Lumen5",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199164130,
+      "name": "Synthesia",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199501369,
+      "name": "码上飞",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773199495556,
+      "name": "爱派AiPy",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199494979,
+      "name": "Atoms",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199183181,
+      "name": "SteveAI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199499696,
+      "name": "Manus",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199501858,
+      "name": "金灵AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199503433,
+      "name": "OpenClaw",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773199505482,
+      "name": "QoderWork",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199506855,
+      "name": "EvoMap",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199507705,
+      "name": "happycapy",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199508850,
+      "name": "Genspark",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199498725,
+      "name": "讯飞星辰Agent",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773199497362,
+      "name": "扣子",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773199184696,
+      "name": "Rask",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199523474,
+      "name": "元气AI Bot",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199521464,
+      "name": "Mixboard",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773199512149,
+      "name": "MiniMax Agent",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199512223,
+      "name": "Lovart",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199514190,
+      "name": "GenFlow",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199515173,
+      "name": "Skywork",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199516810,
+      "name": "小云雀",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199518263,
+      "name": "新SkillHub",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773199517077,
+      "name": "Tabbit",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199519000,
+      "name": "切问学术",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199520732,
+      "name": "Leewow",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199522262,
+      "name": "memU Bot",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_general",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773199510428,
+      "name": "QClaw",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773199510279,
+      "name": "OiiOii",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199523652,
+      "name": "WorkAny",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199528363,
+      "name": "Tbox",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199529330,
+      "name": "椒图AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199531086,
+      "name": "遨虾",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199533040,
+      "name": "Tago",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199553313,
+      "name": "CrePal",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199535195,
+      "name": "NeoDomain",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199536052,
+      "name": "MuleRun",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199536658,
+      "name": "Opera Neon",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199537334,
+      "name": "Seko",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773199531293,
+      "name": "亿话",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773199528523,
+      "name": "稿定AI社区",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199527206,
+      "name": "AnyGen",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773199525084,
+      "name": "Agnes AI",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773199538644,
+      "name": "Fellou",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199539020,
+      "name": "Dia",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773199540606,
+      "name": "TabTab",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199541015,
+      "name": "酷宣AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199542640,
+      "name": "月亮树AI选品",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199543174,
+      "name": "如此AI员工",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199544710,
+      "name": "MasterAgent",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199544974,
+      "name": "Teamo",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199546651,
+      "name": "SciMaster",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199549669,
+      "name": "FinGenius",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199549802,
+      "name": "RoboNeo",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199550952,
+      "name": "混沌Deep Innovation",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199551748,
+      "name": "BrowserOS",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199546879,
+      "name": "Zeabur",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773199553456,
+      "name": "Jaaz",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199554484,
+      "name": "CoCo",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199555930,
+      "name": "Bloom",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199556262,
+      "name": "Bobby",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199558126,
+      "name": "Fairies",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199560098,
+      "name": "FloweAI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199560360,
+      "name": "AutoGLM沉思",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199562251,
+      "name": "CRIC深度智联",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773199562331,
+      "name": "rabbitOS intern",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773200031874,
+      "name": "CatPaw",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200032581,
+      "name": "Augment Code",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200034371,
+      "name": "MonkeyCode",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200035021,
+      "name": "iFlow CLI",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200035871,
+      "name": "通义灵码",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200037218,
+      "name": "GitHub Copilot",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200037535,
+      "name": "Firebase Studio",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200040081,
+      "name": "InfCode",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200041424,
+      "name": "CodeFlicker",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200041671,
+      "name": "Clacky AI",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200042926,
+      "name": "Replit Agent",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200044007,
+      "name": "Warp Code",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200045160,
+      "name": "CodeWhisperer",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200045436,
+      "name": "Zread",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200046320,
+      "name": "Junie",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200047969,
+      "name": "CodeBuddy",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200048756,
+      "name": "Qodo",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200049066,
+      "name": "CodeGeeX",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200049929,
+      "name": "Amp",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200051154,
+      "name": "DevChat",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200052654,
+      "name": "JoyCode",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200053305,
+      "name": "Genie",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200056569,
+      "name": "Twinny",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200057652,
+      "name": "华为云码道",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200061843,
+      "name": "C知道",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773200059865,
+      "name": "CodeFuse",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200061330,
+      "name": "Tabby",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200059431,
+      "name": "Sketch2Code",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200062575,
+      "name": "驭码CodeRider",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200064388,
+      "name": "CodeRabbit",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200066017,
+      "name": "Devin",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200066238,
+      "name": "Plandex",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200067111,
+      "name": "Fitten Code",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200068732,
+      "name": "BLACKBOX AI",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200068985,
+      "name": "Solo",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200070221,
+      "name": "JetBrains AI",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200071189,
+      "name": "AskCodi",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200072554,
+      "name": "v0.app",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200073250,
+      "name": "Boxy",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200083366,
+      "name": "Codiga",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200080714,
+      "name": "Deco",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200077091,
+      "name": "aiXcoder",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200079025,
+      "name": "AirOps",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200079429,
+      "name": "Imgcook",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200082065,
+      "name": "Ghostwriter",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773200076714,
+      "name": "JamGPT",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773200076095,
+      "name": "天工智码Skycode",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773200294456,
+      "name": "AiPPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200087946,
+      "name": "Debuild",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200088770,
+      "name": "Warp",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200096654,
+      "name": "Codeium",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200095636,
+      "name": "HeyCLI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200094466,
+      "name": "AI Code Reviewer",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200296264,
+      "name": "咔片PPT",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_documentation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200095263,
+      "name": "Visual Studio IntelliCode",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200294474,
+      "name": "扣子PPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200091867,
+      "name": "Hocoos",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200091489,
+      "name": "CodeSnippets",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200090393,
+      "name": "Fig",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200084056,
+      "name": "Locofy",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200296450,
+      "name": "文多多AiPPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200318293,
+      "name": "麦当秀MindShow",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200314380,
+      "name": "NarraLand",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200312715,
+      "name": "美图AI PPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200312394,
+      "name": "夸克PPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200310376,
+      "name": "飞象老师",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200309682,
+      "name": "PicDoc",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200308480,
+      "name": "Diagrimo",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200307656,
+      "name": "ChartGen",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773200316972,
+      "name": "万兴智演",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200316150,
+      "name": "清言PPT",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773200315222,
+      "name": "课灵 PPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200311522,
+      "name": "Kimi PPT助手",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773200306170,
+      "name": "Napkin",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773200298973,
+      "name": "博思AIPPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200334334,
+      "name": "auxi",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200333679,
+      "name": "SlidesAI",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200330152,
+      "name": "Chronicle",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200327928,
+      "name": "beautiful.ai",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200325424,
+      "name": "GAIPPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200323995,
+      "name": "希沃白板",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200322733,
+      "name": "Powerpresent AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200326375,
+      "name": "万知",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200321995,
+      "name": "Decktopus AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200321205,
+      "name": "ChatBA",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773200332441,
+      "name": "Presentations.AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773200329526,
+      "name": "轻竹办公",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200328614,
+      "name": "ChatPPT",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773200324508,
+      "name": "秒出PPT",
+      "mainCategory": "office",
+      "oldSubCategory": "office_presentation",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200383422,
+      "name": "北极九章",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200382970,
+      "name": "轻云图",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200380572,
+      "name": "Ajelix",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773200379934,
+      "name": "百度GBI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200378729,
+      "name": "vika维格云",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200377072,
+      "name": "爱图表",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773200375104,
+      "name": "Tomoro",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200335855,
+      "name": "MindShow",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773200384769,
+      "name": "FormX.ai",
+      "mainCategory": "office",
+      "oldSubCategory": "office_data",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200384744,
+      "name": "Formula bot",
+      "mainCategory": "office",
+      "oldSubCategory": "office_data",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200378035,
+      "name": "ChartinAI",
+      "mainCategory": "image",
+      "oldSubCategory": "image_generation",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773200376548,
+      "name": "Shortcut",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773200374041,
+      "name": "察言观数AskTable",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773209309708,
+      "name": "小画桌",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209309012,
+      "name": "Mapify",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773209308135,
+      "name": "妙办画板",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209305395,
+      "name": "自由画布",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209304404,
+      "name": "ProcessOn",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209303212,
+      "name": "畅图AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209301612,
+      "name": "博思白板",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209303471,
+      "name": "可赞AI",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773209300884,
+      "name": "TreeMind树图",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773200387879,
+      "name": "SheetGod",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200385769,
+      "name": "Rows",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209306530,
+      "name": "亿图脑图",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773200389115,
+      "name": "Excel Formularizer",
+      "mainCategory": "office",
+      "oldSubCategory": "office_data",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773200387347,
+      "name": "Excelly-AI",
+      "mainCategory": "office",
+      "oldSubCategory": "office_data",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773209472526,
+      "name": "OmniBox小黑",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209471621,
+      "name": "凹凸工坊",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209470209,
+      "name": "Wisfile",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209314153,
+      "name": "亿图图示AI",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773209468612,
+      "name": "小绿鲸",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209467475,
+      "name": "txyz",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209319873,
+      "name": "Ayoa Ultimate",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209317920,
+      "name": "Taskade",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209317160,
+      "name": "AmyMind",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209315159,
+      "name": "Whimsical",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209313701,
+      "name": "GitMind思乎",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209312109,
+      "name": "知犀AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209470079,
+      "name": "包阅AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209312229,
+      "name": "Xmind AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209482899,
+      "name": "匡优AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209481624,
+      "name": "腾讯问卷",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209478570,
+      "name": "Quivr",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773209475763,
+      "name": "WPS AI",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773209477909,
+      "name": "Cubox",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209477185,
+      "name": "腾讯文档智能助手",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773209473592,
+      "name": "智写流程",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773209484023,
+      "name": "字语智能",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773209485818,
+      "name": "星火文档问答",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209480541,
+      "name": "有道速读",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209479329,
+      "name": "Coda",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773209474934,
+      "name": "Acrobat AI Assistant",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209474748,
+      "name": "Doc2X",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773209495262,
+      "name": "Rossum.ai",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773209494386,
+      "name": "PandaGPT",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209490492,
+      "name": "印象AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209488077,
+      "name": "司马阅",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773209496195,
+      "name": "Super AI",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773209608511,
+      "name": "腾讯会议AI小助手",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209607895,
+      "name": "Ai好记",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773209606051,
+      "name": "飞书妙记",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773209604449,
+      "name": "讯飞会议",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_translation",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773209493908,
+      "name": "ChatDOC",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209492520,
+      "name": "Humata",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209491745,
+      "name": "Craft AI Assistant",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209489979,
+      "name": "星火科研助手",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209488793,
+      "name": "知我AI",
+      "mainCategory": "video",
+      "oldSubCategory": "video_generation",
+      "newSubCategory": "video_generation"
+    },
+    {
+      "id": 1773209609810,
+      "name": "Zoom Workplace",
+      "mainCategory": "office",
+      "oldSubCategory": "office_document",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773198602061,
+      "name": "纳米AI",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773209724776,
+      "name": "51mee",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209723288,
+      "name": "理聘AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209722770,
+      "name": "AI面试帮",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209718781,
+      "name": "牛面",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209717933,
+      "name": "面多多",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209717002,
+      "name": "求职方舟",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209715745,
+      "name": "超级简历",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773209610960,
+      "name": "Fireflies.ai",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209719377,
+      "name": "面团AI",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209714503,
+      "name": "UP简历",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209611840,
+      "name": "Noty.ai",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209609944,
+      "name": "麦耳会记",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209737950,
+      "name": "神笔简历",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209736612,
+      "name": "蓝字典AI求职",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209735345,
+      "name": "职得简历",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209730724,
+      "name": "多面鹅",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773209729698,
+      "name": "智面星",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209728401,
+      "name": "Mercor",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209727203,
+      "name": "DINQ",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209726134,
+      "name": "TelehireAI面试",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773209735240,
+      "name": "职徒简历",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209733808,
+      "name": "白瓜面试",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209732448,
+      "name": "面试猫",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773209731900,
+      "name": "Gank Interview",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209729724,
+      "name": "Offerin",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773209725702,
+      "name": "LovTalent",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773210630799,
+      "name": "AI分享圈",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210629845,
+      "name": "堆友AI学习",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210628135,
+      "name": "AI大学堂",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210104985,
+      "name": "iTerms-AI法律",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773210110215,
+      "name": "ChatLaw",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773210113203,
+      "name": "海瑞智法",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773210112494,
+      "name": "法智",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773210111163,
+      "name": "得理法搜",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773210109602,
+      "name": "MetaLaw",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773210108422,
+      "name": "法行宝",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773210107826,
+      "name": "通义法睿",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773210107017,
+      "name": "元典智库",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773210106281,
+      "name": "吾律AI律师",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_platform",
+      "newSubCategory": "ai_platform"
+    },
+    {
+      "id": 1773200372125,
+      "name": "办公小浣熊",
+      "mainCategory": "office",
+      "oldSubCategory": "office_data",
+      "newSubCategory": "office_document"
+    },
+    {
+      "id": 1773210642901,
+      "name": "Kaggle",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773210640047,
+      "name": "MachineLearningMastery",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773210639115,
+      "name": "动手学深度学习",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210638318,
+      "name": "DeepLearning.AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210637932,
+      "name": "Elements of AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210636884,
+      "name": "Coursera",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210634985,
+      "name": "学吧导航",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773210634059,
+      "name": "fast.ai",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210632941,
+      "name": "Day of AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210632125,
+      "name": "OpenAI Academy",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210642533,
+      "name": "ML for Beginners",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773210641416,
+      "name": "Generative AI for Beginners",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773210635770,
+      "name": "Lynote",
+      "mainCategory": "chat",
+      "oldSubCategory": "chat_professional",
+      "newSubCategory": "chat_general"
+    },
+    {
+      "id": 1773210952227,
+      "name": "Pixso AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210951144,
+      "name": "Holopix AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210947541,
+      "name": "Figma AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210947337,
+      "name": "墨刀AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210944925,
+      "name": "星流AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210943177,
+      "name": "堆友AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210652140,
+      "name": "ShowMeAI知识社区",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210651147,
+      "name": "Google AI",
+      "mainCategory": "search",
+      "oldSubCategory": "search_smart",
+      "newSubCategory": "search_smart"
+    },
+    {
+      "id": 1773210649543,
+      "name": "Udacity AI学院",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210648632,
+      "name": "阿里云AI学习路线",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210646880,
+      "name": "飞桨AI Studio",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773210950307,
+      "name": "135 AI排版",
+      "mainCategory": "writing",
+      "oldSubCategory": "writing_marketing",
+      "newSubCategory": "writing_marketing"
+    },
+    {
+      "id": 1773210949296,
+      "name": "美图设计室",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773210648492,
+      "name": "腾讯扣叮",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    },
+    {
+      "id": 1773210967983,
+      "name": "Looka",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210967398,
+      "name": "标小智LOGO生成器",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210965860,
+      "name": "燕雀光年",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210965285,
+      "name": "UXbot",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210963389,
+      "name": "Microsoft Designer",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773210961992,
+      "name": "美间AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210959060,
+      "name": "爱设计",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210958195,
+      "name": "蚂上有创意",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210957009,
+      "name": "魔力工作室",
+      "mainCategory": "audio",
+      "oldSubCategory": "audio_synthesis",
+      "newSubCategory": "audio_synthesis"
+    },
+    {
+      "id": 1773210955403,
+      "name": "GemDesign",
+      "mainCategory": "image",
+      "oldSubCategory": "image_design",
+      "newSubCategory": "image_generation"
+    },
+    {
+      "id": 1773210953565,
+      "name": "创客贴AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210952560,
+      "name": "Recraft AI",
+      "mainCategory": "ai_agent",
+      "oldSubCategory": "ai_other",
+      "newSubCategory": "ai_other"
+    },
+    {
+      "id": 1773210956147,
+      "name": "Pic Copilot",
+      "mainCategory": "coding",
+      "oldSubCategory": "coding_generation",
+      "newSubCategory": "coding_generation"
+    }
+  ],
+  "subCategoryDistribution": {
+    "chat_general": 170,
+    "coding_generation": 116,
+    "image_generation": 99,
+    "video_generation": 143,
+    "ai_other": 155,
+    "audio_synthesis": 70,
+    "writing_marketing": 95,
+    "image_editing": 7,
+    "ai_platform": 54,
+    "search_smart": 37,
+    "office_document": 54
+  }
+}

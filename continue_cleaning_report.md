@@ -1,0 +1,305 @@
+# 继续数据清洗报告
+
+## 清洗结果
+- **新匹配应用**: 238 个
+- **数据库更新**: 238 条记录
+- **剩余未匹配**: 51 个
+
+## 新匹配应用详情
+- MyShell → 编程-智能体开发
+- Wonder Studio → 视觉-视频数字人
+- ACE Studio → 音频-配音克隆
+- yolo-image-identifier → 编程-代码编写
+- NLUI → 对话-国产模型
+- SWE-Model-Arena → 视觉-视频数字人
+- agent-wall → 编程-智能体开发
+- awesome-ai-pentesting → 编程-AI工程
+- Individual-task-1 → 编程-代码编写
+- 1btc1btc → 工具-小众工具
+- ai-best-practices → 编程-代码编写
+- Awesome-Hacking-with-AI → 编程-AI工程
+- OneStory → 视觉-视频数字人
+- BreakRot - Build Focus → 工具-效率工具
+- Google Vids → 视觉-视频数字人
+- Pixfun → 视觉-视频数字人
+- amux — Agent Multiplexer → 编程-智能体开发
+- Logo Diffusion → 视觉-图像生成
+- Kapwing → 视觉-视频数字人
+- Adobe Firefly → 视觉-图像生成
+- Suna → 编程-智能体开发
+- Seele AI → 编程-智能体开发
+- AVCLabs → 视觉-视频数字人
+- Descript → 音频-音频编辑
+- TTSMaker → 音频-配音克隆
+- Lyrics Into Song AI → 音频-音乐生成
+- 寻光 → 视觉-视频数字人
+- Artflow → 视觉-视频数字人
+- A2E → 视觉-视频数字人
+- Vidu → 视觉-视频数字人
+- FakeYou → 音频-配音克隆
+- Gencraft → 视觉-视频数字人
+- FlowMuse AI → 编程-智能体开发
+- Fliki → 视觉-视频数字人
+- Decohere → 视觉-视频数字人
+- Stable Video → 视觉-视频数字人
+- RunningHub → 编程-开发工具
+- Poly → 视觉-图像生成
+- react-planora-ai → 编程-代码编写
+- 小墨鹰编辑器 → 视觉-创意设计
+- DeepCLI - Ai Agent System → 编程-智能体开发
+- Realibox AI → 视觉-图像生成
+- 海螺视频 → 视觉-视频数字人
+- mnist-neural-network- → 编程-代码编写
+- FleekHire – AI powered ATS for Agencies → 工具-效率工具
+- 音潮 → 音频-音频编辑
+- Mureka → 音频-音乐生成
+- 音疯 → 音频-音频编辑
+- 音秘 → 音频-音频编辑
+- 音剪 → 音频-音频编辑
+- MemoAI → 音频-音频编辑
+- Filmora → 视觉-视频数字人
+- Opus Clip → 视觉-视频数字人
+- YoYo → 视觉-视频数字人
+- 录咖 → 视觉-视频数字人
+- 万彩微影 → 视觉-视频数字人
+- Rephrase.ai → 视觉-视频数字人
+- PagePop → 视觉-创意设计
+- IconGen → 视觉-图像生成
+- Kaiber AI → 视觉-视频数字人
+- Bing Image Creator → 视觉-图像生成
+- 志设 → 视觉-图像生成
+- 秘塔捉捉猫 → 视觉-图像生成
+- ImageScore AI - 可解释图像质量评估系统 → 视觉-图像处理
+- 超能画布 → 视觉-图像生成
+- 摩笔马良 → 视觉-图像生成
+- 01Agent → 编程-智能体开发
+- 光速写作 → 写作-文案创作
+- YouMind → 写作-文案创作
+- 万能小in → 写作-文案创作
+- WriteWise → 写作-文案创作
+- Flowith → 对话-通用大模
+- 问小白 → 对话-通用大模
+- 绘蛙 → 视觉-视频数字人
+- Noiz AI → 音频-音乐生成
+- 千音漫语 → 音频-配音克隆
+- 海绵音乐 → 音频-音乐生成
+- 讯飞译制 → 音频-配音克隆
+- Nafy AI → 音频-语音转写
+- TextToSpeech → 音频-配音克隆
+- 天谱乐 → 音频-音乐生成
+- 多维视界 → 音频-语音转写
+- TurboScribe → 音频-语音转写
+- NotebookLM → 音频-语音转写
+- Tunee → 音频-音乐生成
+- Uberduck → 音频-配音克隆
+- Voicenotes → 音频-配音克隆
+- Fryderyk → 音频-配音克隆
+- Supertone Shift → 音频-配音克隆
+- Sonauto → 音频-音乐生成
+- LOVO AI → 音频-配音克隆
+- OptimizerAI → 音频-配音克隆
+- NaturalReader → 音频-配音克隆
+- Audiobox → 音频-配音克隆
+- 音虫 → 音频-音频编辑
+- 悦音配音 → 音频-配音克隆
+- 快转字幕 → 视觉-视频数字人
+- RESEMBLE.AI → 音频-配音克隆
+- Voicemod → 音频-配音克隆
+- Voice.ai → 音频-配音克隆
+- Voicemaker → 音频-配音克隆
+- MetaVoice → 音频-配音克隆
+- Veed AI Voice Generator → 音频-配音克隆
+- Typecast → 音频-配音克隆
+- Lemonaid → 音频-音频编辑
+- Murf AI → 音频-配音克隆
+- Speechify → 音频-配音克隆
+- Play.ht → 音频-配音克隆
+- Keevx → 工具-效率工具
+- 简单听记 → 音频-语音转写
+- WellSaid → 音频-配音克隆
+- 蝉镜 → 视觉-视频数字人
+- Pollo AI → 视觉-视频数字人
+- 白日梦 → 视觉-视频数字人
+- SoundView → 音频-音乐生成
+- 即创 → 视觉-视频数字人
+- 智谱清影 → 视觉-视频数字人
+- KomikoAI → 视觉-视频数字人
+- 内容特工队 → 视觉-视频数字人
+- JoyPix → 视觉-视频数字人
+- 云幕同声 → 视觉-视频数字人
+- 魔珐星云 → 视觉-视频数字人
+- 磁力开创 → 视觉-视频数字人
+- 场辞 → 视觉-视频数字人
+- TapNow → 视觉-视频数字人
+- 开拍 → 视觉-视频数字人
+- 雾象 → 视觉-视频数字人
+- Higgsfield → 视觉-视频数字人
+- Spikes Studio → 视觉-视频数字人
+- 一起剪 → 视觉-视频数字人
+- HitPaw → 视觉-视频数字人
+- 造次 → 视觉-视频数字人
+- MochiAni → 视觉-视频数字人
+- AdsTurbo AI → 视觉-视频数字人
+- Duix → 视觉-视频数字人
+- 通义灵眸 → 对话-通用大模
+- Viggle → 视觉-视频数字人
+- Hedra → 视觉-视频数字人
+- Dream Machine → 视觉-视频数字人
+- 万兴天幕 → 视觉-视频数字人
+- Tavus → 视觉-视频数字人
+- Vozo → 工具-效率工具
+- 绘想 → 视觉-视频数字人
+- Medeo → 视觉-视频数字人
+- 巨日禄 → 视觉-视频数字人
+- KreadoAI → 视觉-视频数字人
+- 妙播 → 视觉-视频数字人
+- Flow Studio → 视觉-视频数字人
+- Hotshot → 视觉-视频数字人
+- Vizard → 视觉-视频数字人
+- 神笔马良 → 视觉-视频数字人
+- SkyReels → 视觉-视频数字人
+- 秒创 → 视觉-视频数字人
+- 元镜 → 视觉-视频数字人
+- 阶跃视频 → 视觉-视频数字人
+- vivago.ai → 视觉-视频数字人
+- Video Ocean → 视觉-视频数字人
+- MOKI → 视觉-视频数字人
+- Humva → 视觉-视频数字人
+- Video Studio → 视觉-视频数字人
+- Etna → 视觉-视频数字人
+- LensGo → 视觉-视频数字人
+- Noisee AI → 视觉-视频数字人
+- WinkStudio → 视觉-视频数字人
+- VMagic → 视觉-视频数字人
+- Vimi → 视觉-视频数字人
+- 飞影数字人 → 视觉-视频数字人
+- Capsule → 视觉-视频数字人
+- Clipfly → 视觉-视频数字人
+- Haiper → 视觉-视频数字人
+- Morph Studio → 视觉-视频数字人
+- Gatekeep → 视觉-视频数字人
+- 快剪辑 → 视觉-视频数字人
+- Captions → 视觉-视频数字人
+- LTX Studio → 视觉-视频数字人
+- Magicam → 视觉-视频数字人
+- 闪剪 → 视觉-视频数字人
+- DomoAI → 视觉-视频数字人
+- 绘影字幕 → 视觉-视频数字人
+- PixVerse → 视觉-视频数字人
+- Typeframes → 工具-效率工具
+- GoEnhance → 视觉-视频数字人
+- Mootion → 视觉-视频数字人
+- DreamFace → 视觉-视频数字人
+- EbSynth → 视觉-视频数字人
+- InVideo AI → 视觉-视频数字人
+- Airgram → 音频-语音转写
+- Pictory → 视觉-视频数字人
+- Elai.io → 视觉-视频数字人
+- BgRem → 视觉-视频数字人
+- Hour One → 视觉-视频数字人
+- Synthesys → 视觉-视频数字人
+- Colossyan → 视觉-视频数字人
+- Colourlab.ai → 视觉-视频数字人
+- Veed Video Background Remover → 视觉-视频数字人
+- 模力视频 → 视觉-视频数字人
+- 团队快剪 → 视觉-视频数字人
+- Lumen5 → 视觉-视频数字人
+- Atoms → 视觉-视频数字人
+- SteveAI → 视觉-视频数字人
+- Rask → 视觉-视频数字人
+- Mixboard → 编程-智能体开发
+- 切问学术 → 编程-智能体开发
+- Leewow → 工具-学习科研
+- Tbox → 编程-智能体开发
+- 遨虾 → 编程-智能体开发
+- Tago → 编程-智能体开发
+- NeoDomain → 编程-智能体开发
+- CrePal → 编程-智能体开发
+- MuleRun → 编程-智能体开发
+- Opera Neon → 编程-智能体开发
+- Seko → 编程-智能体开发
+- 亿话 → 编程-智能体开发
+- AnyGen → 编程-智能体开发
+- Agnes AI → 编程-智能体开发
+- WorkAny → 编程-智能体开发
+- TabTab → 编程-智能体开发
+- MasterAgent → 编程-智能体开发
+- Teamo → 编程-智能体开发
+- SciMaster → 编程-智能体开发
+- FinGenius → 编程-智能体开发
+- RoboNeo → 编程-智能体开发
+- BrowserOS → 工具-效率工具
+- Zeabur → 编程-智能体开发
+- Fellou → 编程-智能体开发
+- CoCo → 编程-智能体开发
+- Bloom → 编程-智能体开发
+- Bobby → 编程-智能体开发
+- Fairies → 编程-智能体开发
+- FloweAI → 编程-智能体开发
+- rabbitOS intern → 编程-智能体开发
+- CatPaw → 编程-智能体开发
+- Augment Code → 编程-代码编写
+- MonkeyCode → 编程-代码编写
+- iFlow CLI → 编程-开发工具
+- Jaaz → 编程-智能体开发
+- CodeBuddy → 编程-代码编写
+- Plandex → 编程-代码编写
+
+## 剩余未匹配应用
+- 萌动AI
+- Menuless —  AI Agent Layer for any App
+- Boba
+- 创客贴AI画匠
+- 堆友AI反应堆
+- Reecho睿声
+- 秘塔AI搜索
+- Alpaca
+- 即梦AI
+- Canva AI图像生成
+- 简单AI
+- Exactly.ai
+- Kimi智能助手
+- 逗逗AI
+- 稿定AI
+- 魔搭GPT（ModelScopeGPT）
+- Vemus未音
+- 音述AI
+- 大饼AI变声
+- BGM猫
+- IBM Watson文字转语音
+- Clipchamp AI旁白生成器
+- Listnr
+- 堆友AI视频
+- 绘蛙AI视频
+- 有言
+- 听脑AI
+- NextCut AI
+- 花生AI
+- 通义万相AI视频
+- 腾讯混元AI视频
+- 献丑AI
+- SekoTalk
+- 度加创作工具
+- 艺映AI
+- 必剪Studio
+- Showrunner
+- Anylang.ai
+- 鬼手剪辑GhostCut
+- 爱派AiPy
+- memU Bot
+- 元气AI Bot
+- 椒图AI
+- 稿定AI社区
+- Dia
+- 酷宣AI
+- 月亮树AI选品
+- 如此AI员工
+- 混沌Deep Innovation
+- AutoGLM沉思
+- CRIC深度智联
+
+## 分类统计更新
+- 原始数据总量: 1000
+- 已清洗数据: 921
+- 未匹配数据: 51
+- 匹配成功率: 92.1%
