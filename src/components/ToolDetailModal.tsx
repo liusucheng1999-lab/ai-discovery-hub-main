@@ -250,7 +250,7 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
   };
 
   const handleDelete = async () => {
-    console.log('=== 开始删除工具 ===');
+    console.log('=== 开始删除工具（通过API）===');
     console.log('工具名称:', safeTool.name);
     console.log('工具ID:', tool.id);
     console.log('登录状态:', isLoggedIn);
@@ -285,29 +285,27 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
         deleteButton.disabled = true;
       }
       
-      console.log('正在删除工具ID:', tool.id);
+      console.log('正在通过API删除工具ID:', tool.id);
       
-      // 使用原始删除方式
-      const { error, data } = await supabase
-        .from('tools')
-        .delete()
-        .eq('id', tool.id)
-        .select(); // 添加select以确认删除
+      // 调用删除API
+      const response = await fetch('/api/delete-tool-simple', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          toolId: tool.id
+        })
+      });
 
-      console.log('删除操作结果:', { error, data });
+      const result = await response.json();
+      console.log('API删除结果:', result);
 
-      if (error) {
-        console.error('❌ 删除失败:', error);
-        
-        // 如果是权限问题，提供详细的错误信息
-        if (error.message?.includes('Forbidden') || error.code === '42501') {
-          throw new Error('删除权限不足。请检查RLS策略配置或联系管理员。');
-        }
-        
-        throw error;
+      if (!response.ok) {
+        throw new Error(result.error || '删除失败');
       }
 
-      console.log('✅ 删除成功，删除的数据:', data);
+      console.log('✅ 删除成功，API返回:', result);
       
       // 显示成功消息
       alert('删除成功！工具已被删除。');
