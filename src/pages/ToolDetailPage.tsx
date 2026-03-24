@@ -7,77 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, ArrowLeft, Star, Users, Eye } from "lucide-react";
 
-// 分类名称映射
-const categoryNames: Record<string, string> = {
-  'chat': '对话',
-  'writing': '写作',
-  'visual': '视觉',
-  'audio': '音频',
-  'coding': '编程',
-  'office': '办公',
-  'tools': '工具',
-  'career': '职场'
-};
-
-// 子分类名称映射
-const subCategoryNames: Record<string, string> = {
-  // 对话类
-  'chat_domestic': '国产模型',
-  'chat_overseas': '海外模型',
-  'chat_fun': '趣味聊天',
-  
-  // 写作类
-  'writing_copy': '文案创作',
-  'writing_academic': '论文学术',
-  'writing_novel': '小说网文',
-  'writing_document': '文档解析',
-  
-  // 视觉类
-  'visual_image_gen': '图像生成',
-  'visual_image_process': '图像处理',
-  'visual_creative': '创意设计',
-  'visual_video': '视频数字人',
-  
-  // 音频类
-  'audio_music': '音乐生成',
-  'audio_voice': '配音克隆',
-  'audio_transcribe': '语音转写',
-  'audio_edit': '音频编辑',
-  
-  // 编程类
-  'coding_code': '代码编写',
-  'coding_ai': 'AI工程',
-  'coding_dev': '开发工具',
-  'coding_agent': '智能体开发',
-  
-  // 办公类
-  'office_ppt': 'PPT演示',
-  'office_doc': '文档协同',
-  'office_data': '数据表格',
-  'office_mind': '思维导图',
-  
-  // 工具类
-  'tools_search': '智能搜索',
-  'tools_efficiency': '效率工具',
-  'tools_learn': '学习科研',
-  'tools_niche': '小众工具',
-  
-  // 职场类
-  'career_job': '求职辅助',
-  'career_legal': '法律合规',
-  'career_work': '职场工具'
-};
-
-// 获取分类显示名称
-function getCategoryDisplayName(mainCategory?: string, subCategory?: string): string {
-  if (!mainCategory) return '未分类';
-  
-  const mainName = categoryNames[mainCategory] || mainCategory;
-  const subName = subCategory ? subCategoryNames[subCategory] || subCategory : '';
-  
-  return subName ? `${mainName} - ${subName}` : mainName;
-}
-
 export default function ToolDetailPage() {
   const { toolId } = useParams<{ toolId: string }>();
   const [tool, setTool] = useState<Tool | null>(null);
@@ -190,15 +119,14 @@ export default function ToolDetailPage() {
   }
 
   // 生成工具简介（100-200字）
-  const categoryDisplayName = getCategoryDisplayName(tool.main_category, tool.sub_category);
-  const toolSummary = `${tool.name}是一款专业的${categoryDisplayName}工具，${tool.tagline}。该工具${tool.isChinaAvailable ? '支持国内使用' : '主要面向海外用户'}，${tool.isChineseSupported ? '提供中文界面和中文支持' : '主要以英文为主'}。凭借其${tool.tags.slice(0, 3).join('、')}等核心功能，${tool.name}在${categoryDisplayName}领域获得了${tool.rating}星的高评分，受到${tool.ratingCount}位用户的认可。`;
+  const toolSummary = `${tool.name}是一款专业的${tool.category}工具，${tool.tagline}。该工具${tool.isChinaAvailable ? '支持国内使用' : '主要面向海外用户'}，${tool.isChineseSupported ? '提供中文界面和中文支持' : '主要以英文为主'}。凭借其${tool.tags.slice(0, 3).join('、')}等核心功能，${tool.name}在${tool.category}领域获得了${tool.rating}星的高评分，受到${tool.ratingCount}位用户的认可。`;
 
   return (
     <>
       <Helmet>
-        <title>{tool.name} - {categoryDisplayName}工具 - AI创客</title>
+        <title>{tool.name} - {tool.category}工具 - AI创客</title>
         <meta name="description" content={toolSummary} />
-        <meta name="keywords" content={`${tool.name},${categoryDisplayName},AI工具,${tool.tags.join(',')}`} />
+        <meta name="keywords" content={`${tool.name},${tool.category},AI工具,${tool.tags.join(',')}`} />
         <link rel="canonical" href={`https://aimakerbox.com/tool/${tool.id}`} />
       </Helmet>
 
@@ -298,7 +226,7 @@ export default function ToolDetailPage() {
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">分类</span>
-                  <span>{categoryDisplayName}</span>
+                  <span>{tool.category}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">定价</span>
@@ -364,7 +292,7 @@ export default function ToolDetailPage() {
                           <span>{relatedTool.rating}</span>
                         </div>
                         <span>•</span>
-                        <span>{getCategoryDisplayName(relatedTool.main_category, relatedTool.sub_category)}</span>
+                        <span>{relatedTool.category}</span>
                       </div>
                     </div>
                   </div>

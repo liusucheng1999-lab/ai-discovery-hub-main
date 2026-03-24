@@ -250,7 +250,7 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
   };
 
   const handleDelete = async () => {
-    console.log('=== 开始删除工具 ===');
+    console.log('=== 开始软删除工具（使用status字段）===');
     console.log('工具名称:', safeTool.name);
     console.log('工具ID:', tool.id);
     console.log('登录状态:', isLoggedIn);
@@ -285,29 +285,26 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
         deleteButton.disabled = true;
       }
       
-      console.log('正在删除工具ID:', tool.id);
+      console.log('正在软删除工具ID:', tool.id);
       
-      // 使用服务密钥直接调用Supabase REST API
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/tools?id=eq.${tool.id}`, {
-        method: 'DELETE',
-        headers: {
-          'apikey': import.meta.env.VITE_SUPABASE_SERVICE_KEY,
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_SERVICE_KEY}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=representation'
-        }
-      });
+      // 使用status字段实现软删除 - 将状态改为deleted
+      const { error, data } = await supabase
+        .from('tools')
+        .update({ 
+          status: 'deleted',
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', tool.id)
+        .select(); // 添加select以确认更新
 
-      console.log('删除API响应状态:', response.status);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('删除失败:', errorText);
-        throw new Error(`删除失败: ${errorText}`);
+      console.log('软删除操作结果:', { error, data });
+
+      if (error) {
+        console.error('❌ 软删除失败:', error);
+        throw error;
       }
 
-      const data = await response.json();
-      console.log('✅ 删除成功，删除的数据:', data);
+      console.log('✅ 软删除成功，更新的数据:', data);
       
       // 显示成功消息
       alert('删除成功！工具已被删除。');
@@ -327,7 +324,7 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
       window.location.href = `${window.location.pathname}?_t=${timestamp}`;
       
     } catch (err) {
-      console.error('❌ 删除失败:', err);
+      console.error('❌ 软删除失败:', err);
       
       // 恢复按钮状态
       const deleteButton = document.querySelector('[title*="删除工具"]') as HTMLButtonElement;
