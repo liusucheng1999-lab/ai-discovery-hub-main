@@ -288,11 +288,11 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
       console.log('正在删除工具ID:', tool.id);
       
       // 使用服务密钥直接调用Supabase REST API
-      const response = await fetch(`${process.env.VITE_SUPABASE_URL}/rest/v1/tools?id=eq.${tool.id}`, {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/tools?id=eq.${tool.id}`, {
         method: 'DELETE',
         headers: {
-          'apikey': process.env.VITE_SUPABASE_SERVICE_KEY,
-          'Authorization': `Bearer ${process.env.VITE_SUPABASE_SERVICE_KEY}`,
+          'apikey': import.meta.env.VITE_SUPABASE_SERVICE_KEY,
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_SERVICE_KEY}`,
           'Content-Type': 'application/json',
           'Prefer': 'return=representation'
         }
