@@ -132,23 +132,14 @@ interface ToolDetailModalProps {
 }
 
 export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailModalProps) {
-  const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [userRating, setUserRating] = useState(0);
-  const [hoverRating, setHoverRating] = useState(0);
+  const { isLoggedIn, username } = useAuth();
+  const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState<Partial<Tool>>({});
-  const { toast } = useToast();
-  const { isLoggedIn, username } = useAuth();
-
-  console.log('ToolDetailModal - 完整工具数据检查:', tool);
-  console.log('ToolDetailModal - AI搜索数据检查:', {
-    toolName: tool?.name,
-    websiteUrl: tool?.websiteUrl,
-    pricingType: tool?.pricingType,
-    ai_match_score: (tool as any)?.ai_match_score,
-    ai_match_reason: (tool as any)?.ai_match_reason
-  });
+  const [userRating, setUserRating] = useState(0);
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [hoverRating, setHoverRating] = useState(0);
 
   if (!tool || !isOpen) {
     console.log('ToolDetailModal - 早期返回:', { tool: !!tool, isOpen });
@@ -157,27 +148,6 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
 
   console.log('ToolDetailModal - 开始渲染工具详情:', tool.name);
   
-  // 详细检查每个字段
-  console.log('ToolDetailModal - 字段检查:', {
-    name: tool.name,
-    tagline: tool.tagline,
-    description: tool.description,
-    websiteUrl: tool.websiteUrl,
-    category: tool.category,
-    pricingType: tool.pricingType,
-    isChinaAvailable: tool.isChinaAvailable,
-    isChineseSupported: tool.isChineseSupported,
-    rating: tool.rating,
-    ratingCount: tool.ratingCount,
-    viewCount: tool.viewCount,
-    tags: tool.tags,
-    createdAt: tool.createdAt
-  });
-
-  const cat = categories.find((c) => c.id === tool.category);
-  const bgColor = categoryColorMap[tool.category] || "hsl(0,0%,60%)";
-  const logoUrl = getToolLogo(tool.websiteUrl || '');
-
   // 安全的字段访问
   const safeTool = {
     ...tool,
@@ -195,6 +165,10 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
     tags: tool.tags || [],
     createdAt: tool.createdAt || new Date().toISOString()
   };
+
+  const cat = categories.find((c) => c.id === tool.category);
+  const bgColor = categoryColorMap[tool.category] || "hsl(0,0%,60%)";
+  const logoUrl = getToolLogo(tool.websiteUrl || '');
 
   const handleImageError = () => setImageError(true);
   const handleImageLoad = () => setImageLoaded(true);
@@ -276,28 +250,95 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
   };
 
   const handleDelete = async () => {
-    if (!confirm(`确定要删除工具"${safeTool.name}"吗？此操作不可恢复。`)) {
+    console.log('=== 开始删除工具 ===');
+    console.log('工具名称:', safeTool.name);
+    console.log('工具ID:', tool.id);
+    console.log('登录状态:', isLoggedIn);
+    console.log('用户名:', username);
+    
+    // 检查登录状态
+    if (!isLoggedIn || !username) {
+      console.log('❌ 用户未登录，无法删除');
+      alert('请先登录后再删除工具');
+      return;
+    }
+    
+    // 检查工具ID
+    if (!tool.id) {
+      console.log('❌ 工具ID为空');
+      alert('工具ID无效，无法删除');
+      return;
+    }
+    
+    if (!confirm(`确定要删除工具"${safeTool.name}"吗？\n\n此操作不可恢复！`)) {
+      console.log('❌ 用户取消删除');
       return;
     }
 
+    console.log('✅ 用户确认删除，开始执行...');
+
     try {
-      const { error } = await supabase
+      // 显示删除中状态
+      const deleteButton = document.querySelector('[title*="删除工具"]') as HTMLButtonElement;
+      if (deleteButton) {
+        deleteButton.textContent = '删除中...';
+        deleteButton.disabled = true;
+      }
+      
+      console.log('正在删除工具ID:', tool.id);
+      
+      // 使用原始删除方式
+      const { error, data } = await supabase
         .from('tools')
         .delete()
-        .eq('id', tool.id);
+        .eq('id', tool.id)
+        .select(); // 添加select以确认删除
+
+      console.log('删除操作结果:', { error, data });
 
       if (error) {
+        console.error('❌ 删除失败:', error);
+        
+        // 如果是权限问题，提供详细的错误信息
+        if (error.message?.includes('Forbidden') || error.code === '42501') {
+          throw new Error('删除权限不足。请检查RLS策略配置或联系管理员。');
+        }
+        
         throw error;
       }
 
-      toast({ title: "删除成功", description: "工具已被删除" });
+      console.log('✅ 删除成功，删除的数据:', data);
+      
+      // 显示成功消息
+      alert('删除成功！工具已被删除。');
+      
+      // 关闭弹窗
       onClose();
       
-      // 触发页面刷新以更新列表
-      window.location.reload();
+      // 强制清除所有可能的缓存并重新加载
+      console.log('清除缓存并重新加载...');
+      
+      // 1. 清除localStorage中的缓存数据
+      localStorage.removeItem('supabase.auth.token');
+      localStorage.removeItem('tools-cache');
+      
+      // 2. 强制刷新页面，使用时间戳防止缓存
+      const timestamp = new Date().getTime();
+      window.location.href = `${window.location.pathname}?_t=${timestamp}`;
+      
     } catch (err) {
-      console.error('删除失败:', err);
-      toast({ title: "删除失败", description: "请稍后重试" });
+      console.error('❌ 删除失败:', err);
+      
+      // 恢复按钮状态
+      const deleteButton = document.querySelector('[title*="删除工具"]') as HTMLButtonElement;
+      if (deleteButton) {
+        deleteButton.textContent = '删除';
+        deleteButton.disabled = false;
+      }
+      
+      // 显示详细错误信息
+      const errorMessage = err instanceof Error ? err.message : '未知错误';
+      alert(`删除失败: ${errorMessage}\n\n请检查控制台获取详细信息。`);
     }
   };
 
@@ -459,11 +500,17 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                   <button
                     onClick={handleDelete}
                     className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-all duration-200"
+                    title={`删除工具: ${safeTool.name}`}
                   >
                     <Trash2 className="h-4 w-4" />
                     删除
                   </button>
                 </>
+              )}
+              {!isLoggedIn && (
+                <div className="text-xs text-muted-foreground px-2 py-1">
+                  登录后可编辑和删除工具
+                </div>
               )}
               <button
                 onClick={handleVisitWebsite}
