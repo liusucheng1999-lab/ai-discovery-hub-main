@@ -233,7 +233,6 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
       tagline: safeTool.tagline,
       description: safeTool.description,
       websiteUrl: safeTool.websiteUrl,
-      category: safeTool.category,
       main_category: (tool as any).main_category || '',
       sub_category: (tool as any).sub_category || '',
       tags: safeTool.tags,
@@ -253,7 +252,6 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
           tagline: editForm.tagline,
           description: editForm.description,
           website_url: editForm.websiteUrl,
-          category: editForm.category,
           main_category: editForm.main_category,
           sub_category: editForm.sub_category,
           tags: editForm.tags,
@@ -556,21 +554,6 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                     {subCategoryOptions[editForm.main_category || (tool as any).main_category || '']?.map((sub) => (
                       <option key={sub.id} value={sub.id}>
                         {sub.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-1">旧版分类（兼容性）</label>
-                  <select
-                    value={editForm.category || tool.category}
-                    onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
-                    className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  >
-                    {categories.map((cat) => (
-                      <option key={cat.id} value={cat.id}>
-                        {cat.icon} {cat.name}
                       </option>
                     ))}
                   </select>
