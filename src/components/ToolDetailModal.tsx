@@ -236,7 +236,6 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
       main_category: (tool as any).main_category || '',
       sub_category: (tool as any).sub_category || '',
       tags: safeTool.tags,
-      pricingType: safeTool.pricingType,
       isChinaAvailable: safeTool.isChinaAvailable,
       isChineseSupported: safeTool.isChineseSupported
     });
@@ -255,7 +254,6 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
           main_category: editForm.main_category,
           sub_category: editForm.sub_category,
           tags: editForm.tags,
-          pricing_type: editForm.pricingType,
           is_china_available: editForm.isChinaAvailable,
           is_chinese_supported: editForm.isChineseSupported,
           updated_at: new Date().toISOString()
@@ -556,20 +554,6 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                         {sub.name}
                       </option>
                     ))}
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-1">价格类型</label>
-                  <select
-                    value={editForm.pricingType || tool.pricingType}
-                    onChange={(e) => setEditForm({ ...editForm, pricingType: e.target.value as any })}
-                    className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  >
-                    <option value="free">免费</option>
-                    <option value="freemium">免费增值</option>
-                    <option value="paid">付费</option>
-                    <option value="opensource">开源</option>
                   </select>
                 </div>
                 
