@@ -89,7 +89,7 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
         // 优化：只查询必要的数据，避免重复查询
         const [categoriesResult, toolsResult, subCategoriesResult] = await Promise.all([
           supabase.from('main_categories').select('*').order('sort_order'),
-          supabase.from('tools').select('*').in('status', ['approved', 'active']).neq('status', 'deleted').order('view_count', { ascending: false }),
+          supabase.from('tools').select('*').eq('status', 'active').order('view_count', { ascending: false }),
           supabase.from('sub_categories').select('*').order('main_category_id, sort_order')
         ]);
 
