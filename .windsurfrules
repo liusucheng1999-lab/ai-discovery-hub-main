@@ -7,7 +7,7 @@
 - React + TypeScript + Vite
 - Tailwind CSS + Shadcn/ui
 - Supabase 数据库
-
+PostgreSQL
 规则：
 1. 所有回答和解释用中文
 2. 代码注释用中文

@@ -1,0 +1,441 @@
+一、文本生成与聊天助手
+表格
+产品名称	官网地址	备注
+ChatGPT	https://chat.openai.com/	OpenAI 旗下对话式 AI
+Claude	https://www.anthropic.com/index/claude	Anthropic 开发的 AI 助手
+通义千问	https://tongyi.aliyun.com/	阿里云开发的大语言模型
+文心一言	https://yiyan.baidu.com/	百度开发的生成式 AIWHEE
+Kimi	https://kimi.moonshot.cn/	月之暗面开发的 AI 助手
+Google Bard	https://bard.google.com/	谷歌开发的对话式 AI
+Microsoft Copilot	https://copilot.microsoft.com/	微软开发的 AI 助手
+Mistral AI	https://mistral.ai/	法国 AI 初创公司开发的大模型
+Meta AI	https://www.meta.ai/	Meta 开发的 AI 助手
+AI21 Labs	https://www.ai21.com/	以色列 AI 公司，专注 NLP
+Cohere AI	https://cohere.com/	加拿大 AI 公司，提供 NLP 模型Cohere
+可灵 AI	https://www.keyling.ai/	可灵智能开发的 AI 助手
+即梦 AI	https://dream.jd.com/	京东开发的 AI 助手
+Quen AI: Chat with Qwen	https://qwen.azurewebsites.net/	通义千问的对话界面
+二、图像生成与设计工具
+表格
+产品名称	官网地址	备注
+Pika	https://pika.art/	AI 视频生成工具
+Runway	https://runwayml.com/	AI 创意工具平台，专注视频生成
+通义万相	https://wanxiang.aliyun.com/	阿里云开发的图像生成工具
+秒画	https://www.miaohua.com/	AI 图像生成工具Krea
+WHEE	https://whee.com/	AI 图像生成工具LiblibAI
+Krea AI	https://www.krea.ai/	AI 图像生成工具LiblibAI
+LiblibAI	https://www.liblib.ai/	AI 图像生成平台，提供模型库
+Leonardo AI	https://leonardo.ai/	AI 图像生成工具，超写实风格出色Leonardo AI
+Ideogram AI	https://ideogram.ai/	前 Google Brain 团队开发，擅长文字渲染
+Kaiber AI	https://kaiber.ai/	AI 动画生成工具
+SeaArt AI	https://www.seaart.ai/	国内团队开发的 AI 图像生成工具，又名海艺
+ClipDrop	https://clipdrop.co/	Stability AI 旗下 AI 设计编辑工具
+Luma AI	https://lumalabs.ai/	AI 视频生成工具，提供 Dream Machine 功能Luma AI
+Firefly AI	https://firefly.adobe.com/	Adobe 开发的 AI 图像生成工具，商用安全
+Stability AI	https://stability.ai/	Stable Diffusion 的开发公司
+Playground AI	https://playgroundai.com/	AI 图像生成工具，每天免费 1000 张
+SoulMateNeat	https://soulmateneat.com/	AI 图像生成工具
+Neural Canvas	https://neuralcanvas.ai/	AI 图像生成工具
+Repaint	https://repaint.ai/	AI 图像修复工具
+三、音频与视频处理工具
+表格
+产品名称	官网地址	备注
+Suno	https://suno.ai/	AI 音乐生成工具，可生成带歌词的歌曲
+Udio	https://udio.com/	AI 音乐生成工具，音质出色
+Descript	https://www.descript.com/	AI 音频和视频编辑软件，可像编辑文档一样编辑音视频
+Kapwing	https://www.kapwing.com/	在线 AI 视频编辑平台
+Unscreen	https://www.unscreen.com/	AI 视频背景自动移除工具，无需绿幕
+Soundraw	https://soundraw.io/	AI 免版税音乐生成器
+ElevenLabs	https://elevenlabs.io/	AI 语音合成工具
+HeyGen	https://www.heygen.com/	AI 视频生成工具，专注数字人
+四、开发工具与平台
+表格
+产品名称	官网地址	备注
+V0.dev	https://v0.dev/	AI 前端代码生成工具
+LangChain	https://www.langchain.com/	大语言模型应用开发框架
+Replicate	https://replicate.com/	AI 模型部署平台
+AutoGPT	https://agpt.co/	自主 AI 代理工具
+Zapier	https://zapier.com/	自动化工作流平台，可集成 AI 工具
+Weights & Biases	https://wandb.ai/	ML 实验跟踪平台Zapier
+Ollama	https://ollama.com/	本地大语言模型运行框架
+ComfyUI	https://www.comfy.org/	节点式 AI 工作流设计工具ComfyUI
+Gradio	https://www.gradio.app/	AI 模型交互式 Web 应用构建库
+Streamlit	https://streamlit.io/	数据科学和 ML 应用开发框架
+Pinecone	https://www.pinecone.io/	向量数据库，用于 AI 语义搜索
+Hugging Face	https://huggingface.co/	开源 ML 模型社区
+Dify	https://dify.ai/	AI 应用开发平台
+ComfyUI	https://www.comfy.org/	节点式 AI 工作流设计工具ComfyUI
+Ollama	https://ollama.com/	本地大语言模型运行框架
+Zapier	https://zapier.com/	自动化工作流平台
+课灵 PPT	https://www.keylingppt.com/	AI PPT 生成工具
+清言 PPT	https://www.qingyanppt.com/	AI PPT 生成工具
+万兴智演	https://www.wondershare.com/wonderdress/	AI 演示文稿工具
+麦当秀 MindShow	https://www.mindshow.com/	AI 演示文稿工具
+五、办公效率工具
+表格
+产品名称	官网地址	备注
+Notion AI	https://www.notion.so/ai	Notion 集成的 AI 助手
+Gamma	https://gamma.app/	AI 演示文稿工具
+秘塔 AI 搜索	https://www.metaso.cn/	秘塔科技开发的 AI 搜索工具
+ChatPDF	https://www.chatpdf.com/	AI PDF 阅读助手，可与 PDF 对话
+秘塔写作猫	https://xiezuocat.com/	秘塔科技开发的 AI 写作助手
+ChatExcel	https://chatexcel.com/	AI Excel 助手，可通过自然语言操作 Excel
+察言观数 AskTable	https://asktable.com/	AI 数据分析工具，可通过自然语言查询数据
+爱图表	https://www.aichart.com/	AI 图表生成工具
+ChartinAI	https://chartinai.com/	AI 图表生成工具
+vika 维格云	https://www.vika.cn/	智能协作平台，集成 AI 功能
+百度 GBI	https://gbi.baidu.com/	百度开发的企业智能平台
+Ajelix	https://www.ajelix.com/	AI Excel 公式生成工具
+Sheet+	https://sheetplus.com/	AI Excel 助手
+轻云图	https://www.qingyuntu.com/	AI 图表生成工具
+北极九章	https://arcticnine.com/	AI 数据分析工具
+Formula bot	https://formulabot.com/	AI Excel 公式生成工具
+FormX.ai	https://formx.ai/	AI 表单识别工具
+Rows	https://rows.com/	AI 电子表格工具
+Excelly-AI	https://excelly-ai.com/	AI Excel 助手
+SheetGod	https://sheetgod.com/	AI Excel 公式生成工具
+Excel Formularizer	https://excelformularizer.com/	AI Excel 公式生成工具
+六、思维导图与协作工具
+表格
+产品名称	官网地址	备注
+TreeMind 树图	https://www.treemind.cn/	AI 思维导图工具
+博思白板	https://www.boshu白板.com/	AI 协作白板工具
+畅图 AI	https://www.changtuai.com/	AI 思维导图工具
+可赞 AI	https://www.kezanai.com/	AI 协作工具
+ProcessOn	https://www.processon.com/	在线协作绘图工具，集成 AI 功能
+自由画布	https://www.freecanvas.com/	AI 协作白板工具
+亿图脑图	https://www.edrawmind.com/	AI 思维导图工具
+妙办画板	https://www.miaobanhuab.com/	AI 协作画板工具
+Mapify	https://www.mapify.com/	AI 地图生成工具
+小画桌	https://www.xiaohuazhuo.com/	AI 协作画板工具
+印象图记	https://www.yinxiangtuji.com/	AI 图像标注工具
+知犀 AI	https://www.zhixi.ai/	AI 思维导图工具
+Xmind AI	https://www.xmind.net/ai/	Xmind 集成的 AI 助手
+GitMind 思乎	https://www.gitmind.com/	AI 思维导图工具
+亿图图示 AI	https://www.edrawmax.com/ai/	亿图图示集成的 AI 助手
+Whimsical	https://whimsical.com/	AI 协作绘图工具
+AmyMind	https://www.amymind.com/	AI 思维导图工具
+Taskade	https://www.taskade.com/	AI 任务管理和协作工具
+Miro AI	https://www.miro.com/ai/	Miro 集成的 AI 助手
+Ayoa Ultimate	https://www.ayoa.com/ultimate/	AI 思维导图和协作工具
+七、文档与 PDF 处理工具
+表格
+产品名称	官网地址	备注
+小绿鲸	https://www.xiaolvjing.com/	AI 文献阅读助手
+包阅 AI	https://www.baoyueai.com/	AI 文档阅读助手
+Wisfile	https://www.wisfile.com/	AI 文件管理工具
+凹凸工坊	https://www.aotugongfang.com/	AI 文档处理工具
+OmniBox 小黑	https://www.omnibox小黑.com/	AI 搜索工具
+智写流程	https://www.zhi xie 流程.com/	AI 工作流程文档生成工具
+Doc2X	https://www.doc2x.com/	AI 文档转换工具
+Acrobat AI Assistant	https://www.adobe.com/cn/products/acrobat/ai.html	Adobe Acrobat 集成的 AI 助手
+WPS AI	https://ai.wps.cn/	WPS 集成的 AI 助手
+腾讯文档智能助手	https://docs.qq.com/ai/	腾讯文档集成的 AI 助手
+Cubox	https://cubox.pro/	AI 收藏和阅读工具
+Quivr	https://quivr.app/	AI 知识库工具
+Coda	https://coda.io/	AI 文档协作平台
+有道速读	https://www.youda速读.com/	AI 文档速读工具
+腾讯问卷	https://wj.qq.com/	腾讯问卷集成的 AI 助手
+匡优 AI	https://www.kuangyouai.com/	AI 文档优化工具
+通义智文	https://zhiwen.aliyun.com/	阿里云开发的文档处理工具
+字语智能	https://www.ziyu智能.com/	AI 文本处理工具
+PMAI	https://www.pmai.com/	AI 文档分析工具
+星火文档问答	https://xinghuo.doc问答.com/	讯飞星火集成的文档问答工具
+PDF.ai	https://www.pdf.ai/	AI PDF 阅读助手
+司马阅	https://www.simayue.com/	AI 文档阅读助手
+知我 AI	https://www.zhiwoai.com/	AI 文档分析工具
+星火科研助手	https://xinghuo. 科研助手.com/	讯飞星火集成的科研助手
+印象 AI	https://www.yinxiangai.com/	印象笔记集成的 AI 助手
+Craft AI Assistant	https://www.craft.do/ai	Craft 集成的 AI 助手
+Humata	https://humata.ai/	AI 文档分析工具，可与文档对话
+ChatDOC	https://chatdoc.com/	AI 文档阅读助手，可与文档对话
+PandaGPT	https://pandagpt.com/	AI 文档阅读助手，可与多格式文档对话
+Rossum.ai	https://rossum.ai/	AI 文档数据提取工具
+Super AI	https://www.superai.com/	AI 文档处理工具
+八、会议与语音工具
+表格
+产品名称	官网地址	备注
+讯飞会议	https://meeting.xfyun.cn/	讯飞开发的智能会议系统
+飞书妙记	https://www.feishu.cn/features/meeting/minutes	飞书集成的智能会议记录工具
+Otter.ai	https://otter.ai/	AI 会议记录工具
+Ai 好记	https://www.aihaoji.com/	AI 会议记录工具
+腾讯会议 AI 小助手	https://meeting.tencent.com/ai/	腾讯会议集成的 AI 助手
+Zoom Workplace	https://workplace.zoom.us/	Zoom 集成的 AI 协作工具
+麦耳会记	https://www.maierhuiji.com/	AI 会议记录工具
+Fireflies.ai	https://fireflies.ai/	AI 会议记录工具
+Noty.ai	https://noty.ai/	AI 会议记录工具
+Airgram	https://www.airgram.io/	AI 会议记录和协作工具
+九、求职与招聘工具
+表格
+产品名称	官网地址	备注
+UP 简历	https://www.upjianli.com/	AI 简历优化工具
+超级简历	https://www.superjianli.com/	AI 简历制作工具
+求职方舟	https://www.qiuzhifangzhou.com/	AI 求职助手
+面多多	https://www.mianduoduo.com/	AI 面试准备工具
+牛面	https://www.niurian.com/	AI 面试模拟工具
+面团 AI	https://www.miantuanai.com/	AI 面试准备工具
+笔面通	https://www.bimitong.com/	AI 笔试面试准备工具
+AI 面试帮	https://www.aimianshibang.com/	AI 面试准备工具
+理聘 AI	https://www.lipinai.com/	AI 招聘工具
+51mee	https://www.51mee.com/	AI 招聘工具
+LovTalent	https://www.lovtalent.com/	AI 招聘工具
+TelehireAI 面试	https://www.telehireai.com/	AI 远程面试工具
+DINQ	https://www.dinq.com/	AI 招聘工具
+Mercor	https://www.mercor.io/	AI 招聘工具
+智面星	https://www.zhimianxing.com/	AI 面试模拟工具
+OfferIn	https://www.offerin.com/	AI 招聘工具
+多面鹅	https://www.duomiane.com/	AI 面试准备工具
+Gank Interview	https://www.gankinterview.com/	AI 面试准备工具
+面试猫	https://www.mianshimao.com/	AI 面试模拟工具
+白瓜面试	https://www.baiguamianshi.com/	AI 面试准备工具
+职徒简历	https://www.zhitujianli.com/	AI 简历制作工具
+职得简历	https://www.zhidejianli.com/	AI 简历制作工具
+蓝字典 AI 求职	https://www.lanzidianai.com/	AI 求职助手
+神笔简历	https://www.shenbijianli.com/	AI 简历制作工具
+YOO 简历	https://www.yoojianli.com/	AI 简历制作工具
+十、法律与教育工具
+表格
+产品名称	官网地址	备注
+iTerms-AI 法律	https://www.itermsai.com/	AI 法律助手
+吾律 AI 律师	https://www.wulvailvshi.com/	AI 法律咨询工具
+元典智库	https://www.yuandianzhiku.com/	法律数据库，集成 AI 功能
+通义法睿	https://farui.aliyun.com/	阿里云开发的法律 AI 工具
+法行宝	https://www.faxingbao.com/	AI 法律助手
+MetaLaw	https://www.metalaw.com/	AI 法律助手
+ChatLaw	https://www.chatlaw.com/	AI 法律助手
+得理法搜	https://www.delifsou.com/	AI 法律搜索工具
+法智	https://www.fazhi.com/	AI 法律助手
+海瑞智法	https://www.hairuizhifa.com/	AI 法律助手
+合同嗖嗖	https://www.hetongsousou.com/	AI 合同生成工具
+AI 大学堂	https://www.aiuniversity.com/	AI 教育平台
+堆友 AI 学习	https://www.duiyouai.com/	AI 学习平台
+AI 分享圈	https://www.aisharequan.com/	AI 学习社区
+OpenAI Academy	https://academy.openai.com/	OpenAI 开发的 AI 教育平台
+Day of AI	https://dayofai.com/	AI 教育平台
+fast.ai	https://www.fast.ai/	AI 教育平台，专注深度学习
+学吧导航	https://www.xuebadh.com/	AI 学习资源导航
+Lynote	https://www.lynote.com/	AI 学习笔记工具
+Coursera	https://www.coursera.org/	在线教育平台，提供 AI 课程
+Elements of AI	https://www.elementsofai.com/	AI 教育平台
+DeepLearning.AI	https://www.deeplearning.ai/	深度学习教育平台
+动手学深度学习	https://zh.d2l.ai/	深度学习教程网站
+MachineLearningMastery	https://machinelearningmastery.com/	机器学习教育网站
+Generative AI for Beginners	https://www.generativeai4beginners.com/	生成式 AI 入门教程
+ML for Beginners	https://ml4beginners.com/	机器学习入门教程
+Kaggle	https://www.kaggle.com/	数据科学竞赛平台，提供 AI 学习资源
+神经网络入门	https://www.shenjingwangluo.com/	神经网络入门教程
+Trancy	https://www.trancy.com/	AI 语言学习工具
+Reading Coach	https://readingcoach.com/	AI 阅读辅导工具
+飞桨 AI Studio	https://aistudio.baidu.com/	百度飞桨开发的 AI 学习平台
+腾讯扣叮	https://coding.qq.com/	腾讯开发的青少年编程平台
+阿里云 AI 学习路线	https://edu.aliyun.com/ai/	阿里云开发的 AI 学习路线
+Udacity AI 学院	https://www.udacity.com/school/ai	Udacity 开发的 AI 学院
+Google AI	https://ai.google/	谷歌 AI 研究和教育平台
+ShowMeAI 知识社区	https://www.showmeai.cc/	AI 知识社区
+堆友 AI	https://www.duiyouai.com/	AI 学习平台
+十一、其他工具与平台
+表格
+产品名称	官网地址	备注
+Cursor	https://www.cursor.so/	AI 代码编辑器
+Windsurf	https://www.windsurf.ai/	AI 开发工具
+Coze / 扣子	https://www.coze.cn/	字节跳动开发的 AI 助手开发平台
+Bolt.new	https://bolt.new/	AI 前端开发工具
+Jasper	https://www.jasper.ai/	AI 写作助手，专注营销内容
+RunningHub	https://www.runninghub.com/	跑步社区平台，集成 AI 功能
+课灵 PPT	https://www.keylingppt.com/	AI PPT 生成工具
+清言 PPT	https://www.qingyanppt.com/	AI PPT 生成工具
+万兴智演	https://www.wondershare.com/wonderdress/	AI 演示文稿工具
+麦当秀 MindShow	https://www.mindshow.com/	AI 演示文稿工具
+VoxDeck	https://www.voxdeck.com/	AI 演示文稿工具
+AiBiao	https://www.aibiao.com/	AI 演示文稿工具
+ChatBA	https://www.chatba.com/	AI 演示文稿工具
+Decktopus AI	https://www.decktopus.com/	AI 演示文稿工具
+Powerpresent AI	https://www.powerpresentai.com/	AI 演示文稿工具
+希沃白板	https://www.seewo.com/whiteboard	希沃开发的智能白板
+秒出 PPT	https://www.miaochuPPT.com/	AI PPT 生成工具
+GAIPPT	https://www.gaippt.com/	AI PPT 生成工具
+万知	https://www.wanzhi.com/	AI 知识管理工具
+beautiful.ai	https://www.beautiful.ai/	AI 演示文稿工具
+ChatPPT	https://www.chatppt.com/	AI PPT 生成工具
+轻竹办公	https://www.qingzhubg.com/	AI 办公工具
+Chronicle	https://www.chronicle.com/	AI 时间管理工具
+Presentations.AI	https://www.presentations.ai/	AI 演示文稿工具
+SlidesAI	https://www.slidesai.io/	AI PPT 生成工具
+auxi	https://www.auxi.com/	AI 演示文稿工具
+AI 灵感 PPT	https://www.ailingganppt.com/	AI PPT 生成工具
+MindShow	https://www.mindshow.com/	AI 演示文稿工具
+办公小浣熊	https://www.bangongxiaohuanxiong.com/	AI 办公工具
+Tomoro	https://www.tomoro.com/	AI 办公工具
+Shortcut	https://www.shortcut.com/	AI 任务管理工具
+txyz	https://www.txyz.com/	AI 工具
+星流 AI	https://www.xingliuai.com/	AI 工具
+墨刀 AI	https://www.modao.cc/ai	墨刀集成的 AI 设计工具
+Figma AI	https://www.figma.com/ai	Figma 集成的 AI 设计工具
+美图设计室	https://design.meitu.com/	美图开发的 AI 设计工具
+135 AI 排版	https://www.135editor.com/ai/	135 编辑器集成的 AI 排版工具
+Holopix AI	https://www.holopixai.com/	AI 图像生成工具
+Pixso AI	https://www.pixso.net/ai	Pixso 集成的 AI 设计工具
+Recraft AI	https://www.recraft.ai/	AI 图像生成工具
+创客贴 AI	https://www.chuangketie.com/ai	创客贴集成的 AI 设计工具
+Onlook	https://www.onlook.com/	AI 设计工具
+GemDesign	https://www.gemdesign.com/	AI 设计工具
+Pic Copilot	https://www.piccopilot.com/	AI 图像生成工具
+魔力工作室	https://www.moligongzuoshi.com/	AI 设计工具
+蚂上有创意	https://www.mashangyouchuangyi.com/	AI 创意工具
+爱设计	https://www.aishejishi.com/	AI 设计工具
+PagePop	https://www.pagepop.com/	AI 网页设计工具
+小墨鹰编辑器	https://www.xiaomoying.com/	AI 文本编辑器
+美间 AI	https://www.meijian.com/ai	美间集成的 AI 设计工具
+Calicat	https://www.calicat.com/	AI 设计工具
+Microsoft Designer	https://designer.microsoft.com/	微软开发的 AI 设计工具
+UXbot	https://www.uxbot.com/	AI UX 设计工具
+燕雀光年	https://www.yanqueguangnian.com/	AI 设计工具
+标小智 LOGO 生成器	https://www.logosc.cn/	AI LOGO 生成工具
+Looka	https://www.looka.com/	AI LOGO 生成工具
+智绘设计	https://www.zhihuidesign.com/	AI 设计工具
+MasterGo AI	https://www.mastergo.com/ai	MasterGo 集成的 AI 设计工具
+居然设计家	https://www.juran.com/designer	居然之家开发的 AI 设计工具
+FigJam AI	https://www.figma.com/figjam/ai	FigJam 集成的 AI 协作工具
+鹿班	https://luban.taobao.com/	阿里开发的 AI 设计工具
+Magic Design	https://www.magicdesign.com/	AI 设计工具
+简单设计	https://www.jiandansheji.com/	AI 设计工具
+笔格设计	https://www.bigedesign.com/	AI 设计工具
+AI 设计神器	https://www.aishejishenqi.com/	AI 设计工具
+Logoai	https://www.logoai.com/	AI LOGO 生成工具
+豆绘 AI	https://www.douhui.ai/	AI 图像生成工具
+千图网	https://www.58pic.com/	图片素材网站，提供 AI 设计工具
+Pictographic	https://www.pictographic.com/	AI 图像生成工具
+Fable Prism	https://www.fableprism.com/	AI 设计工具
+Wegic	https://www.wegic.com/	AI 设计工具
+匠紫	https://www.jiangzi.com/	AI 设计工具
+Collov AI	https://www.collov.ai/	AI 室内设计工具
+包图网 AI 素材库	https://ibaotu.com/ai/	包图网提供的 AI 素材库
+易可图	https://www.yiketuo.com/	AI 图像生成工具
+笔魂 AI	https://www.bihunai.com/	AI 文字设计工具
+Creatie	https://www.creatie.com/	AI 设计工具
+Kittl	https://www.kittl.com/	AI 设计工具
+Dzine	https://www.dzine.com/	AI 设计工具
+Ilus AI	https://www.ilusai.com/	AI 图像生成工具
+酷家乐 AI	https://www.kujiale.com/ai	酷家乐集成的 AI 设计工具
+Framer AI	https://www.framer.com/ai	Framer 集成的 AI 设计工具
+LogoliveryAI	https://www.logoliveryai.com/	AI LOGO 生成工具
+Motiff 妙多	https://www.motiff.com/	AI 设计工具
+Pimento	https://www.pimento.com/	AI 设计工具
+Logo Diffusion	https://www.logodiffusion.com/	AI LOGO 生成工具
+Realibox AI	https://www.realibox.com/ai	Realibox 集成的 AI 设计工具
+Vectorizer.AI	https://www.vectorizer.ai/	AI 图像矢量化工具
+模袋云 AI	https://www.modaiyun.com/ai	模袋云集成的 AI 设计工具
+Vizcom	https://www.vizcom.com/	AI 设计工具
+Dora AI	https://www.dora.run/ai	Dora 集成的 AI 网页设计工具
+Designs.ai	https://www.designs.ai/	AI 设计工具平台
+Galileo AI	https://www.galileo.ai/	AI 网页设计工具
+Spline AI	https://www.spline.design/ai	Spline 集成的 AI 3D 设计工具
+千图设计室 AI 海报	https://588ku.com/aihaibao/	千图网提供的 AI 海报生成工具
+illostrationAI	https://www.illostrationai.com/	AI 插画生成工具
+Uizard	https://www.uizard.io/	AI UI 设计工具
+图宇宙	https://www.tuyuzhou.com/	AI 图像生成工具
+阿里云智能 logo 设计	https://logo.aliyun.com/	阿里云开发的 AI LOGO 生成工具
+AIDesign	https://www.aidesign.com/	AI 设计工具
+Fabrie AI	https://www.fabrie.com/ai	Fabrie 集成的 AI 设计工具
+Poly	https://www.poly.com/	AI 设计工具
+Illustroke	https://www.illustroke.com/	AI 插画生成工具
+Eva Design System	https://www.evadesignsystem.com/	AI 设计系统
+Color Wheel	https://www.colorwheel.com/	AI 配色工具
+Huemint	https://www.huemint.com/	AI 配色工具
+ColorMagic	https://www.colormagic.com/	AI 配色工具
+Logomaster.ai	https://www.logomaster.ai/	AI LOGO 生成工具
+Magician	https://www.magician.com/	AI 设计工具
+Appicons AI	https://www.appicons.ai/	AI 应用图标生成工具
+IconifyAI	https://www.iconifyai.com/	AI 图标生成工具
+Khroma	https://www.khroma.co/	AI 配色工具
+即时 AI	https://www.jishi.ai/	AI 工具
+Alpaca	https://www.alpaca-ai.com/	AI 模型
+羚珑	https://www.linglong.com/	AI 设计工具
+灵动 AI	https://www.lingdongai.com/	AI 工具
+Roast My Desk	https://roastmydesk.com/	AI 办公桌评价工具，可上传照片获取幽默评价
+PaidYet?	https://paidyet.com/	支付链接生成工具
+智面星	https://www.zhimianxing.com/	AI 面试模拟工具
+理聘 AI	https://www.lipinai.com/	AI 招聘工具
+51mee	https://www.51mee.com/	AI 招聘工具
+LovTalent	https://www.lovtalent.com/	AI 招聘工具
+TelehireAI 面试	https://www.telehireai.com/	AI 远程面试工具
+DINQ	https://www.dinq.com/	AI 招聘工具
+Mercor	https://www.mercor.io/	AI 招聘工具
+OfferIn	https://www.offerin.com/	AI 招聘工具
+多面鹅	https://www.duomiane.com/	AI 面试准备工具
+Gank Interview	https://www.gankinterview.com/	AI 面试准备工具
+面试猫	https://www.mianshimao.com/	AI 面试模拟工具
+白瓜面试	https://www.baiguamianshi.com/	AI 面试准备工具
+职徒简历	https://www.zhitujianli.com/	AI 简历制作工具
+职得简历	https://www.zhidejianli.com/	AI 简历制作工具
+蓝字典 AI 求职	https://www.lanzidianai.com/	AI 求职助手
+神笔简历	https://www.shenbijianli.com/	AI 简历制作工具
+YOO 简历	https://www.yoojianli.com/	AI 简历制作工具
+iTerms-AI 法律	https://www.itermsai.com/	AI 法律助手
+吾律 AI 律师	https://www.wulvailvshi.com/	AI 法律咨询工具
+元典智库	https://www.yuandianzhiku.com/	法律数据库，集成 AI 功能
+通义法睿	https://farui.aliyun.com/	阿里云开发的法律 AI 工具
+法行宝	https://www.faxingbao.com/	AI 法律助手
+MetaLaw	https://www.metalaw.com/	AI 法律助手
+ChatLaw	https://www.chatlaw.com/	AI 法律助手
+得理法搜	https://www.delifsou.com/	AI 法律搜索工具
+法智	https://www.fazhi.com/	AI 法律助手
+海瑞智法	https://www.hairuizhifa.com/	AI 法律助手
+合同嗖嗖	https://www.hetongsousou.com/	AI 合同生成工具
+AI 大学堂	https://www.aiuniversity.com/	AI 教育平台
+堆友 AI 学习	https://www.duiyouai.com/	AI 学习平台
+AI 分享圈	https://www.aisharequan.com/	AI 学习社区
+OpenAI Academy	https://academy.openai.com/	OpenAI 开发的 AI 教育平台
+Day of AI	https://dayofai.com/	AI 教育平台
+fast.ai	https://www.fast.ai/	AI 教育平台，专注深度学习
+学吧导航	https://www.xuebadh.com/	AI 学习资源导航
+Lynote	https://www.lynote.com/	AI 学习笔记工具
+Coursera	https://www.coursera.org/	在线教育平台，提供 AI 课程
+Elements of AI	https://www.elementsofai.com/	AI 教育平台
+DeepLearning.AI	https://www.deeplearning.ai/	深度学习教育平台
+动手学深度学习	https://zh.d2l.ai/	深度学习教程网站
+MachineLearningMastery	https://machinelearningmastery.com/	机器学习教育网站
+Generative AI for Beginners	https://www.generativeai4beginners.com/	生成式 AI 入门教程
+ML for Beginners	https://ml4beginners.com/	机器学习入门教程
+Kaggle	https://www.kaggle.com/	数据科学竞赛平台，提供 AI 学习资源
+神经网络入门	https://www.shenjingwangluo.com/	神经网络入门教程
+Trancy	https://www.trancy.com/	AI 语言学习工具
+Reading Coach	https://readingcoach.com/	AI 阅读辅导工具
+飞桨 AI Studio	https://aistudio.baidu.com/	百度飞桨开发的 AI 学习平台
+腾讯扣叮	https://coding.qq.com/	腾讯开发的青少年编程平台
+阿里云 AI 学习路线	https://edu.aliyun.com/ai/	阿里云开发的 AI 学习路线
+Udacity AI 学院	https://www.udacity.com/school/ai	Udacity 开发的 AI 学院
+Google AI	https://ai.google/	谷歌 AI 研究和教育平台
+ShowMeAI 知识社区	https://www.showmeai.cc/	AI 知识社区
+堆友 AI	https://www.duiyouai.com/	AI 学习平台
+课灵 PPT	https://www.keylingppt.com/	AI PPT 生成工具
+清言 PPT	https://www.qingyanppt.com/	AI PPT 生成工具
+万兴智演	https://www.wondershare.com/wonderdress/	AI 演示文稿工具
+麦当秀 MindShow	https://www.mindshow.com/	AI 演示文稿工具
+VoxDeck	https://www.voxdeck.com/	AI 演示文稿工具
+AiBiao	https://www.aibiao.com/	AI 演示文稿工具
+ChatBA	https://www.chatba.com/	AI 演示文稿工具
+Decktopus AI	https://www.decktopus.com/	AI 演示文稿工具
+Powerpresent AI	https://www.powerpresentai.com/	AI 演示文稿工具
+希沃白板	https://www.seewo.com/whiteboard	希沃开发的智能白板
+秒出 PPT	https://www.miaochuPPT.com/	AI PPT 生成工具
+GAIPPT	https://www.gaippt.com/	AI PPT 生成工具
+万知	https://www.wanzhi.com/	AI 知识管理工具
+beautiful.ai	https://www.beautiful.ai/	AI 演示文稿工具
+ChatPPT	https://www.chatppt.com/	AI PPT 生成工具
+轻竹办公	https://www.qingzhubg.com/	AI 办公工具
+Chronicle	https://www.chronicle.com/	AI 时间管理工具
+Presentations.AI	https://www.presentations.ai/	AI 演示文稿工具
+SlidesAI	https://www.slidesai.io/	AI PPT 生成工具
+auxi	https://www.auxi.com/	AI 演示文稿工具
+AI 灵感 PPT	https://www.ailingganppt.com/	AI PPT 生成工具
+MindShow	https://www.mindshow.com/	AI 演示文稿工具
+办公小浣熊	https://www.bangongxiaohuanxiong.com/	AI 办公工具
+Tomoro	https://www.tomoro.com/	AI 办公工具
+Shortcut	https://www.shortcut.com/	AI 任务管理工具
+txyz	https://www.txyz.com/	AI 工具
+星流 AI	https://www.xingliuai.com/	AI 工具
+墨刀 AI	https://www.modao.cc/ai	墨刀集成的 AI 设计工具
+Figma AI	https://www.figma.com/ai	Figma 集成的 AI 设计工具
+美图设计室	https://design.meitu.com/	美图开发的 AI 设计工具
+135 AI 排版	https://www.135editor.com/ai/	135 编辑器集成的 
