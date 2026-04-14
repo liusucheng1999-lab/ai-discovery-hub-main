@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, ExternalLink, Star, Eye, Info, Edit, Trash2 } from "lucide-react";
-import { type Tool, categoryColorMap, categories, pricingLabels } from "@/lib/mock-data";
-import { getToolLogo } from "@/lib/logo-utils";
+import { type Tool, categories, pricingLabels } from "@/lib/mock-data";
+import ToolLogoAvatar from "@/components/ToolLogoAvatar";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
@@ -137,8 +137,6 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState<Partial<Tool>>({});
   const [userRating, setUserRating] = useState(0);
-  const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [hoverRating, setHoverRating] = useState(0);
 
   if (!tool || !isOpen) {
@@ -163,15 +161,11 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
     ratingCount: tool.ratingCount || 0,
     viewCount: tool.viewCount || 0,
     tags: tool.tags || [],
-    createdAt: tool.createdAt || new Date().toISOString()
+    createdAt: tool.createdAt || new Date().toISOString(),
+    logoUrl: tool.logoUrl
   };
 
   const cat = categories.find((c) => c.id === tool.category);
-  const bgColor = categoryColorMap[tool.category] || "hsl(0,0%,60%)";
-  const logoUrl = getToolLogo(tool.websiteUrl || '');
-
-  const handleImageError = () => setImageError(true);
-  const handleImageLoad = () => setImageLoaded(true);
 
   const handleRate = async (r: number) => {
     setUserRating(r);
@@ -367,30 +361,14 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
           {/* 工具头部 */}
           <div className="p-6 border-b border-border">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-16 w-16 shrink-0 rounded-xl flex items-center justify-center relative overflow-hidden">
-                {!imageError && logoUrl && (
-                  <>
-                    {!imageLoaded && (
-                      <div className="absolute inset-0 bg-muted animate-pulse" />
-                    )}
-                    <img
-                      src={logoUrl}
-                      alt={`${tool.name} logo`}
-                      className={`w-full h-full object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                      onError={handleImageError}
-                      onLoad={handleImageLoad}
-                    />
-                  </>
-                )}
-                {(imageError || !logoUrl) && (
-                  <div
-                    className="h-16 w-16 shrink-0 rounded-xl flex items-center justify-center text-2xl font-bold text-white"
-                    style={{ backgroundColor: bgColor }}
-                  >
-                    {tool.name[0]}
-                  </div>
-                )}
-              </div>
+              <ToolLogoAvatar
+                name={safeTool.name}
+                websiteUrl={safeTool.websiteUrl}
+                logoUrl={safeTool.logoUrl}
+                category={safeTool.category}
+                boxClassName="h-16 w-16 shrink-0 rounded-xl"
+                fallbackTextClassName="text-2xl"
+              />
               
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">

@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { Eye, Star } from "lucide-react";
-import { useState } from "react";
-import { type Tool, categoryColorMap, categories, pricingLabels } from "@/lib/mock-data";
-import { getToolLogo } from "@/lib/logo-utils";
+import { type Tool, categories, pricingLabels } from "@/lib/mock-data";
+import ToolLogoAvatar from "@/components/ToolLogoAvatar";
 
 const pricingColorMap: Record<string, string> = {
   free: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
@@ -37,20 +36,9 @@ interface ToolCardProps {
 }
 
 export default function ToolCard({ tool, searchQuery = "", small = false }: ToolCardProps) {
-  const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const cat = categories.find((c) => c.id === tool.category);
-  const bgColor = categoryColorMap[tool.category] || "hsl(0,0%,60%)";
-  const logoSize = small ? "h-10 w-10 text-lg" : "h-12 w-12 text-xl";
-  const logoUrl = getToolLogo(tool.websiteUrl);
-
-  const handleImageError = () => {
-    setImageError(true);
-  };
-
-  const handleImageLoad = () => {
-    setImageLoaded(true);
-  };
+  const logoSize = small ? "h-10 w-10" : "h-12 w-12";
+  const letterSize = small ? "text-lg" : "text-xl";
 
   return (
     <Link
@@ -58,30 +46,14 @@ export default function ToolCard({ tool, searchQuery = "", small = false }: Tool
       className="group block rounded-xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:border-primary/50"
     >
       <div className="flex items-start gap-3">
-        <div className={`${logoSize} shrink-0 rounded-lg flex items-center justify-center relative overflow-hidden`}>
-          {!imageError && logoUrl && (
-            <>
-              {!imageLoaded && (
-                <div className="absolute inset-0 bg-muted animate-pulse" />
-              )}
-              <img
-                src={logoUrl}
-                alt={`${tool.name} logo`}
-                className={`w-full h-full object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                onError={handleImageError}
-                onLoad={handleImageLoad}
-              />
-            </>
-          )}
-          {(imageError || !logoUrl) && (
-            <div
-              className={`${logoSize} shrink-0 rounded-lg flex items-center justify-center font-bold text-white`}
-              style={{ backgroundColor: bgColor }}
-            >
-              {tool.name[0]}
-            </div>
-          )}
-        </div>
+        <ToolLogoAvatar
+          name={tool.name}
+          websiteUrl={tool.websiteUrl}
+          logoUrl={tool.logoUrl}
+          category={tool.category}
+          boxClassName={`${logoSize} shrink-0 rounded-lg`}
+          fallbackTextClassName={letterSize}
+        />
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <h3 className={`font-semibold truncate ${small ? "text-sm" : "text-base"}`}>

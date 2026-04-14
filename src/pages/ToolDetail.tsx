@@ -1,10 +1,10 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { categories as mockCategories, categoryColorMap, pricingLabels } from "@/lib/mock-data";
+import { categories as mockCategories, pricingLabels } from "@/lib/mock-data";
 import { supabase } from "@/lib/supabase";
-import { getToolLogo } from "@/lib/logo-utils";
 import ToolCard from "@/components/ToolCard";
+import ToolLogoAvatar from "@/components/ToolLogoAvatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Star, Eye, ExternalLink, Share2, ChevronLeft, X } from "lucide-react";
@@ -17,13 +17,9 @@ export default function ToolDetail() {
   const [categoryList, setCategoryList] = useState(mockCategories);
   const [relatedTools, setRelatedTools] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [userRating, setUserRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [shareText, setShareText] = useState("📤 分享");
-
-  const logoUrl = tool ? getToolLogo(tool.websiteUrl) : '';
 
   // 从 Supabase 加载数据
   useEffect(() => {
@@ -68,6 +64,7 @@ export default function ToolDetail() {
             viewCount: (toolResult.data.view_count || 0) + 1,
             screenshots: toolResult.data.screenshots || [],
             createdAt: toolResult.data.created_at || new Date().toISOString().split('T')[0],
+            logoUrl: toolResult.data.logo_url,
             // AI质量评估字段
             aiQualityScore: toolResult.data.ai_quality_score,
             aiQualityReview: toolResult.data.ai_quality_review,
@@ -106,6 +103,7 @@ export default function ToolDetail() {
                 tagline: t.tagline,
                 description: t.description || t.tagline,
                 websiteUrl: t.website_url,
+                logoUrl: t.logo_url,
                 category: t.category,
                 tags: t.tags || [],
                 pricingType: t.pricing_type,
@@ -167,14 +165,6 @@ export default function ToolDetail() {
     );
   }
 
-  const handleImageError = () => {
-    setImageError(true);
-  };
-
-  const handleImageLoad = () => {
-    setImageLoaded(true);
-  };
-
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
     setShareText("✅ 已复制");
@@ -224,7 +214,6 @@ export default function ToolDetail() {
   };
 
   const cat = categoryList.find((c) => c.id === tool.category);
-  const bgColor = categoryColorMap[tool.category] || "hsl(0,0%,60%)";
 
   return (
     <>
@@ -242,30 +231,14 @@ export default function ToolDetail() {
 
         {/* Header */}
         <div className="flex gap-6 items-start">
-          <div className="h-20 w-20 shrink-0 rounded-2xl flex items-center justify-center relative overflow-hidden">
-            {!imageError && logoUrl && (
-              <>
-                {!imageLoaded && (
-                  <div className="absolute inset-0 bg-muted animate-pulse" />
-                )}
-                <img
-                  src={logoUrl}
-                  alt={`${tool.name} logo`}
-                  className={`w-full h-full object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                  onError={handleImageError}
-                  onLoad={handleImageLoad}
-                />
-              </>
-            )}
-            {(imageError || !logoUrl) && (
-              <div
-                className="h-20 w-20 shrink-0 rounded-2xl flex items-center justify-center text-3xl font-bold text-white"
-                style={{ backgroundColor: bgColor }}
-              >
-                {tool.name[0]}
-              </div>
-            )}
-          </div>
+          <ToolLogoAvatar
+            name={tool.name}
+            websiteUrl={tool.websiteUrl}
+            logoUrl={tool.logoUrl}
+            category={tool.category}
+            boxClassName="h-20 w-20 shrink-0 rounded-2xl"
+            fallbackTextClassName="text-3xl"
+          />
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-bold">{tool.name}</h1>
             <p className="text-muted-foreground mt-1">{tool.tagline}</p>

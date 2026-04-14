@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
+import { fetchToolsByMainCategoryName } from "@/lib/tools-queries";
 import { Tool } from "@/lib/mock-data";
 import ToolCardWithButtons from "@/components/ToolCardWithButtons";
 import ToolDetailModal from "@/components/ToolDetailModal";
@@ -66,13 +67,10 @@ export default function CategoryPage() {
 
       setLoading(true);
       try {
-        // 根据分类获取工具
-        const { data, error } = await supabase
-          .from('tools')
-          .select('*')
-          .in('status', ['approved', 'active'])
-          .eq('main_category', config.name)
-          .order('view_count', { ascending: false });
+        const { data, error } = await fetchToolsByMainCategoryName(
+          supabase,
+          config.name
+        );
 
         if (error) throw error;
 
@@ -90,7 +88,7 @@ export default function CategoryPage() {
           rating: tool.rating || 0,
           ratingCount: tool.rating_count || 0,
           viewCount: tool.view_count || 0,
-          screenshots: tool.screenshots || [],
+          screenshots: [],
           createdAt: tool.created_at,
           logoUrl: tool.logo_url,
           main_category: tool.main_category,

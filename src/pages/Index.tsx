@@ -5,8 +5,9 @@ import { supabase } from "@/lib/supabase";
 import { CategoryWithSubCategories } from "@/lib/types";
 import ToolCardWithButtons from "@/components/ToolCardWithButtons";
 import ToolDetailModal from "@/components/ToolDetailModal";
-import CategorySelector from "@/components/CategorySelector";
 import EnhancedSearch from "@/components/EnhancedSearch";
+import { readHomeCache, writeHomeCache } from "@/lib/home-data-cache";
+import { fetchHomeToolsList } from "@/lib/tools-queries";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Pagination,
@@ -37,7 +38,6 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
   const [categories, setCategories] = useState<any[]>([]);
   const [categoryData, setCategoryData] = useState<CategoryWithSubCategories[]>([]);
   const [loading, setLoading] = useState(true);
-  const [dataLoaded, setDataLoaded] = useState(false); // 添加数据加载状态标记
 
   // 分类URL映射 - 更新为最终标准分类体系
   const categoryUrlMap: Record<string, string> = {
@@ -79,97 +79,120 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
     return rangeWithDots;
   };
 
-  // 从 Supabase 加载数据 - 优化版本
+  // 从 Supabase 加载：优先读本地缓存（15 分钟内），后台刷新
   useEffect(() => {
-    async function loadData() {
-      setLoading(true);
-      try {
-        console.log('首页：正在从Supabase加载数据');
-        
-        // 强制清除缓存
-        localStorage.removeItem('tools-cache');
-        localStorage.removeItem('categories-cache');
+    let cancelled = false;
 
-        // 优化：只查询必要的数据，避免重复查询
-        const [categoriesResult, toolsResult, subCategoriesResult] = await Promise.all([
-          supabase.from('main_categories').select('*').order('sort_order'),
-          supabase.from('tools').select('*', { count: 'exact' }).eq('status', 'active').order('view_count', { ascending: false }).limit(2000),
-          supabase.from('sub_categories').select('*').order('main_category_id, sort_order')
+    function mapRowToTool(tool: Record<string, unknown>): Tool {
+      return {
+        id: tool.id as string,
+        name: tool.name as string,
+        tagline: (tool.tagline as string) || "",
+        description: (tool.description as string) || "",
+        websiteUrl: tool.website_url as string,
+        category: tool.category as string,
+        tags: (tool.tags as string[]) || [],
+        pricingType: tool.pricing_type as Tool["pricingType"],
+        isChinaAvailable: Boolean(tool.is_china_available),
+        isChineseSupported: Boolean(tool.is_chinese_supported),
+        rating: (tool.rating as number) || 0,
+        ratingCount: (tool.rating_count as number) || 0,
+        viewCount: (tool.view_count as number) || 0,
+        screenshots: [],
+        createdAt: (tool.created_at as string) || "",
+        logoUrl: tool.logo_url as string | undefined,
+        aiQualityScore: tool.ai_quality_score as number | undefined,
+        aiReviewDate: tool.ai_review_date as string | undefined,
+        aiReviewNotes: tool.ai_review_notes as string | undefined,
+        main_category: tool.main_category as string | undefined,
+        sub_category: tool.sub_category as string | undefined,
+      };
+    }
+
+    async function loadData() {
+      const cached = readHomeCache();
+      if (cached) {
+        setCategories(cached.categories as any[]);
+        setCategoryData(cached.categoryData);
+        setTools(cached.tools);
+        setLoading(false);
+      } else {
+        setLoading(true);
+      }
+
+      try {
+        const [categoriesResult, subCategoriesResult] = await Promise.all([
+          supabase.from("main_categories").select("*").order("sort_order"),
+          supabase.from("sub_categories").select("*").order("main_category_id, sort_order"),
         ]);
 
-        console.log('工具查询结果:', {
-          总数: toolsResult.data?.length || 0,
-          状态: 'active',
-          数据: toolsResult.data?.slice(0, 3) // 只显示前3条用于调试
-        });
+        if (cancelled) return;
 
-        // 处理分类数据
+        const toolsResult = await fetchHomeToolsList(supabase);
+
+        if (cancelled) return;
+
+        if (toolsResult.error) {
+          console.error("首页：工具查询失败", toolsResult.error);
+        }
+
         if (categoriesResult.data) {
           const allCategories = [
             { id: "all", name: "全部", icon: "" },
-            ...categoriesResult.data.map(cat => ({
+            ...categoriesResult.data.map((cat) => ({
               ...cat,
-              // 使用新的标准分类名称，无需额外映射
-              name: cat.name
-            }))
+              name: cat.name,
+            })),
           ];
           setCategories(allCategories);
         }
 
-        // 设置工具数据 - 优化转换逻辑
-        if (toolsResult.data) {
-          console.log('🔍 原始查询结果长度:', toolsResult.data.length);
-          
-          // 使用更高效的数据转换
-          const transformedTools = toolsResult.data.map((tool: any) => ({
-            id: tool.id,
-            name: tool.name,
-            tagline: tool.tagline,
-            description: tool.description,
-            websiteUrl: tool.website_url,
-            category: tool.category,
-            tags: tool.tags || [],
-            pricingType: tool.pricing_type,
-            isChinaAvailable: tool.is_china_available,
-            isChineseSupported: tool.is_chinese_supported,
-            rating: tool.rating || 0,
-            ratingCount: tool.rating_count || 0,
-            viewCount: tool.view_count || 0,
-            screenshots: tool.screenshots || [],
-            createdAt: tool.created_at,
-            logoUrl: tool.logo_url,
-            aiQualityScore: tool.ai_quality_score,
-            aiQualityReview: tool.ai_quality_review,
-            aiReviewDate: tool.ai_review_date,
-            aiReviewNotes: tool.ai_review_notes,
-            main_category: tool.main_category,
-            sub_category: tool.sub_category
-          }));
-          
-          console.log('🔍 转换后工具数组长度:', transformedTools.length);
-          setTools(transformedTools);
-        }
-
-        // 构建分类数据 - 避免重复查询
+        let nextCategoryData: CategoryWithSubCategories[] = [];
         if (categoriesResult.data && subCategoriesResult.data) {
-          const categoryData = categoriesResult.data.map(main => ({
+          nextCategoryData = categoriesResult.data.map((main) => ({
             ...main,
-            sub_categories: subCategoriesResult.data.filter(sub => sub.main_category_id === main.id)
+            sub_categories: subCategoriesResult.data!.filter((sub) => sub.main_category_id === main.id),
           }));
-          setCategoryData(categoryData);
+          setCategoryData(nextCategoryData);
         }
 
+        if (toolsResult.data && !toolsResult.error) {
+          const transformedTools = toolsResult.data.map((row) =>
+            mapRowToTool(row as Record<string, unknown>)
+          );
+          setTools(transformedTools);
+
+          if (
+            transformedTools.length > 0 &&
+            categoriesResult.data &&
+            subCategoriesResult.data
+          ) {
+            const allCategories = [
+              { id: "all", name: "全部", icon: "" },
+              ...categoriesResult.data.map((cat) => ({ ...cat, name: cat.name })),
+            ];
+            writeHomeCache({
+              tools: transformedTools,
+              categories: allCategories,
+              categoryData: nextCategoryData,
+            });
+          }
+        }
       } catch (err) {
-        console.log('首页：加载数据失败', err);
+        console.error("首页：加载数据失败", err);
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-      setLoading(false);
     }
+
     loadData();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // 处理搜索
   const handleSearch = (query: string) => {
-    console.log('关键词搜索:', query);
     setSearchQuery(query);
     setPage(1); // 重置到第一页
   };
@@ -191,9 +214,6 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
       }
     });
 
-    let allCount = 0;
-    let uncategorizedCount = 0;
-
     tools.forEach((t) => {
       let mainId = t.main_category;
 
@@ -205,29 +225,16 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
 
       if (typeof mainId === 'string' && mainId && mainCategoryIds.has(mainId)) {
         counts[mainId] = (counts[mainId] || 0) + 1;
-        allCount += 1;
-      } else {
-        uncategorizedCount += 1;
       }
     });
 
-    counts["all"] = allCount;
-
-    console.log('分类计数:', {
-      "工具数组长度": tools.length,
-      "可归类工具数": allCount,
-      "未归类/异常分类工具数": uncategorizedCount,
-      "各分类计数": counts
-    });
+    // 「全部」= 当前列表中的工具总数（含未映射到主分类的条目），与「找到 N 个工具」一致
+    counts["all"] = tools.length;
 
     return counts;
   }, [tools, categories]);
 
   const filtered = useMemo(() => {
-    console.log('筛选逻辑执行:', { searchQuery });
-    
-    // 使用关键词匹配逻辑
-    console.log('使用关键词匹配');
     let result = [...tools];
 
     // 按主分类筛选
@@ -251,23 +258,27 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
       const q = searchQuery.toLowerCase();
       result = result.filter(
         (t) => 
-          t.name.toLowerCase().includes(q) || 
-          t.tagline.toLowerCase().includes(q) ||
-          t.description.toLowerCase().includes(q) ||
-          (t.tags && t.tags.some((tag: string) => tag.toLowerCase().includes(q)))
+          (t.name || "").toLowerCase().includes(q) || 
+          (t.tagline || "").toLowerCase().includes(q) ||
+          (t.description || "").toLowerCase().includes(q) ||
+          (t.tags && t.tags.some((tag: string) => String(tag).toLowerCase().includes(q)))
       );
     }
 
     if (sortBy === "popular") result.sort((a, b) => b.viewCount - a.viewCount);
-    else if (sortBy === "newest") result.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    else if (sortBy === "newest")
+      result.sort((a, b) =>
+        (b.createdAt || "").localeCompare(a.createdAt || "")
+      );
     else if (sortBy === "rating") result.sort((a, b) => b.rating - a.rating);
 
-    console.log('关键词匹配结果:', result.length);
     return result;
   }, [tools, activeCategory, selectedSubCategory, searchQuery, sortBy]);
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paged = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+
+  const displayResultCount = filtered.length;
 
   // Reset page when filters change
   useEffect(() => setPage(1), [activeCategory, selectedSubCategory, searchQuery, sortBy]);
@@ -369,7 +380,7 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
 
       {/* Results count & Sort */}
       <div className="flex items-center justify-between pt-3 pb-4 gap-4 flex-wrap -mx-6 px-6">
-        <p className="text-sm text-muted-foreground">找到 {filtered.length} 个工具</p>
+        <p className="text-sm text-muted-foreground">找到 {displayResultCount} 个工具</p>
         
         <Select value={sortBy} onValueChange={setSortBy}>
           <SelectTrigger className="w-[160px]">
@@ -383,24 +394,25 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
         </Select>
       </div>
 
-      {/* Tool Grid */}
-      {tools.length > 0 ? (
-        <div className="grid grid-cols-4 gap-5">
-          {paged.map((tool) => (
-            <ToolCardWithButtons key={tool.id} tool={tool} searchQuery={searchQuery} />
-          ))}
-        </div>
-      ) : loading ? (
-        // 工具加载中的占位符
+      {/* Tool Grid：按筛选结果展示，避免有数据但筛选为空时出现空白网格 */}
+      {loading ? (
         <div className="grid grid-cols-4 gap-5">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
             <div key={i} className="bg-muted/30 rounded-lg h-64 animate-pulse"></div>
           ))}
         </div>
+      ) : filtered.length > 0 ? (
+        <div className="grid grid-cols-4 gap-5">
+          {paged.map((tool) => (
+            <ToolCardWithButtons key={tool.id} tool={tool} searchQuery={searchQuery} />
+          ))}
+        </div>
       ) : (
         <div className="py-20 text-center text-muted-foreground">
-          <p className="text-lg">没有找到符合条件的工具</p>
-          <p className="text-sm mt-1">试试其他筛选条件</p>
+          <p className="text-lg">
+            {tools.length === 0 ? "暂无工具数据" : "没有找到符合条件的工具"}
+          </p>
+          <p className="text-sm mt-1">试试其他筛选条件或清空搜索</p>
         </div>
       )}
 

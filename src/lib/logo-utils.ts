@@ -39,3 +39,21 @@ export function getFallbackLogo(websiteUrl: string): string {
     return '';
   }
 }
+
+/**
+ * Ordered list of icon URLs to try (DB logo → DuckDuckGo → Google favicon).
+ */
+export function getLogoCandidateUrls(websiteUrl: string, logoUrl?: string | null): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  const add = (u: string) => {
+    if (u && !seen.has(u)) {
+      seen.add(u);
+      out.push(u);
+    }
+  };
+  if (logoUrl) add(logoUrl.trim());
+  add(getToolLogo(websiteUrl));
+  add(getFallbackLogo(websiteUrl));
+  return out;
+}

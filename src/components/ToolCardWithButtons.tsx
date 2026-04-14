@@ -1,15 +1,8 @@
 import { useState } from "react";
 import { Eye, Star, ExternalLink, Info, Sparkles } from "lucide-react";
-import { type Tool, categoryColorMap, categories, pricingLabels } from "@/lib/mock-data";
-import { getToolLogo } from "@/lib/logo-utils";
+import { type Tool } from "@/lib/mock-data";
 import ToolDetailModal from "./ToolDetailModal";
-
-const pricingColorMap: Record<string, string> = {
-  free: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
-  freemium: "bg-blue-500/15 text-blue-600 dark:text-blue-400",
-  paid: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
-  opensource: "bg-violet-500/15 text-violet-600 dark:text-violet-400",
-};
+import ToolLogoAvatar from "./ToolLogoAvatar";
 
 function HighlightText({ text, query }: { text: string; query: string }) {
   if (!query) return <>{text}</>;
@@ -37,28 +30,14 @@ interface ToolCardProps {
 }
 
 export default function ToolCard({ tool, searchQuery = "", small = false }: ToolCardProps) {
-  const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   
-  const cat = categories.find((c) => c.id === tool.category);
-  const bgColor = categoryColorMap[tool.category] || "hsl(0,0%,60%)";
-  const logoSize = small ? "h-10 w-10 text-lg" : "h-12 w-12 text-xl";
-  
-  // 优先使用数据库中的logo_url，如果没有则动态计算
-  const logoUrl = tool.logoUrl || getToolLogo(tool.websiteUrl);
+  const logoSize = small ? "h-10 w-10" : "h-12 w-12";
+  const letterSize = small ? "text-lg" : "text-xl";
   
   // AI搜索匹配度信息
   const aiMatchScore = (tool as any).ai_match_score;
   const aiMatchReason = (tool as any).ai_match_reason;
-
-  const handleImageError = () => {
-    setImageError(true);
-  };
-
-  const handleImageLoad = () => {
-    setImageLoaded(true);
-  };
 
   // 处理访问官网按钮点击
   const handleVisitWebsite = (e: React.MouseEvent) => {
@@ -78,30 +57,14 @@ export default function ToolCard({ tool, searchQuery = "", small = false }: Tool
     <>
       <div className="group rounded-xl border border-border bg-card p-3 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:border-primary/50 relative overflow-hidden">
         <div className="flex items-start gap-2.5">
-          <div className={`${logoSize} shrink-0 rounded-lg flex items-center justify-center relative overflow-hidden`}>
-            {!imageError && logoUrl && (
-              <>
-                {!imageLoaded && (
-                  <div className="absolute inset-0 bg-muted animate-pulse" />
-                )}
-                <img
-                  src={logoUrl}
-                  alt={`${tool.name} logo`}
-                  className={`w-full h-full object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                  onError={handleImageError}
-                  onLoad={handleImageLoad}
-                />
-              </>
-            )}
-            {(imageError || !logoUrl) && (
-              <div
-                className={`${logoSize} shrink-0 rounded-lg flex items-center justify-center font-bold text-white`}
-                style={{ backgroundColor: bgColor }}
-              >
-                {tool.name[0]}
-              </div>
-            )}
-          </div>
+          <ToolLogoAvatar
+            name={tool.name}
+            websiteUrl={tool.websiteUrl}
+            logoUrl={tool.logoUrl}
+            category={tool.category}
+            boxClassName={`${logoSize} shrink-0 rounded-lg`}
+            fallbackTextClassName={letterSize}
+          />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
               <h3 className={`font-semibold truncate ${small ? "text-sm" : "text-base"}`}>
