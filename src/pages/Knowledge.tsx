@@ -117,8 +117,9 @@ export default function Knowledge() {
 
   const saveEdit = async () => {
     if (!editingLesson) return;
+    console.log("开始保存课程", editingLesson.id, editForm);
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("knowledge_lessons")
         .update({
           title: editForm.title,
@@ -132,7 +133,10 @@ export default function Knowledge() {
           status: editForm.status,
           is_free: editForm.is_free,
         })
-        .eq("id", editingLesson.id);
+        .eq("id", editingLesson.id)
+        .select();
+
+      console.log("保存结果", { data, error });
 
       if (error) {
         console.error("保存失败", error);
