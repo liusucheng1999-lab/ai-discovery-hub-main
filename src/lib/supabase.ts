@@ -18,10 +18,13 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   }
 })
 
-// 管理员客户端（用于删除操作）
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
-  auth: {
-    persistSession: false,
-    autoRefreshToken: false
-  }
-})
+// 管理员客户端（用于需要 service key 的操作）
+// 注意：service key 不应该暴露在前端运行环境中，这里做兼容处理：没有配置时返回 null
+export const supabaseAdmin = supabaseServiceKey
+  ? createClient(supabaseUrl, supabaseServiceKey, {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+    })
+  : null

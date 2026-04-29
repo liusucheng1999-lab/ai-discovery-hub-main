@@ -1,4 +1,4 @@
-import { Sun, Moon, LogOut, Menu, X } from "lucide-react";
+import { Sun, Moon, LogOut } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "./ThemeProvider";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ export default function Navbar() {
   const { isLoggedIn, username, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
+  const [_, setIsOpen] = useState(false);
 
   useEffect(() => {
     setIsOpen(false);
@@ -21,12 +21,39 @@ export default function Navbar() {
     navigate("/login");
   };
 
+  const tabs = [
+    { label: "首页", to: "/" },
+    { label: "AI工具", to: "/tools" },
+    { label: "AI课程", to: "/knowledge" },
+  ];
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-border bg-card/80 backdrop-blur-xl">
       <div className="mx-auto flex h-full max-w-[1280px] items-center gap-4 px-6">
         <Link to="/" className="text-xl font-bold text-gradient shrink-0">
           AI创客
         </Link>
+
+        <nav className="flex items-center gap-1">
+          {tabs.map((t) => {
+            const isActive = location.pathname === t.to;
+            return (
+              <Link
+                key={t.to}
+                to={t.to}
+                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                  isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                }`}
+              >
+                {t.label}
+              </Link>
+            );
+          })}
+
+          <span className="px-3 py-1.5 text-sm font-medium rounded-md text-muted-foreground/70 select-none cursor-not-allowed">
+            实战项目
+          </span>
+        </nav>
 
         <div className="flex-grow" />
 

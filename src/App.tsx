@@ -9,15 +9,18 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Home from "./pages/Home";
 import Index from "./pages/Index";
 import CategoryPage from "./pages/CategoryPage";
 import ToolDetailPage from "./pages/ToolDetailPage";
+import LessonDetailPage from "./pages/LessonDetailPage";
 import SubmitTool from "./pages/SubmitTool";
 import Login from "./pages/Login";
 import SetupAdmin from "./pages/SetupAdmin";
 import CreateAdmin from "./pages/CreateAdmin";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import Knowledge from "./pages/Knowledge";
 
 const queryClient = new QueryClient();
 
@@ -35,7 +38,8 @@ const App = () => {
                   <Navbar />
                   <div className="flex-1">
                     <Routes>
-                      <Route path="/" element={<Index />} />
+                      <Route path="/" element={<Home />} />
+                      <Route path="/tools" element={<Index />} />
                       <Route path="/ai-writing" element={<CategoryPage />} />
                       <Route path="/ai-drawing" element={<CategoryPage />} />
                       <Route path="/ai-office" element={<CategoryPage />} />
@@ -47,6 +51,8 @@ const App = () => {
                       <Route path="/setup-admin" element={<SetupAdmin />} />
                       <Route path="/create-admin" element={<CreateAdmin />} />
                       <Route path="/admin" element={<Admin />} />
+                      <Route path="/knowledge" element={<Knowledge />} />
+                      <Route path="/knowledge/lesson/:id" element={<LessonDetailPage />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </div>
