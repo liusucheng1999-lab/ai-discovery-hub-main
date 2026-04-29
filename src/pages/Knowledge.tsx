@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "@/lib/supabase";
+import { supabase, supabaseAdmin } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface Lesson {
@@ -117,8 +117,12 @@ export default function Knowledge() {
 
   const saveEdit = async () => {
     if (!editingLesson) return;
+    if (!supabaseAdmin) {
+      alert("管理员客户端未配置，无法保存");
+      return;
+    }
     try {
-      const { error } = await supabase
+      const { error } = await supabaseAdmin
         .from("knowledge_lessons")
         .update({
           title: editForm.title,
@@ -189,8 +193,12 @@ export default function Knowledge() {
   };
 
   const saveNew = async () => {
+    if (!supabaseAdmin) {
+      alert("管理员客户端未配置，无法创建");
+      return;
+    }
     try {
-      const { error } = await supabase.from("knowledge_lessons").insert({
+      const { error } = await supabaseAdmin.from("knowledge_lessons").insert({
         title: editForm.title,
         description: editForm.description,
         video_embed_url: editForm.video_embed_url.trim(),
@@ -224,8 +232,12 @@ export default function Knowledge() {
 
   const deleteLesson = async (id: string) => {
     if (!confirm("确定删除此课程吗？")) return;
+    if (!supabaseAdmin) {
+      alert("管理员客户端未配置，无法删除");
+      return;
+    }
     try {
-      const { error } = await supabase.from("knowledge_lessons").delete().eq("id", id);
+      const { error } = await supabaseAdmin.from("knowledge_lessons").delete().eq("id", id);
       if (error) {
         console.error("删除失败", error);
         alert("删除失败：" + error.message);
