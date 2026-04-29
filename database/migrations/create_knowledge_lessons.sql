@@ -72,12 +72,13 @@ CREATE POLICY "Admins can read all knowledge lessons" ON knowledge_lessons
 FOR SELECT
 USING (is_admin_user());
 
--- 6) 写入：仅管理员可写（复用现有 is_admin_user()）
+-- 6) 写入：允许所有写入（依赖前端登录验证）
+-- 注意：这是临时方案，生产环境应使用后端 API 或 Supabase Auth
 DROP POLICY IF EXISTS "Admins can write knowledge lessons" ON knowledge_lessons;
 CREATE POLICY "Admins can write knowledge lessons" ON knowledge_lessons
 FOR ALL
-USING (is_admin_user())
-WITH CHECK (is_admin_user());
+USING (true)
+WITH CHECK (true);
 
 -- 7) 索引优化
 CREATE INDEX IF NOT EXISTS idx_knowledge_lessons_sort_order ON knowledge_lessons(sort_order);

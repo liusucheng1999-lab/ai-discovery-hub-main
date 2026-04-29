@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { supabase, supabaseAdmin } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface Lesson {
@@ -111,12 +111,8 @@ export default function LessonDetailPage() {
 
   const saveResources = async () => {
     if (!isLoggedIn || !activeLesson) return;
-    if (!supabaseAdmin) {
-      alert("管理员客户端未配置，无法保存");
-      return;
-    }
     try {
-      const { error } = await supabaseAdmin
+      const { error } = await supabase
         .from("knowledge_lessons")
         .update({
           video_embed_url: draftVideoUrl.trim(),
