@@ -109,7 +109,7 @@ export default function Home() {
         <title>AI创客 - 用AI武装自己，从这里开始</title>
         <meta
           name="description"
-          content="AI创客，为你精选200+最好用的AI工具，提供最实用的AI课程，帮助每个人真正用好AI。"
+          content="AI创客，为你精选1000+最好用的AI工具，提供最实用的AI课程，帮助每个人真正用好AI。"
         />
         <link rel="canonical" href="https://aimakerbox.com/" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -129,7 +129,7 @@ export default function Home() {
               <div className="am-hero-content">
                 <div className="am-pill am-hero-animate" style={{ animationDelay: "0.05s" }}>
                   <span className="am-pill-dot" aria-hidden="true" />
-                  持续更新中 · 已收录 200+ AI工具
+                  持续更新中 · 已收录 1000+ AI工具
                 </div>
 
                 <h1 className="am-h1 am-hero-animate" style={{ animationDelay: "0.2s" }}>
@@ -154,7 +154,7 @@ export default function Home() {
                 <div className="am-hero-metrics am-hero-animate" style={{ animationDelay: "0.65s" }}>
                   <div className="am-metric">已帮助 10,000+ 用户</div>
                   <div className="am-metric-sep" aria-hidden="true" />
-                  <div className="am-metric">收录 200+ AI工具</div>
+                  <div className="am-metric">收录 1000+ AI工具</div>
                   <div className="am-metric-sep" aria-hidden="true" />
                   <div className="am-metric">持续更新中</div>
                 </div>
@@ -181,7 +181,7 @@ export default function Home() {
                   </p>
                   <ul className="am-list">
                     <li>
-                      <i className="lucide lucide-check" aria-hidden="true" /> 200+ 精选工具，分类清晰
+                      <i className="lucide lucide-check" aria-hidden="true" /> 1000+ 精选工具，分类清晰
                     </li>
                     <li>
                       <i className="lucide lucide-check" aria-hidden="true" /> 每日持续更新
@@ -259,7 +259,7 @@ export default function Home() {
                   <p className="am-lead">不推没用的，只推真正值得花时间的</p>
                 </div>
                 <a className="am-link" href="/tools" rel="nofollow">
-                  查看全部 200+ →
+                  查看全部 1000+ →
                 </a>
               </div>
 
@@ -529,7 +529,7 @@ export default function Home() {
             <div className="am-container">
               <div className="am-stats" data-animate>
                 <div className="am-stat">
-                  <div className="am-stat-num" data-count="200+">
+                  <div className="am-stat-num" data-count="1000+">
                     0
                   </div>
                   <div className="am-stat-label">收录AI工具</div>
@@ -559,45 +559,6 @@ export default function Home() {
             </div>
           </section>
 
-          <footer className="am-footer" role="contentinfo">
-            <div className="am-container">
-              <div className="am-footer-grid">
-                <div>
-                  <div className="am-footer-logo">
-                    <span className="am-logo-ai">AI</span>
-                    <span className="am-footer-logo-cn">创客</span>
-                  </div>
-                  <div className="am-footer-text">让每个人都能用好AI</div>
-                  <div className="am-footer-text">aimakerbox.com</div>
-                </div>
-
-                <div>
-                  <div className="am-footer-title">产品</div>
-                  <a className="am-footer-link" href="/tools" rel="nofollow">
-                    AI工具导航
-                  </a>
-                  <a className="am-footer-link" href="#courses">
-                    AI课程
-                  </a>
-                  <span className="am-footer-link am-footer-link-disabled">实战项目（即将上线）</span>
-                  <span className="am-footer-link am-footer-link-disabled">更新日志</span>
-                </div>
-
-                <div>
-                  <div className="am-footer-title">关于</div>
-                  <span className="am-footer-link am-footer-link-disabled">关于AI创客</span>
-                  <span className="am-footer-link am-footer-link-disabled">联系我们</span>
-                  <span className="am-footer-link am-footer-link-disabled">合作咨询</span>
-                </div>
-              </div>
-
-              <div className="am-footer-sep" />
-
-              <div className="am-footer-bottom">
-                <div className="am-footer-copy">© 2024 AI创客 · aimakerbox.com · All rights reserved.</div>
-              </div>
-            </div>
-          </footer>
         </main>
       </div>
 
