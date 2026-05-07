@@ -335,7 +335,7 @@ export default function Knowledge() {
         )}
 
         <Link
-          to={course.first_lesson_id ? `/knowledge/lesson/${course.first_lesson_id}` : "#"}
+          to={`/knowledge/lesson/${course.first_lesson_id || '1'}`}
           className="block"
         >
           {/* 课程封面 */}
