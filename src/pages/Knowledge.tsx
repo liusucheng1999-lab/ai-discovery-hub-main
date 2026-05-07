@@ -18,6 +18,12 @@ interface Course {
   status: string;
 }
 
+interface LessonSummary {
+  id: string;
+  course_id?: string | null;
+  week_title: string | null;
+}
+
 export default function Knowledge() {
   const { isLoggedIn } = useAuth();
   const [courses, setCourses] = useState<Course[]>([]);
@@ -57,7 +63,7 @@ export default function Knowledge() {
       // 从 knowledge_lessons 按 week_title 分组统计课节数
       const { data: lessons, error: lessonError } = await supabase
         .from("knowledge_lessons")
-        .select("id, week_title");
+        .select("id, course_id, week_title");
 
       if (lessonError) {
         console.error("加载课节失败", lessonError);
@@ -67,11 +73,11 @@ export default function Knowledge() {
       const lessonCountMap = new Map<string, number>();
       const firstLessonMap = new Map<string, string>();
       
-      lessons?.forEach((lesson) => {
-        const courseTitle = lesson.week_title || "未分类";
-        lessonCountMap.set(courseTitle, (lessonCountMap.get(courseTitle) || 0) + 1);
-        if (!firstLessonMap.has(courseTitle)) {
-          firstLessonMap.set(courseTitle, lesson.id);
+      (lessons as LessonSummary[] | null)?.forEach((lesson) => {
+        const courseKey = lesson.course_id || lesson.week_title || "未分类";
+        lessonCountMap.set(courseKey, (lessonCountMap.get(courseKey) || 0) + 1);
+        if (!firstLessonMap.has(courseKey)) {
+          firstLessonMap.set(courseKey, lesson.id);
         }
       });
 
@@ -81,13 +87,14 @@ export default function Knowledge() {
       // 如果有 course_settings 数据，使用它
       if (courseSettings && courseSettings.length > 0) {
         courseSettings.forEach((cs) => {
+          const legacyKey = cs.title || "未分类";
           courseList.push({
             id: cs.id,
             title: cs.title,
             description: cs.description,
             cover_url: cs.cover_url,
-            first_lesson_id: firstLessonMap.get(cs.title) || null,
-            lesson_count: lessonCountMap.get(cs.title) || 0,
+            first_lesson_id: firstLessonMap.get(cs.id) || firstLessonMap.get(legacyKey) || null,
+            lesson_count: lessonCountMap.get(cs.id) || lessonCountMap.get(legacyKey) || 0,
             is_free: true,
             status: "published"
           });
@@ -335,7 +342,7 @@ export default function Knowledge() {
         )}
 
         <Link
-          to={`/knowledge/lesson/${course.first_lesson_id || '1'}`}
+          to={`/knowledge/course/${course.id}`}
           className="block"
         >
           {/* 课程封面 */}
