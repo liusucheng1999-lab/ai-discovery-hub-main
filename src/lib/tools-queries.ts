@@ -1,6 +1,8 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { TOOL_LIST_COLUMNS } from "@/lib/tool-list-columns";
 
+/** 首页初始加载条数 */
+const INITIAL_PAGE_SIZE = 100;
 /** 与 Supabase 默认 max_rows 对齐；单次请求最多返回这么多条 */
 const PAGE_SIZE = 1000;
 
@@ -16,13 +18,14 @@ type ToolsQueryResult = {
 async function fetchAllToolsWithColumns(
   supabase: SupabaseClient,
   columns: string,
-  options?: { mainCategory?: string }
+  options?: { mainCategory?: string, initialOnly?: boolean }
 ): Promise<ToolsQueryResult> {
   const all: unknown[] = [];
   let from = 0;
+  const pageSize = options?.initialOnly ? INITIAL_PAGE_SIZE : PAGE_SIZE;
 
   while (true) {
-    const to = from + PAGE_SIZE - 1;
+    const to = from + pageSize - 1;
 
     let query = supabase
       .from("tools")
@@ -46,24 +49,26 @@ async function fetchAllToolsWithColumns(
       break;
     }
     all.push(...data);
-    if (data.length < PAGE_SIZE) {
+    if (data.length < pageSize) {
       break;
     }
-    from += PAGE_SIZE;
+    from += pageSize;
+    // 初始加载模式只加载一页
+    if (options?.initialOnly) break;
   }
 
   return { data: all, error: null };
 }
 
-/** 首页列表：精简列失败时回退 select('*') */
-export async function fetchHomeToolsList(supabase: SupabaseClient) {
-  let res = await fetchAllToolsWithColumns(supabase, TOOL_LIST_COLUMNS);
+/** 首页列表：初始只加载 100 条，精简列失败时回退 select('*') */
+export async function fetchHomeToolsList(supabase: SupabaseClient, initialOnly: boolean = true) {
+  let res = await fetchAllToolsWithColumns(supabase, TOOL_LIST_COLUMNS, { initialOnly });
   if (res.error) {
     console.warn(
       "tools 精简列查询失败，回退 select(*):",
       res.error.message ?? res.error
     );
-    res = await fetchAllToolsWithColumns(supabase, "*");
+    res = await fetchAllToolsWithColumns(supabase, "*", { initialOnly });
   }
   return res;
 }

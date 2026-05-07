@@ -1,517 +1,479 @@
 import { Helmet } from "react-helmet-async";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "@/lib/supabase";
+import { supabase, supabaseWithAuth } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
+import { BookOpen, Users, Plus, Edit2, Save, X, Upload, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-interface Lesson {
+// 课程接口
+interface Course {
   id: string;
   title: string;
-  description: string | null;
-  video_embed_url: string | null;
-  doc_embed_url: string | null;
-  week_title: string | null;
-  section_label: string | null;
-  lesson_code: string | null;
-  sort_order: number;
-  status: string;
+  description: string;
+  cover_url: string | null;
+  first_lesson_id: string | null;
+  lesson_count: number;
   is_free: boolean;
-  slug: string | null;
-  cover: string | null;
-  video_provider: string | null;
-  doc_provider: string | null;
-  updated_at: string;
-  created_at: string;
+  status: string;
 }
 
 export default function Knowledge() {
   const { isLoggedIn } = useAuth();
-
-  const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingLesson, setEditingLesson] = useState<Lesson | null>(null);
-  const [editForm, setEditForm] = useState({
+  
+  // 编辑状态
+  const [editingCourse, setEditingCourse] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState<Partial<Course>>({});
+  const [saving, setSaving] = useState(false);
+  
+  // 新增课程
+  const [isCreating, setIsCreating] = useState(false);
+  const [createForm, setCreateForm] = useState<Partial<Course>>({
     title: "",
     description: "",
-    video_embed_url: "",
-    doc_embed_url: "",
-    week_title: "",
-    section_label: "",
-    lesson_code: "",
-    sort_order: 0,
-    status: "draft",
+    cover_url: null,
     is_free: true,
+    status: "published"
   });
+  const [coverFile, setCoverFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
 
-  const [videoUrlError, setVideoUrlError] = useState<string>("");
-  const [docUrlError, setDocUrlError] = useState<string>("");
-
-  const validateVideoUrl = (url: string) => {
-    if (!url) {
-      setVideoUrlError("");
-      return;
-    }
-    // B站嵌入链接格式：https://player.bilibili.com/player.html?bvid=...
-    if (url.includes("player.bilibili.com")) {
-      setVideoUrlError("");
-    } else if (url.includes("bilibili.com/video")) {
-      setVideoUrlError("请使用 B站嵌入链接，格式如：https://player.bilibili.com/player.html?bvid=...");
-    } else if (url.includes("feishu.cn") || url.includes("larksuite.com")) {
-      setVideoUrlError("");
-    } else {
-      setVideoUrlError("请使用 B站或飞书视频嵌入链接");
-    }
-  };
-
-  const validateDocUrl = (url: string) => {
-    if (!url) {
-      setDocUrlError("");
-      return;
-    }
-    // 飞书文档嵌入链接格式：https://xxx.feishu.cn/doc/... 或 https://xxx.feishu.cn/wiki/...
-    if (url.includes("feishu.cn") || url.includes("larksuite.com")) {
-      setDocUrlError("");
-    } else {
-      setDocUrlError("请使用飞书文档链接（支持嵌入预览）");
-    }
-  };
-
+  // 加载课程列表
   useEffect(() => {
-    const fetchLessons = async () => {
+    const fetchCourses = async () => {
       setLoading(true);
-      const { data, error } = await supabase
-        .from("knowledge_lessons")
-        .select("*")
-        .order("sort_order", { ascending: true });
+      
+      // 从 course_settings 表获取课程基本信息
+      const { data: courseSettings, error: courseError } = await supabase
+        .from("course_settings")
+        .select("*");
 
-      if (error) {
-        console.error("加载课程失败", error);
-      } else {
-        setLessons(data || []);
+      if (courseError) {
+        console.error("加载课程失败", courseError);
       }
+
+      // 从 knowledge_lessons 按 week_title 分组统计课节数
+      const { data: lessons, error: lessonError } = await supabase
+        .from("knowledge_lessons")
+        .select("id, week_title");
+
+      if (lessonError) {
+        console.error("加载课节失败", lessonError);
+      }
+
+      // 统计每个课程的课节数
+      const lessonCountMap = new Map<string, number>();
+      const firstLessonMap = new Map<string, string>();
+      
+      lessons?.forEach((lesson) => {
+        const courseTitle = lesson.week_title || "未分类";
+        lessonCountMap.set(courseTitle, (lessonCountMap.get(courseTitle) || 0) + 1);
+        if (!firstLessonMap.has(courseTitle)) {
+          firstLessonMap.set(courseTitle, lesson.id);
+        }
+      });
+
+      // 组装课程数据
+      const courseList: Course[] = [];
+      
+      // 如果有 course_settings 数据，使用它
+      if (courseSettings && courseSettings.length > 0) {
+        courseSettings.forEach((cs) => {
+          courseList.push({
+            id: cs.id,
+            title: cs.title,
+            description: cs.description,
+            cover_url: cs.cover_url,
+            first_lesson_id: firstLessonMap.get(cs.title) || null,
+            lesson_count: lessonCountMap.get(cs.title) || 0,
+            is_free: true,
+            status: "published"
+          });
+        });
+      } else {
+        // 默认显示打工人进化论
+        const defaultTitle = "打工人进化论";
+        courseList.push({
+          id: "1",
+          title: defaultTitle,
+          description: "用 AI 把你从「执行者」变成「决策者」。系统化的 AI 实战课程，助你掌握 AI 工具，提升工作效率。",
+          cover_url: null,
+          first_lesson_id: firstLessonMap.get(defaultTitle) || lessons?.[0]?.id || null,
+          lesson_count: lessonCountMap.get(defaultTitle) || lessons?.length || 0,
+          is_free: true,
+          status: "published"
+        });
+      }
+
+      setCourses(courseList);
       setLoading(false);
     };
 
-    fetchLessons();
+    fetchCourses();
   }, []);
 
-  const openEdit = (lesson: Lesson) => {
-    setEditingLesson(lesson);
-    setEditForm({
-      title: lesson.title,
-      description: lesson.description || "",
-      video_embed_url: lesson.video_embed_url || "",
-      doc_embed_url: lesson.doc_embed_url || "",
-      week_title: lesson.week_title || "",
-      section_label: lesson.section_label || "",
-      lesson_code: lesson.lesson_code || "",
-      sort_order: lesson.sort_order,
-      status: lesson.status,
-      is_free: lesson.is_free,
-    });
+  // 开始编辑
+  const handleEdit = (course: Course) => {
+    setEditingCourse(course.id);
+    setEditForm({ ...course });
   };
 
-  const closeEdit = () => {
-    setEditingLesson(null);
+  // 取消编辑
+  const handleCancelEdit = () => {
+    setEditingCourse(null);
+    setEditForm({});
+    setCoverFile(null);
   };
 
-  const saveEdit = async () => {
-    if (!editingLesson) return;
-    console.log("开始保存课程", editingLesson.id, editForm);
+  // 保存编辑
+  const handleSaveEdit = async (courseId: string) => {
+    setSaving(true);
     try {
-      const { data, error } = await supabase
-        .from("knowledge_lessons")
-        .update({
+      const { error } = await supabaseWithAuth
+        .from("course_settings")
+        .upsert({
+          id: courseId,
           title: editForm.title,
           description: editForm.description,
-          video_embed_url: editForm.video_embed_url.trim(),
-          doc_embed_url: editForm.doc_embed_url.trim(),
-          week_title: editForm.week_title,
-          section_label: editForm.section_label,
-          lesson_code: editForm.lesson_code,
-          sort_order: editForm.sort_order,
-          status: editForm.status,
-          is_free: editForm.is_free,
-        })
-        .eq("id", editingLesson.id)
-        .select();
+          cover_url: editForm.cover_url,
+          updated_at: new Date().toISOString()
+        });
 
-      console.log("保存结果", { data, error });
+      if (error) throw error;
 
-      if (error) {
-        console.error("保存失败", error);
-        alert("保存失败：" + error.message);
-      } else {
-        alert("保存成功");
-        closeEdit();
-        // 重新加载
-        const { data: fresh } = await supabase
-          .from("knowledge_lessons")
-          .select("*")
-          .order("sort_order", { ascending: true });
-        if (fresh) setLessons(fresh);
-      }
-    } catch (e) {
-      console.error("保存异常", e);
-      alert("保存异常");
+      // 更新本地状态
+      setCourses(prev => prev.map(c => 
+        c.id === courseId 
+          ? { ...c, ...editForm, id: courseId }
+          : c
+      ));
+      setEditingCourse(null);
+      alert("课程信息已保存！");
+    } catch (err: any) {
+      console.error("保存失败", err);
+      alert("保存失败：" + err.message);
+    } finally {
+      setSaving(false);
     }
   };
 
-  const createNew = () => {
-    const newLesson: Lesson = {
-      id: "",
-      title: "",
-      description: "",
-      video_embed_url: null,
-      doc_embed_url: null,
-      week_title: "",
-      section_label: "",
-      lesson_code: "",
-      sort_order: lessons.length + 1,
-      status: "draft",
-      is_free: true,
-      slug: null,
-      cover: null,
-      video_provider: null,
-      doc_provider: null,
-      updated_at: new Date().toISOString(),
-      created_at: new Date().toISOString(),
-    };
-    setEditingLesson(newLesson);
-    setEditForm({
-      title: "",
-      description: "",
-      video_embed_url: "",
-      doc_embed_url: "",
-      week_title: "",
-      section_label: "",
-      lesson_code: "",
-      sort_order: lessons.length + 1,
-      status: "draft",
-      is_free: true,
-    });
+  // 上传封面
+  const handleUploadCover = async (isCreate = false) => {
+    if (!coverFile) return;
+    
+    setUploading(true);
+    try {
+      const fileExt = coverFile.name.split('.').pop();
+      const fileName = `course-cover-${Date.now()}.${fileExt}`;
+      const filePath = `course-covers/${fileName}`;
+
+      const { error: uploadError } = await supabaseWithAuth.storage
+        .from("course-assets")
+        .upload(filePath, coverFile);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabaseWithAuth.storage
+        .from("course-assets")
+        .getPublicUrl(filePath);
+
+      if (isCreate) {
+        setCreateForm(prev => ({ ...prev, cover_url: publicUrl }));
+      } else {
+        setEditForm(prev => ({ ...prev, cover_url: publicUrl }));
+      }
+      setCoverFile(null);
+      alert("封面上传成功！");
+    } catch (err: any) {
+      console.error("上传失败", err);
+      alert("上传失败：" + err.message);
+    } finally {
+      setUploading(false);
+    }
   };
 
-  const saveNew = async () => {
+  // 创建新课程
+  const handleCreateCourse = async () => {
+    if (!createForm.title) {
+      alert("请输入课程名称");
+      return;
+    }
+
+    setSaving(true);
     try {
-      const { error } = await supabase.from("knowledge_lessons").insert({
-        title: editForm.title,
-        description: editForm.description,
-        video_embed_url: editForm.video_embed_url.trim(),
-        doc_embed_url: editForm.doc_embed_url.trim(),
-        week_title: editForm.week_title,
-        section_label: editForm.section_label,
-        lesson_code: editForm.lesson_code,
-        sort_order: editForm.sort_order,
-        status: editForm.status,
-        is_free: editForm.is_free,
+      // 生成新 ID
+      const newId = Date.now().toString();
+      
+      const { error } = await supabaseWithAuth
+        .from("course_settings")
+        .insert({
+          id: newId,
+          title: createForm.title,
+          description: createForm.description || "",
+          cover_url: createForm.cover_url || null,
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) throw error;
+
+      // 添加到本地状态
+      setCourses(prev => [...prev, {
+        id: newId,
+        title: createForm.title || "",
+        description: createForm.description || "",
+        cover_url: createForm.cover_url || null,
+        first_lesson_id: null,
+        lesson_count: 0,
+        is_free: true,
+        status: "published"
+      }]);
+
+      setIsCreating(false);
+      setCreateForm({
+        title: "",
+        description: "",
+        cover_url: null,
+        is_free: true,
+        status: "published"
       });
-
-      if (error) {
-        console.error("创建失败", error);
-        alert("创建失败：" + error.message);
-      } else {
-        alert("创建成功");
-        closeEdit();
-        // 重新加载
-        const { data: fresh } = await supabase
-          .from("knowledge_lessons")
-          .select("*")
-          .order("sort_order", { ascending: true });
-        if (fresh) setLessons(fresh);
-      }
-    } catch (e) {
-      console.error("创建异常", e);
-      alert("创建异常");
+      alert("新课程创建成功！");
+    } catch (err: any) {
+      console.error("创建失败", err);
+      alert("创建失败：" + err.message);
+    } finally {
+      setSaving(false);
     }
   };
 
-  const deleteLesson = async (id: string) => {
-    if (!confirm("确定删除此课程吗？")) return;
-    try {
-      const { error } = await supabase.from("knowledge_lessons").delete().eq("id", id);
-      if (error) {
-        console.error("删除失败", error);
-        alert("删除失败：" + error.message);
-      } else {
-        alert("删除成功");
-        setLessons(lessons.filter((l) => l.id !== id));
-      }
-    } catch (e) {
-      console.error("删除异常", e);
-      alert("删除异常");
-    }
-  };
+  // 渲染课程卡片
+  const renderCourseCard = (course: Course) => {
+    const isEditing = editingCourse === course.id;
 
-  const groupedLessons = useMemo(() => {
-    const map: Record<string, Lesson[]> = {};
-    lessons.forEach((l) => {
-      const key = l.week_title || "未分组";
-      if (!map[key]) map[key] = [];
-      map[key].push(l);
-    });
-    return map;
-  }, [lessons]);
+    if (isEditing) {
+      return (
+        <div key={course.id} className="rounded-xl border bg-card overflow-hidden">
+          {/* 编辑表单 */}
+          <div className="p-6 space-y-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">课程名称</label>
+              <input
+                type="text"
+                value={editForm.title || ""}
+                onChange={(e) => setEditForm(prev => ({ ...prev, title: e.target.value }))}
+                className="w-full h-10 px-3 rounded-md border bg-background text-sm"
+                placeholder="课程名称"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">课程描述</label>
+              <textarea
+                value={editForm.description || ""}
+                onChange={(e) => setEditForm(prev => ({ ...prev, description: e.target.value }))}
+                rows={3}
+                className="w-full px-3 py-2 rounded-md border bg-background text-sm resize-none"
+                placeholder="课程描述"
+              />
+            </div>
+
+            {/* 封面上传 */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">课程封面</label>
+              <div className="flex items-start gap-4">
+                <div className="w-32 aspect-video rounded-lg border bg-muted flex items-center justify-center overflow-hidden">
+                  {editForm.cover_url ? (
+                    <img src={editForm.cover_url} alt="封面" className="w-full h-full object-cover" />
+                  ) : (
+                    <BookOpen className="h-6 w-6 text-muted-foreground" />
+                  )}
+                </div>
+                <div className="flex-1 space-y-2">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setCoverFile(e.target.files?.[0] || null)}
+                    className="block w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-primary-foreground"
+                  />
+                  {coverFile && (
+                    <Button size="sm" onClick={() => handleUploadCover(false)} disabled={uploading}>
+                      {uploading ? "上传中..." : "上传"}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* 操作按钮 */}
+            <div className="flex justify-end gap-2 pt-2">
+              <Button variant="outline" size="sm" onClick={handleCancelEdit}>
+                <X className="h-4 w-4 mr-1" />
+                取消
+              </Button>
+              <Button size="sm" onClick={() => handleSaveEdit(course.id)} disabled={saving}>
+                <Save className="h-4 w-4 mr-1" />
+                {saving ? "保存中..." : "保存"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // 正常展示模式
+    return (
+      <div key={course.id} className="group relative rounded-xl border bg-card overflow-hidden hover:shadow-lg transition-all duration-300">
+        {/* 编辑按钮（仅管理员可见） */}
+        {isLoggedIn && (
+          <button
+            onClick={() => handleEdit(course)}
+            className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/90 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
+          >
+            <Edit2 className="h-4 w-4 text-muted-foreground" />
+          </button>
+        )}
+
+        <Link
+          to={course.first_lesson_id ? `/knowledge/lesson/${course.first_lesson_id}` : "#"}
+          className="block"
+        >
+          {/* 课程封面 */}
+          <div className="aspect-video bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
+            {course.cover_url ? (
+              <img src={course.cover_url} alt={course.title} className="w-full h-full object-cover" />
+            ) : (
+              <BookOpen className="h-16 w-16 text-primary/40 group-hover:text-primary/60 transition-colors" />
+            )}
+          </div>
+
+          {/* 课程信息 */}
+          <div className="p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-2 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-800 rounded">
+                {course.status === "published" ? "已发布" : "草稿"}
+              </span>
+              {course.is_free && (
+                <span className="px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded">
+                  免费
+                </span>
+              )}
+            </div>
+
+            <h2 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+              {course.title}
+            </h2>
+            <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+              {course.description}
+            </p>
+
+            <div className="flex items-center gap-4 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <BookOpen className="h-3.5 w-3.5" />
+                <span>{course.lesson_count} 节课</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Users className="h-3.5 w-3.5" />
+                <span>1000+ 学员</span>
+              </div>
+            </div>
+          </div>
+        </Link>
+      </div>
+    );
+  };
 
   return (
     <>
       <Helmet>
-        <title>知识 - AI创客</title>
-        <meta name="description" content="打工人进化论：用 AI 把你从「执行者」变成「决策者」。课程大纲与32节课结构化学习路径。" />
+        <title>课程中心 - AI创客</title>
+        <meta name="description" content="AI创客课程中心，提供AI实战课程。" />
         <link rel="canonical" href="https://aimakerbox.com/knowledge" />
       </Helmet>
 
       <main className="mx-auto max-w-[1280px] px-6 pt-24 pb-12">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight">打工人进化论</h1>
-            <p className="mt-3 text-lg text-muted-foreground">用 AI 把你从「执行者」变成「决策者」</p>
+            <h1 className="text-4xl font-bold tracking-tight">课程中心</h1>
+            <p className="mt-3 text-lg text-muted-foreground">
+              系统化的 AI 实战课程，助你从入门到精通
+            </p>
           </div>
+          
+          {/* 新增课程按钮（仅管理员可见） */}
           {isLoggedIn && (
-            <button
-              type="button"
-              onClick={createNew}
-              className="h-10 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground"
-            >
-              新建课程
-            </button>
+            <Button onClick={() => setIsCreating(true)} className="gap-2">
+              <Plus className="h-4 w-4" />
+              新增课程
+            </Button>
           )}
         </div>
+
+        {/* 新增课程表单 */}
+        {isCreating && (
+          <div className="mb-8 p-6 rounded-xl border bg-card">
+            <h3 className="text-lg font-semibold mb-4">新增课程</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">课程名称 *</label>
+                <input
+                  type="text"
+                  value={createForm.title}
+                  onChange={(e) => setCreateForm(prev => ({ ...prev, title: e.target.value }))}
+                  className="w-full h-10 px-3 rounded-md border bg-background text-sm"
+                  placeholder="请输入课程名称"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">课程描述</label>
+                <input
+                  type="text"
+                  value={createForm.description}
+                  onChange={(e) => setCreateForm(prev => ({ ...prev, description: e.target.value }))}
+                  className="w-full h-10 px-3 rounded-md border bg-background text-sm"
+                  placeholder="请输入课程描述"
+                />
+              </div>
+            </div>
+            <div className="mt-4 flex items-center gap-4">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setCoverFile(e.target.files?.[0] || null)}
+                className="text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-primary-foreground"
+              />
+              {coverFile && (
+                <Button size="sm" onClick={() => handleUploadCover(true)} disabled={uploading}>
+                  {uploading ? "上传中..." : "上传封面"}
+                </Button>
+              )}
+            </div>
+            {createForm.cover_url && (
+              <div className="mt-4 w-32 aspect-video rounded-lg border overflow-hidden">
+                <img src={createForm.cover_url} alt="封面预览" className="w-full h-full object-cover" />
+              </div>
+            )}
+            <div className="mt-6 flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setIsCreating(false)}>
+                取消
+              </Button>
+              <Button onClick={handleCreateCourse} disabled={saving}>
+                {saving ? "创建中..." : "创建课程"}
+              </Button>
+            </div>
+          </div>
+        )}
 
         {loading ? (
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
           </div>
-        ) : lessons.length === 0 ? (
-          <div className="text-center text-muted-foreground py-20">
-            <p className="text-lg">暂无课程数据</p>
-            <p className="text-sm mt-2">请联系管理员配置课程</p>
-          </div>
         ) : (
-          <div className="space-y-8">
-            {Object.entries(groupedLessons).map(([weekTitle, items]) => (
-              <section key={weekTitle} className="rounded-xl border bg-card p-6">
-                <div className="flex flex-col gap-1">
-                  <div className="text-sm text-muted-foreground">{weekTitle}</div>
-                  <h2 className="text-xl font-semibold">{weekTitle}</h2>
-                </div>
-
-                <div className="mt-6 space-y-4">
-                  {items.map((l) => (
-                    <div
-                      key={l.id}
-                      className="rounded-lg border bg-background p-4 hover:bg-muted/50 transition-colors"
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <Link to={`/knowledge/lesson/${l.id}`} className="flex-1">
-                          <div className="flex items-center gap-2">
-                            {l.lesson_code && (
-                              <span className="text-xs font-medium text-muted-foreground">
-                                {l.lesson_code}
-                              </span>
-                            )}
-                            <div className="text-sm font-medium leading-5">{l.title}</div>
-                          </div>
-                          <div className="mt-1 text-sm text-muted-foreground line-clamp-2 leading-6">
-                            {l.description}
-                          </div>
-                        </Link>
-                        <div className="flex items-center gap-2">
-                          {l.status === "draft" && (
-                            <span className="shrink-0 rounded-full px-2.5 py-1 text-xs font-medium bg-amber-100 text-amber-800">
-                              草稿
-                            </span>
-                          )}
-                          {l.is_free && (
-                            <span className="shrink-0 rounded-full px-2.5 py-1 text-xs font-medium bg-emerald-100 text-emerald-800">
-                              免费
-                            </span>
-                          )}
-                          {isLoggedIn && (
-                            <div className="flex items-center gap-1">
-                              <button
-                                type="button"
-                                onClick={() => openEdit(l)}
-                                className="h-8 rounded-md border px-3 text-xs font-medium hover:bg-muted"
-                              >
-                                编辑
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => deleteLesson(l.id)}
-                                className="h-8 rounded-md border px-3 text-xs font-medium text-destructive hover:bg-destructive/10"
-                              >
-                                删除
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {courses.map(renderCourseCard)}
           </div>
         )}
       </main>
-
-      {/* 编辑对话框 */}
-      {editingLesson && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-2xl rounded-xl border bg-card p-6 shadow-lg">
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold">
-                {editingLesson.id ? "编辑课程" : "新建课程"}
-              </h3>
-              <button
-                type="button"
-                onClick={closeEdit}
-                className="h-8 w-8 rounded-md hover:bg-muted"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-sm font-medium">课程标题</label>
-                  <input
-                    value={editForm.title}
-                    onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
-                    className="h-10 w-full rounded-md border bg-background px-3 text-sm"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium">课程编号（如 L1）</label>
-                  <input
-                    value={editForm.lesson_code}
-                    onChange={(e) => setEditForm({ ...editForm, lesson_code: e.target.value })}
-                    className="h-10 w-full rounded-md border bg-background px-3 text-sm"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-sm font-medium">课程描述</label>
-                <textarea
-                  value={editForm.description}
-                  onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-                  rows={3}
-                  className="w-full rounded-md border bg-background px-3 py-2 text-sm"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-sm font-medium">周标题</label>
-                  <input
-                    value={editForm.week_title}
-                    onChange={(e) => setEditForm({ ...editForm, week_title: e.target.value })}
-                    className="h-10 w-full rounded-md border bg-background px-3 text-sm"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium">章节标签</label>
-                  <input
-                    value={editForm.section_label}
-                    onChange={(e) => setEditForm({ ...editForm, section_label: e.target.value })}
-                    className="h-10 w-full rounded-md border bg-background px-3 text-sm"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-sm font-medium">视频嵌入链接（B站/飞书）</label>
-                <input
-                  value={editForm.video_embed_url}
-                  onChange={(e) => {
-                    setEditForm({ ...editForm, video_embed_url: e.target.value });
-                    validateVideoUrl(e.target.value);
-                  }}
-                  placeholder="https://player.bilibili.com/player.html?bvid=..."
-                  className={`h-10 w-full rounded-md border bg-background px-3 text-sm ${
-                    videoUrlError ? "border-destructive" : ""
-                  }`}
-                />
-                {videoUrlError && (
-                  <p className="text-xs text-destructive">{videoUrlError}</p>
-                )}
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-sm font-medium">文档嵌入链接（飞书）</label>
-                <input
-                  value={editForm.doc_embed_url}
-                  onChange={(e) => {
-                    setEditForm({ ...editForm, doc_embed_url: e.target.value });
-                    validateDocUrl(e.target.value);
-                  }}
-                  placeholder="https://xxx.feishu.cn/doc/..."
-                  className={`h-10 w-full rounded-md border bg-background px-3 text-sm ${
-                    docUrlError ? "border-destructive" : ""
-                  }`}
-                />
-                {docUrlError && (
-                  <p className="text-xs text-destructive">{docUrlError}</p>
-                )}
-              </div>
-
-              <div className="grid grid-cols-3 gap-4">
-                <div className="space-y-1">
-                  <label className="text-sm font-medium">排序</label>
-                  <input
-                    type="number"
-                    value={editForm.sort_order}
-                    onChange={(e) => setEditForm({ ...editForm, sort_order: Number(e.target.value) })}
-                    className="h-10 w-full rounded-md border bg-background px-3 text-sm"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium">状态</label>
-                  <select
-                    value={editForm.status}
-                    onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
-                    className="h-10 w-full rounded-md border bg-background px-3 text-sm"
-                  >
-                    <option value="draft">草稿</option>
-                    <option value="published">已发布</option>
-                  </select>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium">是否免费</label>
-                  <select
-                    value={editForm.is_free.toString()}
-                    onChange={(e) => setEditForm({ ...editForm, is_free: e.target.value === "true" })}
-                    className="h-10 w-full rounded-md border bg-background px-3 text-sm"
-                  >
-                    <option value="true">免费</option>
-                    <option value="false">付费</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={closeEdit}
-                className="h-10 rounded-md border px-4 text-sm font-medium hover:bg-muted"
-              >
-                取消
-              </button>
-              <button
-                type="button"
-                onClick={editingLesson.id ? saveEdit : saveNew}
-                className="h-10 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground"
-              >
-                {editingLesson.id ? "保存" : "创建"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

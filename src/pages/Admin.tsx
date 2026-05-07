@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
-import { Check, X, Eye, ExternalLink, Bot, AlertCircle, Star, Copy, Calendar, Clock, Play, Trash2, Filter } from "lucide-react";
+import { Check, X, Eye, ExternalLink, Bot, AlertCircle, Star, Copy, Calendar, Clock, Play, Trash2, Filter, BookOpen, Save, Upload } from "lucide-react";
 import { getToolLogo, getFallbackLogo } from "@/lib/logo-utils";
 
 interface ToolSubmission {
@@ -31,12 +31,22 @@ interface AIReviewCache {
   [toolId: string]: AIReviewResult;
 }
 
+// 课程信息接口
+interface CourseInfo {
+  id: string;
+  title: string;
+  description: string;
+  cover_url: string | null;
+  lesson_count: number;
+  updated_at: string;
+}
+
 export default function Admin() {
   const [submissions, setSubmissions] = useState<ToolSubmission[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [processing, setProcessing] = useState(false);
-  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected'>('pending');
+  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected' | 'course'>('pending');
   const [aiReviews, setAiReviews] = useState<AIReviewCache>({});
   const [aiProcessing, setAiProcessing] = useState<string[]>([]);
   const [showAiReview, setShowAiReview] = useState<string | null>(null);
@@ -68,6 +78,24 @@ export default function Admin() {
   // 流式输出状态
   const [streamingToolId, setStreamingToolId] = useState<string | null>(null);
   const [streamingContent, setStreamingContent] = useState<string>('');
+
+  // 课程管理状态
+  const [courseInfo, setCourseInfo] = useState<CourseInfo>({
+    id: '1',
+    title: '打工人进化论',
+    description: '用 AI 把你从「执行者」变成「决策者」。系统化的 AI 实战课程，助你掌握 AI 工具，提升工作效率。',
+    cover_url: null,
+    lesson_count: 0,
+    updated_at: new Date().toISOString()
+  });
+  const [courseForm, setCourseForm] = useState({
+    title: '',
+    description: '',
+    cover_url: ''
+  });
+  const [courseSaving, setCourseSaving] = useState(false);
+  const [coverFile, setCoverFile] = useState<File | null>(null);
+  const [coverUploading, setCoverUploading] = useState(false);
 
   // 加载待审核工具
   useEffect(() => {
@@ -295,6 +323,125 @@ export default function Admin() {
       if (interval) clearInterval(interval);
     };
   }, []);
+
+  // 加载课程信息
+  useEffect(() => {
+    async function loadCourseInfo() {
+      try {
+        // 尝试从 course_settings 表获取，如果不存在则使用默认值
+        const { data, error } = await supabase
+          .from('course_settings')
+          .select('*')
+          .eq('id', '1')
+          .single();
+
+        if (error) {
+          console.log('course_settings 表不存在，使用默认课程信息');
+          // 获取课节数量
+          const { count } = await supabase
+            .from('knowledge_lessons')
+            .select('*', { count: 'exact', head: true });
+          
+          setCourseInfo(prev => ({
+            ...prev,
+            lesson_count: count || 0
+          }));
+          
+          // 初始化表单
+          setCourseForm({
+            title: '打工人进化论',
+            description: '用 AI 把你从「执行者」变成「决策者」。系统化的 AI 实战课程，助你掌握 AI 工具，提升工作效率。',
+            cover_url: ''
+          });
+        } else if (data) {
+          setCourseInfo(data);
+          setCourseForm({
+            title: data.title,
+            description: data.description,
+            cover_url: data.cover_url || ''
+          });
+        }
+      } catch (err) {
+        console.error('加载课程信息失败', err);
+      }
+    }
+
+    loadCourseInfo();
+  }, []);
+
+  // 保存课程信息
+  const handleSaveCourse = async () => {
+    setCourseSaving(true);
+    try {
+      // 尝试保存到 course_settings 表
+      const { error } = await supabase
+        .from('course_settings')
+        .upsert({
+          id: '1',
+          title: courseForm.title,
+          description: courseForm.description,
+          cover_url: courseForm.cover_url || null,
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) {
+        console.error('保存失败，可能需要创建表', error);
+        alert('保存失败：' + error.message + '\n\n请先在 Supabase 中创建 course_settings 表');
+      } else {
+        setCourseInfo(prev => ({
+          ...prev,
+          ...courseForm,
+          updated_at: new Date().toISOString()
+        }));
+        alert('课程信息保存成功！');
+      }
+    } catch (err: any) {
+      console.error('保存课程信息失败', err);
+      alert('保存失败：' + err.message);
+    } finally {
+      setCourseSaving(false);
+    }
+  };
+
+  // 上传课程封面
+  const handleCoverUpload = async () => {
+    if (!coverFile) return;
+    
+    setCoverUploading(true);
+    try {
+      const fileExt = coverFile.name.split('.').pop();
+      const fileName = `course-cover-${Date.now()}.${fileExt}`;
+      const filePath = `course-covers/${fileName}`;
+
+      // 上传到 Supabase Storage
+      const { error: uploadError } = await supabase.storage
+        .from('course-assets')
+        .upload(filePath, coverFile);
+
+      if (uploadError) {
+        // 如果 bucket 不存在，尝试创建
+        if (uploadError.message.includes('bucket')) {
+          alert('请先创建 course-assets bucket');
+          return;
+        }
+        throw uploadError;
+      }
+
+      // 获取公开 URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('course-assets')
+        .getPublicUrl(filePath);
+
+      setCourseForm(prev => ({ ...prev, cover_url: publicUrl }));
+      setCoverFile(null);
+      alert('封面上传成功！');
+    } catch (err: any) {
+      console.error('上传封面失败', err);
+      alert('上传失败：' + err.message);
+    } finally {
+      setCoverUploading(false);
+    }
+  };
 
   // 手动触发自动AI审核
   const handleAutoReview = async () => {
@@ -1294,6 +1441,17 @@ export default function Admin() {
           >
             已拒绝 ({rejectedCount})
           </button>
+          <button
+            onClick={() => setActiveTab('course')}
+            className={`px-4 py-2 font-medium transition-colors ${
+              activeTab === 'course' 
+                ? 'text-primary border-b-2 border-primary' 
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <BookOpen className="h-4 w-4 inline mr-1" />
+            课程管理
+          </button>
         </div>
 
         {/* 批量操作 - 只在待审核页面显示 */}
@@ -1591,8 +1749,129 @@ export default function Admin() {
           </Card>
         )}
 
+        {/* 课程管理 */}
+        {activeTab === 'course' && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base flex items-center gap-2">
+                <BookOpen className="h-5 w-5" />
+                课程信息管理
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* 课程名称 */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium">课程名称</label>
+                <input
+                  type="text"
+                  value={courseForm.title}
+                  onChange={(e) => setCourseForm(prev => ({ ...prev, title: e.target.value }))}
+                  className="w-full h-10 px-3 rounded-md border bg-background text-sm"
+                  placeholder="请输入课程名称"
+                />
+              </div>
+
+              {/* 课程描述 */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium">课程描述</label>
+                <textarea
+                  value={courseForm.description}
+                  onChange={(e) => setCourseForm(prev => ({ ...prev, description: e.target.value }))}
+                  rows={4}
+                  className="w-full px-3 py-2 rounded-md border bg-background text-sm resize-none"
+                  placeholder="请输入课程描述"
+                />
+              </div>
+
+              {/* 课程封面 */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium">课程封面</label>
+                <div className="flex items-start gap-4">
+                  {/* 封面预览 */}
+                  <div className="w-48 aspect-video rounded-lg border bg-muted flex items-center justify-center overflow-hidden">
+                    {courseForm.cover_url ? (
+                      <img 
+                        src={courseForm.cover_url} 
+                        alt="课程封面" 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="text-center text-muted-foreground">
+                        <BookOpen className="h-8 w-8 mx-auto mb-1" />
+                        <span className="text-xs">暂无封面</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* 上传控件 */}
+                  <div className="flex-1 space-y-3">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => setCoverFile(e.target.files?.[0] || null)}
+                      className="block w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                    />
+                    {coverFile && (
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-muted-foreground">{coverFile.name}</span>
+                        <Button
+                          size="sm"
+                          onClick={handleCoverUpload}
+                          disabled={coverUploading}
+                        >
+                          {coverUploading ? '上传中...' : '上传封面'}
+                        </Button>
+                      </div>
+                    )}
+                    <p className="text-xs text-muted-foreground">
+                      建议尺寸：1200 x 675 像素（16:9），支持 JPG、PNG 格式
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 课程统计 */}
+              <div className="grid grid-cols-3 gap-4 p-4 bg-muted rounded-lg">
+                <div className="text-center">
+                  <div className="text-2xl font-bold">{courseInfo.lesson_count}</div>
+                  <div className="text-xs text-muted-foreground">课节数量</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold">1000+</div>
+                  <div className="text-xs text-muted-foreground">学员数量</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold">免费</div>
+                  <div className="text-xs text-muted-foreground">课程类型</div>
+                </div>
+              </div>
+
+              {/* 保存按钮 */}
+              <div className="flex justify-end">
+                <Button
+                  onClick={handleSaveCourse}
+                  disabled={courseSaving}
+                  className="gap-2"
+                >
+                  <Save className="h-4 w-4" />
+                  {courseSaving ? '保存中...' : '保存课程信息'}
+                </Button>
+              </div>
+
+              {/* 数据库提示 */}
+              <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                <h4 className="text-sm font-medium text-amber-800 mb-1">数据库配置提示</h4>
+                <p className="text-xs text-amber-700">
+                  如需持久化存储课程信息，请在 Supabase 中创建 course_settings 表，包含以下字段：
+                  id (text), title (text), description (text), cover_url (text), updated_at (timestamp)
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* 空状态 */}
-        {currentTabSubmissions.length === 0 && activeTab !== 'logs' && (
+        {currentTabSubmissions.length === 0 && activeTab !== 'logs' && activeTab !== 'course' && (
           <Card>
             <CardContent className="py-12 text-center">
               <div className="text-muted-foreground">

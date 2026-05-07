@@ -13,8 +13,18 @@ if (!supabaseUrl || !supabaseAnonKey) {
 // 普通客户端（用于读取操作）
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
-    persistSession: false,
-    autoRefreshToken: false
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true
+  }
+})
+
+// 带认证的客户端（用于需要登录状态的操作）
+export const supabaseWithAuth = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true
   }
 })
 

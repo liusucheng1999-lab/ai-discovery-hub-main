@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ChevronDown, FileText, List, PlayCircle } from "lucide-react";
+import { ChevronDown, FileText, List } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -35,29 +35,10 @@ export default function LessonDetailPage() {
   const [loading, setLoading] = useState(true);
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
 
-  const [draftVideoUrl, setDraftVideoUrl] = useState<string>("");
   const [draftDocUrl, setDraftDocUrl] = useState<string>("");
 
-  const [videoUrlError, setVideoUrlError] = useState<string>("");
   const [docUrlError, setDocUrlError] = useState<string>("");
   const [resourcePanelOpen, setResourcePanelOpen] = useState(false);
-
-  const validateVideoUrl = (url: string) => {
-    if (!url) {
-      setVideoUrlError("");
-      return;
-    }
-    // B站嵌入链接格式：https://player.bilibili.com/player.html?bvid=...
-    if (url.includes("player.bilibili.com")) {
-      setVideoUrlError("");
-    } else if (url.includes("bilibili.com/video")) {
-      setVideoUrlError("请使用 B站嵌入链接，格式如：https://player.bilibili.com/player.html?bvid=...");
-    } else if (url.includes("feishu.cn") || url.includes("larksuite.com")) {
-      setVideoUrlError("");
-    } else {
-      setVideoUrlError("请使用 B站或飞书视频嵌入链接");
-    }
-  };
 
   const validateDocUrl = (url: string) => {
     if (!url) {
@@ -87,7 +68,6 @@ export default function LessonDetailPage() {
         setLessons(data || []);
         const target = data?.find((l) => l.id === id) || data?.[0] || null;
         setActiveLesson(target);
-        setDraftVideoUrl(target?.video_embed_url || "");
         setDraftDocUrl(target?.doc_embed_url || "");
       }
       setLoading(false);
@@ -98,7 +78,6 @@ export default function LessonDetailPage() {
 
   useEffect(() => {
     if (activeLesson) {
-      setDraftVideoUrl(activeLesson.video_embed_url || "");
       setDraftDocUrl(activeLesson.doc_embed_url || "");
     }
   }, [activeLesson]);
@@ -113,7 +92,7 @@ export default function LessonDetailPage() {
     return map;
   }, [lessons]);
 
-  const hasValidationError = Boolean(videoUrlError || docUrlError);
+  const hasValidationError = Boolean(docUrlError);
 
   const saveResources = async () => {
     if (!isLoggedIn || !activeLesson) return;
@@ -121,7 +100,6 @@ export default function LessonDetailPage() {
       const { error } = await supabase
         .from("knowledge_lessons")
         .update({
-          video_embed_url: draftVideoUrl.trim(),
           doc_embed_url: draftDocUrl.trim(),
         })
         .eq("id", activeLesson.id);
@@ -173,13 +151,13 @@ export default function LessonDetailPage() {
         <meta name="description" content={activeLesson.description || "AI课程"} />
       </Helmet>
 
-      <main className="mx-auto max-w-[1280px] px-6 pt-24 pb-12">
+      <main className="mx-auto max-w-[1280px] px-6 pt-24 pb-12 flex flex-col" style={{ minHeight: '100vh' }}>
         <div className="mb-8">
           <h1 className="text-4xl font-bold tracking-tight">打工人进化论</h1>
           <p className="mt-3 text-lg text-muted-foreground">用 AI 把你从「执行者」变成「决策者」</p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[252px_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[252px_minmax(0,1fr)] items-start">
           <aside className="order-2 rounded-2xl border bg-card/95 p-3 shadow-sm lg:order-1 lg:sticky lg:top-24 lg:h-[calc(100vh-120px)]">
             <div className="flex items-center justify-between gap-3 px-1">
               <div className="flex items-center gap-2">
@@ -242,7 +220,7 @@ export default function LessonDetailPage() {
             </ScrollArea>
           </aside>
 
-          <section className="order-1 min-w-0 space-y-4 lg:order-2">
+          <section className="order-1 min-w-0 lg:order-2 flex flex-col gap-4">
             <div className="rounded-2xl border bg-card p-5 shadow-sm">
               <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
                 <div className="min-w-0">
@@ -277,7 +255,7 @@ export default function LessonDetailPage() {
                   <div>
                     <div className="text-sm font-semibold">资源配置</div>
                     <div className="mt-1 text-xs text-muted-foreground">
-                      管理员可在这里更新视频和文档的嵌入链接
+                      管理员可在这里更新文档的嵌入链接
                     </div>
                   </div>
                   <ChevronDown
@@ -288,23 +266,7 @@ export default function LessonDetailPage() {
                 </CollapsibleTrigger>
 
                 <CollapsibleContent className="border-t px-5 py-4">
-                  <div className="grid gap-4 lg:grid-cols-2">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">视频链接</label>
-                      <input
-                        value={draftVideoUrl}
-                        onChange={(e) => {
-                          setDraftVideoUrl(e.target.value);
-                          validateVideoUrl(e.target.value);
-                        }}
-                        placeholder="粘贴 B站/飞书视频可嵌入链接"
-                        className={`h-10 w-full rounded-md border bg-background px-3 text-sm ${
-                          videoUrlError ? "border-destructive" : ""
-                        }`}
-                      />
-                      {videoUrlError && <p className="text-xs text-destructive">{videoUrlError}</p>}
-                    </div>
-
+                  <div className="grid gap-4">
                     <div className="space-y-2">
                       <label className="text-sm font-medium">文档链接</label>
                       <input
@@ -324,7 +286,7 @@ export default function LessonDetailPage() {
 
                   <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <p className="text-xs text-muted-foreground">
-                      保存后会同步更新当前课时的播放区与文档阅读区。
+                      保存后会同步更新当前课时的文档阅读区。
                     </p>
                     <button
                       type="button"
@@ -339,73 +301,32 @@ export default function LessonDetailPage() {
               </Collapsible>
             )}
 
-            <div className="rounded-2xl border bg-card p-3 shadow-sm lg:min-h-[1120px]">
-              <div className="mb-3 flex items-center justify-between gap-4 px-2">
-                <div>
-                  <div className="text-sm font-semibold">学习工作台</div>
-                  <div className="mt-1 text-xs text-muted-foreground">上方看视频，下方继续滑动阅读文档</div>
-                </div>
-                <div className="hidden text-xs text-muted-foreground lg:block">视频固定在上方，文档区域已放大</div>
-              </div>
-
-              <div className="flex flex-col gap-3">
-                {/* 视频学习区 - 统一布局，响应式适配 */}
-                <div className="flex flex-col overflow-hidden rounded-[20px] border bg-background shadow-sm lg:h-[500px] xl:h-[560px]">
-                  <div className="flex items-center justify-between gap-3 border-b px-4 py-3">
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <PlayCircle className="h-4 w-4 text-primary" />
-                        <div className="text-sm font-semibold">视频学习区</div>
-                      </div>
-                      <div className="mt-1 text-xs text-muted-foreground">
-                        <span className="lg:hidden">建议先看完本节视频</span>
-                        <span className="hidden lg:inline">课程讲解固定在上方，尺寸不再变化</span>
-                      </div>
-                    </div>
+            <div className="rounded-2xl border bg-card p-3 shadow-sm flex-1 flex flex-col min-h-0">
+              {/* 文档阅读区 */}
+              <div className="flex flex-col overflow-hidden rounded-[20px] border bg-background shadow-sm flex-1 min-h-0">
+                <div className="flex items-center justify-between border-b px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <div className="text-sm font-semibold">文档阅读区</div>
                   </div>
-                  <div className="aspect-video w-full overflow-hidden bg-muted/40 lg:aspect-auto lg:flex-1">
-                    {draftVideoUrl ? (
-                      <iframe
-                        src={draftVideoUrl}
-                        className="h-full w-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        title="课程视频"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-                        暂无视频，请由管理员配置
-                      </div>
-                    )}
+                  <div className="text-xs text-muted-foreground">
+                    <span className="lg:hidden">可继续向下滑动查看内容</span>
+                    <span className="hidden lg:inline">在下方区域直接滚动阅读</span>
                   </div>
                 </div>
-
-                {/* 文档阅读区 - 统一布局，响应式适配 */}
-                <div className="flex flex-col overflow-hidden rounded-[20px] border bg-background shadow-sm lg:min-h-[620px] xl:min-h-[720px]">
-                  <div className="flex items-center justify-between border-b px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-primary" />
-                      <div className="text-sm font-semibold">文档阅读区</div>
+                <div className="overflow-hidden bg-muted/30" style={{ height: 'calc(100vh - 220px)', minHeight: '600px' }}>
+                  {draftDocUrl ? (
+                    <iframe
+                      src={draftDocUrl}
+                      className="h-full w-full"
+                      title="课程文档"
+                      allow="clipboard-read; clipboard-write"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+                      暂无文档，请由管理员配置
                     </div>
-                    <div className="text-xs text-muted-foreground">
-                      <span className="lg:hidden">可继续向下滑动查看内容</span>
-                      <span className="hidden lg:inline">在下方区域直接滚动阅读</span>
-                    </div>
-                  </div>
-                  <div className="h-[78vh] min-h-[560px] overflow-hidden bg-muted/30 lg:h-auto lg:flex-1">
-                    {draftDocUrl ? (
-                      <iframe
-                        src={draftDocUrl}
-                        className="h-full w-full"
-                        title="课程文档"
-                        allow="clipboard-read; clipboard-write"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-                        暂无文档，请由管理员配置
-                      </div>
-                    )}
-                  </div>
+                  )}
                 </div>
               </div>
             </div>

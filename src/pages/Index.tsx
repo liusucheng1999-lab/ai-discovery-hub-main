@@ -29,7 +29,7 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
   const [sortBy, setSortBy] = useState("newest");
   const [page, setPage] = useState(1);
-  
+
   // 新的搜索状态
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery || "");
 
@@ -38,6 +38,34 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
   const [categories, setCategories] = useState<any[]>([]);
   const [categoryData, setCategoryData] = useState<CategoryWithSubCategories[]>([]);
   const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(false); // 是否还有更多数据
+
+  // 数据映射函数（提取到顶层，供 loadMore 使用）
+  const mapRowToTool = (tool: Record<string, unknown>): Tool => {
+    return {
+      id: tool.id as string,
+      name: tool.name as string,
+      tagline: (tool.tagline as string) || "",
+      description: (tool.description as string) || "",
+      websiteUrl: tool.website_url as string,
+      category: tool.category as string,
+      tags: (tool.tags as string[]) || [],
+      pricingType: tool.pricing_type as Tool["pricingType"],
+      isChinaAvailable: Boolean(tool.is_china_available),
+      isChineseSupported: Boolean(tool.is_chinese_supported),
+      rating: (tool.rating as number) || 0,
+      ratingCount: (tool.rating_count as number) || 0,
+      viewCount: (tool.view_count as number) || 0,
+      screenshots: [],
+      createdAt: (tool.created_at as string) || "",
+      logoUrl: tool.logo_url as string | undefined,
+      aiQualityScore: tool.ai_quality_score as number | undefined,
+      aiReviewDate: tool.ai_review_date as string | undefined,
+      aiReviewNotes: tool.ai_review_notes as string | undefined,
+      main_category: tool.main_category as string | undefined,
+      sub_category: tool.sub_category as string | undefined,
+    };
+  };
 
   // 分类URL映射 - 更新为最终标准分类体系
   const categoryUrlMap: Record<string, string> = {
@@ -83,32 +111,6 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
   useEffect(() => {
     let cancelled = false;
 
-    function mapRowToTool(tool: Record<string, unknown>): Tool {
-      return {
-        id: tool.id as string,
-        name: tool.name as string,
-        tagline: (tool.tagline as string) || "",
-        description: (tool.description as string) || "",
-        websiteUrl: tool.website_url as string,
-        category: tool.category as string,
-        tags: (tool.tags as string[]) || [],
-        pricingType: tool.pricing_type as Tool["pricingType"],
-        isChinaAvailable: Boolean(tool.is_china_available),
-        isChineseSupported: Boolean(tool.is_chinese_supported),
-        rating: (tool.rating as number) || 0,
-        ratingCount: (tool.rating_count as number) || 0,
-        viewCount: (tool.view_count as number) || 0,
-        screenshots: [],
-        createdAt: (tool.created_at as string) || "",
-        logoUrl: tool.logo_url as string | undefined,
-        aiQualityScore: tool.ai_quality_score as number | undefined,
-        aiReviewDate: tool.ai_review_date as string | undefined,
-        aiReviewNotes: tool.ai_review_notes as string | undefined,
-        main_category: tool.main_category as string | undefined,
-        sub_category: tool.sub_category as string | undefined,
-      };
-    }
-
     async function loadData() {
       const cached = readHomeCache();
       if (cached) {
@@ -128,13 +130,16 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
 
         if (cancelled) return;
 
-        const toolsResult = await fetchHomeToolsList(supabase);
+        const toolsResult = await fetchHomeToolsList(supabase, true); // 初始只加载 100 条
 
         if (cancelled) return;
 
         if (toolsResult.error) {
           console.error("首页：工具查询失败", toolsResult.error);
         }
+
+        // 检查是否还有更多数据
+        setHasMore(toolsResult.data?.length === 100);
 
         if (categoriesResult.data) {
           const allCategories = [
@@ -283,6 +288,33 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
   // Reset page when filters change
   useEffect(() => setPage(1), [activeCategory, selectedSubCategory, searchQuery, sortBy]);
 
+  // 加载更多数据
+  const loadMore = async () => {
+    if (loading || !hasMore) return;
+    setLoading(true);
+    try {
+      const toolsResult = await fetchHomeToolsList(supabase, false); // 加载全部数据
+      if (toolsResult.data && !toolsResult.error) {
+        const transformedTools = toolsResult.data.map((row) =>
+          mapRowToTool(row as Record<string, unknown>)
+        );
+        setTools(transformedTools);
+        setHasMore(false);
+      }
+    } catch (err) {
+      console.error("加载更多数据失败", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 当翻到最后一页时自动加载更多
+  useEffect(() => {
+    if (page === totalPages && hasMore && !loading) {
+      loadMore();
+    }
+  }, [page, totalPages, hasMore]);
+
   return (
     <>
       <Helmet>
@@ -398,7 +430,20 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
       {loading ? (
         <div className="grid grid-cols-4 gap-5">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <div key={i} className="bg-muted/30 rounded-lg h-64 animate-pulse"></div>
+            <div key={i} className="rounded-xl border border-border bg-card p-3 space-y-3">
+              {/* 图标占位 */}
+              <div className="w-12 h-12 bg-muted/50 rounded-lg animate-pulse"></div>
+              {/* 标题占位 */}
+              <div className="h-4 bg-muted/30 rounded w-3/4 animate-pulse"></div>
+              {/* 描述占位 */}
+              <div className="h-3 bg-muted/20 rounded w-full animate-pulse"></div>
+              <div className="h-3 bg-muted/20 rounded w-1/2 animate-pulse"></div>
+              {/* 标签占位 */}
+              <div className="flex gap-2 pt-2">
+                <div className="h-6 bg-muted/30 rounded-full w-16 animate-pulse"></div>
+                <div className="h-6 bg-muted/30 rounded-full w-16 animate-pulse"></div>
+              </div>
+            </div>
           ))}
         </div>
       ) : filtered.length > 0 ? (
