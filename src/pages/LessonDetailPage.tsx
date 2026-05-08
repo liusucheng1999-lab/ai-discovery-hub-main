@@ -296,14 +296,14 @@ export default function LessonDetailPage() {
                           setDraftDocUrl(e.target.value);
                           validateDocUrl(e.target.value);
                         }}
-                        placeholder="HTML 路径（如 /lesson1.html）或飞书文档链接，有 HTML 优先使用"
+                        placeholder="HTML 路径（如 /lessons/w1l1.html）或飞书文档链接，有 HTML 优先使用"
                         className={`h-10 w-full rounded-md border bg-background px-3 text-sm ${
                           docUrlError ? "border-destructive" : ""
                         }`}
                       />
                       {docUrlError && <p className="text-xs text-destructive">{docUrlError}</p>}
                       <p className="text-xs text-muted-foreground">
-                        填 <code className="bg-muted px-1 rounded">/lesson1.html</code> 用本地 HTML · 填飞书链接用飞书预览
+                        填 <code className="bg-muted px-1 rounded">/lessons/w1l1.html</code> 用本地 HTML · 填飞书链接用飞书预览
                       </p>
                     </div>
                   </div>
@@ -349,7 +349,7 @@ export default function LessonDetailPage() {
                 </div>
                 <div className="overflow-hidden bg-muted/30" style={{ height: 'calc(100vh - 220px)', minHeight: '600px' }}>
                   <iframe
-                    src="/lesson1.html"
+                    src="/lessons/w1l1.html"
                     className="h-full w-full border-0"
                     title="课程文档"
                     allow="clipboard-read; clipboard-write"

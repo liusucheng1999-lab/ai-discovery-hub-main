@@ -359,7 +359,7 @@ export default function CourseDetailPage() {
   const isFirstLesson = lessons[0]?.id === activeLesson?.id;
   const effectiveDocUrl =
     isFirstLesson && !isHtmlUrl(lessonForm.doc_embed_url)
-      ? "/lesson1.html"
+      ? "/lessons/w1l1.html"
       : lessonForm.doc_embed_url;
 
   return (
