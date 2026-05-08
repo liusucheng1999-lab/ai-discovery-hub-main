@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ChevronDown, FileText, List } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -29,6 +29,7 @@ interface Lesson {
 
 export default function LessonDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
 
   const [lessons, setLessons] = useState<Lesson[]>([]);
@@ -45,11 +46,16 @@ export default function LessonDetailPage() {
       setDocUrlError("");
       return;
     }
-    // 飞书文档嵌入链接格式：https://xxx.feishu.cn/doc/... 或 https://xxx.feishu.cn/wiki/...
-    if (url.includes("feishu.cn") || url.includes("larksuite.com")) {
+    // 支持飞书文档、HTML 文件路径（/xxx.html）及 https 链接
+    if (
+      url.includes("feishu.cn") ||
+      url.includes("larksuite.com") ||
+      url.startsWith("/") ||
+      url.startsWith("https://")
+    ) {
       setDocUrlError("");
     } else {
-      setDocUrlError("请使用飞书文档链接（支持嵌入预览）");
+      setDocUrlError("请使用飞书文档链接、HTTPS 链接或以 / 开头的本地 HTML 路径");
     }
   };
 
@@ -185,7 +191,7 @@ export default function LessonDetailPage() {
                           <button
                             key={l.id}
                             type="button"
-                            onClick={() => setActiveLesson(l)}
+                            onClick={() => navigate(`/knowledge/lesson/${l.id}`)}
                             className={`w-full rounded-xl border px-3 py-2.5 text-left transition-colors ${
                               isActive
                                 ? "border-primary bg-primary/10 shadow-sm"
@@ -268,25 +274,43 @@ export default function LessonDetailPage() {
                 <CollapsibleContent className="border-t px-5 py-4">
                   <div className="grid gap-4">
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">文档链接</label>
+                      <div className="flex items-center justify-between">
+                        <label className="text-sm font-medium">文档链接</label>
+                        <span className={`text-[11px] rounded-full px-2 py-0.5 font-medium ${
+                          draftDocUrl.startsWith("/") || draftDocUrl.includes(".html")
+                            ? "bg-teal-100 text-teal-700"
+                            : draftDocUrl.includes("feishu") || draftDocUrl.includes("larksuite")
+                            ? "bg-blue-100 text-blue-700"
+                            : "bg-muted text-muted-foreground"
+                        }`}>
+                          {draftDocUrl.startsWith("/") || draftDocUrl.includes(".html")
+                            ? "HTML 文件"
+                            : draftDocUrl.includes("feishu") || draftDocUrl.includes("larksuite")
+                            ? "飞书文档"
+                            : "未配置"}
+                        </span>
+                      </div>
                       <input
                         value={draftDocUrl}
                         onChange={(e) => {
                           setDraftDocUrl(e.target.value);
                           validateDocUrl(e.target.value);
                         }}
-                        placeholder="粘贴飞书文档可预览链接（必须可嵌入）"
+                        placeholder="HTML 路径（如 /lesson1.html）或飞书文档链接，有 HTML 优先使用"
                         className={`h-10 w-full rounded-md border bg-background px-3 text-sm ${
                           docUrlError ? "border-destructive" : ""
                         }`}
                       />
                       {docUrlError && <p className="text-xs text-destructive">{docUrlError}</p>}
+                      <p className="text-xs text-muted-foreground">
+                        填 <code className="bg-muted px-1 rounded">/lesson1.html</code> 用本地 HTML · 填飞书链接用飞书预览
+                      </p>
                     </div>
                   </div>
 
                   <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <p className="text-xs text-muted-foreground">
-                      保存后会同步更新当前课时的文档阅读区。
+                      保存后立即生效。
                     </p>
                     <button
                       type="button"
@@ -308,6 +332,15 @@ export default function LessonDetailPage() {
                   <div className="flex items-center gap-2">
                     <FileText className="h-4 w-4 text-primary" />
                     <div className="text-sm font-semibold">文档阅读区</div>
+                    {draftDocUrl && (
+                      <span className={`text-[11px] rounded-full px-2 py-0.5 font-medium ${
+                        draftDocUrl.startsWith("/") || draftDocUrl.includes(".html")
+                          ? "bg-teal-100 text-teal-700"
+                          : "bg-blue-100 text-blue-700"
+                      }`}>
+                        {draftDocUrl.startsWith("/") || draftDocUrl.includes(".html") ? "HTML" : "飞书"}
+                      </span>
+                    )}
                   </div>
                   <div className="text-xs text-muted-foreground">
                     <span className="lg:hidden">可继续向下滑动查看内容</span>
@@ -315,18 +348,12 @@ export default function LessonDetailPage() {
                   </div>
                 </div>
                 <div className="overflow-hidden bg-muted/30" style={{ height: 'calc(100vh - 220px)', minHeight: '600px' }}>
-                  {draftDocUrl ? (
-                    <iframe
-                      src={draftDocUrl}
-                      className="h-full w-full"
-                      title="课程文档"
-                      allow="clipboard-read; clipboard-write"
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-                      暂无文档，请由管理员配置
-                    </div>
-                  )}
+                  <iframe
+                    src="/lesson1.html"
+                    className="h-full w-full border-0"
+                    title="课程文档"
+                    allow="clipboard-read; clipboard-write"
+                  />
                 </div>
               </div>
             </div>

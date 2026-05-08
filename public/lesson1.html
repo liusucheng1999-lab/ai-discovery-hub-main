@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第一周·第1节 — AI职场实战课</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1814;
+    --ink-light: #4a4540;
+    --ink-muted: #8a8480;
+    --bg: #faf9f6;
+    --bg-warm: #f4f1eb;
+    --bg-card: #ffffff;
+    --amber: #d4820a;
+    --amber-light: #fdf3e0;
+    --amber-mid: #f5c842;
+    --teal: #0a6e6e;
+    --teal-light: #e0f2f1;
+    --red: #c0392b;
+    --red-light: #fdf0ee;
+    --green: #1a6b3c;
+    --green-light: #e8f5ee;
+    --purple: #5b3fa0;
+    --purple-light: #f0ecfb;
+    --border: #e8e4dc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 48px 100px;
+  }
+
+  /* ─── Header ─── */
+  .course-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+  }
+
+  .lesson-header {
+    border-top: 3px solid var(--ink);
+    padding-top: 32px;
+    margin-bottom: 48px;
+  }
+
+  .lesson-week {
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .lesson-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .lesson-subtitle {
+    font-size: 16px;
+    color: var(--ink-light);
+    font-weight: 300;
+    border-left: 3px solid var(--amber);
+    padding-left: 14px;
+    margin-top: 16px;
+  }
+
+  .lesson-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+
+  .lesson-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ─── Scene / Opening ─── */
+  .scene-box {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin: 0 0 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scene-box::before {
+    content: '"';
+    position: absolute;
+    top: -10px; right: 20px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 140px;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .scene-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--amber-mid);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .scene-box p {
+    font-size: 15px;
+    line-height: 2;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 14px;
+  }
+
+  .scene-box p:last-child { margin-bottom: 0; }
+
+  .scene-highlight {
+    background: rgba(245,200,66,0.15);
+    border-left: 3px solid var(--amber-mid);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 20px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.95);
+    font-weight: 500;
+  }
+
+  /* ─── Section structure ─── */
+  .section {
+    margin-bottom: 56px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: var(--amber-light);
+    color: var(--amber);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 28px 0 12px;
+  }
+
+  p { margin-bottom: 16px; color: var(--ink-light); }
+
+  strong { color: var(--ink); font-weight: 700; }
+
+  /* ─── Divider ─── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0;
+    color: var(--ink-muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── Key insight pullquote ─── */
+  .pullquote {
+    border-left: 4px solid var(--amber);
+    background: var(--amber-light);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+  }
+
+  .pullquote p {
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.8;
+  }
+
+  /* ─── Flow diagram ─── */
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 24px 0;
+    background: var(--bg-warm);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .flow-label {
+    background: var(--ink);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    padding: 16px 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  .flow-steps {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 16px 20px;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .flow-step {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--ink-light);
+    white-space: nowrap;
+  }
+
+  .flow-arrow {
+    color: var(--ink-muted);
+    font-size: 14px;
+    padding: 0 2px;
+  }
+
+  .flow.new .flow-label { background: var(--teal); }
+  .flow.new .flow-step { background: var(--teal-light); border-color: #b2dfdb; color: var(--teal); font-weight: 500; }
+  .flow-role {
+    background: var(--amber);
+    color: #fff;
+    border-radius: 4px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* ─── 3 Layers ─── */
+  .layer-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    background: var(--bg-card);
+  }
+
+  .layer-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .layer-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .layer-num.l1 { background: var(--amber-light); color: var(--amber); }
+  .layer-num.l2 { background: var(--teal-light); color: var(--teal); }
+  .layer-num.l3 { background: var(--purple-light); color: var(--purple); }
+
+  .layer-title { font-size: 17px; font-weight: 700; color: var(--ink); }
+  .layer-subtitle { font-size: 13px; color: var(--ink-muted); margin-top: 2px; }
+
+  .layer-body { padding: 24px 28px; }
+
+  /* ─── Real story cards ─── */
+  .story-card {
+    background: var(--bg-warm);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin: 20px 0;
+  }
+
+  .story-card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .story-card-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .story-card p {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+  }
+
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .story-name {
+    display: inline-block;
+    background: var(--ink);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 4px;
+  }
+
+  .story-name.colleague {
+    background: var(--teal);
+  }
+
+  /* ─── Chat bubbles comparison ─── */
+  .chat-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .chat-col { }
+
+  .chat-col-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .chat-col-label.bad { background: var(--red-light); color: var(--red); }
+  .chat-col-label.good { background: var(--green-light); color: var(--green); }
+
+  .chat-bubble {
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .chat-bubble.user-bad {
+    background: #fff;
+    border: 1px solid var(--border);
+    color: var(--ink-light);
+  }
+
+  .chat-bubble.user-good {
+    background: var(--teal-light);
+    border: 1px solid #b2dfdb;
+    color: var(--teal);
+  }
+
+  .chat-result {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--ink-muted);
+    border-left: 2px solid var(--border);
+  }
+
+  .chat-result.bad { border-color: var(--red); background: var(--red-light); color: var(--red); }
+  .chat-result.good { border-color: var(--green); background: var(--green-light); color: var(--green); }
+
+  /* ─── 4 elements framework ─── */
+  .framework-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .framework-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+
+  .framework-item-num {
+    width: 24px;
+    height: 24px;
+    background: var(--amber-light);
+    color: var(--amber);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .framework-item-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .framework-item-desc {
+    font-size: 12px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── Feedback phrases ─── */
+  .phrase-list {
+    list-style: none;
+    margin: 16px 0;
+  }
+
+  .phrase-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    font-size: 13.5px;
+    color: var(--ink-light);
+    line-height: 1.6;
+  }
+
+  .phrase-list li::before {
+    content: '→';
+    color: var(--amber);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ─── 4-question checklist ─── */
+  .checklist {
+    list-style: none;
+    counter-reset: check;
+    margin: 16px 0;
+  }
+
+  .checklist li {
+    counter-increment: check;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 1.7;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .checklist li::before {
+    content: counter(check);
+    width: 26px;
+    height: 26px;
+    background: var(--amber);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ─── Metaphor box ─── */
+  .metaphor-box {
+    background: linear-gradient(135deg, var(--purple-light) 0%, #f8f6ff 100%);
+    border: 1px solid #d4c8f5;
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin: 32px 0;
+    position: relative;
+  }
+
+  .metaphor-box-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  .metaphor-box h3 {
+    color: var(--purple);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  .metaphor-box p {
+    font-size: 14.5px;
+    color: var(--ink-light);
+    line-height: 1.9;
+    margin-bottom: 12px;
+  }
+
+  .metaphor-box p:last-child { margin-bottom: 0; }
+
+  /* ─── Action section ─── */
+  .action-section {
+    margin-top: 56px;
+    border-top: 3px solid var(--ink);
+    padding-top: 36px;
+  }
+
+  .action-section h2 {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  .action-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .action-card {
+    border-radius: 10px;
+    padding: 22px 22px;
+  }
+
+  .action-card.now {
+    background: var(--amber-light);
+    border: 1px solid #f0d080;
+  }
+
+  .action-card.week {
+    background: var(--bg-warm);
+    border: 1px solid var(--border);
+  }
+
+  .action-card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+    color: var(--amber);
+  }
+
+  .action-card.week .action-card-label { color: var(--ink-muted); }
+
+  .action-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .action-card p {
+    font-size: 13px;
+    color: var(--ink-light);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .task-options {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .task-options li {
+    font-size: 13px;
+    color: var(--ink-light);
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .task-options li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    color: var(--amber);
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  /* ─── Summary ─── */
+  .summary-box {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin-top: 16px;
+  }
+
+  .summary-box h3 {
+    color: var(--amber-mid);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+  }
+
+  .summary-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .summary-item:last-child { margin-bottom: 0; }
+
+  .summary-num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px;
+    color: var(--amber-mid);
+    font-weight: 700;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+
+
+
+  /* ─── Warning callout ─── */
+  .callout {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 18px;
+    border-radius: 8px;
+    margin: 16px 0;
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+
+  .callout.tip { background: var(--teal-light); border-left: 3px solid var(--teal); color: var(--teal); }
+  .callout.warn { background: var(--amber-light); border-left: 3px solid var(--amber); color: #7a4f00; }
+  .callout.insight { background: var(--purple-light); border-left: 3px solid var(--purple); color: var(--purple); }
+
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ─── Trap pattern for realistic cases ─── */
+  .trap-story {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+
+  .trap-header {
+    background: var(--bg-warm);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trap-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .trap-avatar.hr { background: var(--amber-light); color: var(--amber); }
+  .trap-avatar.ops { background: var(--teal-light); color: var(--teal); }
+  .trap-avatar.pm { background: var(--purple-light); color: var(--purple); }
+
+  .trap-person { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .trap-role { font-size: 12px; color: var(--ink-muted); }
+
+  .trap-body { padding: 18px 20px; }
+
+  .trap-body p {
+    font-size: 14px;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+    line-height: 1.8;
+  }
+
+  .trap-what-happened {
+    background: var(--red-light);
+    border-left: 3px solid var(--red);
+    padding: 12px 14px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: var(--red);
+    margin-top: 4px;
+    line-height: 1.7;
+  }
+
+  .trap-insight {
+    background: var(--green-light);
+    border-left: 3px solid var(--green);
+    padding: 12px 14px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: var(--green);
+    margin-top: 10px;
+    line-height: 1.7;
+  }
+
+  /* print/pdf polish */
+  @media print {
+    body { background: #fff; }
+    .page { padding: 40px 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="course-tag">AI 职场实战课</div>
+
+  <div class="lesson-header">
+    <div class="lesson-week">第一周 · 第 1 节</div>
+    <h1 class="lesson-title">你和"会用AI的人"<br>差在哪里？</h1>
+    <div class="lesson-subtitle">同样一个工具，为什么别人 10 分钟，你要 1 小时</div>
+    <div class="lesson-meta">
+      <span>📖 阅读约 15 分钟</span>
+      <span>🎯 本节核心：三层认知差距</span>
+      <span>⚡ 含 5 分钟即时行动</span>
+    </div>
+  </div>
+
+  <!-- Opening Scene -->
+  <div class="scene-box">
+    <div class="scene-label">▎ 开篇场景</div>
+    <p>周三上午 10 点，你盯着 ChatGPT 的输入框，打了删，删了打，最终发出去一句话——</p>
+    <p style="font-size:17px; color:#fff; font-weight:500; font-family:'Noto Serif SC',serif;">"帮我写一份××××的工作总结"</p>
+    <p>AI 给你回了 800 字的通用模板，废话连篇，套在任何行业都能用。也就是说：<strong style="color:#fff;">对你毫无用处。</strong></p>
+    <p>你叹了口气，关掉页面，打开 Word，开始自己写。</p>
+    <div class="scene-highlight">
+      与此同时，隔壁工位的小李，同样用的 ChatGPT——10 分钟后发来一份针对你们部门、匹配 Q3 目标、语气跟你们老板完全对口的总结初稿。<br><br>
+      你们用的是同一个工具。<strong style="color:#f5c842;">差距在哪里？</strong>
+    </div>
+  </div>
+
+  <!-- Part 1 -->
+  <div class="section">
+    <div class="section-badge">PART 01</div>
+    <h2>你把 AI 当什么了？</h2>
+
+    <p>大多数人用 AI 的第一反应，是把它当搜索引擎用。这不能怪你——我们这一代人最熟悉的信息获取方式就是：遇到问题 → 打关键词 → 看结果 → 复制答案。几十年的肌肉记忆，换了个界面，当然还是同一套打法。</p>
+
+    <p>于是你问 AI 的方式往往是："如何提高工作效率"、"怎么写辞职信"、"竞品分析怎么做"——这些搜索引擎也能回答。AI 给你的，也不过是百度的付费平替。</p>
+
+    <div class="pullquote">
+      <p>搜索引擎给你「信息检索」，AI 能给你「思维协作」。前者是查字典，后者是找了一个随时在线、不嫌麻烦、无限耐心的专业顾问——而且他同时懂文案、数据、法律、财务、策划……</p>
+    </div>
+
+    <p>真正的区别，不是工具，是你<strong>用 AI 的姿势</strong>决定了你得到的层次。</p>
+
+    <h3>AI 真正改变的是什么？</h3>
+
+    <p>AI 改变的不是你用什么工具，而是<strong>知识工作的生产方式</strong>。看看同一件事，前后有什么不同：</p>
+
+    <div class="flow">
+      <div class="flow-label">过去</div>
+      <div class="flow-steps">
+        <div class="flow-step">收到任务</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">自己想结构</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">自己查资料</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">自己写初稿</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">自己改</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">发出去</div>
+      </div>
+    </div>
+
+    <div class="flow new">
+      <div class="flow-label">现在</div>
+      <div class="flow-steps">
+        <div class="flow-step">收到任务</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-role">你定义目标</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">AI 出初稿</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-role">你判断决策</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">迭代优化</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">发出去</div>
+      </div>
+    </div>
+
+    <p>你的角色从「执行者」变成了「<strong>导演</strong>」。导演不需要亲自打光、拉镜头，但必须清楚知道自己要什么，并且有能力判断眼前的东西够不够好。</p>
+
+    <div class="callout warn">
+      <span class="callout-icon">⚠️</span>
+      <span>这个转变，听起来对你更省力了。但问题在于——<strong>大多数人还没准备好当导演。</strong>我们习惯了被分配任务、执行任务，却很少练习"定义任务"这件事。</span>
+    </div>
+  </div>
+
+  <div class="divider">三层认知差距</div>
+
+  <!-- Part 2 -->
+  <div class="section">
+    <div class="section-badge">PART 02</div>
+    <h2>高手与普通用户之间，是三层叠加的差距</h2>
+
+    <p>不是一个差距，是三层叠加在一起。我们逐层来看——每层都配一个<strong>你身边真实会发生的场景</strong>。</p>
+
+    <!-- Layer 1 -->
+    <div class="layer-card">
+      <div class="layer-header">
+        <div class="layer-num l1">一</div>
+        <div>
+          <div class="layer-title">任务拆解能力</div>
+          <div class="layer-subtitle">高手在打开 AI 之前，就已经做完了一件事</div>
+        </div>
+      </div>
+      <div class="layer-body">
+        <p>高手把模糊的大需求，拆成清晰的小任务，<strong>再</strong>交给 AI。普通用户把整坨需求丢进去，等 AI "变魔术"。</p>
+
+        <p>但现实比这还复杂——很多人<strong>甚至不知道自己在用错误的方式</strong>：</p>
+
+        <div class="trap-story">
+          <div class="trap-header">
+            <div class="trap-avatar hr">王</div>
+            <div>
+              <div class="trap-person">王芳</div>
+              <div class="trap-role">HR 经理 · 某 500 人科技公司</div>
+            </div>
+          </div>
+          <div class="trap-body">
+            <p>王芳要招一个高级产品经理。她打开 ChatGPT，输入：<em>"帮我写一个高级产品经理的招聘 JD"</em>。</p>
+            <p>AI 给了一份看起来不错的 JD。她花了 40 分钟修改，改到感觉差不多，发了出去。</p>
+            <p>一周后，收到 60 份简历，其中 55 份和她要找的人完全不符。</p>
+            <div class="trap-what-happened">❌ 她以为 AI 帮了她，其实 AI 给的是"任何公司都适用的通用 JD"，而她真正需要的是"一份能筛掉 90% 不符合的人的精准 JD"。她花 40 分钟改，其实是在弥补一开始没说清楚的东西。</div>
+            <div class="trap-insight">✓ 如果她先把任务拆成：① 我们公司是做什么的 ② 这个 PM 要解决什么问题 ③ 什么样的人我们不要 ④ 用什么格式——AI 给的第一版就会精准十倍，后续筛人效率也完全不同。</div>
+          </div>
+        </div>
+
+        <p style="margin-top: 20px; font-weight: 700; color: var(--ink);">任务拆解四问——每次用 AI 前先问自己：</p>
+        <ol class="checklist">
+          <li>这件事的<strong>最终目的</strong>是什么？不是"做一个分析"，而是"支持什么决策"</li>
+          <li>它可以分成哪几个<strong>相对独立</strong>的部分？每部分可以单独问</li>
+          <li>每一部分，AI 擅长做哪些，我更擅长<strong>判断</strong>哪些？</li>
+          <li>哪些部分需要<strong>我先做决定</strong>，AI 才能继续往下走？</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Layer 2 -->
+    <div class="layer-card">
+      <div class="layer-header">
+        <div class="layer-num l2">二</div>
+        <div>
+          <div class="layer-title">把需求说清楚的能力</div>
+          <div class="layer-subtitle">AI 的输出质量，取决于你给它的信息量</div>
+        </div>
+      </div>
+      <div class="layer-body">
+        <p>"提示词工程"听起来很技术，本质上只有一件事：<strong>你有没有给 AI 足够的上下文，让它知道怎么帮你。</strong></p>
+
+        <p>很多人以为，只要找到"神级提示词模板"就能解决问题。真实情况是这样的：</p>
+
+        <div class="trap-story">
+          <div class="trap-header">
+            <div class="trap-avatar ops">张</div>
+            <div>
+              <div class="trap-person">张磊</div>
+              <div class="trap-role">运营主管 · 户外装备电商</div>
+            </div>
+          </div>
+          <div class="trap-body">
+            <p>张磊在小红书看到一个帖子："用这个万能提示词，AI 效率提升 10 倍！"他复制了那个模板，把 <em>[你的产品]</em> 替换成"户外装备"，把 <em>[目标受众]</em> 替换成"年轻人"，发给了 AI。</p>
+            <p>结果是一份漂亮的营销方案——关于如何向"18-35 岁年轻人推广运动产品"。看起来专业，但跟他们公司卖的<strong>中高端登山客群、客单价 3000+、靠口碑复购</strong>的实际情况完全没有关系。</p>
+            <div class="trap-what-happened">❌ 他得出结论：AI 不懂垂直行业。但实际上，是模板给了结构，他给的背景信息让 AI 无从下手——"户外装备"和"年轻人"，任何一个卖羽毛球拍的公司都能套。</div>
+            <div class="trap-insight">✓ 差距不是模板，是背景。AI 需要知道：你卖什么、卖给谁、他们为什么买、你跟竞争对手有什么不同——这些不是"可选信息"，是 AI 能帮到你的前提。</div>
+          </div>
+        </div>
+
+        <p style="margin-top: 20px; font-weight: 700; color: var(--ink);">一个好的需求描述，包含四个要素：</p>
+
+        <div class="framework-grid">
+          <div class="framework-item">
+            <div class="framework-item-num">①</div>
+            <div class="framework-item-title">角色设定</div>
+            <div class="framework-item-desc">你希望 AI 以什么身份帮你<br>「你是一位有 10 年经验的 HR 总监」</div>
+          </div>
+          <div class="framework-item">
+            <div class="framework-item-num">②</div>
+            <div class="framework-item-title">背景信息</div>
+            <div class="framework-item-desc">AI 需要知道什么才能帮你<br>「我们是 200 人的 B2B 软件公司」</div>
+          </div>
+          <div class="framework-item">
+            <div class="framework-item-num">③</div>
+            <div class="framework-item-title">输出格式</div>
+            <div class="framework-item-desc">你想要什么形式的结果<br>「用三列表格，包含方法、场景、注意事项」</div>
+          </div>
+          <div class="framework-item">
+            <div class="framework-item-num">④</div>
+            <div class="framework-item-title">约束条件</div>
+            <div class="framework-item-desc">什么不能做、要避免什么<br>「不超过 500 字，不要口号式表达」</div>
+          </div>
+        </div>
+
+        <p>来看同一个需求，两种写法的差距：</p>
+
+        <div class="chat-compare">
+          <div class="chat-col">
+            <div class="chat-col-label bad">❌ 普通写法</div>
+            <div class="chat-bubble user-bad">帮我写一封向客户道歉的邮件</div>
+            <div class="chat-result bad">结果：任何公司、任何情况都能套用的空洞模板。你还要自己花 20 分钟改。</div>
+          </div>
+          <div class="chat-col">
+            <div class="chat-col-label good">✓ 有效写法</div>
+            <div class="chat-bubble user-good">你是 B2B 企业的客户成功经理。我们系统故障导致客户数据同步延迟 6 小时，客户已表达不满。写一封道歉邮件：语气诚恳专业，承认问题，解释原因（系统升级），说明补救措施（延长免费期 1 个月），结尾强调重视合作。200 字以内。</div>
+            <div class="chat-result good">结果：今天下午可以直接发出去的邮件。基本不需要再改。</div>
+          </div>
+        </div>
+
+        <div class="callout insight">
+          <span class="callout-icon">💡</span>
+          <span><strong>差距不是 AI 的能力，是你给它的信息量。</strong>你给的越具体，它给你的越贴合实际。</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layer 3 -->
+    <div class="layer-card">
+      <div class="layer-header">
+        <div class="layer-num l3">三</div>
+        <div>
+          <div class="layer-title">迭代校准的节奏</div>
+          <div class="layer-subtitle">第一版永远是草稿，不是终点</div>
+        </div>
+      </div>
+      <div class="layer-body">
+        <p>这是最容易被忽视的一层，也是最重要的。</p>
+
+        <div class="trap-story">
+          <div class="trap-header">
+            <div class="trap-avatar pm">李</div>
+            <div>
+              <div class="trap-person">李健</div>
+              <div class="trap-role">项目经理 · 制造业</div>
+            </div>
+          </div>
+          <div class="trap-body">
+            <p>李健要在明天早上交一份项目风险评估报告。他让 AI 帮他写，得到了一份"看起来专业"的文档——格式完整，有风险分类，有应对措施。</p>
+            <p>但他觉得不对劲：里面写的都是通用风险，跟他们这个项目的实际情况完全对不上。</p>
+            <p>他打出去：<em>"改得更具体一点"</em>。</p>
+            <p>AI 改了，依然不对。他又打了一遍：<em>"还是不对，重新写"</em>。</p>
+            <p>三轮之后，他关掉页面，自己动手了，顺便下了结论：AI 做不了专业工作。</p>
+            <div class="trap-what-happened">❌ 问题不在 AI，在于"改得更具体"这句话，AI 根本不知道什么叫"具体"——因为它从头到尾都不知道这个项目是做什么的、有什么特殊风险、哪些是他们行业的常见坑。</div>
+            <div class="trap-insight">✓ 有效反馈的关键是：<strong>说清楚哪里不对、为什么不对、要往哪个方向改</strong>。不是"再好一点"，是"第二条风险跟我们行业不相关，替换成供应链延迟相关的内容，因为我们 80% 的延期都来自这里"。</div>
+          </div>
+        </div>
+
+        <p style="margin-top: 20px;">高手的迭代节奏是这样的：</p>
+
+        <div class="flow new" style="margin-bottom: 20px;">
+          <div class="flow-label" style="background: var(--purple);">三轮法</div>
+          <div class="flow-steps">
+            <div class="flow-step">第一轮<br><span style="font-size:11px;color:var(--ink-muted)">出结构/初稿</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">第二轮<br><span style="font-size:11px;color:var(--ink-muted)">指出具体问题</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">第三轮<br><span style="font-size:11px;color:var(--ink-muted)">微调语气格式</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-role" style="background:var(--purple)">可用结果</div>
+          </div>
+        </div>
+
+        <p style="font-weight:700; color: var(--ink);">有效反馈句式（可以直接收藏）：</p>
+        <ul class="phrase-list">
+          <li>"这个方向对，但第二段太啰嗦，帮我压缩到 2 句话"</li>
+          <li>"语气改成更口语化，像在微信上聊天那种"</li>
+          <li>"把结论提到最前面，用一句话概括"</li>
+          <li>"保留这个结构，但把案例换成零售行业的"</li>
+          <li>"第三点的逻辑我觉得有问题，你重新帮我梳理一下"</li>
+        </ul>
+
+        <div class="callout tip">
+          <span class="callout-icon">✓</span>
+          <span>AI 不会因为你挑剔而翻脸。反馈越具体，它越知道你想要什么。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">核心比喻</div>
+
+  <!-- Metaphor -->
+  <div class="metaphor-box">
+    <div class="metaphor-box-icon">👥</div>
+    <h3>AI 是一个极度听话、无限精力、但需要你给清晰任务的实习生团队</h3>
+    <p>而且这个团队里同时有文案、数据分析师、程序员、法律顾问、财务顾问、策划——你同时雇了所有这些人，他们不会累、不会请假、也不会因为你改了第八稿而翻脸。</p>
+    <p>但这个团队有一个致命弱点：<strong>他们不会主动问你"你到底想要什么"</strong>——他们只会照着你说的话，尽力给你一个答案。</p>
+    <p>所以当你把一个模糊任务丢给他们，你得到的就是一个模糊答案。但如果你花 5 分钟说清楚背景和目标，同样这个团队，交出来的东西会好十倍。</p>
+    <div class="callout insight" style="margin-top:16px; margin-bottom:0;">
+      <span class="callout-icon">💡</span>
+      <span>AI 的能力天花板，往往比你想象的高得多。你以为它不行，其实是你没给它机会发挥。<br>你唯一要做的，就是学会当一个好的管理者：<strong>把需求说清楚，给出具体反馈，做最终决策。</strong></span>
+    </div>
+  </div>
+
+  <!-- Action -->
+  <div class="action-section">
+    <h2>⚡ 行动时间</h2>
+
+    <div class="action-cards">
+      <div class="action-card now">
+        <div class="action-card-label">NOW · 5 分钟</div>
+        <h4>马上能做的一件事</h4>
+        <p>回想上周你用 AI 做过的一件事，效果不好的原因，属于三层差距里的哪一层？</p>
+        <ul class="task-options" style="margin-top:10px;">
+          <li>任务太大，没有拆解？</li>
+          <li>背景给得不够，AI 不了解你的情况？</li>
+          <li>第一版不满意就放弃，没有迭代？</li>
+        </ul>
+        <p style="margin-top:10px; font-size:12px; color:var(--amber);">想清楚这一件事，下次用 AI 就有了不同的起点。</p>
+      </div>
+      <div class="action-card week">
+        <div class="action-card-label">THIS WEEK · 本周作业</div>
+        <h4>打造你的第一个专属模板</h4>
+        <p>找一件你工作中重复做、每次都费时费力的事：</p>
+        <ul class="task-options">
+          <li>每周工作周报</li>
+          <li>跟进邮件或客户沟通话术</li>
+          <li>会议纪要整理</li>
+          <li>定期汇报材料</li>
+        </ul>
+        <p style="margin-top:10px; font-size:12px; color:var(--ink-muted);">用本节的四要素为它搭建一个专属提示词，目标：下次同样任务，10 分钟内搞定。</p>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-box">
+      <h3>本节小结 · 记住三件事</h3>
+      <div class="summary-item">
+        <div class="summary-num">01</div>
+        <div>AI 不是升级版搜索引擎，是「思维协作工具」。你的角色从执行者变成导演——这个转变需要主动适应，不会自动发生。</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-num">02</div>
+        <div>高手与普通用户的差距在三层：<strong style="color:#f5c842;">任务拆解、说清楚需求、精准迭代</strong>。没有一个是天赋，都是可以练习的技能。</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-num">03</div>
+        <div>AI 是你的实习生团队，能力天花板很高，但需要你给清晰任务。你给的信息量，决定了它的输出质量。</div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+</body>
+</html>
