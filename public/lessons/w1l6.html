@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第一周·第6节 — 5 分钟快速用 AI · 打工人进化论</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1814; --ink-light: #4a4540; --ink-muted: #8a8480;
+    --bg: #faf9f6; --bg-warm: #f4f1eb; --bg-card: #ffffff;
+    --amber: #d4820a; --amber-light: #fdf3e0; --amber-mid: #f5c842;
+    --teal: #0a6e6e; --teal-light: #e0f2f1;
+    --red: #c0392b; --red-light: #fdf0ee;
+    --green: #1a6b3c; --green-light: #e8f5ee;
+    --purple: #5b3fa0; --purple-light: #f0ecfb;
+    --border: #e8e4dc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.9; }
+  .page { max-width: 780px; margin: 0 auto; padding: 60px 48px 100px; }
+
+  .course-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; padding: 5px 14px; border-radius: 2px; margin-bottom: 32px; }
+  .lesson-header { border-top: 3px solid var(--ink); padding-top: 32px; margin-bottom: 48px; }
+  .lesson-week { font-size: 12px; color: var(--ink-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .lesson-title { font-family: 'Noto Serif SC', serif; font-size: 32px; font-weight: 700; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
+  .lesson-subtitle { font-size: 16px; color: var(--ink-light); font-weight: 300; border-left: 3px solid var(--amber); padding-left: 14px; margin-top: 16px; }
+  .lesson-meta { display: flex; gap: 24px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); }
+
+  .scene-box { background: var(--ink); color: #fff; border-radius: 12px; padding: 36px 40px; margin: 0 0 48px; position: relative; overflow: hidden; }
+  .scene-box::before { content: '"'; position: absolute; top: -10px; right: 20px; font-family: 'Noto Serif SC', serif; font-size: 140px; color: rgba(255,255,255,0.06); line-height: 1; pointer-events: none; }
+  .scene-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); margin-bottom: 16px; font-weight: 500; }
+  .scene-box p { font-size: 15px; line-height: 2; color: rgba(255,255,255,0.88); margin-bottom: 14px; }
+  .scene-box p:last-child { margin-bottom: 0; }
+  .scene-highlight { background: rgba(245,200,66,0.15); border-left: 3px solid var(--amber-mid); padding: 14px 18px; border-radius: 0 6px 6px 0; margin-top: 20px; font-size: 14px; color: rgba(255,255,255,0.95); font-weight: 500; }
+
+  .section { margin-bottom: 56px; }
+  .section-badge { display: inline-block; background: var(--amber-light); color: var(--amber); font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 2px; margin-bottom: 16px; }
+  h2 { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 20px; line-height: 1.4; }
+  h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 28px 0 12px; }
+  p { margin-bottom: 16px; color: var(--ink-light); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  .pullquote { border-left: 4px solid var(--amber); background: var(--amber-light); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+  .pullquote p { font-size: 15px; color: var(--ink); font-weight: 500; margin: 0; line-height: 1.8; }
+
+  .timeline { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 24px 0; }
+  .timeline-row { display: grid; grid-template-columns: 90px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px dashed var(--border); }
+  .timeline-row:last-child { border-bottom: none; }
+  .timeline-time { font-family: 'Noto Serif SC', serif; font-size: 26px; font-weight: 700; color: var(--amber); line-height: 1; padding-top: 4px; }
+  .timeline-time small { display: block; font-size: 11px; color: var(--ink-muted); font-weight: 400; letter-spacing: 1px; margin-top: 4px; font-family: 'Noto Sans SC', sans-serif; }
+  .timeline-body h4 { font-size: 15.5px; color: var(--ink); margin-bottom: 6px; font-weight: 700; }
+  .timeline-body p { font-size: 13.5px; color: var(--ink-light); margin: 0 0 8px; line-height: 1.75; }
+  .timeline-body .example { padding: 10px 14px; background: var(--bg-warm); border-left: 3px solid var(--amber); border-radius: 0 4px 4px 0; font-size: 12.5px; color: var(--ink); }
+
+  .quick-template { background: var(--ink); color: #fff; border-radius: 10px; padding: 22px 26px; margin: 24px 0; }
+  .quick-template h4 { font-size: 12px; letter-spacing: 2px; color: var(--amber-mid); margin-bottom: 14px; font-weight: 700; text-transform: uppercase; }
+  .quick-template pre { font-family: 'Noto Sans SC', monospace; font-size: 13.5px; line-height: 1.85; color: rgba(255,255,255,0.92); white-space: pre-wrap; margin: 0; }
+  .quick-template .label { color: var(--amber-mid); font-weight: 700; }
+
+  .story-card { background: var(--bg-warm); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin: 20px 0; }
+  .story-card-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--amber); }
+  .story-card-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .story-card p { font-size: 14px; line-height: 1.85; color: var(--ink-light); margin-bottom: 10px; }
+  .story-card p:last-child { margin-bottom: 0; }
+  .story-name { display: inline-block; background: var(--ink); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 3px; margin-right: 4px; }
+
+  .stop-rule { background: var(--green-light); border: 1px solid #b2ddc1; border-radius: 8px; padding: 18px 22px; margin: 20px 0; }
+  .stop-rule h4 { color: var(--green); font-size: 13px; letter-spacing: 1px; margin-bottom: 10px; font-weight: 700; }
+  .stop-rule ul { list-style: none; padding: 0; }
+  .stop-rule li { font-size: 13.5px; color: var(--ink); padding: 4px 0 4px 22px; position: relative; }
+  .stop-rule li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+  .anchor { background: var(--ink); color: #fff; border-radius: 12px; padding: 28px 32px; margin: 40px 0 0; }
+  .anchor-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); font-weight: 500; margin-bottom: 12px; }
+  .anchor h3 { color: #fff; font-size: 18px; margin: 0 0 10px; }
+  .anchor p { color: rgba(255,255,255,0.82); font-size: 14px; margin: 0; }
+  .anchor .step { margin-top: 14px; padding: 12px 16px; background: rgba(255,255,255,0.06); border-radius: 6px; font-size: 13.5px; color: rgba(255,255,255,0.92); }
+
+  .footer-note { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); text-align: center; letter-spacing: 1px; }
+
+  @media (max-width: 640px) {
+    .page { padding: 40px 22px 80px; }
+    .lesson-title { font-size: 26px; }
+    .timeline-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <span class="course-tag">打工人进化论 · AI 职场实战课</span>
+
+  <header class="lesson-header">
+    <div class="lesson-week">第一周 · 第6节</div>
+    <h1 class="lesson-title">5 分钟快速用 AI</h1>
+    <div class="lesson-subtitle">时间压力下的「够用」策略——比完美更重要的，是按时拿出结果</div>
+    <div class="lesson-meta">
+      <span>🎯 心智重建</span>
+      <span>⏱ 阅读约 7 分钟</span>
+      <span>📌 行动锚点：1 个真实小任务</span>
+    </div>
+  </header>
+
+  <div class="scene-box">
+    <div class="scene-label">REAL SCENE · 真实场景</div>
+    <p>领导走过来：<strong>"5 分钟后会上你说一下这个项目的进展和风险。"</strong> 你刚被拉进来，连这个项目是干嘛的都不完全清楚。</p>
+    <p>你打开 AI——结果开始一字一字打需求，写到第 4 分钟还没问完。会议时间到了。</p>
+    <div class="scene-highlight">5 分钟用 AI，不是把流程压缩，而是换一套节奏。"够用"也是能力。</div>
+  </div>
+
+  <section class="section">
+    <span class="section-badge">CORE INSIGHT · 核心认知</span>
+    <h2>"够用"是判断力，不是妥协</h2>
+    <p>很多人用 AI 慢，不是输入慢，是<strong>不知道什么时候该停</strong>。一直在追求"再准一点"、"再细一点"，结果错过了时间窗口。</p>
+    <p>5 分钟法的核心不是技巧，是态度——<strong>承认目标不是"完美产出"，是"5 分钟后能上场的最佳状态"</strong>。这两件事的最优解，差得很远。</p>
+    <div class="pullquote">
+      <p>能识别"什么时候停止优化"，比能识别"什么时候应该开始"难得多。<br>前者才是真正的职场杠杆。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">FRAMEWORK · 思维框架</span>
+    <h2>5 分钟 AI 使用法</h2>
+    <p>把 5 分钟切成三段，每段都有明确止损点。</p>
+
+    <div class="timeline">
+      <div class="timeline-row">
+        <div class="timeline-time">1'<small>说清任务</small></div>
+        <div class="timeline-body">
+          <h4>1 分钟：把任务说清楚</h4>
+          <p>1 句话讲背景 + 1 句话讲要求 + 1 句话讲格式。多了反而拖慢。</p>
+          <div class="example">「我下周要给 200 人讲一个 AI 入门讲座，听众是非技术。给我 5 个最有冲击力的开场金句，每个不超过 30 字。」</div>
+        </div>
+      </div>
+
+      <div class="timeline-row">
+        <div class="timeline-time">2'<small>挑可用</small></div>
+        <div class="timeline-body">
+          <h4>2 分钟：看第一版，标"能用"的部分</h4>
+          <p>不要重读、不要纠结。直接圈出"勉强能用"的 30%，剩下 70% 直接砍。</p>
+          <div class="example"><strong>核心动作：</strong>不是"评估好坏"，是"挑出能撑场的"。</div>
+        </div>
+      </div>
+
+      <div class="timeline-row">
+        <div class="timeline-time">2'<small>定向追问</small></div>
+        <div class="timeline-body">
+          <h4>2 分钟：针对最大问题追一句</h4>
+          <p>只问 1 个最关键的问题，不要全面优化。</p>
+          <div class="example">「第 2 条不错，再给我 3 个同方向但更具体的版本。」<br>—— 比"再写得好一点"有效 10 倍。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">TEMPLATE · 句式模板</span>
+    <h2>5 分钟首条 prompt 万能结构</h2>
+    <div class="quick-template">
+      <h4>BACKGROUND · TASK · CONSTRAINT</h4>
+<pre><span class="label">背景：</span>我是______（角色），现在______（紧急情境）。
+<span class="label">任务：</span>给我______（具体产出，可数）。
+<span class="label">约束：</span>______（字数／风格／格式／不要做什么）。</pre>
+    </div>
+    <p>三句话，每句不超过 20 字，30 秒能打完。这是 5 分钟法的第一秒到第六十秒。</p>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">CASES · 跨行业案例</span>
+    <h2>三个真实的「5 分钟战场」</h2>
+
+    <div class="story-card">
+      <div class="story-card-label">案例 01 · 临时被拉进会</div>
+      <p><span class="story-name">小米 · 项目经理</span></p>
+      <p>会前 5 分钟被拉进一个不熟悉的项目复盘会。她做的事——<strong>把项目周报丢给 AI，一句话："3 句话告诉我这个项目现在的状态、最大风险、下一步关键决策。"</strong> 4 分钟读完输出，1 分钟在脑子里组织措辞。</p>
+      <p>会上她没装专家，只用 AI 给的框架问出 3 个有质量的问题——比硬讲更显专业。</p>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-label">案例 02 · 被点名发言</div>
+      <p><span class="story-name">阿哲 · 销售</span></p>
+      <p>战略会上突然被问："你怎么看明年的市场机会？" 他做不到 5 分钟出完整答案，于是用 30 秒让 AI 列出 3 个方向，自己挑了最贴近一线观察的那一个，<strong>用"我从一线感受出发，先讲一个"的方式开口</strong>——讲完赢得满堂彩。</p>
+      <p>关键不是 AI 帮他写了什么，是 AI 帮他在 30 秒内"找到了切入点"。</p>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-label">案例 03 · 老板问陌生领域</div>
+      <p><span class="story-name">Linda · HR</span></p>
+      <p>老板问："最近的劳动法变化对我们有什么影响？" 她不可能现学现答。她做的是 5 分钟内让 AI 列出"3 个最可能影响我们公司的条款 + 每条 1 句解释"，然后<strong>诚实地说："给我 1 小时我做更准确的回复，初判这 3 条最相关"</strong>——既体面，又给自己留了缓冲。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">RULE · 什么时候必须停</span>
+    <h2>5 分钟法的停止信号</h2>
+    <div class="stop-rule">
+      <h4>出现以下任意一条，立刻停止优化、用现有版本上场：</h4>
+      <ul>
+        <li>已经追问超过 2 轮，输出没有显著变好</li>
+        <li>同一个问题 AI 给出的两版答案差别不大</li>
+        <li>距离截止时间不到 1 分钟</li>
+        <li>你已经能在脑子里"组织出能讲的版本"——AI 的边际收益已经接近零</li>
+      </ul>
+    </div>
+    <div class="pullquote">
+      <p>5 分钟够用版 + 你的现场判断力 ≫ 30 分钟完美版 + 已经迟到的会议。</p>
+    </div>
+  </section>
+
+  <div class="anchor">
+    <div class="anchor-label">ACTION · 5 分钟行动锚点</div>
+    <h3>今天用 5 分钟法处理一件真实小任务</h3>
+    <p>不要等"刚好需要快速产出"的场景——主动找一件，用来练这套节奏。</p>
+    <div class="step">① 选一件你今天可能花 30 分钟做的小事（写邮件／准备 1 段汇报／看一份文件）</div>
+    <div class="step">② 强制自己只用 5 分钟，按 1 分钟说清 → 2 分钟挑能用 → 2 分钟追问</div>
+    <div class="step">③ 记录：实际用了多久？得到的输出是 60 分还是 80 分？</div>
+  </div>
+
+  <div class="footer-note">— 第6节完 · 下一节：工作坊——画出你的个人 AI 任务地图 —</div>
+</div>
+</body>
+</html>
