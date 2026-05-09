@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>第四周·第1节 — AI工作流设计：找到人机协作的最优节点 · 打工人进化论</title>
+<title>第三章·第4节 — AI工作流设计 × Coze实战 · 打工人进化论</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -14,6 +14,7 @@
     --red: #c0392b; --red-light: #fdf0ee;
     --green: #1a6b3c; --green-light: #e8f5ee;
     --purple: #5b3fa0; --purple-light: #f0ecfb;
+    --blue: #1a4a8a; --blue-light: #e8f0fb;
     --border: #e8e4dc;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,181 +23,390 @@
 
   .course-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; padding: 5px 14px; border-radius: 2px; margin-bottom: 32px; }
   .lesson-header { border-top: 3px solid var(--ink); padding-top: 32px; margin-bottom: 48px; }
-  .lesson-week { font-size: 12px; color: var(--ink-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .lesson-week { font-size: 12px; color: var(--ink-muted); letter-spacing: 3px; margin-bottom: 12px; }
   .lesson-title { font-family: 'Noto Serif SC', serif; font-size: 32px; font-weight: 700; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
   .lesson-subtitle { font-size: 16px; color: var(--ink-light); font-weight: 300; border-left: 3px solid var(--amber); padding-left: 14px; margin-top: 16px; }
-  .lesson-meta { display: flex; gap: 24px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); }
+  .lesson-meta { display: flex; gap: 24px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); flex-wrap: wrap; }
 
-  .scene-box { background: var(--ink); color: #fff; border-radius: 12px; padding: 36px 40px; margin: 0 0 48px; position: relative; overflow: hidden; }
-  .scene-box::before { content: '"'; position: absolute; top: -10px; right: 20px; font-family: 'Noto Serif SC', serif; font-size: 140px; color: rgba(255,255,255,0.06); line-height: 1; pointer-events: none; }
-  .scene-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); margin-bottom: 16px; font-weight: 500; }
-  .scene-box p { font-size: 15px; line-height: 2; color: rgba(255,255,255,0.88); margin-bottom: 14px; }
-  .scene-box p:last-child { margin-bottom: 0; }
-  .scene-highlight { background: rgba(245,200,66,0.15); border-left: 3px solid var(--amber-mid); padding: 14px 18px; border-radius: 0 6px 6px 0; margin-top: 20px; font-size: 14px; color: rgba(255,255,255,0.95); font-weight: 500; }
-
-  .section { margin-bottom: 56px; }
-  .section-badge { display: inline-block; background: var(--amber-light); color: var(--amber); font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 2px; margin-bottom: 16px; }
-  h2 { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 20px; line-height: 1.4; }
-  h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 28px 0 12px; }
+  h2.section-title { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 700; color: var(--ink); margin: 56px 0 24px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+  h3.sub-title { font-size: 16px; font-weight: 600; color: var(--ink); margin: 32px 0 14px; }
   p { margin-bottom: 16px; color: var(--ink-light); }
-  strong { color: var(--ink); font-weight: 700; }
+  strong { color: var(--ink); font-weight: 600; }
 
-  .pullquote { border-left: 4px solid var(--amber); background: var(--amber-light); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
-  .pullquote p { font-size: 15px; color: var(--ink); font-weight: 500; margin: 0; line-height: 1.8; }
+  /* 核心概念卡 */
+  .concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0 40px; }
+  @media (max-width: 600px) { .concept-grid { grid-template-columns: 1fr; } }
+  .concept-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+  .concept-card .icon { font-size: 28px; margin-bottom: 12px; }
+  .concept-card .label { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--ink-muted); margin-bottom: 8px; }
+  .concept-card .name { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .concept-card .desc { font-size: 14px; color: var(--ink-light); line-height: 1.7; }
 
-  .step-list { display: flex; flex-direction: column; gap: 14px; margin: 24px 0; }
-  .step-item { display: flex; gap: 18px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
-  .step-num { flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif SC', serif; font-size: 18px; font-weight: 700; }
-  .step-body { flex: 1; }
-  .step-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
-  .step-desc { font-size: 13.5px; color: var(--ink-light); line-height: 1.7; }
+  /* 判断框架 */
+  .decision-box { background: var(--bg-warm); border: 1px solid var(--border); border-radius: 12px; padding: 32px 36px; margin: 24px 0 40px; }
+  .decision-row { display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start; }
+  .decision-row:last-child { margin-bottom: 0; }
+  .decision-label { flex-shrink: 0; width: 56px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+  .label-yes { background: var(--green-light); color: var(--green); }
+  .label-no { background: var(--red-light); color: var(--red); }
+  .decision-text { font-size: 14px; color: var(--ink-light); line-height: 1.7; padding-top: 4px; }
 
-  .timeline { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin: 22px 0; }
-  .timeline-title { font-size: 13px; letter-spacing: 2px; color: var(--ink-muted); margin-bottom: 16px; font-weight: 700; }
-  .time-row { display: grid; grid-template-columns: 80px 30px 1fr; align-items: start; padding: 10px 0; border-bottom: 1px dashed var(--border); }
-  .time-row:last-child { border-bottom: none; }
-  .time-time { font-family: 'Noto Serif SC', serif; font-size: 13px; font-weight: 700; color: var(--ink); }
-  .time-icon { font-size: 14px; color: var(--amber); }
-  .time-task { font-size: 13.5px; color: var(--ink); line-height: 1.7; }
-  .time-task em { color: var(--amber); font-style: normal; font-weight: 600; }
+  /* Coze 功能介绍 */
+  .coze-features { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 24px 0 40px; }
+  @media (max-width: 600px) { .coze-features { grid-template-columns: 1fr; } }
+  .feature-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
+  .feature-card .f-icon { font-size: 24px; margin-bottom: 10px; }
+  .feature-card .f-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .feature-card .f-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
 
-  .story-card { background: var(--bg-warm); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin: 16px 0; }
-  .story-card-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--amber); }
-  .story-card-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .story-card p { font-size: 14px; line-height: 1.85; color: var(--ink-light); margin-bottom: 8px; }
-  .story-card p:last-child { margin-bottom: 0; }
-  .story-name { display: inline-block; background: var(--ink); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 3px; margin-right: 4px; }
+  /* 步骤流程 */
+  .steps { margin: 24px 0 40px; }
+  .step { display: flex; gap: 20px; margin-bottom: 28px; }
+  .step-num { flex-shrink: 0; width: 36px; height: 36px; background: var(--ink); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; margin-top: 2px; }
+  .step-body {}
+  .step-title { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: var(--ink-light); line-height: 1.7; }
+  .step-tip { margin-top: 10px; background: var(--amber-light); border-left: 3px solid var(--amber); padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 13px; color: var(--ink-light); }
 
-  .anchor { background: var(--ink); color: #fff; border-radius: 12px; padding: 28px 32px; margin: 40px 0 0; }
-  .anchor-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); font-weight: 500; margin-bottom: 12px; }
-  .anchor h3 { color: #fff; font-size: 18px; margin: 0 0 10px; }
-  .anchor p { color: rgba(255,255,255,0.82); font-size: 14px; margin: 0; }
-  .anchor .step { margin-top: 14px; padding: 12px 16px; background: rgba(255,255,255,0.06); border-radius: 6px; font-size: 13.5px; color: rgba(255,255,255,0.92); }
+  /* 实战案例 */
+  .case-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin: 0 0 20px; }
+  .case-tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 1px; padding: 3px 10px; border-radius: 20px; margin-bottom: 14px; }
+  .tag-purple { background: var(--purple-light); color: var(--purple); }
+  .tag-teal { background: var(--teal-light); color: var(--teal); }
+  .tag-blue { background: var(--blue-light); color: var(--blue); }
+  .case-title { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+  .case-body { font-size: 14px; color: var(--ink-light); line-height: 1.8; }
+  .flow-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .flow-node { background: var(--bg-warm); border: 1px solid var(--border); border-radius: 6px; padding: 5px 12px; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .flow-arrow { color: var(--ink-muted); font-size: 14px; }
 
-  .footer-note { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); text-align: center; letter-spacing: 1px; }
+  /* 节点设计原则 */
+  .principle-list { margin: 20px 0 40px; }
+  .principle-item { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+  .principle-item:last-child { border-bottom: none; }
+  .p-num { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--ink); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--ink); margin-top: 2px; }
+  .p-body .p-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .p-body .p-desc { font-size: 14px; color: var(--ink-light); line-height: 1.7; }
 
-  @media (max-width: 640px) {
-    .page { padding: 40px 22px 80px; }
-    .lesson-title { font-size: 26px; }
-  }
+  /* 对比表格 */
+  .compare-table { width: 100%; border-collapse: collapse; margin: 24px 0 40px; font-size: 14px; }
+  .compare-table th { background: var(--ink); color: #fff; padding: 12px 16px; text-align: left; font-weight: 500; font-size: 13px; }
+  .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--ink-light); vertical-align: top; }
+  .compare-table tr:nth-child(even) td { background: var(--bg-warm); }
+  .compare-table td:first-child { font-weight: 600; color: var(--ink); }
+
+  /* 行动锚 */
+  .action-box { background: var(--ink); color: #fff; border-radius: 14px; padding: 36px 40px; margin-top: 56px; }
+  .action-box .a-label { font-size: 11px; letter-spacing: 3px; color: rgba(255,255,255,0.5); margin-bottom: 14px; }
+  .action-box .a-title { font-family: 'Noto Serif SC', serif; font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+  .action-items { display: flex; flex-direction: column; gap: 12px; }
+  .action-item { display: flex; gap: 12px; align-items: flex-start; }
+  .action-item .check { flex-shrink: 0; width: 22px; height: 22px; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 4px; margin-top: 2px; }
+  .action-item .text { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.7; }
+
+  .link-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--amber); color: #fff; font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 8px; text-decoration: none; margin-top: 16px; }
+  .link-btn:hover { opacity: 0.9; }
+
+  .callout { border-left: 3px solid var(--teal); background: var(--teal-light); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: var(--ink-light); }
+  .callout strong { color: var(--teal); }
 </style>
 </head>
 <body>
 <div class="page">
-  <span class="course-tag">打工人进化论 · AI 职场实战课</span>
 
-  <header class="lesson-header">
-    <div class="lesson-week">第四周 · 第1节</div>
-    <h1 class="lesson-title">AI 工作流设计</h1>
-    <div class="lesson-subtitle">找到人机协作的最优节点——让 AI 真正嵌入你的日常节奏</div>
+  <div class="course-tag">打工人进化论 · AI职场实战课</div>
+
+  <div class="lesson-header">
+    <div class="lesson-week">第三章：进阶能力 · 第 4 节</div>
+    <h1 class="lesson-title">AI工作流设计<br>× Coze 实战教程</h1>
+    <div class="lesson-subtitle">把「每次都要从头说」变成「一键启动」——用工作流把AI固化进你的日常工作</div>
     <div class="lesson-meta">
-      <span>🎯 系统固化</span>
-      <span>⏱ 阅读约 8 分钟</span>
-      <span>📌 行动锚点：15 分钟</span>
+      <span>⏱ 预计阅读 25 分钟</span>
+      <span>🛠 工具：Coze（扣子）</span>
+      <span>📍 第三章 · 进阶能力</span>
     </div>
-  </header>
-
-  <div class="scene-box">
-    <div class="scene-label">REAL SCENE · 真实场景</div>
-    <p>过去三周，你学了很多用 AI 的方法。但你诚实问自己：<strong>你真的"每天都在用"吗？</strong></p>
-    <p>大多数人的状态是：想到才用，急了才用——一个月用 5 次，又回到老路上。</p>
-    <div class="scene-highlight">问题不是你没学会，是你没把 AI"嵌入"到日常工作流里。下次再"想起来"已经晚了。</div>
   </div>
 
-  <section class="section">
-    <span class="section-badge">CORE INSIGHT · 核心认知</span>
-    <h2>不是"想到才用"，是"到点必用"</h2>
-    <p>新工具变成"日常默认"的关键，不是工具有多好，是你有没有把它放进固定的"触发节点"。</p>
-    <div class="pullquote">
-      <p>"想到才用"= 工具，"到点就用"= 习惯。<br>真正的杠杆点不在每个环节都用 AI——而是找到几个"AI 介入收益最大"的节点，然后把它们固定下来。</p>
+  <!-- ───── 一、为什么需要工作流 ───── -->
+  <h2 class="section-title">一、从「对话」升级到「工作流」</h2>
+
+  <p>大多数人用AI的方式是：打开对话框 → 描述需求 → 得到结果 → 关闭。下次遇到同样的任务，再从头来一遍。</p>
+  <p>这没有问题——但也没有积累。<strong>工作流的本质，是把你已经验证有效的协作模式固化下来</strong>，让下次执行不再需要重新思考。</p>
+
+  <div class="decision-box">
+    <h3 class="sub-title" style="margin-top:0; margin-bottom:20px;">什么时候应该设计工作流？</h3>
+    <div class="decision-row">
+      <div class="decision-label label-yes">✓ 适合</div>
+      <div class="decision-text">这件事你<strong>每周/每月都要做</strong>，流程基本固定（周报、会议纪要、数据汇总）</div>
     </div>
-  </section>
-
-  <section class="section">
-    <span class="section-badge">FRAMEWORK · 思维框架</span>
-    <h2>工作流扫描三步法</h2>
-
-    <div class="step-list">
-      <div class="step-item">
-        <div class="step-num">1</div>
-        <div class="step-body">
-          <div class="step-title">列出一天的工作流程</div>
-          <div class="step-desc">把你"典型一天"做的事大致写下来——8 点到 8 点，每个时段在干什么。不需要精确，看出节奏即可。</div>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">2</div>
-        <div class="step-body">
-          <div class="step-title">标记重复 / 耗时 / 标准化的环节</div>
-          <div class="step-desc">在每件事旁边打标签：是不是每天都做？有没有花超过 30 分钟？输出格式是不是固定的？三项中两项命中——它就是 AI 介入的候选。</div>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">3</div>
-        <div class="step-body">
-          <div class="step-title">设计"AI 默认介入"的触发时机</div>
-          <div class="step-desc">不要等"想用",设计"默认用"。比如："每次会议结束后立刻让 AI 整理纪要"——这就是一个 AI 触发器。</div>
-        </div>
-      </div>
+    <div class="decision-row">
+      <div class="decision-label label-yes">✓ 适合</div>
+      <div class="decision-text">任务需要<strong>多个步骤串联</strong>，每步的输出是下步的输入（调研 → 分析 → 输出报告）</div>
     </div>
-  </section>
-
-  <section class="section">
-    <span class="section-badge">EXAMPLE · 一日工作流示范</span>
-    <h2>一个典型职场人的"AI 触发节点"</h2>
-
-    <div class="timeline">
-      <div class="timeline-title">— A DAY WITH AI · 销售经理的一天 —</div>
-      <div class="time-row"><div class="time-time">09:00</div><div class="time-icon">▶</div><div class="time-task">每天上班第一件事：让 AI 总结昨天的客户邮件，挑出需要今天回的<em>（AI 节点 1）</em></div></div>
-      <div class="time-row"><div class="time-time">10:30</div><div class="time-icon">▶</div><div class="time-task">客户会议前 30 分钟：贴客户档案给 AI，让它给我"今天的关键问题清单"<em>（AI 节点 2）</em></div></div>
-      <div class="time-row"><div class="time-time">12:00</div><div class="time-icon">▶</div><div class="time-task">会议后 15 分钟内：录音转写丢给 AI，整理纪要 + 行动项<em>（AI 节点 3）</em></div></div>
-      <div class="time-row"><div class="time-time">17:00</div><div class="time-icon">▶</div><div class="time-task">下班前：让 AI 帮我把今天和客户的对话整理成 CRM 录入格式<em>（AI 节点 4）</em></div></div>
+    <div class="decision-row">
+      <div class="decision-label label-yes">✓ 适合</div>
+      <div class="decision-text">你希望<strong>其他人也能用</strong>，不想每次都手把手解释怎么用AI</div>
     </div>
-
-    <p>不需要"今天突然想起来用"——每个节点都是"到点必做"。一周后形成习惯，永远不会丢。</p>
-  </section>
-
-  <section class="section">
-    <span class="section-badge">CASES · 跨行业案例</span>
-    <h2>三种角色的"固定 AI 触发点"</h2>
-
-    <div class="story-card">
-      <div class="story-card-label">案例 01 · 销售</div>
-      <p><span class="story-name">小颜 · 客户经理</span></p>
-      <p>她设了 3 个触发点：<strong>(1)</strong> 每次客户会议前 30 分钟用 AI 准备问题清单；<strong>(2)</strong> 每次会议后 15 分钟内 AI 整理纪要；<strong>(3)</strong> 每周五下午用 AI 复盘本周对接。三件事固定到日历，再也不会"忘记"。</p>
+    <div class="decision-row">
+      <div class="decision-label label-no">✗ 不适合</div>
+      <div class="decision-text">一次性的临时任务、需要大量人工判断、输入高度不固定的开放性创作</div>
     </div>
-
-    <div class="story-card">
-      <div class="story-card-label">案例 02 · HR</div>
-      <p><span class="story-name">小坤 · 招聘经理</span></p>
-      <p>招聘流程的固定 AI 节点：<strong>(1)</strong> 每个新岗位 JD 写完后，AI 优化一遍；<strong>(2)</strong> 每次面试前，AI 根据简历准备 5 个针对性问题；<strong>(3)</strong> 每周招聘复盘，AI 整理候选人对比表。流程从不靠记忆。</p>
-    </div>
-
-    <div class="story-card">
-      <div class="story-card-label">案例 03 · 管理者</div>
-      <p><span class="story-name">陈总 · 部门负责人</span></p>
-      <p>每周一早上 8 点，AI 帮她整理上周团队进度 + 生成本周例会议程。每次重要决定前，AI 先列出"利弊 + 盲点"。每月底，AI 帮她写月度部门复盘。这些不是"额外工作"，是嵌入她现有节奏里的固定动作。</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <span class="section-badge">RULE OF THUMB · 一句话原则</span>
-    <h2>固定的触发器，比再多的好 prompt 更值钱</h2>
-    <div class="pullquote">
-      <p>每周用 AI 50 次的"散用"用户 vs 每周固定用 AI 5 次的"流程化"用户——<br>后者的产出质量稳得多。<br>会用 AI 的人，最终都在设计自己的工作流。</p>
-    </div>
-  </section>
-
-  <div class="anchor">
-    <div class="anchor-label">ACTION · 15 分钟行动锚点</div>
-    <h3>设计一周中你的 3 个"AI 固定介入点"</h3>
-    <p>不要太多——3 个最有用的就够。</p>
-    <div class="step">① 列出本周固定要做的工作（每天/每周节奏的事）</div>
-    <div class="step">② 选 3 件最值得 AI 介入的——重复 + 耗时 + 标准化</div>
-    <div class="step">③ 给每件事写明"AI 介入触发时间"——并放进日历</div>
   </div>
 
-  <div class="footer-note">— 第四周·第1节完 · 下一节：个人知识库 · 让你的 AI 资产沉淀下来 —</div>
+  <!-- ───── 二、Coze 是什么 ───── -->
+  <h2 class="section-title">二、Coze（扣子）是什么</h2>
+
+  <p><strong>Coze</strong> 是字节跳动推出的 AI Bot 与工作流搭建平台，中文版地址 <code style="background:var(--bg-warm);padding:2px 6px;border-radius:4px;">coze.cn</code>，无需写代码，通过可视化界面就能搭建 AI 机器人和自动化工作流。</p>
+
+  <div class="callout">
+    <strong>定位：</strong>如果说 ChatGPT 是一个聪明的助手，Coze 是让你把这个助手「装进一条流水线」的工厂——你定义好流程，AI 按流程执行，结果稳定可复现。
+  </div>
+
+  <div class="coze-features">
+    <div class="feature-card">
+      <div class="f-icon">🤖</div>
+      <div class="f-name">Bot 创建</div>
+      <div class="f-desc">设定角色、性格、知识库，打造专属AI助手</div>
+    </div>
+    <div class="feature-card">
+      <div class="f-icon">🔄</div>
+      <div class="f-name">工作流</div>
+      <div class="f-desc">可视化拖拽搭建多步骤自动化任务链</div>
+    </div>
+    <div class="feature-card">
+      <div class="f-icon">📚</div>
+      <div class="f-name">知识库</div>
+      <div class="f-desc">上传文档、FAQ，让AI基于你的内容回答</div>
+    </div>
+    <div class="feature-card">
+      <div class="f-icon">🔌</div>
+      <div class="f-name">插件市场</div>
+      <div class="f-desc">接入搜索、日历、数据库等外部工具</div>
+    </div>
+    <div class="feature-card">
+      <div class="f-icon">🖼️</div>
+      <div class="f-name">图像流</div>
+      <div class="f-desc">处理图片输入/输出的多模态工作流</div>
+    </div>
+    <div class="feature-card">
+      <div class="f-icon">🚀</div>
+      <div class="f-name">发布渠道</div>
+      <div class="f-desc">一键发布到飞书、微信、网页等平台</div>
+    </div>
+  </div>
+
+  <!-- ───── 三、上手教程 ───── -->
+  <h2 class="section-title">三、从零搭建你的第一个工作流</h2>
+  <p>以「<strong>会议纪要生成器</strong>」为例，完整演示如何在 Coze 搭建一个可复用的工作流。</p>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">注册并进入 Coze</div>
+        <div class="step-desc">访问 <strong>coze.cn</strong>，用手机号或字节账号注册。进入后台后，点击左侧「工作流」→「创建工作流」。</div>
+        <div class="step-tip">💡 建议在「个人空间」下新建，方便管理；团队场景可新建「团队空间」共享。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">定义输入节点</div>
+        <div class="step-desc">工作流以「开始」节点开始。点击节点，设置<strong>输入变量</strong>：本例设置一个文本变量 <code style="background:var(--bg-warm);padding:1px 5px;border-radius:3px;">meeting_notes</code>（用户粘贴进来的原始会议记录）。</div>
+        <div class="step-tip">💡 变量命名要语义清晰，后续节点引用时更直观。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">添加 LLM 节点（核心处理）</div>
+        <div class="step-desc">拖入「大模型」节点，选择模型（推荐 Doubao-pro 或 GPT-4o）。在 Prompt 区填写：</div>
+        <div style="background:var(--bg-warm);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-top:12px;font-size:13px;line-height:1.8;color:var(--ink-light);">
+          你是一位专业的会议助理。请将以下会议记录整理成结构化纪要，包含：<br>
+          1. 会议主题与时间<br>
+          2. 与会人员<br>
+          3. 核心讨论要点（不超过5条）<br>
+          4. 决策结论<br>
+          5. 行动项（负责人 + 截止时间）<br><br>
+          会议记录：<strong>{{meeting_notes}}</strong>
+        </div>
+        <div class="step-tip">💡 用 <code style="background:var(--bg-warm);padding:1px 5px;border-radius:3px;">{{变量名}}</code> 引用上游节点的输入值。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">添加输出节点</div>
+        <div class="step-desc">拖入「结束」节点，将 LLM 节点的输出变量连接到结束节点的返回字段。这就是工作流最终呈现给用户的内容。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">测试 → 发布</div>
+        <div class="step-desc">点击右上角「试运行」，粘贴一段模拟会议记录测试效果。确认输出符合预期后，点击「发布」。发布后可以<strong>绑定到 Bot</strong>，通过对话界面直接触发这个工作流。</div>
+        <div class="step-tip">💡 发布前多测试几条边界输入，比如空内容、极短内容、格式混乱的记录。</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ───── 四、三个职场实战案例 ───── -->
+  <h2 class="section-title">四、三个可直接复用的职场工作流</h2>
+
+  <div class="case-card">
+    <div class="case-tag tag-purple">案例 01 · 内容生产</div>
+    <div class="case-title">周报自动生成器</div>
+    <div class="case-body">输入本周完成的事项清单（可以是乱序碎片），自动输出结构化周报：工作进展 / 关键成果 / 问题与风险 / 下周计划。</div>
+    <div class="flow-row">
+      <div class="flow-node">输入：本周事项</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">LLM 整理分类</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">LLM 润色表达</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">输出：周报正文</div>
+    </div>
+  </div>
+
+  <div class="case-card">
+    <div class="case-tag tag-teal">案例 02 · 信息处理</div>
+    <div class="case-title">竞品动态监测摘要</div>
+    <div class="case-body">结合「搜索插件」，定期抓取指定竞品关键词的最新资讯，由 LLM 提炼关键动态，生成一页摘要推送到飞书群。</div>
+    <div class="flow-row">
+      <div class="flow-node">触发：定时/手动</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">搜索插件</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">LLM 筛选摘要</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">飞书消息推送</div>
+    </div>
+  </div>
+
+  <div class="case-card">
+    <div class="case-tag tag-blue">案例 03 · 沟通辅助</div>
+    <div class="case-title">对外邮件多版本生成</div>
+    <div class="case-body">输入邮件核心意图（想表达什么、给谁看、期望对方做什么），自动生成三个语气版本：正式版 / 友好版 / 简洁版，供选用。</div>
+    <div class="flow-row">
+      <div class="flow-node">输入：意图描述</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">并行分支 ×3</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">合并输出</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">三版本对比</div>
+    </div>
+  </div>
+
+  <!-- ───── 五、工作流设计原则 ───── -->
+  <h2 class="section-title">五、设计一个好工作流的四个原则</h2>
+
+  <div class="principle-list">
+    <div class="principle-item">
+      <div class="p-num">1</div>
+      <div class="p-body">
+        <div class="p-title">一个工作流只做一件事</div>
+        <div class="p-desc">不要把「调研 + 分析 + 写报告 + 排版」塞进一个工作流。拆成四个，需要时串联调用。小工作流更稳定，也更容易排查问题。</div>
+      </div>
+    </div>
+    <div class="principle-item">
+      <div class="p-num">2</div>
+      <div class="p-body">
+        <div class="p-title">输入要简单，输出要具体</div>
+        <div class="p-desc">如果触发工作流需要填写10个字段，你用两次就不想用了。设计目标：输入一段话或一个文件，输出一个可以直接用的结果。</div>
+      </div>
+    </div>
+    <div class="principle-item">
+      <div class="p-num">3</div>
+      <div class="p-body">
+        <div class="p-title">每个 LLM 节点只负责一个认知任务</div>
+        <div class="p-desc">「提取信息」和「分析判断」是两种不同的思维操作，分开放在两个节点比混在一个 Prompt 里更稳定，也更方便调优。</div>
+      </div>
+    </div>
+    <div class="principle-item">
+      <div class="p-num">4</div>
+      <div class="p-body">
+        <div class="p-title">留一个「人工介入点」</div>
+        <div class="p-desc">在关键判断节点加一个「人工确认」步骤，不要让工作流全自动执行到发布/发送。自动化节省时间，但不能替代你的判断。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── 六、Coze vs 直接对话 ───── -->
+  <h2 class="section-title">六、Coze 工作流 vs 直接对话，怎么选？</h2>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>维度</th>
+        <th>直接对话 AI</th>
+        <th>Coze 工作流</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>上手难度</td>
+        <td>立刻能用，无学习成本</td>
+        <td>需要 30-60 分钟学习搭建</td>
+      </tr>
+      <tr>
+        <td>适合任务</td>
+        <td>一次性、探索性、需要来回对话的任务</td>
+        <td>重复性、流程固定、多步骤的任务</td>
+      </tr>
+      <tr>
+        <td>结果稳定性</td>
+        <td>每次可能不一样</td>
+        <td>Prompt 固定后结果高度一致</td>
+      </tr>
+      <tr>
+        <td>协作分享</td>
+        <td>难以共享给他人直接使用</td>
+        <td>发布后团队成员一键启动</td>
+      </tr>
+      <tr>
+        <td>长期价值</td>
+        <td>每次重新投入时间</td>
+        <td>一次搭建，长期复用</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>建议路径：</strong>先用直接对话验证一个任务「AI真的能做好」，再把验证过的流程迁移到 Coze 固化。不要一开始就搭工作流——你不知道 Prompt 对不对，搭了也是白搭。
+  </div>
+
+  <!-- ───── 行动锚 ───── -->
+  <div class="action-box">
+    <div class="a-label">ACTION ANCHOR · 本节练习</div>
+    <div class="a-title">这周完成一个属于你的工作流</div>
+    <div class="action-items">
+      <div class="action-item">
+        <div class="check"></div>
+        <div class="text">打开 coze.cn，注册账号，浏览一遍界面结构（5分钟）</div>
+      </div>
+      <div class="action-item">
+        <div class="check"></div>
+        <div class="text">找出你工作中<strong>每周重复做一次</strong>的某件事（周报、日报、会议纪要、数据整理均可）</div>
+      </div>
+      <div class="action-item">
+        <div class="check"></div>
+        <div class="text">按照本节教程，搭建一个最简单的单 LLM 节点工作流，先跑通再说</div>
+      </div>
+      <div class="action-item">
+        <div class="check"></div>
+        <div class="text">实际用这个工作流执行一次真实任务，记录比直接对话节省了多少时间</div>
+      </div>
+    </div>
+    <a class="link-btn" href="https://www.coze.cn" target="_blank">→ 打开 Coze 开始搭建</a>
+  </div>
+
 </div>
 </body>
 </html>
