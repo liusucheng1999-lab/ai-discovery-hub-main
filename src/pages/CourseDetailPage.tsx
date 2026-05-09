@@ -113,10 +113,15 @@ export default function CourseDetailPage() {
       setError("");
       return;
     }
-    if (url.includes("feishu.cn") || url.includes("larksuite.com")) {
+    if (
+      url.includes("feishu.cn") ||
+      url.includes("larksuite.com") ||
+      url.startsWith("/") ||
+      url.startsWith("https://")
+    ) {
       setError("");
     } else {
-      setError("请输入有效的飞书文档链接");
+      setError("请输入飞书链接、HTTPS 链接或以 / 开头的本地 HTML 路径");
     }
   };
 
@@ -227,6 +232,7 @@ export default function CourseDetailPage() {
         section_label: lessonForm.section_label.trim() || null,
         description: lessonForm.description.trim() || null,
         doc_embed_url: lessonForm.doc_embed_url.trim() || null,
+        week_title: activeLesson.week_title,
       };
 
       const { error } = await supabaseWithAuth
@@ -519,10 +525,20 @@ export default function CourseDetailPage() {
                   </FormField>
                 </div>
                 <div className="w-full">
-                  <FormField label="文档链接（/lesson.html 或飞书）" error={docUrlError}>
+                  <FormField label="课节描述">
+                    <textarea
+                      value={lessonForm.description}
+                      onChange={(e) => setLessonForm((prev) => ({ ...prev, description: e.target.value }))}
+                      className={`${inputClass} min-h-[64px] resize-none`}
+                      placeholder="简短描述本课节内容（选填）"
+                    />
+                  </FormField>
+                </div>
+                <div className="w-full">
+                  <FormField label="文档链接（/lesson.html、飞书或 HTTPS）" error={docUrlError}>
                     <input type="text" value={lessonForm.doc_embed_url}
                       onChange={(e) => { setLessonForm((prev) => ({ ...prev, doc_embed_url: e.target.value })); validateDocUrl(e.target.value, setDocUrlError); }}
-                      className={inputClass} placeholder="/lesson1.html 或 https://xxx.feishu.cn/..." />
+                      className={inputClass} placeholder="/lessons/w1l1.html 或 https://xxx.feishu.cn/..." />
                   </FormField>
                 </div>
               </div>
