@@ -14,7 +14,6 @@ import Index from "./pages/Index";
 import CategoryPage from "./pages/CategoryPage";
 import CourseDetailPage from "./pages/CourseDetailPage";
 import ToolDetailPage from "./pages/ToolDetailPage";
-import LessonDetailPage from "./pages/LessonDetailPage";
 import SubmitTool from "./pages/SubmitTool";
 import Login from "./pages/Login";
 import SetupAdmin from "./pages/SetupAdmin";
@@ -54,7 +53,6 @@ const App = () => {
                       <Route path="/admin" element={<Admin />} />
                       <Route path="/knowledge" element={<Knowledge />} />
                       <Route path="/knowledge/course/:courseId" element={<CourseDetailPage />} />
-                      <Route path="/knowledge/lesson/:id" element={<LessonDetailPage />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </div>
