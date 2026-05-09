@@ -10,6 +10,9 @@ import {
   Plus,
   Save,
   Pencil,
+  Trash2,
+  ArrowUp,
+  ArrowDown,
 } from "lucide-react";
 import { supabase, supabaseWithAuth } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -314,6 +317,51 @@ export default function CourseDetailPage() {
     }
   };
 
+  const deleteLesson = async (lessonId: string) => {
+    if (!isLoggedIn) return;
+    if (!window.confirm("确定删除这节课？此操作不可恢复。")) return;
+    try {
+      const { error } = await supabaseWithAuth.from("knowledge_lessons").delete().eq("id", lessonId);
+      if (error) throw error;
+      const nextLessons = lessons.filter((l) => l.id !== lessonId);
+      setLessons(nextLessons);
+      if (activeLesson?.id === lessonId) {
+        const next = nextLessons[0] || null;
+        setActiveLesson(next);
+        syncLessonForm(next);
+      }
+    } catch (error: any) {
+      alert(`删除失败：${error.message}`);
+    }
+  };
+
+  const moveLesson = async (lessonId: string, direction: "up" | "down") => {
+    if (!isLoggedIn) return;
+    const sorted = [...lessons].sort((a, b) => a.sort_order - b.sort_order);
+    const idx = sorted.findIndex((l) => l.id === lessonId);
+    const swapIdx = direction === "up" ? idx - 1 : idx + 1;
+    if (swapIdx < 0 || swapIdx >= sorted.length) return;
+
+    const a = sorted[idx];
+    const b = sorted[swapIdx];
+    const aOrder = a.sort_order;
+    const bOrder = b.sort_order;
+
+    try {
+      await supabaseWithAuth.from("knowledge_lessons").update({ sort_order: bOrder }).eq("id", a.id);
+      await supabaseWithAuth.from("knowledge_lessons").update({ sort_order: aOrder }).eq("id", b.id);
+      setLessons((prev) =>
+        prev.map((l) => {
+          if (l.id === a.id) return { ...l, sort_order: bOrder };
+          if (l.id === b.id) return { ...l, sort_order: aOrder };
+          return l;
+        })
+      );
+    } catch (error: any) {
+      alert(`排序失败：${error.message}`);
+    }
+  };
+
   useEffect(() => {
     const fetchCourseData = async () => {
       if (!courseId) return;
@@ -433,37 +481,67 @@ export default function CourseDetailPage() {
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <div className="mt-0.5 ml-2 space-y-0.5 border-l border-border pl-3">
-                      {sectionLessons.map((lesson) => {
+                      {sectionLessons.map((lesson, lessonIdx) => {
                         const isActive = activeLesson?.id === lesson.id;
+                        const sorted = [...lessons].sort((a, b) => a.sort_order - b.sort_order);
+                        const globalIdx = sorted.findIndex((l) => l.id === lesson.id);
                         return (
-                          <button
-                            key={lesson.id}
-                            onClick={() => {
-                              setActiveLesson(lesson);
-                              setEditPanelOpen(false);
-                            }}
-                            className={`w-full text-left px-2 py-2 rounded-md transition-colors text-sm ${
-                              isActive
-                                ? "bg-primary/10 text-primary font-medium"
-                                : "text-foreground hover:bg-muted"
-                            }`}
-                          >
-                            <div className="flex items-start gap-2">
-                              <FileText
-                                className={`h-3.5 w-3.5 flex-shrink-0 mt-0.5 ${
-                                  isActive ? "text-primary" : "text-muted-foreground"
-                                }`}
-                              />
-                              <div className="min-w-0">
-                                <div className="leading-snug break-words text-sm">{lesson.title}</div>
-                                {lesson.description && (
-                                  <div className="text-xs text-muted-foreground mt-0.5 line-clamp-2 break-words">
-                                    {lesson.description}
-                                  </div>
-                                )}
+                          <div key={lesson.id} className="group relative">
+                            <button
+                              onClick={() => {
+                                setActiveLesson(lesson);
+                                setEditPanelOpen(false);
+                              }}
+                              className={`w-full text-left px-2 py-2 rounded-md transition-colors text-sm ${
+                                isActive
+                                  ? "bg-primary/10 text-primary font-medium"
+                                  : "text-foreground hover:bg-muted"
+                              }`}
+                            >
+                              <div className="flex items-start gap-2">
+                                <FileText
+                                  className={`h-3.5 w-3.5 flex-shrink-0 mt-0.5 ${
+                                    isActive ? "text-primary" : "text-muted-foreground"
+                                  }`}
+                                />
+                                <div className="min-w-0 pr-6">
+                                  <div className="leading-snug break-words text-sm">{lesson.title}</div>
+                                  {lesson.description && (
+                                    <div className="text-xs text-muted-foreground mt-0.5 line-clamp-2 break-words">
+                                      {lesson.description}
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                          </button>
+                            </button>
+                            {isLoggedIn && (
+                              <div className="absolute right-1 top-1 hidden group-hover:flex flex-col gap-0.5">
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); moveLesson(lesson.id, "up"); }}
+                                  disabled={globalIdx === 0}
+                                  className="p-0.5 rounded hover:bg-muted text-muted-foreground disabled:opacity-30 disabled:cursor-not-allowed"
+                                  title="上移"
+                                >
+                                  <ArrowUp className="h-3 w-3" />
+                                </button>
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); moveLesson(lesson.id, "down"); }}
+                                  disabled={globalIdx === sorted.length - 1}
+                                  className="p-0.5 rounded hover:bg-muted text-muted-foreground disabled:opacity-30 disabled:cursor-not-allowed"
+                                  title="下移"
+                                >
+                                  <ArrowDown className="h-3 w-3" />
+                                </button>
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); deleteLesson(lesson.id); }}
+                                  className="p-0.5 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive"
+                                  title="删除"
+                                >
+                                  <Trash2 className="h-3 w-3" />
+                                </button>
+                              </div>
+                            )}
+                          </div>
                         );
                       })}
                     </div>
