@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>预备课 — AI职场实战课</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1814;
+    --ink-light: #4a4540;
+    --ink-muted: #8a8480;
+    --bg: #faf9f6;
+    --bg-warm: #f4f1eb;
+    --bg-card: #ffffff;
+    --amber: #d4820a;
+    --amber-light: #fdf3e0;
+    --amber-mid: #f5c842;
+    --teal: #0a6e6e;
+    --teal-light: #e0f2f1;
+    --red: #c0392b;
+    --red-light: #fdf0ee;
+    --green: #1a6b3c;
+    --green-light: #e8f5ee;
+    --purple: #5b3fa0;
+    --purple-light: #f0ecfb;
+    --border: #e8e4dc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 48px 100px;
+  }
+
+  /* ─── Header ─── */
+  .course-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+  }
+
+  .lesson-header {
+    border-top: 3px solid var(--ink);
+    padding-top: 32px;
+    margin-bottom: 48px;
+  }
+
+  .lesson-week {
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+
+  .lesson-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .lesson-subtitle {
+    font-size: 16px;
+    color: var(--ink-light);
+    font-weight: 300;
+    border-left: 3px solid var(--amber);
+    padding-left: 14px;
+    margin-top: 16px;
+  }
+
+  .lesson-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--ink-muted);
+    flex-wrap: wrap;
+  }
+
+  /* ─── Scene ─── */
+  .scene-box {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin: 0 0 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scene-box::before {
+    content: '"';
+    position: absolute;
+    top: -10px; right: 20px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 140px;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .scene-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--amber-mid);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .scene-box p {
+    font-size: 15px;
+    line-height: 2;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 14px;
+  }
+
+  .scene-box p:last-child { margin-bottom: 0; }
+
+  .scene-quote {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Noto Serif SC', serif;
+    background: rgba(255,255,255,0.07);
+    border-left: 3px solid var(--amber-mid);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 12px 0;
+    line-height: 1.8;
+  }
+
+  /* ─── Section ─── */
+  .section { margin-bottom: 52px; }
+
+  .section-badge {
+    display: inline-block;
+    background: var(--amber-light);
+    color: var(--amber);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 26px 0 10px;
+  }
+
+  p { margin-bottom: 16px; color: var(--ink-light); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 36px 0;
+    color: var(--ink-muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .pullquote {
+    border-left: 4px solid var(--amber);
+    background: var(--amber-light);
+    padding: 18px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+  }
+  .pullquote p {
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.8;
+  }
+
+  .callout {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 15px 18px;
+    border-radius: 8px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    line-height: 1.75;
+  }
+  .callout.tip     { background: var(--teal-light);    border-left: 3px solid var(--teal);    color: var(--teal); }
+  .callout.warn    { background: var(--amber-light);   border-left: 3px solid var(--amber);   color: #7a4f00; }
+  .callout.insight { background: var(--purple-light);  border-left: 3px solid var(--purple);  color: var(--purple); }
+  .callout-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ─── 6 things numbered cards ─── */
+  .thing-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    background: var(--bg-card);
+  }
+
+  .thing-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-warm);
+  }
+
+  .thing-num {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .thing-num.n1 { background: var(--amber-light);  color: var(--amber); }
+  .thing-num.n2 { background: var(--teal-light);   color: var(--teal); }
+  .thing-num.n3 { background: var(--purple-light); color: var(--purple); }
+  .thing-num.n4 { background: var(--red-light);    color: var(--red); }
+  .thing-num.n5 { background: var(--green-light);  color: var(--green); }
+  .thing-num.n6 { background: #f0f4ff;             color: #3355bb; }
+
+  .thing-title { font-size: 17px; font-weight: 700; color: var(--ink); line-height: 1.4; }
+  .thing-sub   { font-size: 12px; color: var(--ink-muted); margin-top: 3px; }
+
+  .thing-body { padding: 24px 28px; }
+  .thing-body p { font-size: 14.5px; color: var(--ink-light); line-height: 1.9; margin-bottom: 14px; }
+  .thing-body p:last-child { margin-bottom: 0; }
+
+  /* ─── Training stages ─── */
+  .stage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .stage-card {
+    border-radius: 10px;
+    padding: 18px 20px;
+    border: 1px solid var(--border);
+  }
+  .stage-card.s1 { background: var(--teal-light); border-color: #b2dfdb; }
+  .stage-card.s2 { background: var(--purple-light); border-color: #d4c8f5; }
+
+  .stage-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .stage-card.s1 .stage-label { color: var(--teal); }
+  .stage-card.s2 .stage-label { color: var(--purple); }
+
+  .stage-name { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .stage-desc { font-size: 13px; color: var(--ink-light); line-height: 1.7; }
+
+  /* ─── Product tables ─── */
+  .product-section { margin: 16px 0; }
+
+  .product-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .product-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+
+  .product-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .product-company {
+    font-size: 11px;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+
+  .product-desc {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.6;
+  }
+
+  .product-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-top: 6px;
+  }
+  .product-tag.intl { background: var(--amber-light); color: var(--amber); }
+  .product-tag.cn   { background: var(--teal-light);  color: var(--teal); }
+  .product-tag.hot  { background: var(--red-light);   color: var(--red); }
+
+  /* ─── Generation flow ─── */
+  .gen-flow {
+    background: var(--bg-warm);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 1.8;
+  }
+
+  .gen-flow-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+
+  .gen-steps {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .gen-step {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 14px;
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+
+  .gen-arrow { color: var(--amber); font-weight: 700; font-size: 16px; }
+
+  /* ─── Impact cards ─── */
+  .impact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .impact-item {
+    display: flex;
+    gap: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    align-items: flex-start;
+  }
+
+  .impact-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .impact-icon.i1 { background: var(--red-light); }
+  .impact-icon.i2 { background: var(--amber-light); }
+  .impact-icon.i3 { background: var(--purple-light); }
+
+  .impact-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
+  .impact-desc  { font-size: 13.5px; color: var(--ink-light); line-height: 1.75; margin: 0; }
+
+  /* ─── Agent compare ─── */
+  .agent-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .agent-col {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .agent-col-header {
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .agent-col.model .agent-col-header { background: var(--bg-warm); color: var(--ink); }
+  .agent-col.agent .agent-col-header { background: var(--teal);    color: #fff; }
+
+  .agent-col-body { padding: 16px 18px; }
+
+  .agent-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--ink-light);
+    border-bottom: 1px solid var(--border);
+    line-height: 1.6;
+  }
+  .agent-feature:last-child { border-bottom: none; }
+
+  .agent-feature .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .agent-col.model .dot { background: var(--ink-muted); }
+  .agent-col.agent .dot { background: var(--teal); }
+
+  /* ─── Essence box ─── */
+  .essence-box {
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin: 24px 0;
+    color: #fff;
+  }
+
+  .essence-box h3 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    color: var(--amber-mid);
+    margin-bottom: 20px;
+  }
+
+  .essence-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .essence-row:last-child { border-bottom: none; }
+
+  .essence-cause {
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    flex-shrink: 0;
+    width: 200px;
+  }
+
+  .essence-effect {
+    color: rgba(255,255,255,0.9);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .essence-arrow { color: var(--amber-mid); flex-shrink: 0; margin-top: 2px; }
+
+  /* ─── Summary table ─── */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 13.5px;
+  }
+
+  .summary-table th {
+    background: var(--ink);
+    color: var(--amber-mid);
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  .summary-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink-light);
+    line-height: 1.7;
+  }
+
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table tr:nth-child(even) td { background: var(--bg-warm); }
+
+  .summary-table td:first-child {
+    font-weight: 700;
+    color: var(--ink);
+    white-space: nowrap;
+    width: 30%;
+  }
+
+  /* ─── Closing ─── */
+  .closing-box {
+    background: var(--amber-light);
+    border: 1px solid #f0d080;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .closing-box p {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.8;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .closing-sub {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-top: 10px !important;
+    font-family: 'Noto Sans SC', sans-serif !important;
+    font-weight: 400 !important;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="course-tag">AI 职场实战课</div>
+
+  <div class="lesson-header">
+    <div class="lesson-week">预备课 · 第 0 节</div>
+    <h1 class="lesson-title">你每天在用的 AI，到底是什么东西？</h1>
+    <div class="lesson-subtitle">6 个基础概念，10 分钟建立底层认知</div>
+    <div class="lesson-meta">
+      <span>📖 阅读约 10 分钟</span>
+      <span>🧱 建立底层认知</span>
+      <span>💡 读完再开始第一周</span>
+    </div>
+  </div>
+
+  <!-- Opening -->
+  <div class="scene-box">
+    <div class="scene-label">▎ 开篇</div>
+    <p>你每天打开 ChatGPT 或者 Kimi，输入一段话，它回你一段话。</p>
+    <p>你知道怎么用它，但你可能从来没想过——</p>
+    <div class="scene-quote">它凭什么能回答你？它"知道"什么？它在用什么方式处理你说的话？</div>
+    <p>不了解这些，不影响你今天用 AI。但了解了这些，你会知道为什么 AI 在某些地方特别强，在某些地方又特别不可靠——<strong style="color:#fff;">这是用好 AI 最重要的底层认知。</strong></p>
+    <p>这节课不讲技术，不讲代码，只讲你作为职场人需要知道的 6 件事。</p>
+  </div>
+
+  <!-- 6 Things -->
+
+  <!-- Thing 1 -->
+  <div class="thing-card">
+    <div class="thing-header">
+      <div class="thing-num n1">一</div>
+      <div>
+        <div class="thing-title">AI 是什么——不是机器人，不是数据库</div>
+        <div class="thing-sub">先破掉两个最常见的误解</div>
+      </div>
+    </div>
+    <div class="thing-body">
+      <p>很多人对 AI 有两种常见误解：</p>
+      <p><strong>误解一：AI 是科幻片里的机器人</strong>，有自己的意识和情感，在某个地方"活着"。</p>
+      <p><strong>误解二：AI 是一个超级大的数据库</strong>，你问它问题，它从里面找答案告诉你。</p>
+      <p>这两种都不对。</p>
+      <p>我们现在用的 AI，准确的名字叫<strong>大语言模型（LLM，Large Language Model）</strong>，本质是一个经过海量训练的<strong>预测系统</strong>。用一句话描述它在做的事：</p>
+
+      <div class="pullquote">
+        <p>给定你说的这些话，预测接下来最可能出现的是什么词。</p>
+      </div>
+
+      <p>就这一件事。但当这个机制的规模足够大、训练数据足够多的时候，它产生了我们今天看到的几乎所有能力——写作、分析、翻译、编程、对话……</p>
+      <p><strong>记住这个本质，后面很多事情就好理解了。</strong></p>
+    </div>
+  </div>
+
+  <!-- Thing 2 -->
+  <div class="thing-card">
+    <div class="thing-header">
+      <div class="thing-num n2">二</div>
+      <div>
+        <div class="thing-title">大模型是怎么训练出来的</div>
+        <div class="thing-sub">理解这个，就知道为什么 AI 既聪明又会"胡说"</div>
+      </div>
+    </div>
+    <div class="thing-body">
+      <p>训练分两个阶段：</p>
+
+      <div class="stage-grid">
+        <div class="stage-card s1">
+          <div class="stage-label">STAGE 01</div>
+          <div class="stage-name">海量阅读</div>
+          <div class="stage-desc">读所有能找到的文字——网页、书籍、论文、新闻、代码……读了几万亿个词之后，开始能预测什么词跟什么词在一起出现。这叫<strong>预训练</strong>。</div>
+        </div>
+        <div class="stage-card s2">
+          <div class="stage-label">STAGE 02</div>
+          <div class="stage-name">人类来纠正</div>
+          <div class="stage-desc">让大量人类评价模型的输出，哪个好哪个差，用反馈继续训练，让模型更符合人类期望。这叫 <strong>RLHF</strong>（基于人类反馈的强化学习）。</div>
+        </div>
+      </div>
+
+      <p>这个训练过程带来一个关键限制：</p>
+
+      <div class="callout warn">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>AI 的知识有截止日期。</strong>模型只"读过"训练截止日期之前的内容，之后发生的事它不知道。这就是为什么你问 AI 今天的股价或最新政策，它要么说不知道，要么给你一个过时的答案。</div>
+      </div>
+
+      <p>同样地，它没读过的，它不知道；它读过但信息有误的，它也会照样输出。</p>
+    </div>
+  </div>
+
+  <!-- Thing 3 -->
+  <div class="thing-card">
+    <div class="thing-header">
+      <div class="thing-num n3">三</div>
+      <div>
+        <div class="thing-title">我们现在在用哪些产品</div>
+        <div class="thing-sub">市面上这么多 AI，到底有什么区别</div>
+      </div>
+    </div>
+    <div class="thing-body">
+      <div class="product-section">
+        <div class="product-label">国际主流</div>
+        <div class="product-grid">
+          <div class="product-card">
+            <div class="product-name">ChatGPT</div>
+            <div class="product-company">OpenAI · 美国</div>
+            <div class="product-desc">最早出圈，使用最广泛，功能生态丰富</div>
+            <div class="product-tag intl">国际</div>
+          </div>
+          <div class="product-card">
+            <div class="product-name">Claude</div>
+            <div class="product-company">Anthropic · 美国</div>
+            <div class="product-desc">长文处理能力强，逻辑结构清晰</div>
+            <div class="product-tag intl">国际</div>
+          </div>
+          <div class="product-card">
+            <div class="product-name">Gemini</div>
+            <div class="product-company">Google · 美国</div>
+            <div class="product-desc">与 Google 办公生态深度集成</div>
+            <div class="product-tag intl">国际</div>
+          </div>
+        </div>
+
+        <div class="product-label">国内主流</div>
+        <div class="product-grid">
+          <div class="product-card">
+            <div class="product-name">DeepSeek</div>
+            <div class="product-company">深度求索 · 中国</div>
+            <div class="product-desc">近期性能突出，开源，免费使用</div>
+            <div class="product-tag hot">🔥 热门</div>
+          </div>
+          <div class="product-card">
+            <div class="product-name">豆包</div>
+            <div class="product-company">字节跳动 · 中国</div>
+            <div class="product-desc">日常对话流畅，端内生态完整</div>
+            <div class="product-tag cn">国内</div>
+          </div>
+          <div class="product-card">
+            <div class="product-name">Kimi</div>
+            <div class="product-company">月之暗面 · 中国</div>
+            <div class="product-desc">长文档处理能力强，支持上传文件</div>
+            <div class="product-tag cn">国内</div>
+          </div>
+          <div class="product-card">
+            <div class="product-name">通义</div>
+            <div class="product-company">阿里 · 中国</div>
+            <div class="product-desc">与阿里办公生态结合紧密</div>
+            <div class="product-tag cn">国内</div>
+          </div>
+          <div class="product-card">
+            <div class="product-name">文心一言</div>
+            <div class="product-company">百度 · 中国</div>
+            <div class="product-desc">中文语境理解较好</div>
+            <div class="product-tag cn">国内</div>
+          </div>
+        </div>
+
+        <div class="product-label">嵌入式工具（集成进你已有的软件）</div>
+        <div class="product-grid">
+          <div class="product-card">
+            <div class="product-name">Microsoft Copilot</div>
+            <div class="product-desc">嵌入 Word、Excel、Teams，边工作边用</div>
+          </div>
+          <div class="product-card">
+            <div class="product-name">WPS AI</div>
+            <div class="product-desc">嵌入 WPS 文档，国内用户友好</div>
+          </div>
+          <div class="product-card">
+            <div class="product-name">飞书 / 钉钉 AI</div>
+            <div class="product-desc">嵌入协作工具，会议纪要、消息处理</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">✓</span>
+        <span><strong>不需要每个都学。</strong>选一个用得顺手的深度掌握，比浅尝十个效果好得多。入门首选 DeepSeek 或豆包，上手门槛低，免费可用。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thing 4 -->
+  <div class="thing-card">
+    <div class="thing-header">
+      <div class="thing-num n4">四</div>
+      <div>
+        <div class="thing-title">AI 是怎么"告诉你答案"的</div>
+        <div class="thing-sub">理解这个，你就知道为什么 AI 会一本正经地说错话</div>
+      </div>
+    </div>
+    <div class="thing-body">
+      <p>AI 的输出不是"想好了再说"，而是<strong>一个字一个字往外生成</strong>的。</p>
+      <p>你问它"帮我写一封邮件"，它不是在后台写完整封邮件再显示给你，而是：</p>
+
+      <div class="gen-flow">
+        <div class="gen-flow-title">生成过程</div>
+        <div class="gen-steps">
+          <div class="gen-step">预测第 1 个字</div>
+          <div class="gen-arrow">→</div>
+          <div class="gen-step">预测第 2 个字</div>
+          <div class="gen-arrow">→</div>
+          <div class="gen-step">预测第 3 个字</div>
+          <div class="gen-arrow">→</div>
+          <div class="gen-step">……</div>
+          <div class="gen-arrow">→</div>
+          <div class="gen-step">判断该结束了</div>
+        </div>
+        <p style="font-size:13px; color:var(--ink-muted); margin:0;">每一步都在预测：基于目前已有的所有内容，下一个最可能的词是什么。</p>
+      </div>
+
+      <p>这个机制带来三个重要的实际影响：</p>
+
+      <div class="impact-list">
+        <div class="impact-item">
+          <div class="impact-icon i1">🎭</div>
+          <div>
+            <div class="impact-title">影响一：输出流畅，不代表内容正确</div>
+            <p class="impact-desc">对 AI 来说，预测"据艾瑞咨询报告显示，2023 年市场规模为……"和预测"今天天气很好"在机制上没有本质区别——都是预测下一个最可能的词。它不会因为不确定就停下来，只会给你一个"看起来合理"的续写。<strong>这就是为什么 AI 会一本正经地说出错误的事实。</strong></p>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-icon i2">↗️</div>
+          <div>
+            <div class="impact-title">影响二：开头定方向，走偏了就顺着走</div>
+            <p class="impact-desc">AI 生成了开头，后面的内容就是基于这个开头继续预测的。所以有时候你会发现它越写越偏——因为前几个词奠定了一个方向，后面的词只能顺着走。</p>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-icon i3">🔄</div>
+          <div>
+            <div class="impact-title">影响三：它在预测，不在思考</div>
+            <p class="impact-desc">它没有像人一样"写完看一遍，觉得哪里不对，整段重来"的过程。它在顺序续写，不是在整体规划。所以你会发现 AI 有时候前后矛盾，或者结尾忘了开头说过的前提。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thing 5 -->
+  <div class="thing-card">
+    <div class="thing-header">
+      <div class="thing-num n5">五</div>
+      <div>
+        <div class="thing-title">模型 vs Agent——傻傻分不清楚</div>
+        <div class="thing-sub">你现在用的和你听说的，有什么不同</div>
+      </div>
+    </div>
+    <div class="thing-body">
+      <p>最近你可能经常听到"AI Agent（智能体）"，但不知道它和普通 AI 有什么区别。一句话解释：</p>
+
+      <div class="pullquote">
+        <p>模型是大脑，Agent 是大脑 + 手脚 + 眼睛。</p>
+      </div>
+
+      <div class="agent-compare">
+        <div class="agent-col model">
+          <div class="agent-col-header">🧠 普通模型（你现在用的）</div>
+          <div class="agent-col-body">
+            <div class="agent-feature"><span class="dot"></span><span>你输入文字，它输出文字</span></div>
+            <div class="agent-feature"><span class="dot"></span><span>不能主动做任何事</span></div>
+            <div class="agent-feature"><span class="dot"></span><span>对话结束，什么都不发生</span></div>
+            <div class="agent-feature"><span class="dot"></span><span>通常不记得上次的对话（除非产品开启了记忆功能）</span></div>
+          </div>
+        </div>
+        <div class="agent-col agent">
+          <div class="agent-col-header">🤖 Agent（智能体）</div>
+          <div class="agent-col-body">
+            <div class="agent-feature"><span class="dot"></span><span>可以使用工具：搜索、打开文件、发邮件</span></div>
+            <div class="agent-feature"><span class="dot"></span><span>可以自己拆解任务，逐步执行</span></div>
+            <div class="agent-feature"><span class="dot"></span><span>可以自我评估，决定下一步怎么走</span></div>
+            <div class="agent-feature"><span class="dot"></span><span>可以跨多步骤完成复杂任务</span></div>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:16px;"><strong>用职场角色打比方：</strong></p>
+      <p>普通模型是<strong>顾问</strong>——你问他，他分析，但执行还是你自己来。Agent 是<strong>能独立工作的助理</strong>——你给他目标，他自己去查资料、整理文件，做完汇报给你。</p>
+
+      <div class="callout insight">
+        <span class="callout-icon">💡</span>
+        <span>目前大多数职场人用的还是"模型 + 对话"的形式。Agent 正在快速发展，部分产品已有初步能力（如联网搜索、操作文件）。这门课第三周会进一步讲进阶应用。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thing 6 -->
+  <div class="thing-card">
+    <div class="thing-header">
+      <div class="thing-num n6">六</div>
+      <div>
+        <div class="thing-title">AI 的本质：输入输出系统</div>
+        <div class="thing-sub">把前面所有内容压缩成一句话</div>
+      </div>
+    </div>
+    <div class="thing-body">
+      <div class="pullquote">
+        <p>AI 是一个极其复杂的输入输出系统。你给它什么，它基于此预测并输出什么。</p>
+      </div>
+
+      <p>这个本质，解释了你在这门课里会学到的几乎所有方法背后的逻辑：</p>
+
+      <div class="essence-box">
+        <h3>为什么要这样做 → 因为</h3>
+        <div class="essence-row">
+          <div class="essence-cause">为什么要给背景、给素材</div>
+          <div class="essence-arrow">→</div>
+          <div class="essence-effect">输入质量决定输出质量</div>
+        </div>
+        <div class="essence-row">
+          <div class="essence-cause">为什么 AI 会胡说</div>
+          <div class="essence-arrow">→</div>
+          <div class="essence-effect">它在预测，不在核查事实</div>
+        </div>
+        <div class="essence-row">
+          <div class="essence-cause">为什么要迭代反馈</div>
+          <div class="essence-arrow">→</div>
+          <div class="essence-effect">每次输出都是下一次输入的起点</div>
+        </div>
+        <div class="essence-row">
+          <div class="essence-cause">为什么要验证结果</div>
+          <div class="essence-arrow">→</div>
+          <div class="essence-effect">流畅 ≠ 正确</div>
+        </div>
+        <div class="essence-row">
+          <div class="essence-cause">为什么对话太长会跑偏</div>
+          <div class="essence-arrow">→</div>
+          <div class="essence-effect">输入窗口有限，背景被稀释了</div>
+        </div>
+      </div>
+
+      <p>理解了输入输出的本质，你就不会对 AI 抱有魔法式的期待，也不会因为一次不好的结果就觉得"AI 不行"。</p>
+      <p><strong>它不神，也不笨。它是一个需要你认真"输入"才能给出好"输出"的系统。</strong></p>
+    </div>
+  </div>
+
+  <div class="divider">本节小结</div>
+
+  <!-- Summary table -->
+  <table class="summary-table">
+    <tr>
+      <th>概念</th>
+      <th>一句话记住它</th>
+    </tr>
+    <tr>
+      <td>AI / 大模型</td>
+      <td>预测下一个词的大型系统，不是数据库，不是机器人</td>
+    </tr>
+    <tr>
+      <td>训练过程</td>
+      <td>海量阅读 + 人类反馈纠正，知识有截止日期</td>
+    </tr>
+    <tr>
+      <td>主流产品</td>
+      <td>DeepSeek / 豆包 / Kimi（国内）；ChatGPT / Claude（国际）</td>
+    </tr>
+    <tr>
+      <td>生成方式</td>
+      <td>逐字续写，流畅不代表正确</td>
+    </tr>
+    <tr>
+      <td>模型 vs Agent</td>
+      <td>模型只输出文字，Agent 能使用工具自主执行任务</td>
+    </tr>
+    <tr>
+      <td>AI 的本质</td>
+      <td>输入输出系统——你给什么，它基于此输出什么</td>
+    </tr>
+  </table>
+
+  <!-- Closing -->
+  <div class="closing-box">
+    <p>这节课没有行动锚点，只需要带着一句话进入正式课程：</p>
+    <p style="margin-top:14px; font-size:18px; color:var(--amber);">AI 在预测，不在思考。<br>你的输入质量，决定它的输出质量。</p>
+    <p class="closing-sub">准备好了吗？我们开始第一周。</p>
+  </div>
+
+</div>
+</body>
+</html>
