@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第二周·第3节 — 让AI先问你 · 打工人进化论</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1814; --ink-light: #4a4540; --ink-muted: #8a8480;
+    --bg: #faf9f6; --bg-warm: #f4f1eb; --bg-card: #ffffff;
+    --amber: #d4820a; --amber-light: #fdf3e0; --amber-mid: #f5c842;
+    --teal: #0a6e6e; --teal-light: #e0f2f1;
+    --red: #c0392b; --red-light: #fdf0ee;
+    --green: #1a6b3c; --green-light: #e8f5ee;
+    --purple: #5b3fa0; --purple-light: #f0ecfb;
+    --border: #e8e4dc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.9; }
+  .page { max-width: 780px; margin: 0 auto; padding: 60px 48px 100px; }
+
+  .course-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; padding: 5px 14px; border-radius: 2px; margin-bottom: 32px; }
+  .lesson-header { border-top: 3px solid var(--ink); padding-top: 32px; margin-bottom: 48px; }
+  .lesson-week { font-size: 12px; color: var(--ink-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .lesson-title { font-family: 'Noto Serif SC', serif; font-size: 32px; font-weight: 700; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
+  .lesson-subtitle { font-size: 16px; color: var(--ink-light); font-weight: 300; border-left: 3px solid var(--amber); padding-left: 14px; margin-top: 16px; }
+  .lesson-meta { display: flex; gap: 24px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); }
+
+  .scene-box { background: var(--ink); color: #fff; border-radius: 12px; padding: 36px 40px; margin: 0 0 48px; position: relative; overflow: hidden; }
+  .scene-box::before { content: '"'; position: absolute; top: -10px; right: 20px; font-family: 'Noto Serif SC', serif; font-size: 140px; color: rgba(255,255,255,0.06); line-height: 1; pointer-events: none; }
+  .scene-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); margin-bottom: 16px; font-weight: 500; }
+  .scene-box p { font-size: 15px; line-height: 2; color: rgba(255,255,255,0.88); margin-bottom: 14px; }
+  .scene-box p:last-child { margin-bottom: 0; }
+  .scene-highlight { background: rgba(245,200,66,0.15); border-left: 3px solid var(--amber-mid); padding: 14px 18px; border-radius: 0 6px 6px 0; margin-top: 20px; font-size: 14px; color: rgba(255,255,255,0.95); font-weight: 500; }
+
+  .section { margin-bottom: 56px; }
+  .section-badge { display: inline-block; background: var(--amber-light); color: var(--amber); font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 2px; margin-bottom: 16px; }
+  h2 { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 20px; line-height: 1.4; }
+  h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 28px 0 12px; }
+  p { margin-bottom: 16px; color: var(--ink-light); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  .pullquote { border-left: 4px solid var(--amber); background: var(--amber-light); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+  .pullquote p { font-size: 15px; color: var(--ink); font-weight: 500; margin: 0; line-height: 1.8; }
+
+  .prompt-box { background: var(--purple-light); border: 1px solid #d6cdf0; border-left: 4px solid var(--purple); border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 22px 0; }
+  .prompt-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--purple); margin-bottom: 8px; }
+  .prompt-text { font-family: 'Noto Serif SC', serif; font-size: 15px; line-height: 1.85; color: var(--ink); font-weight: 500; }
+
+  .flow { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 22px 0; align-items: stretch; }
+  .flow-step { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--teal); border-radius: 8px; padding: 16px 18px; position: relative; }
+  .flow-step:nth-child(2) { border-top-color: var(--amber); }
+  .flow-step:nth-child(3) { border-top-color: var(--green); }
+  .flow-num { font-family: 'Noto Serif SC', serif; font-size: 12px; color: var(--ink-muted); letter-spacing: 2px; font-weight: 700; margin-bottom: 6px; }
+  .flow-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .flow-desc { font-size: 12.5px; color: var(--ink-light); line-height: 1.7; }
+
+  .story-card { background: var(--bg-warm); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin: 16px 0; }
+  .story-card-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--amber); }
+  .story-card-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .story-card p { font-size: 14px; line-height: 1.85; color: var(--ink-light); margin-bottom: 8px; }
+  .story-card p:last-child { margin-bottom: 0; }
+  .story-name { display: inline-block; background: var(--ink); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 3px; margin-right: 4px; }
+
+  .anchor { background: var(--ink); color: #fff; border-radius: 12px; padding: 28px 32px; margin: 40px 0 0; }
+  .anchor-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); font-weight: 500; margin-bottom: 12px; }
+  .anchor h3 { color: #fff; font-size: 18px; margin: 0 0 10px; }
+  .anchor p { color: rgba(255,255,255,0.82); font-size: 14px; margin: 0; }
+  .anchor .step { margin-top: 14px; padding: 12px 16px; background: rgba(255,255,255,0.06); border-radius: 6px; font-size: 13.5px; color: rgba(255,255,255,0.92); }
+
+  .footer-note { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); text-align: center; letter-spacing: 1px; }
+
+  @media (max-width: 640px) {
+    .page { padding: 40px 22px 80px; }
+    .lesson-title { font-size: 26px; }
+    .flow { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <span class="course-tag">打工人进化论 · AI 职场实战课</span>
+
+  <header class="lesson-header">
+    <div class="lesson-week">第二周 · 第3节</div>
+    <h1 class="lesson-title">让 AI 先问你</h1>
+    <div class="lesson-subtitle">用 AI 帮你想清楚自己要什么——反向提问法</div>
+    <div class="lesson-meta">
+      <span>🎯 协作心法</span>
+      <span>⏱ 阅读约 7 分钟</span>
+      <span>📌 行动锚点：10 分钟</span>
+    </div>
+  </header>
+
+  <div class="scene-box">
+    <div class="scene-label">REAL SCENE · 真实场景</div>
+    <p>领导让你"出一个新产品发布的传播方案"。你打开 AI："帮我做一个发布方案。"</p>
+    <p>AI 给了你一份很全的方案——KOL 投放、社群活动、媒体稿件……你看完心里却很不踏实：因为你自己都不确定，到底想达成什么效果？预算多少？面向谁？</p>
+    <div class="scene-highlight">问题不是 AI 不会做方案，是你自己根本没想清楚。这时候，让 AI 帮你回答之前——先让它问你。</div>
+  </div>
+
+  <section class="section">
+    <span class="section-badge">CORE INSIGHT · 核心认知</span>
+    <h2>AI 不只能"回答"，它也能"采访"你</h2>
+    <p>很多人把 AI 当成一个"答题机器"——你出题，它答题。但 AI 的另一种用法被严重低估了：让它当"采访者"——通过提问帮你把模糊的想法变清晰。</p>
+    <div class="pullquote">
+      <p>当一件事你"想做但说不清"，最快的破局方式不是硬憋一个 prompt，而是让 AI 先问你 5 个关键问题。</p>
+    </div>
+    <p>问题被问出来的瞬间，答案就开始浮现了。这是任何好教练、好咨询师每天都在干的事——AI 现在也能干。</p>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">FRAMEWORK · 思维框架</span>
+    <h2>反向提问法</h2>
+    <p>下次让 AI 帮你做一件复杂的事之前，先用这一句模板：</p>
+
+    <div class="prompt-box">
+      <div class="prompt-label">PROMPT TEMPLATE · 模板</div>
+      <div class="prompt-text">"在你帮我完成这件事之前，请先问我 5 个你认为最关键的问题——这些问题的答案，决定了最终方案的走向。"</div>
+    </div>
+
+    <p>然后 AI 会列出问题，你认真回答，再让它动手。整个流程像这样：</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">STEP 01</div>
+        <div class="flow-title">让 AI 提问</div>
+        <div class="flow-desc">把任务背景告诉 AI，请它列 5 个关键问题</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">STEP 02</div>
+        <div class="flow-title">认真作答</div>
+        <div class="flow-desc">回答的过程就是把自己想清楚的过程</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">STEP 03</div>
+        <div class="flow-title">AI 再动手</div>
+        <div class="flow-desc">基于你的回答，AI 给的产出会精准得多</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">CASES · 跨行业案例</span>
+    <h2>三个职场场景的"反向采访"</h2>
+
+    <div class="story-card">
+      <div class="story-card-label">案例 01 · 产品经理</div>
+      <p><span class="story-name">小越 · PM</span></p>
+      <p>她要写一个新功能的需求文档。让 AI 先问她 5 个问题——结果第三个问题"这个功能解决的核心痛点用一句话能讲清楚吗"，让她意识到自己还没想透。她花了 20 分钟把这件事想明白，再写出来的需求文档清晰度上一个台阶。</p>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-label">案例 02 · 管理者</div>
+      <p><span class="story-name">陈总 · 部门负责人</span></p>
+      <p>团队最近气氛不对。他让 AI"先问我 5 个问题再帮我分析问题"。AI 问出"你最近有没有给团队明确的优先级？""有谁的状态变化你没去了解？"——这两个问题让他意识到，问题根因不在团队，在自己的沟通节奏。</p>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-label">案例 03 · 新人入职</div>
+      <p><span class="story-name">小婧 · 新人</span></p>
+      <p>第一次给陌生客户写邮件，不知道分寸。让 AI 先问她"对方的角色是？""你想在邮件里达成什么具体目的？""你希望对方读完后立刻做什么？"——回答完她就发现，自己原本想写的邮件方向是错的。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">RULE OF THUMB · 一句话原则</span>
+    <h2>不是 AI 替你想，是 AI 帮你想</h2>
+    <div class="pullquote">
+      <p>"想不清楚就直接动手"是大多数人的默认反应。<br>"想不清楚就让 AI 先问你"是高手的默认反应。</p>
+    </div>
+    <p>这个动作只需要多 5 分钟，但能省掉后面 50 分钟的返工。</p>
+  </section>
+
+  <div class="anchor">
+    <div class="anchor-label">ACTION · 10 分钟行动锚点</div>
+    <h3>找一个"想做但想不清楚"的任务</h3>
+    <p>用反向提问法，让 AI 先采访你。</p>
+    <div class="step">① 想一个最近"在脑子里转但不知道怎么开始"的任务</div>
+    <div class="step">② 用模板让 AI 先问你 5 个问题</div>
+    <div class="step">③ 认真回答完，再让 AI 帮你做事——感受清晰度的差别</div>
+  </div>
+
+  <div class="footer-note">— 第二周·第3节完 · 下一节：用 AI 做工作复盘 —</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第四周·第1节 — AI工作流设计：找到人机协作的最优节点 · 打工人进化论</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1814; --ink-light: #4a4540; --ink-muted: #8a8480;
+    --bg: #faf9f6; --bg-warm: #f4f1eb; --bg-card: #ffffff;
+    --amber: #d4820a; --amber-light: #fdf3e0; --amber-mid: #f5c842;
+    --teal: #0a6e6e; --teal-light: #e0f2f1;
+    --red: #c0392b; --red-light: #fdf0ee;
+    --green: #1a6b3c; --green-light: #e8f5ee;
+    --purple: #5b3fa0; --purple-light: #f0ecfb;
+    --border: #e8e4dc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.9; }
+  .page { max-width: 780px; margin: 0 auto; padding: 60px 48px 100px; }
+
+  .course-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; padding: 5px 14px; border-radius: 2px; margin-bottom: 32px; }
+  .lesson-header { border-top: 3px solid var(--ink); padding-top: 32px; margin-bottom: 48px; }
+  .lesson-week { font-size: 12px; color: var(--ink-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .lesson-title { font-family: 'Noto Serif SC', serif; font-size: 32px; font-weight: 700; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
+  .lesson-subtitle { font-size: 16px; color: var(--ink-light); font-weight: 300; border-left: 3px solid var(--amber); padding-left: 14px; margin-top: 16px; }
+  .lesson-meta { display: flex; gap: 24px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); }
+
+  .scene-box { background: var(--ink); color: #fff; border-radius: 12px; padding: 36px 40px; margin: 0 0 48px; position: relative; overflow: hidden; }
+  .scene-box::before { content: '"'; position: absolute; top: -10px; right: 20px; font-family: 'Noto Serif SC', serif; font-size: 140px; color: rgba(255,255,255,0.06); line-height: 1; pointer-events: none; }
+  .scene-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); margin-bottom: 16px; font-weight: 500; }
+  .scene-box p { font-size: 15px; line-height: 2; color: rgba(255,255,255,0.88); margin-bottom: 14px; }
+  .scene-box p:last-child { margin-bottom: 0; }
+  .scene-highlight { background: rgba(245,200,66,0.15); border-left: 3px solid var(--amber-mid); padding: 14px 18px; border-radius: 0 6px 6px 0; margin-top: 20px; font-size: 14px; color: rgba(255,255,255,0.95); font-weight: 500; }
+
+  .section { margin-bottom: 56px; }
+  .section-badge { display: inline-block; background: var(--amber-light); color: var(--amber); font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 2px; margin-bottom: 16px; }
+  h2 { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 20px; line-height: 1.4; }
+  h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 28px 0 12px; }
+  p { margin-bottom: 16px; color: var(--ink-light); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  .pullquote { border-left: 4px solid var(--amber); background: var(--amber-light); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+  .pullquote p { font-size: 15px; color: var(--ink); font-weight: 500; margin: 0; line-height: 1.8; }
+
+  .step-list { display: flex; flex-direction: column; gap: 14px; margin: 24px 0; }
+  .step-item { display: flex; gap: 18px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .step-num { flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif SC', serif; font-size: 18px; font-weight: 700; }
+  .step-body { flex: 1; }
+  .step-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .step-desc { font-size: 13.5px; color: var(--ink-light); line-height: 1.7; }
+
+  .timeline { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin: 22px 0; }
+  .timeline-title { font-size: 13px; letter-spacing: 2px; color: var(--ink-muted); margin-bottom: 16px; font-weight: 700; }
+  .time-row { display: grid; grid-template-columns: 80px 30px 1fr; align-items: start; padding: 10px 0; border-bottom: 1px dashed var(--border); }
+  .time-row:last-child { border-bottom: none; }
+  .time-time { font-family: 'Noto Serif SC', serif; font-size: 13px; font-weight: 700; color: var(--ink); }
+  .time-icon { font-size: 14px; color: var(--amber); }
+  .time-task { font-size: 13.5px; color: var(--ink); line-height: 1.7; }
+  .time-task em { color: var(--amber); font-style: normal; font-weight: 600; }
+
+  .story-card { background: var(--bg-warm); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin: 16px 0; }
+  .story-card-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--amber); }
+  .story-card-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .story-card p { font-size: 14px; line-height: 1.85; color: var(--ink-light); margin-bottom: 8px; }
+  .story-card p:last-child { margin-bottom: 0; }
+  .story-name { display: inline-block; background: var(--ink); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 3px; margin-right: 4px; }
+
+  .anchor { background: var(--ink); color: #fff; border-radius: 12px; padding: 28px 32px; margin: 40px 0 0; }
+  .anchor-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); font-weight: 500; margin-bottom: 12px; }
+  .anchor h3 { color: #fff; font-size: 18px; margin: 0 0 10px; }
+  .anchor p { color: rgba(255,255,255,0.82); font-size: 14px; margin: 0; }
+  .anchor .step { margin-top: 14px; padding: 12px 16px; background: rgba(255,255,255,0.06); border-radius: 6px; font-size: 13.5px; color: rgba(255,255,255,0.92); }
+
+  .footer-note { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); text-align: center; letter-spacing: 1px; }
+
+  @media (max-width: 640px) {
+    .page { padding: 40px 22px 80px; }
+    .lesson-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <span class="course-tag">打工人进化论 · AI 职场实战课</span>
+
+  <header class="lesson-header">
+    <div class="lesson-week">第四周 · 第1节</div>
+    <h1 class="lesson-title">AI 工作流设计</h1>
+    <div class="lesson-subtitle">找到人机协作的最优节点——让 AI 真正嵌入你的日常节奏</div>
+    <div class="lesson-meta">
+      <span>🎯 系统固化</span>
+      <span>⏱ 阅读约 8 分钟</span>
+      <span>📌 行动锚点：15 分钟</span>
+    </div>
+  </header>
+
+  <div class="scene-box">
+    <div class="scene-label">REAL SCENE · 真实场景</div>
+    <p>过去三周，你学了很多用 AI 的方法。但你诚实问自己：<strong>你真的"每天都在用"吗？</strong></p>
+    <p>大多数人的状态是：想到才用，急了才用——一个月用 5 次，又回到老路上。</p>
+    <div class="scene-highlight">问题不是你没学会，是你没把 AI"嵌入"到日常工作流里。下次再"想起来"已经晚了。</div>
+  </div>
+
+  <section class="section">
+    <span class="section-badge">CORE INSIGHT · 核心认知</span>
+    <h2>不是"想到才用"，是"到点必用"</h2>
+    <p>新工具变成"日常默认"的关键，不是工具有多好，是你有没有把它放进固定的"触发节点"。</p>
+    <div class="pullquote">
+      <p>"想到才用"= 工具，"到点就用"= 习惯。<br>真正的杠杆点不在每个环节都用 AI——而是找到几个"AI 介入收益最大"的节点，然后把它们固定下来。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">FRAMEWORK · 思维框架</span>
+    <h2>工作流扫描三步法</h2>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">列出一天的工作流程</div>
+          <div class="step-desc">把你"典型一天"做的事大致写下来——8 点到 8 点，每个时段在干什么。不需要精确，看出节奏即可。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">标记重复 / 耗时 / 标准化的环节</div>
+          <div class="step-desc">在每件事旁边打标签：是不是每天都做？有没有花超过 30 分钟？输出格式是不是固定的？三项中两项命中——它就是 AI 介入的候选。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">设计"AI 默认介入"的触发时机</div>
+          <div class="step-desc">不要等"想用",设计"默认用"。比如："每次会议结束后立刻让 AI 整理纪要"——这就是一个 AI 触发器。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">EXAMPLE · 一日工作流示范</span>
+    <h2>一个典型职场人的"AI 触发节点"</h2>
+
+    <div class="timeline">
+      <div class="timeline-title">— A DAY WITH AI · 销售经理的一天 —</div>
+      <div class="time-row"><div class="time-time">09:00</div><div class="time-icon">▶</div><div class="time-task">每天上班第一件事：让 AI 总结昨天的客户邮件，挑出需要今天回的<em>（AI 节点 1）</em></div></div>
+      <div class="time-row"><div class="time-time">10:30</div><div class="time-icon">▶</div><div class="time-task">客户会议前 30 分钟：贴客户档案给 AI，让它给我"今天的关键问题清单"<em>（AI 节点 2）</em></div></div>
+      <div class="time-row"><div class="time-time">12:00</div><div class="time-icon">▶</div><div class="time-task">会议后 15 分钟内：录音转写丢给 AI，整理纪要 + 行动项<em>（AI 节点 3）</em></div></div>
+      <div class="time-row"><div class="time-time">17:00</div><div class="time-icon">▶</div><div class="time-task">下班前：让 AI 帮我把今天和客户的对话整理成 CRM 录入格式<em>（AI 节点 4）</em></div></div>
+    </div>
+
+    <p>不需要"今天突然想起来用"——每个节点都是"到点必做"。一周后形成习惯，永远不会丢。</p>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">CASES · 跨行业案例</span>
+    <h2>三种角色的"固定 AI 触发点"</h2>
+
+    <div class="story-card">
+      <div class="story-card-label">案例 01 · 销售</div>
+      <p><span class="story-name">小颜 · 客户经理</span></p>
+      <p>她设了 3 个触发点：<strong>(1)</strong> 每次客户会议前 30 分钟用 AI 准备问题清单；<strong>(2)</strong> 每次会议后 15 分钟内 AI 整理纪要；<strong>(3)</strong> 每周五下午用 AI 复盘本周对接。三件事固定到日历，再也不会"忘记"。</p>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-label">案例 02 · HR</div>
+      <p><span class="story-name">小坤 · 招聘经理</span></p>
+      <p>招聘流程的固定 AI 节点：<strong>(1)</strong> 每个新岗位 JD 写完后，AI 优化一遍；<strong>(2)</strong> 每次面试前，AI 根据简历准备 5 个针对性问题；<strong>(3)</strong> 每周招聘复盘，AI 整理候选人对比表。流程从不靠记忆。</p>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-label">案例 03 · 管理者</div>
+      <p><span class="story-name">陈总 · 部门负责人</span></p>
+      <p>每周一早上 8 点，AI 帮她整理上周团队进度 + 生成本周例会议程。每次重要决定前，AI 先列出"利弊 + 盲点"。每月底，AI 帮她写月度部门复盘。这些不是"额外工作"，是嵌入她现有节奏里的固定动作。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">RULE OF THUMB · 一句话原则</span>
+    <h2>固定的触发器，比再多的好 prompt 更值钱</h2>
+    <div class="pullquote">
+      <p>每周用 AI 50 次的"散用"用户 vs 每周固定用 AI 5 次的"流程化"用户——<br>后者的产出质量稳得多。<br>会用 AI 的人，最终都在设计自己的工作流。</p>
+    </div>
+  </section>
+
+  <div class="anchor">
+    <div class="anchor-label">ACTION · 15 分钟行动锚点</div>
+    <h3>设计一周中你的 3 个"AI 固定介入点"</h3>
+    <p>不要太多——3 个最有用的就够。</p>
+    <div class="step">① 列出本周固定要做的工作（每天/每周节奏的事）</div>
+    <div class="step">② 选 3 件最值得 AI 介入的——重复 + 耗时 + 标准化</div>
+    <div class="step">③ 给每件事写明"AI 介入触发时间"——并放进日历</div>
+  </div>
+
+  <div class="footer-note">— 第四周·第1节完 · 下一节：个人知识库 · 让你的 AI 资产沉淀下来 —</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第三周·第4节 — 工作坊：用进阶能力完成一个真实任务 · 打工人进化论</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1814; --ink-light: #4a4540; --ink-muted: #8a8480;
+    --bg: #faf9f6; --bg-warm: #f4f1eb; --bg-card: #ffffff;
+    --amber: #d4820a; --amber-light: #fdf3e0; --amber-mid: #f5c842;
+    --teal: #0a6e6e; --teal-light: #e0f2f1;
+    --red: #c0392b; --red-light: #fdf0ee;
+    --green: #1a6b3c; --green-light: #e8f5ee;
+    --purple: #5b3fa0; --purple-light: #f0ecfb;
+    --border: #e8e4dc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.9; }
+  .page { max-width: 780px; margin: 0 auto; padding: 60px 48px 100px; }
+
+  .course-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; padding: 5px 14px; border-radius: 2px; margin-bottom: 32px; }
+  .lesson-header { border-top: 3px solid var(--ink); padding-top: 32px; margin-bottom: 48px; }
+  .lesson-week { font-size: 12px; color: var(--ink-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .lesson-title { font-family: 'Noto Serif SC', serif; font-size: 32px; font-weight: 700; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
+  .lesson-subtitle { font-size: 16px; color: var(--ink-light); font-weight: 300; border-left: 3px solid var(--amber); padding-left: 14px; margin-top: 16px; }
+  .lesson-meta { display: flex; gap: 24px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); }
+
+  .scene-box { background: var(--ink); color: #fff; border-radius: 12px; padding: 36px 40px; margin: 0 0 48px; position: relative; overflow: hidden; }
+  .scene-box::before { content: '"'; position: absolute; top: -10px; right: 20px; font-family: 'Noto Serif SC', serif; font-size: 140px; color: rgba(255,255,255,0.06); line-height: 1; pointer-events: none; }
+  .scene-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); margin-bottom: 16px; font-weight: 500; }
+  .scene-box p { font-size: 15px; line-height: 2; color: rgba(255,255,255,0.88); margin-bottom: 14px; }
+  .scene-box p:last-child { margin-bottom: 0; }
+  .scene-highlight { background: rgba(245,200,66,0.15); border-left: 3px solid var(--amber-mid); padding: 14px 18px; border-radius: 0 6px 6px 0; margin-top: 20px; font-size: 14px; color: rgba(255,255,255,0.95); font-weight: 500; }
+
+  .section { margin-bottom: 56px; }
+  .section-badge { display: inline-block; background: var(--amber-light); color: var(--amber); font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 2px; margin-bottom: 16px; }
+  h2 { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 20px; line-height: 1.4; }
+  h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 28px 0 12px; }
+  p { margin-bottom: 16px; color: var(--ink-light); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  .pullquote { border-left: 4px solid var(--amber); background: var(--amber-light); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+  .pullquote p { font-size: 15px; color: var(--ink); font-weight: 500; margin: 0; line-height: 1.8; }
+
+  .options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 24px 0; }
+  .option { background: var(--bg-card); border: 2px solid var(--border); border-radius: 12px; padding: 20px 22px; transition: all 0.2s; }
+  .option:hover { border-color: var(--amber); transform: translateY(-2px); }
+  .option-tag { display: inline-block; background: var(--amber); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 3px 10px; border-radius: 3px; margin-bottom: 12px; }
+  .option-title { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .option-desc { font-size: 13px; color: var(--ink-light); line-height: 1.7; margin-bottom: 14px; }
+  .option-fit { background: var(--bg-warm); border-radius: 6px; padding: 10px 12px; font-size: 12px; color: var(--ink); line-height: 1.6; }
+  .option-fit strong { color: var(--amber); }
+
+  .deliverable { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin: 22px 0; }
+  .deliverable-title { font-size: 13px; letter-spacing: 2px; color: var(--ink-muted); margin-bottom: 14px; font-weight: 700; }
+  .deliverable-row { display: grid; grid-template-columns: 80px 1fr; gap: 14px; padding: 8px 0; border-bottom: 1px dashed var(--border); }
+  .deliverable-row:last-child { border-bottom: none; }
+  .deliverable-key { font-size: 11px; color: var(--ink-muted); font-weight: 700; letter-spacing: 1px; padding-top: 2px; }
+  .deliverable-value { font-size: 13.5px; color: var(--ink); line-height: 1.7; }
+
+  .anchor { background: var(--ink); color: #fff; border-radius: 12px; padding: 28px 32px; margin: 40px 0 0; }
+  .anchor-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); font-weight: 500; margin-bottom: 12px; }
+  .anchor h3 { color: #fff; font-size: 18px; margin: 0 0 10px; }
+  .anchor p { color: rgba(255,255,255,0.82); font-size: 14px; margin: 0; }
+  .anchor .step { margin-top: 14px; padding: 12px 16px; background: rgba(255,255,255,0.06); border-radius: 6px; font-size: 13.5px; color: rgba(255,255,255,0.92); }
+
+  .footer-note { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); text-align: center; letter-spacing: 1px; }
+
+  @media (max-width: 640px) {
+    .page { padding: 40px 22px 80px; }
+    .lesson-title { font-size: 26px; }
+    .options { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <span class="course-tag">打工人进化论 · AI 职场实战课</span>
+
+  <header class="lesson-header">
+    <div class="lesson-week">第三周 · 第4节 · 工作坊</div>
+    <h1 class="lesson-title">用进阶能力完成一个真实任务</h1>
+    <div class="lesson-subtitle">三选一 · 当堂跑通 · 见效</div>
+    <div class="lesson-meta">
+      <span>🛠 实操工作坊</span>
+      <span>⏱ 30–60 分钟</span>
+      <span>📌 真实任务</span>
+    </div>
+  </header>
+
+  <div class="scene-box">
+    <div class="scene-label">WORKSHOP · 本节工作坊目标</div>
+    <p>第三周三节都讲了"AI 还能做的事"——多模态、自动化、多 AI 协作。今天，把它们用在一个真实任务上跑通。</p>
+    <p>三选一即可——选你最有感觉的那个，今天一定要做完。</p>
+    <div class="scene-highlight">学了不用 = 没学。哪怕只跑通一件事，你的 AI 协作能力就上了一个台阶。</div>
+  </div>
+
+  <section class="section">
+    <span class="section-badge">CHOOSE ONE · 三选一</span>
+    <h2>选一条路径，今天跑通</h2>
+
+    <div class="options">
+      <div class="option">
+        <span class="option-tag">选项 A</span>
+        <div class="option-title">多模态实战</div>
+        <div class="option-desc">上传一份真实的工作文件（PDF / Excel / 图片 / 录音）让 AI 完整处理一遍。</div>
+        <div class="option-fit"><strong>适合你，如果：</strong>你日常处理大量文档、PDF、报表、会议录音。</div>
+      </div>
+      <div class="option">
+        <span class="option-tag">选项 B</span>
+        <div class="option-title">自动化设计</div>
+        <div class="option-desc">找一件每周做 3 次以上的重复手动工作，让 AI 给你一个自动化方案并跑通。</div>
+        <div class="option-fit"><strong>适合你，如果：</strong>你被某件重复工作长期困扰，时间成本高。</div>
+      </div>
+      <div class="option">
+        <span class="option-tag">选项 C</span>
+        <div class="option-title">多 AI 协作</div>
+        <div class="option-desc">用两个 AI 协作完成一个之前单 AI 做得不满意的任务——一个起草、一个审查。</div>
+        <div class="option-fit"><strong>适合你，如果：</strong>你有一个重要输出，需要更高质量、更少盲点。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">SELECTION GUIDE · 选择建议</span>
+    <h2>不知道选哪个？看这里</h2>
+
+    <p><strong>选 A 多模态：</strong>如果你过去 3 天有没处理掉的 PDF / 报表 / 录音 / 截图——就选 A。这是最容易立刻见效的。</p>
+    <p><strong>选 B 自动化：</strong>如果你能立刻说出"我每周都要做 X，烦死了"——就选 B。把那件烦事干掉。</p>
+    <p><strong>选 C 多 AI：</strong>如果你有一份方案 / 报告下周要交，质量要求高——就选 C。让两个 AI 一起帮你。</p>
+
+    <div class="pullquote">
+      <p>不要纠结"哪个最好"。<br>选最容易立刻动手的那个。今天做完比明天完美重要。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">DELIVERABLE · 工作坊产出</span>
+    <h2>记下你这次的"实操日志"</h2>
+
+    <div class="deliverable">
+      <div class="deliverable-title">— MY WORKSHOP LOG · 我的工作坊日志 —</div>
+      <div class="deliverable-row">
+        <div class="deliverable-key">选项</div>
+        <div class="deliverable-value">A / B / C —— 我选了哪个？为什么？</div>
+      </div>
+      <div class="deliverable-row">
+        <div class="deliverable-key">任务</div>
+        <div class="deliverable-value">我具体处理了什么任务？背景是什么？</div>
+      </div>
+      <div class="deliverable-row">
+        <div class="deliverable-key">流程</div>
+        <div class="deliverable-value">我怎么操作的？用了哪些 AI？哪几个步骤？</div>
+      </div>
+      <div class="deliverable-row">
+        <div class="deliverable-key">结果</div>
+        <div class="deliverable-value">最终产出是什么？比"以前的做法"快了 / 好了多少？</div>
+      </div>
+      <div class="deliverable-row">
+        <div class="deliverable-key">反思</div>
+        <div class="deliverable-value">下次我会怎么做得更顺？</div>
+      </div>
+    </div>
+
+    <p>这份日志后面在第四周第 2 节"个人知识库"里会反复用到——把它存好。</p>
+  </section>
+
+  <section class="section">
+    <span class="section-badge">RULE OF THUMB · 一句话原则</span>
+    <h2>能跑通一次的方法，就是属于你的方法</h2>
+    <div class="pullquote">
+      <p>书面读 100 次，不如自己跑通 1 次。<br>跑通的瞬间，那个能力才真正变成你的。</p>
+    </div>
+  </section>
+
+  <div class="anchor">
+    <div class="anchor-label">ACTION · 30-60 分钟实操</div>
+    <h3>选 A / B / C 中的一个，立即开始</h3>
+    <p>不要拖到下周——今天做。</p>
+    <div class="step">① 5 分钟：决定选哪条路径</div>
+    <div class="step">② 30-45 分钟：按路径完整跑一遍</div>
+    <div class="step">③ 5 分钟：填好上面那份"工作坊日志"</div>
+  </div>
+
+  <div class="footer-note">— 第三周完 · 进入第四周：系统固化 · 从偶尔用到默认用 —</div>
+</div>
+</body>
+</html>
