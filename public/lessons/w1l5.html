@@ -3,267 +3,977 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>第一周·第5节 — 上下文窗口与管理 · 打工人进化论</title>
+<title>第一周·第5节 — AI职场实战课</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1a1814; --ink-light: #4a4540; --ink-muted: #8a8480;
-    --bg: #faf9f6; --bg-warm: #f4f1eb; --bg-card: #ffffff;
-    --amber: #d4820a; --amber-light: #fdf3e0; --amber-mid: #f5c842;
-    --teal: #0a6e6e; --teal-light: #e0f2f1;
-    --red: #c0392b; --red-light: #fdf0ee;
-    --green: #1a6b3c; --green-light: #e8f5ee;
-    --purple: #5b3fa0; --purple-light: #f0ecfb;
+    --ink: #1a1814;
+    --ink-light: #4a4540;
+    --ink-muted: #8a8480;
+    --bg: #faf9f6;
+    --bg-warm: #f4f1eb;
+    --bg-card: #ffffff;
+    --amber: #d4820a;
+    --amber-light: #fdf3e0;
+    --amber-mid: #f5c842;
+    --teal: #0a6e6e;
+    --teal-light: #e0f2f1;
+    --red: #c0392b;
+    --red-light: #fdf0ee;
+    --green: #1a6b3c;
+    --green-light: #e8f5ee;
+    --purple: #5b3fa0;
+    --purple-light: #f0ecfb;
     --border: #e8e4dc;
   }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.9; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
   .page { max-width: 780px; margin: 0 auto; padding: 60px 48px 100px; }
 
-  .course-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; padding: 5px 14px; border-radius: 2px; margin-bottom: 32px; }
-  .lesson-header { border-top: 3px solid var(--ink); padding-top: 32px; margin-bottom: 48px; }
-  .lesson-week { font-size: 12px; color: var(--ink-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
-  .lesson-title { font-family: 'Noto Serif SC', serif; font-size: 32px; font-weight: 700; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
-  .lesson-subtitle { font-size: 16px; color: var(--ink-light); font-weight: 300; border-left: 3px solid var(--amber); padding-left: 14px; margin-top: 16px; }
-  .lesson-meta { display: flex; gap: 24px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); }
+  /* ─── Header ─── */
+  .course-tag {
+    display: inline-flex;
+    align-items: center;
+    background: var(--ink);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+  }
 
-  .scene-box { background: var(--ink); color: #fff; border-radius: 12px; padding: 36px 40px; margin: 0 0 48px; position: relative; overflow: hidden; }
-  .scene-box::before { content: '"'; position: absolute; top: -10px; right: 20px; font-family: 'Noto Serif SC', serif; font-size: 140px; color: rgba(255,255,255,0.06); line-height: 1; pointer-events: none; }
+  .lesson-header {
+    border-top: 3px solid var(--ink);
+    padding-top: 32px;
+    margin-bottom: 48px;
+  }
+
+  .lesson-week { font-size: 12px; color: var(--ink-muted); letter-spacing: 3px; margin-bottom: 12px; }
+
+  .lesson-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .lesson-subtitle {
+    font-size: 16px;
+    color: var(--ink-light);
+    font-weight: 300;
+    border-left: 3px solid var(--amber);
+    padding-left: 14px;
+    margin-top: 16px;
+  }
+
+  .lesson-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+
+  /* ─── Scene ─── */
+  .scene-box {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin: 0 0 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scene-box::before {
+    content: '"';
+    position: absolute;
+    top: -10px; right: 20px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 140px;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
   .scene-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); margin-bottom: 16px; font-weight: 500; }
   .scene-box p { font-size: 15px; line-height: 2; color: rgba(255,255,255,0.88); margin-bottom: 14px; }
   .scene-box p:last-child { margin-bottom: 0; }
-  .scene-highlight { background: rgba(245,200,66,0.15); border-left: 3px solid var(--amber-mid); padding: 14px 18px; border-radius: 0 6px 6px 0; margin-top: 20px; font-size: 14px; color: rgba(255,255,255,0.95); font-weight: 500; }
 
-  .section { margin-bottom: 56px; }
-  .section-badge { display: inline-block; background: var(--amber-light); color: var(--amber); font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 2px; margin-bottom: 16px; }
-  h2 { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 20px; line-height: 1.4; }
+  .scene-highlight {
+    background: rgba(245,200,66,0.15);
+    border-left: 3px solid var(--amber-mid);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 16px;
+    font-size: 14.5px;
+    color: #fff;
+    font-weight: 500;
+    line-height: 1.8;
+  }
+
+  /* ─── Sections ─── */
+  .section { margin-bottom: 52px; }
+
+  .section-badge {
+    display: inline-block;
+    background: var(--amber-light);
+    color: var(--amber);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .section-badge.teal { background: var(--teal-light); color: var(--teal); }
+  .section-badge.purple { background: var(--purple-light); color: var(--purple); }
+
+  h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+
   h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 28px 0 12px; }
+  h4 { font-size: 14px; font-weight: 700; color: var(--ink); margin: 16px 0 8px; }
+
   p { margin-bottom: 16px; color: var(--ink-light); }
   strong { color: var(--ink); font-weight: 700; }
 
-  .pullquote { border-left: 4px solid var(--amber); background: var(--amber-light); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0;
+    color: var(--ink-muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .pullquote {
+    border-left: 4px solid var(--amber);
+    background: var(--amber-light);
+    padding: 18px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+  }
   .pullquote p { font-size: 15px; color: var(--ink); font-weight: 500; margin: 0; line-height: 1.8; }
 
-  .principle-card { display: flex; gap: 18px; align-items: flex-start; padding: 22px 24px; border: 1px solid var(--border); border-radius: 10px; margin: 16px 0; background: var(--bg-card); }
-  .principle-num { width: 44px; height: 44px; border-radius: 8px; background: var(--teal-light); color: var(--teal); display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif SC', serif; font-size: 19px; font-weight: 700; flex-shrink: 0; }
-  .principle-body h4 { font-size: 15.5px; color: var(--ink); margin-bottom: 6px; font-weight: 700; }
-  .principle-body p { font-size: 13.5px; color: var(--ink-light); margin: 0; line-height: 1.75; }
-  .principle-body .example { margin-top: 10px; padding: 10px 14px; background: var(--bg-warm); border-left: 3px solid var(--teal); border-radius: 0 4px 4px 0; font-size: 13px; color: var(--ink); }
+  .callout {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 15px 18px;
+    border-radius: 8px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    line-height: 1.75;
+  }
+  .callout.tip     { background: var(--teal-light);   border-left: 3px solid var(--teal);   color: var(--teal); }
+  .callout.warn    { background: var(--amber-light);  border-left: 3px solid var(--amber);  color: #7a4f00; }
+  .callout.insight { background: var(--purple-light); border-left: 3px solid var(--purple); color: var(--purple); }
+  .callout.danger  { background: var(--red-light);    border-left: 3px solid var(--red);    color: var(--red); }
+  .callout-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
 
-  .ctx-illust { background: var(--bg-warm); border: 1px dashed var(--border); border-radius: 10px; padding: 22px 24px; margin: 24px 0; }
-  .ctx-illust h4 { font-size: 13px; color: var(--ink-muted); letter-spacing: 2px; margin-bottom: 14px; font-weight: 700; text-transform: uppercase; }
-  .ctx-window { display: flex; align-items: stretch; border: 2px solid var(--ink); border-radius: 8px; overflow: hidden; background: #fff; }
-  .ctx-cell { flex: 1; padding: 12px 8px; text-align: center; font-size: 12px; color: var(--ink-light); border-right: 1px dashed var(--border); position: relative; }
-  .ctx-cell:last-child { border-right: none; }
-  .ctx-cell.fade { background: var(--red-light); color: var(--red); }
-  .ctx-cell.fade::after { content: '↓ 滑出'; display: block; font-size: 10px; margin-top: 4px; opacity: 0.7; }
-  .ctx-cell.in { background: var(--green-light); color: var(--green); font-weight: 600; }
-  .ctx-cell.head { background: var(--ink); color: #fff; font-weight: 700; }
+  /* ─── Window visualizer ─── */
+  .window-viz {
+    background: var(--bg-warm);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
 
-  .bg-card-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin: 20px 0; }
-  .bg-card-section h4 { font-size: 13px; color: var(--purple); letter-spacing: 2px; margin-bottom: 12px; font-weight: 700; text-transform: uppercase; }
-  .bg-card-section pre { background: var(--bg); padding: 14px 16px; border-radius: 6px; font-family: 'Noto Sans SC', monospace; font-size: 13px; color: var(--ink); white-space: pre-wrap; line-height: 1.85; border: 1px solid var(--border); }
+  .window-viz-label {
+    background: var(--ink);
+    color: var(--amber-mid);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 10px 20px;
+  }
 
-  .story-card { background: var(--bg-warm); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin: 20px 0; }
-  .story-card-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--amber); }
-  .story-card-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .story-card p { font-size: 14px; line-height: 1.85; color: var(--ink-light); margin-bottom: 10px; }
-  .story-card p:last-child { margin-bottom: 0; }
-  .story-name { display: inline-block; background: var(--ink); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 3px; margin-right: 4px; }
+  .window-rows { padding: 16px 20px; display: flex; flex-direction: column; gap: 6px; }
 
-  .anchor { background: var(--ink); color: #fff; border-radius: 12px; padding: 28px 32px; margin: 40px 0 0; }
-  .anchor-label { font-size: 10px; letter-spacing: 3px; color: var(--amber-mid); font-weight: 500; margin-bottom: 12px; }
-  .anchor h3 { color: #fff; font-size: 18px; margin: 0 0 10px; }
-  .anchor p { color: rgba(255,255,255,0.82); font-size: 14px; margin: 0; }
-  .anchor .step { margin-top: 14px; padding: 12px 16px; background: rgba(255,255,255,0.06); border-radius: 6px; font-size: 13.5px; color: rgba(255,255,255,0.92); }
+  .window-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
 
-  .footer-note { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); text-align: center; letter-spacing: 1px; }
+  .window-row.invisible {
+    background: var(--red-light);
+    color: var(--red);
+    opacity: 0.6;
+    text-decoration: line-through;
+  }
 
-  @media (max-width: 640px) {
-    .page { padding: 40px 22px 80px; }
-    .lesson-title { font-size: 26px; }
-    .ctx-cell { font-size: 10px; }
+  .window-row.visible { background: var(--green-light); color: var(--green); }
+  .window-row.new { background: var(--teal-light); color: var(--teal); font-weight: 700; }
+
+  .row-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .window-row.invisible .row-label { background: var(--red); color: #fff; }
+  .window-row.visible   .row-label { background: var(--green); color: #fff; }
+  .window-row.new       .row-label { background: var(--teal); color: #fff; }
+
+  .window-note {
+    padding: 10px 20px 16px;
+    font-size: 12px;
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+
+  /* ─── Token table ─── */
+  .token-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13.5px;
+  }
+
+  .token-table th {
+    background: var(--ink);
+    color: var(--amber-mid);
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    padding: 11px 16px;
+    text-align: left;
+  }
+
+  .token-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink-light);
+  }
+
+  .token-table tr:last-child td { border-bottom: none; }
+  .token-table tr:nth-child(even) td { background: var(--bg-warm); }
+  .token-table td:first-child { font-weight: 700; color: var(--ink); }
+
+  /* ─── Memory comparison ─── */
+  .memory-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .memory-col {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .memory-col-header {
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .memory-col.short .memory-col-header { background: var(--bg-warm); color: var(--ink); }
+  .memory-col.long  .memory-col-header { background: var(--teal); color: #fff; }
+
+  .memory-col-body { padding: 14px 18px; }
+
+  .memory-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 7px 0;
+    font-size: 13px;
+    color: var(--ink-light);
+    border-bottom: 1px solid var(--border);
+    line-height: 1.6;
+  }
+  .memory-feature:last-child { border-bottom: none; }
+
+  .mem-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .memory-col.short .mem-dot { background: var(--ink-muted); }
+  .memory-col.long  .mem-dot { background: var(--teal); }
+
+  /* ─── Tech route cards ─── */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .tech-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    background: var(--bg-card);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tech-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .tech-card.t1::before { background: var(--purple); }
+  .tech-card.t2::before { background: var(--teal); }
+
+  .tech-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    margin-top: 4px;
+  }
+  .tech-card.t1 .tech-tag { color: var(--purple); }
+  .tech-card.t2 .tech-tag { color: var(--teal); }
+
+  .tech-name { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .tech-desc { font-size: 13px; color: var(--ink-light); line-height: 1.7; margin-bottom: 10px; }
+  .tech-analogy {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--ink-muted);
+    background: var(--bg-warm);
+    padding: 8px 10px;
+    border-radius: 5px;
+    line-height: 1.6;
+  }
+
+  /* ─── Mode cards ─── */
+  .mode-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    background: var(--bg-card);
+  }
+
+  .mode-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-warm);
+  }
+
+  .mode-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .mode-badge.m1 { background: var(--amber-light); color: var(--amber); }
+  .mode-badge.m2 { background: var(--teal-light);  color: var(--teal); }
+
+  .mode-title { font-size: 17px; font-weight: 700; color: var(--ink); }
+  .mode-sub   { font-size: 12px; color: var(--ink-muted); margin-top: 3px; }
+
+  .mode-body { padding: 24px 28px; }
+  .mode-body p { font-size: 14.5px; color: var(--ink-light); margin-bottom: 14px; line-height: 1.85; }
+
+  /* ─── Product check ─── */
+  .product-check {
+    background: var(--bg-warm);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 16px 0;
+  }
+
+  .product-check-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+
+  .product-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+  }
+  .product-row:last-child { border-bottom: none; }
+
+  .product-name-tag {
+    font-weight: 700;
+    color: var(--ink);
+    flex-shrink: 0;
+    width: 100px;
+  }
+
+  .product-info { color: var(--ink-light); line-height: 1.6; }
+
+  /* ─── Tip steps ─── */
+  .tip-list { display: flex; flex-direction: column; gap: 16px; margin: 16px 0; }
+
+  .tip-item {
+    display: flex;
+    gap: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    align-items: flex-start;
+  }
+
+  .tip-num {
+    width: 32px; height: 32px;
+    background: var(--amber);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .tip-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .tip-body  { font-size: 13.5px; color: var(--ink-light); line-height: 1.8; }
+
+  /* ─── Do / Don't ─── */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  .do-item, .dont-item {
+    font-size: 12.5px;
+    padding: 9px 12px;
+    border-radius: 6px;
+    line-height: 1.6;
+  }
+  .do-item   { background: var(--green-light); color: var(--green); }
+  .dont-item { background: var(--red-light);   color: var(--red); }
+
+  /* ─── Background card template ─── */
+  .bg-card-template {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    line-height: 1.9;
+    font-family: 'Noto Sans SC', monospace;
+  }
+
+  .bg-card-template .line { color: rgba(255,255,255,0.75); }
+  .bg-card-template .placeholder { color: var(--amber-mid); }
+
+  .bg-card-example {
+    background: var(--teal-light);
+    border: 1px solid #b2dfdb;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 12px 0;
+    font-size: 13.5px;
+    color: var(--teal);
+    line-height: 1.85;
+  }
+
+  .bg-card-example-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: var(--teal);
+    opacity: 0.7;
+  }
+
+  /* ─── Segment flow ─── */
+  .segment-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .segment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .segment-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .segment-dot.s1 { background: var(--amber-light); color: var(--amber); }
+  .segment-dot.s2 { background: var(--teal-light);  color: var(--teal); }
+  .segment-dot.s3 { background: var(--purple-light); color: var(--purple); }
+
+  .segment-content { font-size: 13.5px; color: var(--ink-light); line-height: 1.7; }
+  .segment-content strong { color: var(--ink); }
+
+  /* ─── Action section ─── */
+  .action-section {
+    margin-top: 52px;
+    border-top: 3px solid var(--ink);
+    padding-top: 36px;
+  }
+
+  .action-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .action-card { border-radius: 10px; padding: 22px; }
+  .action-card.now  { background: var(--amber-light); border: 1px solid #f0d080; }
+  .action-card.week { background: var(--bg-warm);     border: 1px solid var(--border); }
+
+  .action-card-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; margin-bottom: 12px; color: var(--amber); }
+  .action-card.week .action-card-label { color: var(--ink-muted); }
+  .action-card h4  { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+  .action-card p   { font-size: 13px; color: var(--ink-light); line-height: 1.75; margin: 0; }
+
+  /* ─── Summary ─── */
+  .summary-box {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin-top: 16px;
+  }
+
+  .summary-box h3 {
+    color: var(--amber-mid);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+  }
+
+  .summary-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.85);
+  }
+  .summary-item:last-child { margin-bottom: 0; }
+
+  .summary-num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px;
+    color: var(--amber-mid);
+    font-weight: 700;
+    flex-shrink: 0;
+    line-height: 1.4;
   }
 </style>
 </head>
 <body>
 <div class="page">
-  <span class="course-tag">打工人进化论 · AI 职场实战课</span>
 
-  <header class="lesson-header">
-    <div class="lesson-week">第一周 · 第5节</div>
-    <h1 class="lesson-title">上下文窗口与管理</h1>
-    <div class="lesson-subtitle">为什么AI会忘记，怎么让它记住</div>
+  <div class="course-tag">AI 职场实战课</div>
+
+  <div class="lesson-header">
+    <div class="lesson-week">第一周 · 第 5 节</div>
+    <h1 class="lesson-title">上下文窗口：为什么 AI 会忘记，怎么让它记住</h1>
+    <div class="lesson-subtitle">理解这个机制，你才知道该在什么时候做什么</div>
     <div class="lesson-meta">
-      <span>🎯 心智重建 + 实战工具</span>
-      <span>⏱ 阅读约 10 分钟</span>
-      <span>📌 行动锚点：两个实操练习</span>
+      <span>📖 阅读约 12 分钟</span>
+      <span>🎯 认知 + 实操</span>
+      <span>⚡ 含两个行动锚点</span>
     </div>
-  </header>
-
-  <div class="scene-box">
-    <div class="scene-label">常见场景</div>
-    <p>你在和AI聊天，前几轮回复都很好。但从第10轮开始，AI的回答突然变陌生了——它开始忘记你早就说过的背景信息。</p>
-    <p>或者，你和AI合作写一份长文档，写到第15000字时，AI开始忽视之前设定的风格和要求。</p>
-    <p>你的第一反应是："AI怎么开始出错了？"</p>
-    <p class="scene-highlight">真相是：AI没有出错。它的"上下文窗口"满了。</p>
   </div>
 
+  <!-- Scene -->
+  <div class="scene-box">
+    <div class="scene-label">▎ 开篇场景</div>
+    <p>你和 AI 聊了十几轮，前面的回复都很好。但从某一轮开始，它突然"变傻了"——明明你开头说过"我是做 B2B 销售的"，它现在给你的建议完全不对口；明明说过"语气要正式"，它开始用口语化表达。</p>
+    <p>你的第一反应：AI 开始出错了？</p>
+    <div class="scene-highlight">
+      真相是：AI 没有出错。它只是"看不见"你之前说的话了。<br><br>
+      这节课讲清楚两件事：<strong style="color:#f5c842;">为什么会这样，以及你能做什么。</strong>
+    </div>
+  </div>
+
+  <div class="callout insight">
+    <span class="callout-icon">💡</span>
+    <span>上下文窗口是 AI 工作机制的底层基础。理解它，你才能判断什么时候该开新对话、什么时候给背景、为什么 AI 有时候表现不稳定——这个认知影响你之后所有的 AI 使用方式。</span>
+  </div>
+
+  <!-- Part 1 -->
   <div class="section">
-    <span class="section-badge">第一部分</span>
-    <h2>认知层：为什么AI会忘记</h2>
+    <div class="section-badge">PART 01</div>
+    <h2>认知层：AI 的记忆是怎么工作的</h2>
 
     <h3>什么是上下文窗口</h3>
-    <p>上下文窗口就是<strong>AI能同时"看"的字数上限</strong>。超过这个限制，最早的对话就会被挤出去，AI看不见了。</p>
 
-    <div class="ctx-illust">
-      <h4>上下文窗口的工作原理（比喻）</h4>
-      <p style="margin-bottom: 12px; font-size: 14px; color: var(--ink);">AI就像一个"看屏幕"的人，屏幕只能显示一定数量的文字。当新对话加进来，屏幕最上面的内容就会被推出去。</p>
-      <div class="ctx-window">
-        <div class="ctx-cell fade">第1轮 对话</div>
-        <div class="ctx-cell fade">第2轮 对话</div>
-        <div class="ctx-cell fade">第3轮 对话</div>
-        <div class="ctx-cell in">第8轮 对话</div>
-        <div class="ctx-cell in">第9轮 对话</div>
-        <div class="ctx-cell head">你的 新提问</div>
+    <p>上下文窗口，就是 AI 在每一轮回复时能"看到"的内容总量上限。它不是 AI 的"记忆力"，而更像一个<strong>有限大小的屏幕</strong>——屏幕能显示多少字，AI 就能看到多少内容。新内容不断加进来，最早的内容就会被推出屏幕，AI 从此看不见。</p>
+
+    <div class="window-viz">
+      <div class="window-viz-label">▎ 上下文窗口示意</div>
+      <div class="window-rows">
+        <div class="window-row invisible">
+          <span class="row-label">已推出</span>
+          第 1 轮：你说"我是做 B2B 销售的，主要服务制造业"
+        </div>
+        <div class="window-row invisible">
+          <span class="row-label">已推出</span>
+          第 2 轮：你说"语气要正式，不要口语化"
+        </div>
+        <div class="window-row invisible">
+          <span class="row-label">已推出</span>
+          第 3 轮：你说"客户是 500 人以上的企业"
+        </div>
+        <div class="window-row visible">
+          <span class="row-label">可见</span>
+          第 8 轮：AI 的建议和你的回复
+        </div>
+        <div class="window-row visible">
+          <span class="row-label">可见</span>
+          第 9 轮：AI 的建议和你的回复
+        </div>
+        <div class="window-row new">
+          <span class="row-label">当前</span>
+          你的新提问——AI 此刻只能看到第 8、9 轮和你的新问题
+        </div>
       </div>
-      <p style="margin-top: 12px; font-size: 13px; color: var(--ink-muted);">红色部分已经滑出屏幕，AI 看不见了</p>
+      <div class="window-note">红色部分已被推出窗口，AI 看不见了。这就是为什么它开始"忘事"。</div>
     </div>
 
-    <h3>不同AI的上下文窗口大小</h3>
-    <ul style="margin-left: 18px; color: var(--ink-light);">
-      <li style="margin-bottom: 8px;">Claude：200K tokens（约150万字）</li>
-      <li style="margin-bottom: 8px;">GPT-4：8K-128K tokens（8千到96万字，版本不同）</li>
-      <li style="margin-bottom: 8px;">GPT-4o：128K tokens（约96万字）</li>
-      <li style="margin-bottom: 8px;">Gemini：1M tokens（约750万字）</li>
-    </ul>
-    <p style="margin-top: 12px; font-size: 13px; color: var(--ink-muted);">1 token ≈ 0.75 个中文字</p>
-
-    <h3>核心认知</h3>
     <div class="pullquote">
-      <p>AI不是"记忆"信息，而是在每一轮回复时，<strong>把所有历史对话重新看一遍</strong>。一旦超过窗口限制，最早的对话就永远看不见了。</p>
+      <p>AI 不会"逐渐遗忘"，而是"突然看不见"。前 15 轮完全记得，第 16 轮突然看不见第 1 轮说的话——不是退化，是物理限制。</p>
     </div>
-    <p>这意味着：AI不会"逐渐遗忘"，而是"突然看不见"。在同一对话里，前9轮都记得，第10轮突然忘得一干二净。</p>
+
+    <h3>各主流产品的窗口大小参考</h3>
+
+    <table class="token-table">
+      <tr>
+        <th>产品</th>
+        <th>上下文窗口</th>
+        <th>约能放多少中文字</th>
+      </tr>
+      <tr><td>Claude</td><td>200K tokens</td><td>约 150 万字</td></tr>
+      <tr><td>GPT-4o</td><td>128K tokens</td><td>约 96 万字</td></tr>
+      <tr><td>Gemini 1.5</td><td>1M tokens</td><td>约 750 万字</td></tr>
+      <tr><td>DeepSeek</td><td>128K tokens</td><td>约 96 万字</td></tr>
+      <tr><td>Kimi</td><td>128K tokens</td><td>约 96 万字</td></tr>
+    </table>
+
+    <p style="font-size:12.5px; color:var(--ink-muted); margin-top:-8px;">* 1 token ≈ 0.75 个中文字。以上数据会随产品更新变化，以各产品官网为准。日常对话通常用不完，处理超长文档或大量对话时才需要留意。</p>
   </div>
 
+  <div class="divider">延伸认知</div>
+
+  <!-- Memory types -->
   <div class="section">
-    <span class="section-badge">第二部分</span>
-    <h2>方法层：怎么让AI记住</h2>
+    <div class="section-badge teal">延伸认知</div>
+    <h2>短期记忆 vs 长期记忆</h2>
 
-    <h3>五个实操技巧</h3>
+    <p>理解了上下文窗口，你就理解了 AI 的<strong>短期记忆</strong>。但人类的记忆系统不只有短期记忆——我们同时拥有长期记忆，可以跨越几年存储重要的信息。AI 系统也在往这个方向发展。</p>
 
-    <div class="principle-card">
-      <div class="principle-num">1</div>
-      <div class="principle-body">
-        <h4>开场就提供背景卡</h4>
-        <p>不要等AI忘记了再补充背景。在对话开始，就一次性把最重要的信息告诉AI。</p>
-        <div class="example">❌ 错：聊了5轮后说"对了，我是销售"<br/>✓ 对：第一句就说"我是SaaS销售，主要服务科技公司"</div>
+    <div class="memory-compare">
+      <div class="memory-col short">
+        <div class="memory-col-header">⏱ 短期记忆（上下文窗口）</div>
+        <div class="memory-col-body">
+          <div class="memory-feature"><span class="mem-dot"></span><span>只存在于当次对话中</span></div>
+          <div class="memory-feature"><span class="mem-dot"></span><span>对话结束，全部消失</span></div>
+          <div class="memory-feature"><span class="mem-dot"></span><span>有容量上限，满了就挤掉最早内容</span></div>
+          <div class="memory-feature"><span class="mem-dot"></span><span>所有 AI 产品都有</span></div>
+        </div>
+      </div>
+      <div class="memory-col long">
+        <div class="memory-col-header">🗂 长期记忆（跨会话存储）</div>
+        <div class="memory-col-body">
+          <div class="memory-feature"><span class="mem-dot"></span><span>存在于对话窗口之外</span></div>
+          <div class="memory-feature"><span class="mem-dot"></span><span>新开对话依然保留</span></div>
+          <div class="memory-feature"><span class="mem-dot"></span><span>可跨越多次会话保留偏好和背景</span></div>
+          <div class="memory-feature"><span class="mem-dot"></span><span>部分产品支持，需手动开启</span></div>
+        </div>
       </div>
     </div>
 
-    <div class="principle-card">
-      <div class="principle-num">2</div>
-      <div class="principle-body">
-        <h4>每次都重申关键约束</h4>
-        <p>如果某些要求很重要（比如"必须少于200字""要有数据支撑"），不要只在开始说一遍。每次新请求时都再强调一遍。</p>
-        <div class="example">❌ 错：开始说了"要正式语气"，后面就不提了<br/>✓ 对：每次新请求都说"保持正式语气，避免口语表达"</div>
+    <h3>长期记忆的两种实现方式</h3>
+    <p>目前长期记忆主要有两种技术路线：</p>
+
+    <div class="tech-grid">
+      <div class="tech-card t1">
+        <div class="tech-tag">方式一</div>
+        <div class="tech-name">向量数据库</div>
+        <div class="tech-desc">把你说过的重要内容转化成向量数字存入数据库。下次对话时，AI 根据你当前说的内容，自动搜索最相关的历史记录调取回来。</div>
+        <div class="tech-analogy">类比：有索引的笔记本，你问什么，它翻到最相关的那页给你看。</div>
+      </div>
+      <div class="tech-card t2">
+        <div class="tech-tag">方式二</div>
+        <div class="tech-name">本地文件存储</div>
+        <div class="tech-desc">直接把重要信息写进 Markdown 或 JSON 文件，结构清晰，人也能直接读懂和编辑。对话开始时，AI 先读取这些文件作为背景。</div>
+        <div class="tech-analogy">类比：你的个人档案，AI 每次对话前先看一遍。</div>
       </div>
     </div>
 
-    <div class="principle-card">
-      <div class="principle-num">3</div>
-      <div class="principle-body">
-        <h4>大任务分段处理，中途更新背景</h4>
-        <p>如果一个任务很长（比如写一本电子书），不要一次性粘贴所有内容。分段处理，中途可以更新背景和要求。</p>
-        <div class="example">第1段：上传第1-3章 + 完整背景<br/>第2段：上传第4-6章 + 重申风格要求<br/>第3段：总结合并，再核查风格一致</div>
-      </div>
+    <div class="callout insight">
+      <span class="callout-icon">💡</span>
+      <span>部分专业 AI 工具采用<strong>分层存储设计</strong>：一个文件存你的长期偏好（比如工作背景、语言习惯），另一个文件存近期对话日志，底层再用结构化格式完整保留历史记录。这种设计让 AI 既能快速调取固定背景，也能保留近期的工作上下文——代表了 AI 记忆系统的发展方向。</span>
     </div>
 
-    <div class="principle-card">
-      <div class="principle-num">4</div>
-      <div class="principle-body">
-        <h4>知道什么时候该开新对话</h4>
-        <p>同一个对话聊了超过50轮（或2万字），考虑开新对话。大多数时候，AI的性能在新对话里会更好。</p>
-        <div class="example">长期合作项目：定期（比如每周一次）开新对话，在开场重新提供完整背景</div>
-      </div>
-    </div>
-
-    <div class="principle-card">
-      <div class="principle-num">5</div>
-      <div class="principle-body">
-        <h4>用"求你记住"来强调关键信息</h4>
-        <p>对于特别重要的约束或背景，可以明确地说"接下来的所有回复，都要记住这一点"。</p>
-        <div class="example">例子：我的所有邮件都要以"Best" 结尾，你后续所有建议都要遵守这一点，好吗？</div>
-      </div>
-    </div>
-
-    <h3>个人背景卡模板</h3>
-    <div class="bg-card-section">
-      <h4>我是谁 + 我的工作背景</h4>
-      <pre>我是[职位]，在[公司/行业]工作。
-我主要负责[具体工作内容]。
-我的团队规模[几个人]，我们的目标是[什么]。
-我的沟通风格倾向[正式/口语]，喜欢[简洁/详细]的回复。
-
-接下来我会问你关于[工作领域/任务类型]的问题。
-这些对话中，我最重视[某个方面]。
-如果你的回复超过[字数]，我会感觉啰嗦。
-如果你用[某种表达方式]，会让我困惑。</pre>
-    </div>
-
-    <div class="story-card">
-      <div class="story-card-label">实例：HR的背景卡</div>
-      <p>我是一家30人初创公司的HR，主要负责招聘和员工管理。我们在招一个销售主管，要求是3-5年B2B销售经验。我的老板希望我们能在两周内完成初试。我跟你聊天的目的是快速优化招聘JD。我喜欢简洁的回复（每个建议不超过150字），最讨厌泛泛而谈。如果你的建议能配个具体例子就更好了。</p>
-    </div>
+    <p>这意味着：理解长期记忆不只是"了解新技术"，而是帮你理解为什么"个人背景卡"这么重要——你现在手动做的事，未来的 AI 系统会自动帮你维护。</p>
   </div>
 
+  <div class="divider">方法层</div>
+
+  <!-- Part 2 -->
   <div class="section">
-    <span class="section-badge">综合应用</span>
-    <h2>长对话的完整流程</h2>
+    <div class="section-badge">PART 02</div>
+    <h2>方法层：你能做什么</h2>
 
-    <p><strong>场景</strong>：你要和AI合作完成一份30页的产品白皮书。</p>
+    <p>根据你用的 AI 有没有开启长期记忆，对应的管理方式完全不同。先确认你属于哪种情况。</p>
 
-    <div style="background: var(--bg-warm); border-left: 4px solid var(--amber); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 20px 0;">
-      <p><strong>第1对话（准备期）</strong><br/>
-      - 提供完整背景卡：你是谁、这个白皮书的目标受众是谁、核心卖点是什么<br/>
-      - 提供大纲和第1-5页内容<br/>
-      - 定义风格标准（正式程度、用词习惯）<br/>
-      <em>AI可以看整个背景 + 你的初稿，质量最高</em></p>
+    <div class="product-check">
+      <div class="product-check-title">▎ 怎么查你用的产品有没有长期记忆</div>
+      <div class="product-row">
+        <div class="product-name-tag">ChatGPT</div>
+        <div class="product-info">设置 → 个性化 → 记忆，可以手动开关。开启后会跨会话记住你告诉它的信息。</div>
+      </div>
+      <div class="product-row">
+        <div class="product-name-tag">Claude</div>
+        <div class="product-info">claude.ai 有记忆功能，可在设置中查看目前记住了什么，也可以手动编辑和删除。</div>
+      </div>
+      <div class="product-row">
+        <div class="product-name-tag">Kimi / 豆包</div>
+        <div class="product-info">目前默认不开启跨会话记忆，以当次对话为准。</div>
+      </div>
+      <div class="product-row">
+        <div class="product-name-tag">DeepSeek</div>
+        <div class="product-info">目前以当次对话为准，无跨会话长期记忆。</div>
+      </div>
     </div>
 
-    <div style="background: var(--bg-warm); border-left: 4px solid var(--amber); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 20px 0;">
-      <p><strong>第2对话（扩展期）</strong><br/>
-      - 开场重申：背景卡 + 之前定义的风格<br/>
-      - 上传第6-15页 + 最新的要求<br/>
-      <em>虽然少了之前的内容，但有了新的背景，AI还能保持一致</em></p>
+    <!-- Mode 1 -->
+    <div class="mode-card">
+      <div class="mode-header">
+        <div class="mode-badge m1">模式一</div>
+        <div>
+          <div class="mode-title">没有长期记忆——靠上下文管理</div>
+          <div class="mode-sub">大多数人的默认状态，新开对话就是全新开始</div>
+        </div>
+      </div>
+      <div class="mode-body">
+        <div class="tip-list">
+
+          <div class="tip-item">
+            <div class="tip-num">①</div>
+            <div>
+              <div class="tip-title">开场就给背景卡</div>
+              <div class="tip-body">
+                <p style="margin-bottom:10px;">不要等 AI 忘记了再补充背景。对话第一句，把最重要的信息一次性说清楚。</p>
+                <div class="do-dont">
+                  <div class="dont-item">❌ 聊了五轮后说："对了，我是做销售的"</div>
+                  <div class="do-item">✅ 第一句就说："我是 SaaS 公司的销售经理，主要服务中型制造业企业"</div>
+                </div>
+                <p style="margin-top:14px; margin-bottom:8px; font-weight:700; color:var(--ink); font-size:13.5px;">背景卡模板（直接复制使用）：</p>
+                <div class="bg-card-template">
+                  <div class="line">我是<span class="placeholder">【职位】</span>，在<span class="placeholder">【行业/公司类型】</span>工作。</div>
+                  <div class="line">我主要负责<span class="placeholder">【具体工作内容】</span>。</div>
+                  <div class="line">这次对话的目标是<span class="placeholder">【你想完成什么】</span>。</div>
+                  <div class="line">我希望回复<span class="placeholder">【简洁/详细】</span>，语气<span class="placeholder">【正式/口语】</span>。</div>
+                  <div class="line">特别注意：<span class="placeholder">【AI 容易出错的地方，或你特别在意什么】</span>。</div>
+                </div>
+                <div class="bg-card-example">
+                  <div class="bg-card-example-label">示范 · HR 版本</div>
+                  我是一家 30 人初创公司的 HR，主要负责招聘。现在要招一个 B2B 销售主管，要求 3-5 年经验，两周内完成初试。这次对话的目标是优化招聘 JD。回复控制在 150 字以内，给建议时最好带具体例子，不要泛泛而谈。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tip-item">
+            <div class="tip-num">②</div>
+            <div>
+              <div class="tip-title">感觉 AI 开始忘事，就开新对话</div>
+              <div class="tip-body">
+                <p>不需要盯着轮数或字数。<strong>当你感觉 AI 的回答开始变奇怪、忽视你之前设定的背景或约束</strong>，这就是该开新对话的信号。</p>
+                <p>新对话开头，重新贴上背景卡，AI 的表现通常会马上恢复正常。</p>
+                <div class="callout warn" style="margin-top:8px;">
+                  <span class="callout-icon">⚠️</span>
+                  <span>不需要每轮都重复你的要求。正常对话长度内，AI 完全记得开头说的约束。只有当你明显感觉到它"忘事"，才是开新对话的时候。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tip-item">
+            <div class="tip-num">③</div>
+            <div>
+              <div class="tip-title">长任务分段处理</div>
+              <div class="tip-body">
+                <p>和 AI 合作完成超长文档或大型项目时，不要一次性把所有内容塞进一个对话。分段来做，每段开头重新提供背景：</p>
+                <div class="segment-flow">
+                  <div class="segment-item">
+                    <div class="segment-dot s1">1</div>
+                    <div class="segment-content"><strong>第一段：</strong>完整背景卡 + 第一部分内容 → AI 状态最好，质量最高</div>
+                  </div>
+                  <div class="segment-item">
+                    <div class="segment-dot s2">2</div>
+                    <div class="segment-content"><strong>第二段：</strong>重申背景卡 + 第二部分内容 → 有了新背景，AI 保持一致</div>
+                  </div>
+                  <div class="segment-item">
+                    <div class="segment-dot s3">3</div>
+                    <div class="segment-content"><strong>第三段：</strong>重申背景卡 + 收尾整合 → 统一检查风格和逻辑</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
-    <div style="background: var(--bg-warm); border-left: 4px solid var(--amber); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 20px 0;">
-      <p><strong>第3对话（收尾期）</strong><br/>
-      - 开场再次提供背景卡 + 风格定义<br/>
-      - 上传第16-30页<br/>
-      - 这一轮处理最后的调整和统一检查<br/>
-      <em>虽然是新对话，但背景信息完整，AI还是能保持一致性</em></p>
+    <!-- Mode 2 -->
+    <div class="mode-card">
+      <div class="mode-header">
+        <div class="mode-badge m2">模式二</div>
+        <div>
+          <div class="mode-title">开启了长期记忆——主动管理记忆库</div>
+          <div class="mode-sub">跨会话记忆生效，新开对话依然记得你</div>
+        </div>
+      </div>
+      <div class="mode-body">
+        <div class="tip-list">
+
+          <div class="tip-item">
+            <div class="tip-num">①</div>
+            <div>
+              <div class="tip-title">主动告诉 AI 记住什么</div>
+              <div class="tip-body">
+                <p>直接说"记住这一点"或"以后的对话都要遵守这个"，AI 会把这条信息写入长期记忆，下次新开对话依然有效。</p>
+                <div class="bg-card-example">
+                  <div class="bg-card-example-label">示例</div>
+                  "我所有的对外邮件都要用正式语气，结尾用 Best regards。以后每次帮我写邮件，都要遵守这个规则，记住了吗？"
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tip-item">
+            <div class="tip-num">②</div>
+            <div>
+              <div class="tip-title">定期检查和清理记忆</div>
+              <div class="tip-body">
+                <p>长期记忆不是存进去就完了。随着时间推移，你的职位、项目、偏好可能会变化。建议每隔一段时间检查一下 AI 记住了什么，删掉过时的，补充新的。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tip-item">
+            <div class="tip-num">③</div>
+            <div>
+              <div class="tip-title">不要误以为 AI 记住了所有内容</div>
+              <div class="tip-body">
+                <p>开启长期记忆的 AI，并不是"记住了所有你说过的话"。它记住的是被明确触发写入的信息，或者它判断为重要的信息。日常对话的细节，依然只存在于当次对话的上下文窗口里。</p>
+                <div class="callout tip" style="margin-top:8px;">
+                  <span class="callout-icon">✓</span>
+                  <span>两种记忆机制同时存在，互相配合：长期记忆存你的固定背景和偏好，上下文窗口处理当次对话的具体内容。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="anchor">
-    <div class="anchor-label">⚡ 行动锚点</div>
-    <h3>两个立刻就能做的练习</h3>
-    <div class="step">
-      <strong>练习1（5分钟）</strong><br/>
-      找一个你正在进行的AI对话，数一下当前有多少轮（或多少字）。如果超过30轮，考虑开新对话，并在开场重新提供一次背景。
+  <!-- Action -->
+  <div class="action-section">
+    <h2>⚡ 行动时间</h2>
+    <div class="action-cards">
+      <div class="action-card now">
+        <div class="action-card-label">NOW · 2 分钟</div>
+        <h4>查清楚你用的 AI 属于哪种模式</h4>
+        <p>打开你最常用的 AI 产品，找到设置页面，确认有没有开启长期记忆功能。<br><br>
+        · 没有开启的：直接进入练习二<br>
+        · 已经开启的：先看看它目前记住了什么，有没有需要删掉或补充的内容</p>
+      </div>
+      <div class="action-card week">
+        <div class="action-card-label">THIS WEEK · 10 分钟</div>
+        <h4>写出你的个人背景卡</h4>
+        <p>用上面的模板写出你自己的背景卡，保存到备忘录里。下次打开 AI，第一句话就贴上去。<br><br>感受一下 AI 的回复质量是否有明显变化——大多数人第一次这样做都会觉得"差距比想象的大"。</p>
+      </div>
     </div>
-    <div class="step">
-      <strong>练习2（10分钟）</strong><br/>
-      写出你自己的背景卡（参考上面的模板），保存在备忘录里。下次和AI聊天时，第一句话就粘上去。体会一下AI的回复质量是否提高了。
+
+    <div class="summary-box">
+      <h3>本节小结 · 记住三件事</h3>
+      <div class="summary-item">
+        <div class="summary-num">01</div>
+        <div>AI 没有持久记忆，只是在每轮回复时重新看一遍当前窗口里的所有内容。超出窗口的内容，它"突然看不见"，不是退化，是物理限制。</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-num">02</div>
+        <div>记忆分两种：<strong style="color:#f5c842;">短期记忆（上下文窗口）</strong>当次有效，对话结束消失；<strong style="color:#f5c842;">长期记忆（跨会话存储）</strong>新开对话依然保留，部分产品支持。管理方式完全不同。</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-num">03</div>
+        <div>不需要每轮重复要求。感觉 AI 开始"忘事"才开新对话，开头贴背景卡。长任务分段处理，每段重新给背景。</div>
+      </div>
     </div>
   </div>
 
-  <div class="footer-note">
-    第一周 · 打工人进化论 · AI职场实战课<br/>
-    下一节：5分钟快速用AI——时间压力下的"够用"策略
-  </div>
 </div>
 </body>
 </html>
