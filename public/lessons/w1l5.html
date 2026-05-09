@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>第一周·第5节 — 上下文窗口 · 打工人进化论</title>
+<title>第一周·第5节 — 上下文窗口与管理 · 打工人进化论</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -92,127 +92,178 @@
 
   <header class="lesson-header">
     <div class="lesson-week">第一周 · 第5节</div>
-    <h1 class="lesson-title">为什么聊着聊着 AI 就"忘了"你</h1>
-    <div class="lesson-subtitle">上下文窗口——你以为它在记，其实它只是在"看屏"</div>
+    <h1 class="lesson-title">上下文窗口与管理</h1>
+    <div class="lesson-subtitle">为什么AI会忘记，怎么让它记住</div>
     <div class="lesson-meta">
-      <span>🎯 心智重建</span>
-      <span>⏱ 阅读约 7 分钟</span>
-      <span>📌 行动锚点：5 分钟</span>
+      <span>🎯 心智重建 + 实战工具</span>
+      <span>⏱ 阅读约 10 分钟</span>
+      <span>📌 行动锚点：两个实操练习</span>
     </div>
   </header>
 
   <div class="scene-box">
-    <div class="scene-label">REAL SCENE · 真实场景</div>
-    <p>你和 AI 聊了 25 轮，从需求分析一路推到落地方案。第 26 轮你问："对了，我开头说的那个 KPI 是多少来着？"</p>
-    <p>AI 一本正经地回："您好，请问您指的是哪个 KPI 呢？" ——你想砸键盘。</p>
-    <div class="scene-highlight">AI 不是失忆，它是"近视"——它能看到的内容，比你以为的少得多。</div>
+    <div class="scene-label">常见场景</div>
+    <p>你在和AI聊天，前几轮回复都很好。但从第10轮开始，AI的回答突然变陌生了——它开始忘记你早就说过的背景信息。</p>
+    <p>或者，你和AI合作写一份长文档，写到第15000字时，AI开始忽视之前设定的风格和要求。</p>
+    <p>你的第一反应是："AI怎么开始出错了？"</p>
+    <p class="scene-highlight">真相是：AI没有出错。它的"上下文窗口"满了。</p>
   </div>
 
-  <section class="section">
-    <span class="section-badge">CORE INSIGHT · 核心认知</span>
-    <h2>AI 没有持久记忆，它只看"当前窗口"</h2>
-    <p>每一次 AI 给你回答，它真正"看"到的，是这次对话窗口里能塞下的最近一段文字。这个能塞下的容量，叫<strong>上下文窗口（Context Window）</strong>。</p>
-    <p>对话越长，最早说的内容就越容易被"挤出窗口"——AI 不是忘了，是它已经看不到那段了。同样，跨对话窗口，它一无所知；它不记得你昨天聊过什么，也不记得你的职位、行业、风格。</p>
-    <div class="pullquote">
-      <p>不要怪 AI 健忘——它从来没"记住"过任何东西。<br>是你需要主动把它该知道的，每次都喂给它。</p>
-    </div>
+  <div class="section">
+    <span class="section-badge">第一部分</span>
+    <h2>认知层：为什么AI会忘记</h2>
+
+    <h3>什么是上下文窗口</h3>
+    <p>上下文窗口就是<strong>AI能同时"看"的字数上限</strong>。超过这个限制，最早的对话就会被挤出去，AI看不见了。</p>
 
     <div class="ctx-illust">
-      <h4>它的视野（示意）</h4>
+      <h4>上下文窗口的工作原理（比喻）</h4>
+      <p style="margin-bottom: 12px; font-size: 14px; color: var(--ink);">AI就像一个"看屏幕"的人，屏幕只能显示一定数量的文字。当新对话加进来，屏幕最上面的内容就会被推出去。</p>
       <div class="ctx-window">
-        <div class="ctx-cell fade">第1轮</div>
-        <div class="ctx-cell fade">第2轮</div>
-        <div class="ctx-cell">…</div>
-        <div class="ctx-cell in">第18轮</div>
-        <div class="ctx-cell in">第19轮</div>
-        <div class="ctx-cell head">现在</div>
+        <div class="ctx-cell fade">第1轮 对话</div>
+        <div class="ctx-cell fade">第2轮 对话</div>
+        <div class="ctx-cell fade">第3轮 对话</div>
+        <div class="ctx-cell in">第8轮 对话</div>
+        <div class="ctx-cell in">第9轮 对话</div>
+        <div class="ctx-cell head">你的 新提问</div>
       </div>
-      <p style="margin-top: 12px; font-size: 12px; color: var(--ink-muted); margin-bottom: 0;">越靠左 = 越早 = 越可能"被挤出去"。</p>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--ink-muted);">红色部分已经滑出屏幕，AI 看不见了</p>
     </div>
-  </section>
 
-  <section class="section">
-    <span class="section-badge">FRAMEWORK · 思维框架</span>
-    <h2>上下文管理三原则</h2>
+    <h3>不同AI的上下文窗口大小</h3>
+    <ul style="margin-left: 18px; color: var(--ink-light);">
+      <li style="margin-bottom: 8px;">Claude：200K tokens（约150万字）</li>
+      <li style="margin-bottom: 8px;">GPT-4：8K-128K tokens（8千到96万字，版本不同）</li>
+      <li style="margin-bottom: 8px;">GPT-4o：128K tokens（约96万字）</li>
+      <li style="margin-bottom: 8px;">Gemini：1M tokens（约750万字）</li>
+    </ul>
+    <p style="margin-top: 12px; font-size: 13px; color: var(--ink-muted);">1 token ≈ 0.75 个中文字</p>
+
+    <h3>核心认知</h3>
+    <div class="pullquote">
+      <p>AI不是"记忆"信息，而是在每一轮回复时，<strong>把所有历史对话重新看一遍</strong>。一旦超过窗口限制，最早的对话就永远看不见了。</p>
+    </div>
+    <p>这意味着：AI不会"逐渐遗忘"，而是"突然看不见"。在同一对话里，前9轮都记得，第10轮突然忘得一干二净。</p>
+  </div>
+
+  <div class="section">
+    <span class="section-badge">第二部分</span>
+    <h2>方法层：怎么让AI记住</h2>
+
+    <h3>五个实操技巧</h3>
 
     <div class="principle-card">
       <div class="principle-num">1</div>
       <div class="principle-body">
-        <h4>重要背景放开头，别藏在第 N 轮</h4>
-        <p>AI 对"开头"和"最近"最敏感。把决定输出质量的核心背景——身份、目标、约束——放在<strong>第一条消息</strong>，而不是聊到一半才补充。</p>
-        <div class="example"><strong>反例：</strong>聊到第 10 轮才说"哦对了，我们是 to B 行业的"——前面 9 轮已经按 to C 跑偏了。</div>
+        <h4>开场就提供背景卡</h4>
+        <p>不要等AI忘记了再补充背景。在对话开始，就一次性把最重要的信息告诉AI。</p>
+        <div class="example">❌ 错：聊了5轮后说"对了，我是销售"<br/>✓ 对：第一句就说"我是SaaS销售，主要服务科技公司"</div>
       </div>
     </div>
 
     <div class="principle-card">
       <div class="principle-num">2</div>
       <div class="principle-body">
-        <h4>对话过长就开新窗口，重新交代背景</h4>
-        <p>当 AI 开始自相矛盾、给的建议越来越跑偏，最有效的办法不是"继续追问"，而是<strong>开一个新对话</strong>，把上一轮的结论摘要出来作为新窗口的起点。</p>
-        <div class="example"><strong>判断信号：</strong>同一个问题问两次答案不一致／开始给和你需求无关的建议／它"忘了"前面的关键约束。</div>
+        <h4>每次都重申关键约束</h4>
+        <p>如果某些要求很重要（比如"必须少于200字""要有数据支撑"），不要只在开始说一遍。每次新请求时都再强调一遍。</p>
+        <div class="example">❌ 错：开始说了"要正式语气"，后面就不提了<br/>✓ 对：每次新请求都说"保持正式语气，避免口语表达"</div>
       </div>
     </div>
 
     <div class="principle-card">
       <div class="principle-num">3</div>
       <div class="principle-body">
-        <h4>把核心约束写成"固定前缀"，每次带着走</h4>
-        <p>你的职位、风格、常见禁忌——这些每次都写一遍太累。做一张"个人背景卡"，每次开新对话粘到第一条，AI 立刻知道你是谁、你要什么。</p>
-        <div class="example"><strong>个人背景卡 = 你和 AI 协作的"开场白"模板。</strong>它越精炼越好用。</div>
+        <h4>大任务分段处理，中途更新背景</h4>
+        <p>如果一个任务很长（比如写一本电子书），不要一次性粘贴所有内容。分段处理，中途可以更新背景和要求。</p>
+        <div class="example">第1段：上传第1-3章 + 完整背景<br/>第2段：上传第4-6章 + 重申风格要求<br/>第3段：总结合并，再核查风格一致</div>
       </div>
     </div>
-  </section>
 
-  <section class="section">
-    <span class="section-badge">TEMPLATE · 个人背景卡示例</span>
-    <h2>HR 同学的背景卡（直接复用结构）</h2>
+    <div class="principle-card">
+      <div class="principle-num">4</div>
+      <div class="principle-body">
+        <h4>知道什么时候该开新对话</h4>
+        <p>同一个对话聊了超过50轮（或2万字），考虑开新对话。大多数时候，AI的性能在新对话里会更好。</p>
+        <div class="example">长期合作项目：定期（比如每周一次）开新对话，在开场重新提供完整背景</div>
+      </div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-num">5</div>
+      <div class="principle-body">
+        <h4>用"求你记住"来强调关键信息</h4>
+        <p>对于特别重要的约束或背景，可以明确地说"接下来的所有回复，都要记住这一点"。</p>
+        <div class="example">例子：我的所有邮件都要以"Best" 结尾，你后续所有建议都要遵守这一点，好吗？</div>
+      </div>
+    </div>
+
+    <h3>个人背景卡模板</h3>
     <div class="bg-card-section">
-      <h4>个人背景卡 v1</h4>
-      <pre>【身份】我是某互联网公司的 HRBP，团队规模约 200 人。
-【主要任务】写 JD、面试问题设计、季度人才盘点、一对一沟通。
-【语言偏好】中文为主，专业但不僵硬，避免"赋能/抓手/底层逻辑"这类词。
-【常踩的坑】AI 给的 JD 经常太空泛，我需要落到具体技能和行为指标。
-【输出格式】给我条目化输出，每条带具体的例子或可衡量标准。</pre>
-    </div>
-  </section>
+      <h4>我是谁 + 我的工作背景</h4>
+      <pre>我是[职位]，在[公司/行业]工作。
+我主要负责[具体工作内容]。
+我的团队规模[几个人]，我们的目标是[什么]。
+我的沟通风格倾向[正式/口语]，喜欢[简洁/详细]的回复。
 
-  <section class="section">
-    <span class="section-badge">CASES · 跨行业案例</span>
-    <h2>三个被"上下文跑偏"折磨过的人</h2>
-
-    <div class="story-card">
-      <div class="story-card-label">案例 01 · 运营 · 跑题死循环</div>
-      <p><span class="story-name">小晴 · 内容运营</span></p>
-      <p>她和 AI 聊了 20 多轮选题策略，到最后 AI 开始给完全相反的建议——前面让她做"专业向"，最后又让她做"娱乐向"。她以为是 AI 不靠谱，其实是开头那条"目标用户是 B 端中层管理者"的关键约束已经被挤出窗口了。</p>
-      <p><strong>解法：</strong>开新窗口，第一句话就把目标用户和不变的约束钉死。</p>
+接下来我会问你关于[工作领域/任务类型]的问题。
+这些对话中，我最重视[某个方面]。
+如果你的回复超过[字数]，我会感觉啰嗦。
+如果你用[某种表达方式]，会让我困惑。</pre>
     </div>
 
     <div class="story-card">
-      <div class="story-card-label">案例 02 · 行政 · 越聊越跑偏</div>
-      <p><span class="story-name">阿斌 · 行政经理</span></p>
-      <p>他想用一个对话连续处理 5 个采购请求，结果到第 4 个时 AI 开始"创造"前面对话里不存在的细节。问题不在 AI，是任务结构错了——这是 5 件独立小事，强行塞一个窗口才出问题。</p>
-      <p><strong>解法：</strong>重复型独立任务，每件开一个新窗口。</p>
+      <div class="story-card-label">实例：HR的背景卡</div>
+      <p>我是一家30人初创公司的HR，主要负责招聘和员工管理。我们在招一个销售主管，要求是3-5年B2B销售经验。我的老板希望我们能在两周内完成初试。我跟你聊天的目的是快速优化招聘JD。我喜欢简洁的回复（每个建议不超过150字），最讨厌泛泛而谈。如果你的建议能配个具体例子就更好了。</p>
     </div>
-
-    <div class="story-card">
-      <div class="story-card-label">案例 03 · 管理者 · 战略对话失忆</div>
-      <p><span class="story-name">老郑 · 业务负责人</span></p>
-      <p>他和 AI 讨论年度战略，前面聊了 1 小时，给 AI 写了非常精细的市场前提。聊到落地策略时 AI 开始忽略这些前提，建议跑偏。他后来学聪明了——每次进入新阶段时，先让 AI <strong>"用 5 句话总结刚才确认的 5 个前提"</strong>，再继续聊。</p>
-      <p><strong>解法：</strong>每个新阶段前，让 AI 自己复述关键前提，相当于"主动唤醒上下文"。</p>
-    </div>
-  </section>
-
-  <div class="anchor">
-    <div class="anchor-label">ACTION · 5 分钟行动锚点</div>
-    <h3>写出你自己的"个人背景卡 v1"</h3>
-    <p>不需要完美，写一版能用就行——下次开新对话直接粘进去。</p>
-    <div class="step">① 身份（你是谁、什么行业、团队规模）</div>
-    <div class="step">② 主要任务（你最常让 AI 帮的 3 件事）</div>
-    <div class="step">③ 语言偏好（哪些词不要用、风格是什么）</div>
-    <div class="step">④ 常踩的坑（AI 给你的输出最经常错在哪里）</div>
   </div>
 
-  <div class="footer-note">— 第5节完 · 下一节：5 分钟快速用 AI——时间压力下的"够用"策略 —</div>
+  <div class="section">
+    <span class="section-badge">综合应用</span>
+    <h2>长对话的完整流程</h2>
+
+    <p><strong>场景</strong>：你要和AI合作完成一份30页的产品白皮书。</p>
+
+    <div style="background: var(--bg-warm); border-left: 4px solid var(--amber); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 20px 0;">
+      <p><strong>第1对话（准备期）</strong><br/>
+      - 提供完整背景卡：你是谁、这个白皮书的目标受众是谁、核心卖点是什么<br/>
+      - 提供大纲和第1-5页内容<br/>
+      - 定义风格标准（正式程度、用词习惯）<br/>
+      <em>AI可以看整个背景 + 你的初稿，质量最高</em></p>
+    </div>
+
+    <div style="background: var(--bg-warm); border-left: 4px solid var(--amber); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 20px 0;">
+      <p><strong>第2对话（扩展期）</strong><br/>
+      - 开场重申：背景卡 + 之前定义的风格<br/>
+      - 上传第6-15页 + 最新的要求<br/>
+      <em>虽然少了之前的内容，但有了新的背景，AI还能保持一致</em></p>
+    </div>
+
+    <div style="background: var(--bg-warm); border-left: 4px solid var(--amber); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 20px 0;">
+      <p><strong>第3对话（收尾期）</strong><br/>
+      - 开场再次提供背景卡 + 风格定义<br/>
+      - 上传第16-30页<br/>
+      - 这一轮处理最后的调整和统一检查<br/>
+      <em>虽然是新对话，但背景信息完整，AI还是能保持一致性</em></p>
+    </div>
+  </div>
+
+  <div class="anchor">
+    <div class="anchor-label">⚡ 行动锚点</div>
+    <h3>两个立刻就能做的练习</h3>
+    <div class="step">
+      <strong>练习1（5分钟）</strong><br/>
+      找一个你正在进行的AI对话，数一下当前有多少轮（或多少字）。如果超过30轮，考虑开新对话，并在开场重新提供一次背景。
+    </div>
+    <div class="step">
+      <strong>练习2（10分钟）</strong><br/>
+      写出你自己的背景卡（参考上面的模板），保存在备忘录里。下次和AI聊天时，第一句话就粘上去。体会一下AI的回复质量是否提高了。
+    </div>
+  </div>
+
+  <div class="footer-note">
+    第一周 · 打工人进化论 · AI职场实战课<br/>
+    下一节：5分钟快速用AI——时间压力下的"够用"策略
+  </div>
 </div>
 </body>
 </html>
