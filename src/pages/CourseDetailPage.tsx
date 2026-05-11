@@ -110,6 +110,7 @@ export default function CourseDetailPage() {
   const [newLessonOpen, setNewLessonOpen] = useState(false);
   const [editPanelOpen, setEditPanelOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [movingSection, setMovingSection] = useState<string | null>(null);
 
   const validateDocUrl = (url: string, setError: (value: string) => void) => {
     if (!url.trim()) {
@@ -362,6 +363,62 @@ export default function CourseDetailPage() {
     }
   };
 
+  const moveSection = async (sectionName: string, direction: "up" | "down") => {
+    if (!isLoggedIn) return;
+
+    const sortedLessons = [...lessons].sort((a, b) => a.sort_order - b.sort_order);
+    const sectionGroups = sortedLessons.reduce<Array<{ name: string; lessons: Lesson[] }>>((acc, lesson) => {
+      const currentSectionName = lesson.section_label || "其他";
+      const existingGroup = acc.find((group) => group.name === currentSectionName);
+
+      if (existingGroup) {
+        existingGroup.lessons.push(lesson);
+      } else {
+        acc.push({ name: currentSectionName, lessons: [lesson] });
+      }
+
+      return acc;
+    }, []);
+
+    const currentIndex = sectionGroups.findIndex((group) => group.name === sectionName);
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+    if (currentIndex === -1 || targetIndex < 0 || targetIndex >= sectionGroups.length) return;
+
+    const reorderedGroups = [...sectionGroups];
+    const [currentGroup] = reorderedGroups.splice(currentIndex, 1);
+    reorderedGroups.splice(targetIndex, 0, currentGroup);
+
+    const nextLessons = reorderedGroups
+      .flatMap((group) => group.lessons)
+      .map((lesson, index) => ({ ...lesson, sort_order: index + 1 }));
+
+    setMovingSection(sectionName);
+    try {
+      const updates = nextLessons
+        .filter((lesson) => {
+          const originalLesson = lessons.find((item) => item.id === lesson.id);
+          return originalLesson?.sort_order !== lesson.sort_order;
+        })
+        .map((lesson) =>
+          supabaseWithAuth
+            .from("knowledge_lessons")
+            .update({ sort_order: lesson.sort_order })
+            .eq("id", lesson.id)
+        );
+
+      const results = await Promise.all(updates);
+      const failedUpdate = results.find((result) => result.error);
+      if (failedUpdate?.error) throw failedUpdate.error;
+
+      setLessons(nextLessons);
+    } catch (error: any) {
+      console.error("更新章节排序失败", error);
+      alert(`章节排序失败：${error.message}`);
+    } finally {
+      setMovingSection(null);
+    }
+  };
+
   useEffect(() => {
     const fetchCourseData = async () => {
       if (!courseId) return;
@@ -377,13 +434,19 @@ export default function CourseDetailPage() {
   }, [activeLesson]);
 
   const groupedLessons = useMemo(() => {
-    const groups: Record<string, Lesson[]> = {};
-    lessons.forEach((lesson) => {
-      const section = lesson.section_label || "其他";
-      if (!groups[section]) groups[section] = [];
-      groups[section].push(lesson);
-    });
-    return groups;
+    const sortedLessons = [...lessons].sort((a, b) => a.sort_order - b.sort_order);
+    return sortedLessons.reduce<Array<{ section: string; lessons: Lesson[] }>>((groups, lesson) => {
+      const sectionName = lesson.section_label || "其他";
+      const existingGroup = groups.find((group) => group.section === sectionName);
+
+      if (existingGroup) {
+        existingGroup.lessons.push(lesson);
+      } else {
+        groups.push({ section: sectionName, lessons: [lesson] });
+      }
+
+      return groups;
+    }, []);
   }, [lessons]);
 
   if (loading) {
@@ -471,17 +534,41 @@ export default function CourseDetailPage() {
 
           <ScrollArea className="flex-1 px-2 py-2">
             <div className="space-y-1">
-              {Object.entries(groupedLessons).map(([section, sectionLessons]) => (
-                <Collapsible key={section} defaultOpen>
-                  <CollapsibleTrigger className="group w-full flex items-center justify-between gap-2 px-2 py-1.5 rounded-md hover:bg-muted transition-colors text-left">
-                    <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground group-hover:text-foreground transition-colors">
-                      {section}
-                    </span>
-                    <ChevronDown className="h-3 w-3 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
-                  </CollapsibleTrigger>
+              {groupedLessons.map(({ section, lessons: sectionLessons }, sectionIndex) => (
+                <Collapsible key={`${section}-${sectionIndex}`} defaultOpen>
+                  <div className="group flex items-center gap-1">
+                    <CollapsibleTrigger className="flex-1 w-full flex items-center justify-between gap-2 px-2 py-1.5 rounded-md hover:bg-muted transition-colors text-left">
+                      <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground group-hover:text-foreground transition-colors">
+                        {section}
+                      </span>
+                      <ChevronDown className="h-3 w-3 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
+                    </CollapsibleTrigger>
+                    {isLoggedIn && groupedLessons.length > 1 && (
+                      <div className="hidden group-hover:flex items-center gap-0.5">
+                        <button
+                          type="button"
+                          onClick={() => moveSection(section, "up")}
+                          disabled={sectionIndex === 0 || movingSection !== null}
+                          className="p-1 rounded hover:bg-muted text-muted-foreground disabled:opacity-30 disabled:cursor-not-allowed"
+                          title="章节上移"
+                        >
+                          <ArrowUp className="h-3 w-3" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => moveSection(section, "down")}
+                          disabled={sectionIndex === groupedLessons.length - 1 || movingSection !== null}
+                          className="p-1 rounded hover:bg-muted text-muted-foreground disabled:opacity-30 disabled:cursor-not-allowed"
+                          title="章节下移"
+                        >
+                          <ArrowDown className="h-3 w-3" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                   <CollapsibleContent>
                     <div className="mt-0.5 ml-2 space-y-0.5 border-l border-border pl-3">
-                      {sectionLessons.map((lesson, lessonIdx) => {
+                      {sectionLessons.map((lesson) => {
                         const isActive = activeLesson?.id === lesson.id;
                         const sorted = [...lessons].sort((a, b) => a.sort_order - b.sort_order);
                         const globalIdx = sorted.findIndex((l) => l.id === lesson.id);
