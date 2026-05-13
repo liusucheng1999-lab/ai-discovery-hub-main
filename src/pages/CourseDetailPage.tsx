@@ -13,6 +13,10 @@ import {
   Trash2,
   ArrowUp,
   ArrowDown,
+  Maximize2,
+  ImagePlus,
+  Eye,
+  X,
 } from "lucide-react";
 import { supabase, supabaseWithAuth } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -25,6 +29,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import CodeMirror from "@uiw/react-codemirror";
+import { html as cmHtmlLang } from "@codemirror/lang-html";
+import { oneDark } from "@codemirror/theme-one-dark";
 
 interface Lesson {
   id: string;
@@ -114,6 +121,9 @@ export default function CourseDetailPage() {
   const [editPanelOpen, setEditPanelOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [movingSection, setMovingSection] = useState<string | null>(null);
+  const [htmlEditorOpen, setHtmlEditorOpen] = useState(false);
+  const [previewMode, setPreviewMode] = useState<"split" | "code" | "preview">("split");
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const validateDocUrl = (url: string, setError: (value: string) => void) => {
     if (!url.trim()) {
@@ -220,6 +230,43 @@ export default function CourseDetailPage() {
       setActiveLesson(null);
       syncLessonForm(null);
     }
+  };
+
+  const uploadImage = async (file: File): Promise<string | null> => {
+    if (!isLoggedIn) {
+      alert("请先登录后再上传图片");
+      return null;
+    }
+    setUploadingImage(true);
+    try {
+      const ext = file.name.split(".").pop()?.toLowerCase() || "png";
+      const filename = `lesson-images/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error: upErr } = await supabaseWithAuth.storage
+        .from("course-assets")
+        .upload(filename, file, { cacheControl: "31536000", upsert: false });
+      if (upErr) throw upErr;
+      const { data } = supabaseWithAuth.storage.from("course-assets").getPublicUrl(filename);
+      return data.publicUrl;
+    } catch (e: any) {
+      console.error("图片上传失败", e);
+      alert(`图片上传失败：${e.message || e}`);
+      return null;
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    const url = await uploadImage(file);
+    if (!url) return;
+    const tag = `<img src="${url}" alt="${file.name.replace(/\.[^.]+$/, "")}" style="max-width:100%;height:auto;" />`;
+    setLessonForm((prev) => ({
+      ...prev,
+      html_content: prev.html_content ? `${prev.html_content}\n${tag}\n` : tag,
+    }));
   };
 
   const saveLesson = async () => {
@@ -714,18 +761,41 @@ export default function CourseDetailPage() {
                   </FormField>
                 </div>
                 <div className="w-full">
-                  <FormField label="HTML 内容（填写后优先于文档链接）">
-                    <textarea
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                      HTML 内容（填写后优先于文档链接）
+                    </label>
+                    <div className="flex gap-1.5">
+                      <label className="inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded border bg-background hover:bg-muted cursor-pointer transition-colors">
+                        <ImagePlus className="h-3 w-3" />
+                        {uploadingImage ? "上传中..." : "插入图片"}
+                        <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploadingImage} />
+                      </label>
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        className="h-6 px-2 text-[11px] gap-1"
+                        onClick={() => setHtmlEditorOpen(true)}
+                      >
+                        <Maximize2 className="h-3 w-3" />
+                        全屏编辑
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="border rounded overflow-hidden">
+                    <CodeMirror
                       value={lessonForm.html_content}
-                      onChange={(e) => setLessonForm((prev) => ({ ...prev, html_content: e.target.value }))}
-                      className={`${inputClass} min-h-[240px] font-mono text-xs leading-relaxed resize-y`}
-                      placeholder={"<!DOCTYPE html>\n<html>...</html>\n\n粘贴完整 HTML 在这里，保存后即时生效，无需重新部署。"}
-                      spellCheck={false}
+                      height="240px"
+                      theme={oneDark}
+                      extensions={[cmHtmlLang()]}
+                      onChange={(v) => setLessonForm((prev) => ({ ...prev, html_content: v }))}
+                      basicSetup={{ lineNumbers: true, foldGutter: true, highlightActiveLine: true }}
                     />
-                  </FormField>
+                  </div>
                   {lessonForm.html_content.trim() && (
                     <div className="mt-1 text-[11px] text-muted-foreground">
-                      ✓ 当前使用内嵌 HTML 渲染（{lessonForm.html_content.length.toLocaleString()} 字符）。清空此字段后将回退到文档链接。
+                      ✓ 内嵌 HTML 已启用（{lessonForm.html_content.length.toLocaleString()} 字符）。清空此字段后回退到文档链接。
                     </div>
                   )}
                 </div>
@@ -840,6 +910,97 @@ export default function CourseDetailPage() {
                 取消
               </Button>
             </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* 全屏 HTML 编辑器 */}
+      <Dialog open={htmlEditorOpen} onOpenChange={setHtmlEditorOpen}>
+        <DialogContent
+          className="!max-w-none w-screen h-screen p-0 gap-0 border-0 rounded-none flex flex-col sm:rounded-none"
+          onInteractOutside={(e) => e.preventDefault()}
+        >
+          <div className="flex items-center justify-between px-4 py-2 border-b bg-card">
+            <div className="flex items-center gap-3">
+              <DialogTitle className="text-sm font-semibold">编辑 HTML — {activeLesson?.title || ""}</DialogTitle>
+              <div className="flex rounded border bg-background overflow-hidden">
+                {(["split", "code", "preview"] as const).map((m) => (
+                  <button
+                    key={m}
+                    type="button"
+                    onClick={() => setPreviewMode(m)}
+                    className={`px-2.5 py-1 text-[11px] transition-colors ${previewMode === m ? "bg-primary text-primary-foreground" : "hover:bg-muted"}`}
+                  >
+                    {m === "split" ? "分屏" : m === "code" ? "仅代码" : "仅预览"}
+                  </button>
+                ))}
+              </div>
+              <span className="text-[11px] text-muted-foreground">{lessonForm.html_content.length.toLocaleString()} 字符</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded border bg-background hover:bg-muted cursor-pointer transition-colors">
+                <ImagePlus className="h-3 w-3" />
+                {uploadingImage ? "上传中..." : "插入图片"}
+                <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploadingImage} />
+              </label>
+              <Button
+                type="button"
+                size="sm"
+                onClick={async () => {
+                  await saveLesson();
+                }}
+                disabled={savingLesson}
+                className="h-7 text-xs gap-1"
+              >
+                <Save className="h-3 w-3" />
+                {savingLesson ? "保存中..." : "保存"}
+              </Button>
+              <Button
+                type="button"
+                size="icon"
+                variant="ghost"
+                className="h-7 w-7"
+                onClick={() => setHtmlEditorOpen(false)}
+                aria-label="关闭"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+          <div className="flex-1 flex overflow-hidden">
+            {previewMode !== "preview" && (
+              <div className={`${previewMode === "split" ? "w-1/2 border-r" : "w-full"} overflow-hidden bg-[#282c34]`}>
+                <CodeMirror
+                  value={lessonForm.html_content}
+                  height="100%"
+                  style={{ height: "100%" }}
+                  theme={oneDark}
+                  extensions={[cmHtmlLang()]}
+                  onChange={(v) => setLessonForm((prev) => ({ ...prev, html_content: v }))}
+                  basicSetup={{
+                    lineNumbers: true,
+                    foldGutter: true,
+                    highlightActiveLine: true,
+                    autocompletion: true,
+                    bracketMatching: true,
+                  }}
+                  className="h-full text-[13px]"
+                />
+              </div>
+            )}
+            {previewMode !== "code" && (
+              <div className={`${previewMode === "split" ? "w-1/2" : "w-full"} bg-white overflow-hidden flex flex-col`}>
+                <div className="px-3 py-1.5 border-b text-[11px] text-muted-foreground flex items-center gap-1 bg-muted/30">
+                  <Eye className="h-3 w-3" /> 实时预览
+                </div>
+                <iframe
+                  key={`preview-${lessonForm.html_content.length}`}
+                  srcDoc={lessonForm.html_content || "<p style='padding:24px;color:#999;font-family:sans-serif;'>暂无内容，请在左侧编辑。</p>"}
+                  className="flex-1 w-full border-0"
+                  sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                />
+              </div>
+            )}
           </div>
         </DialogContent>
       </Dialog>
