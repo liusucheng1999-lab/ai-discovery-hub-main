@@ -694,8 +694,8 @@ export default function CourseDetailPage() {
           </ScrollArea>
         </aside>
 
-        {/* 主内容区 */}
-        <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        {/* 主内容区 - 可滚动以展示评论区 */}
+        <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
 
           {/* 顶部细条：课节标题 + 操作按钮 */}
           <div className="flex items-center gap-3 border-b bg-card px-4 py-2 flex-shrink-0">
@@ -813,8 +813,10 @@ export default function CourseDetailPage() {
             </div>
           )}
 
-          {/* iframe 全屏内容区 */}
-          <div className="flex-1 overflow-hidden">
+          {/* 可滚动内容区 - 包含iframe和评论 */}
+          <div className="flex-1 flex flex-col min-w-0">
+            {/* iframe 区域 */}
+            <div className="h-screen overflow-hidden">
             {activeLesson ? (
               hasInlineHtml ? (
                 <iframe
@@ -853,12 +855,13 @@ export default function CourseDetailPage() {
                 </div>
               </div>
             )}
+            </div>
+
+            {/* 评论区 */}
+            {activeLesson && <LessonComments lessonId={activeLesson.id} />}
           </div>
         </div>
       </div>
-
-      {/* 页面底部评论区 */}
-      {activeLesson && <LessonComments lessonId={activeLesson.id} />}
 
       {/* 新增课节弹窗 */}
       <Dialog open={newLessonOpen} onOpenChange={setNewLessonOpen}>
