@@ -813,59 +813,53 @@ export default function CourseDetailPage() {
             </div>
           )}
 
-          {/* 内容区：iframe + 评论 */}
-          <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-            {/* iframe 区 - 占据上半部分 */}
-            <div className="flex-1 overflow-hidden">
-              {activeLesson ? (
-                hasInlineHtml ? (
-                  <iframe
-                    key={`inline-${activeLesson.id}-${activeLesson.updated_at}`}
-                    srcDoc={inlineHtml}
-                    className="w-full h-full border-0"
-                    allowFullScreen
-                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                    allow="accelerometer; autoplay; clipboard-write; clipboard-read; encrypted-media; gyroscope; picture-in-picture"
-                  />
-                ) : effectiveDocUrl ? (
-                  <iframe
-                    key={effectiveDocUrl}
-                    src={effectiveDocUrl}
-                    className="w-full h-full border-0"
-                    allowFullScreen
-                    allow="accelerometer; autoplay; clipboard-write; clipboard-read; encrypted-media; gyroscope; picture-in-picture"
-                  />
-                ) : (
-                  <div className="flex h-full items-center justify-center">
-                    <div className="text-center">
-                      <FileText className="h-12 w-12 mx-auto mb-3 text-muted-foreground/40" />
-                      <p className="text-sm text-muted-foreground">暂无文档内容</p>
-                      {isLoggedIn && (
-                        <p className="text-xs text-muted-foreground mt-1">点击右上角「编辑」配置文档链接</p>
-                      )}
-                    </div>
-                  </div>
-                )
+          {/* iframe 全屏内容区 */}
+          <div className="flex-1 overflow-hidden">
+            {activeLesson ? (
+              hasInlineHtml ? (
+                <iframe
+                  key={`inline-${activeLesson.id}-${activeLesson.updated_at}`}
+                  srcDoc={inlineHtml}
+                  className="w-full h-full border-0"
+                  allowFullScreen
+                  sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                  allow="accelerometer; autoplay; clipboard-write; clipboard-read; encrypted-media; gyroscope; picture-in-picture"
+                />
+              ) : effectiveDocUrl ? (
+                <iframe
+                  key={effectiveDocUrl}
+                  src={effectiveDocUrl}
+                  className="w-full h-full border-0"
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; clipboard-read; encrypted-media; gyroscope; picture-in-picture"
+                />
               ) : (
                 <div className="flex h-full items-center justify-center">
                   <div className="text-center">
                     <FileText className="h-12 w-12 mx-auto mb-3 text-muted-foreground/40" />
-                    <h3 className="font-semibold mb-1">该课程还没有课节</h3>
-                    <p className="text-sm text-muted-foreground">请先为这个课程配置对应的课节数据</p>
+                    <p className="text-sm text-muted-foreground">暂无文档内容</p>
+                    {isLoggedIn && (
+                      <p className="text-xs text-muted-foreground mt-1">点击右上角「编辑」配置文档链接</p>
+                    )}
                   </div>
                 </div>
-              )}
-            </div>
-
-            {/* 评论区 - 占据下半部分，可滚动 */}
-            {activeLesson && (
-              <div className="max-h-80 overflow-y-auto bg-background">
-                <LessonComments lessonId={activeLesson.id} />
+              )
+            ) : (
+              <div className="flex h-full items-center justify-center">
+                <div className="text-center">
+                  <FileText className="h-12 w-12 mx-auto mb-3 text-muted-foreground/40" />
+                  <h3 className="font-semibold mb-1">该课程还没有课节</h3>
+                  <p className="text-sm text-muted-foreground">请先为这个课程配置对应的课节数据</p>
+                </div>
               </div>
             )}
           </div>
         </div>
       </div>
+
+      {/* 页面底部评论区 */}
+      {activeLesson && <LessonComments lessonId={activeLesson.id} />}
+
       {/* 新增课节弹窗 */}
       <Dialog open={newLessonOpen} onOpenChange={setNewLessonOpen}>
         <DialogContent className="sm:max-w-md">
