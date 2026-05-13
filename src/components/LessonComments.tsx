@@ -75,7 +75,8 @@ export default function LessonComments({ lessonId }: LessonCommentsProps) {
       setCommentText("");
     } catch (err: any) {
       console.error("发布评论失败", err);
-      setError("发布评论失败，请重试");
+      console.error("错误详情:", err.message, err.code);
+      setError(err.message || "发布评论失败，请重试");
     } finally {
       setPosting(false);
     }
@@ -103,17 +104,26 @@ export default function LessonComments({ lessonId }: LessonCommentsProps) {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMs / 3600000);
-    const diffDays = Math.floor(diffMs / 86400000);
 
-    if (diffMins < 1) return "刚刚";
+    // 确保时间戳为毫秒，修复可能的时区问题
+    let diffMs = now.getTime() - date.getTime();
+
+    // 如果差值为负数（时间在未来），说明可能是时区问题，取绝对值
+    if (diffMs < 0) {
+      diffMs = Math.abs(diffMs);
+    }
+
+    const diffSecs = Math.floor(diffMs / 1000);
+    const diffMins = Math.floor(diffSecs / 60);
+    const diffHours = Math.floor(diffSecs / 3600);
+    const diffDays = Math.floor(diffSecs / 86400);
+
+    if (diffSecs < 30) return "刚刚";
     if (diffMins < 60) return `${diffMins}分钟前`;
     if (diffHours < 24) return `${diffHours}小时前`;
     if (diffDays < 7) return `${diffDays}天前`;
 
-    return date.toLocaleDateString("zh-CN", { month: "short", day: "numeric" });
+    return date.toLocaleDateString("zh-CN", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
   };
 
   return (
