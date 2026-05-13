@@ -33,6 +33,7 @@ interface Lesson {
   description: string | null;
   video_embed_url: string | null;
   doc_embed_url: string | null;
+  html_content: string | null;
   week_title: string | null;
   section_label: string | null;
   lesson_code: string | null;
@@ -59,6 +60,7 @@ interface LessonFormState {
   section_label: string;
   description: string;
   doc_embed_url: string;
+  html_content: string;
 }
 
 const EMPTY_LESSON_FORM: LessonFormState = {
@@ -66,6 +68,7 @@ const EMPTY_LESSON_FORM: LessonFormState = {
   section_label: "",
   description: "",
   doc_embed_url: "",
+  html_content: "",
 };
 
 function FormField({
@@ -140,6 +143,7 @@ export default function CourseDetailPage() {
       section_label: lesson.section_label || "",
       description: lesson.description || "",
       doc_embed_url: lesson.doc_embed_url || "",
+      html_content: lesson.html_content || "",
     });
     validateDocUrl(lesson.doc_embed_url || "", setDocUrlError);
   };
@@ -236,6 +240,7 @@ export default function CourseDetailPage() {
         section_label: lessonForm.section_label.trim() || null,
         description: lessonForm.description.trim() || null,
         doc_embed_url: lessonForm.doc_embed_url.trim() || null,
+        html_content: lessonForm.html_content.trim() || null,
         week_title: activeLesson.week_title,
       };
 
@@ -478,6 +483,8 @@ export default function CourseDetailPage() {
     isFirstLesson && !isHtmlUrl(lessonForm.doc_embed_url)
       ? "/lessons/w1l1.html"
       : lessonForm.doc_embed_url;
+  const inlineHtml = activeLesson?.html_content?.trim() || "";
+  const hasInlineHtml = inlineHtml.length > 0;
 
   return (
     <>
@@ -706,6 +713,22 @@ export default function CourseDetailPage() {
                       className={inputClass} placeholder="/lessons/w1l1.html 或 https://xxx.feishu.cn/..." />
                   </FormField>
                 </div>
+                <div className="w-full">
+                  <FormField label="HTML 内容（填写后优先于文档链接）">
+                    <textarea
+                      value={lessonForm.html_content}
+                      onChange={(e) => setLessonForm((prev) => ({ ...prev, html_content: e.target.value }))}
+                      className={`${inputClass} min-h-[240px] font-mono text-xs leading-relaxed resize-y`}
+                      placeholder={"<!DOCTYPE html>\n<html>...</html>\n\n粘贴完整 HTML 在这里，保存后即时生效，无需重新部署。"}
+                      spellCheck={false}
+                    />
+                  </FormField>
+                  {lessonForm.html_content.trim() && (
+                    <div className="mt-1 text-[11px] text-muted-foreground">
+                      ✓ 当前使用内嵌 HTML 渲染（{lessonForm.html_content.length.toLocaleString()} 字符）。清空此字段后将回退到文档链接。
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="mt-2 flex gap-2">
                 <Button size="sm" onClick={saveLesson} disabled={savingLesson || Boolean(docUrlError)} className="gap-1.5 h-7 text-xs">
@@ -723,7 +746,16 @@ export default function CourseDetailPage() {
           {/* iframe 全屏内容区 */}
           <div className="flex-1 overflow-hidden">
             {activeLesson ? (
-              effectiveDocUrl ? (
+              hasInlineHtml ? (
+                <iframe
+                  key={`inline-${activeLesson.id}-${activeLesson.updated_at}`}
+                  srcDoc={inlineHtml}
+                  className="w-full h-full border-0"
+                  allowFullScreen
+                  sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                  allow="accelerometer; autoplay; clipboard-write; clipboard-read; encrypted-media; gyroscope; picture-in-picture"
+                />
+              ) : effectiveDocUrl ? (
                 <iframe
                   key={effectiveDocUrl}
                   src={effectiveDocUrl}
