@@ -3,7 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { supabase, supabaseWithAuth } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
-import { BookOpen, Users, Plus, Edit2, Save, X, Upload, Trash2 } from "lucide-react";
+import { BookOpen, Plus, Edit2, Save, X, Upload, Trash2, ArrowUp, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // 课程接口
@@ -16,6 +16,7 @@ interface Course {
   lesson_count: number;
   is_free: boolean;
   status: string;
+  sort_order: number;
 }
 
 interface LessonSummary {
@@ -51,10 +52,11 @@ export default function Knowledge() {
     const fetchCourses = async () => {
       setLoading(true);
       
-      // 从 course_settings 表获取课程基本信息
+      // 从 course_settings 表获取课程基本信息（按 sort_order 排序）
       const { data: courseSettings, error: courseError } = await supabase
         .from("course_settings")
-        .select("*");
+        .select("*")
+        .order("sort_order", { ascending: true });
 
       if (courseError) {
         console.error("加载课程失败", courseError);
@@ -96,7 +98,8 @@ export default function Knowledge() {
             first_lesson_id: firstLessonMap.get(cs.id) || firstLessonMap.get(legacyKey) || null,
             lesson_count: lessonCountMap.get(cs.id) || lessonCountMap.get(legacyKey) || 0,
             is_free: true,
-            status: "published"
+            status: "published",
+            sort_order: cs.sort_order ?? 0
           });
         });
       } else {
@@ -110,7 +113,8 @@ export default function Knowledge() {
           first_lesson_id: firstLessonMap.get(defaultTitle) || lessons?.[0]?.id || null,
           lesson_count: lessonCountMap.get(defaultTitle) || lessons?.length || 0,
           is_free: true,
-          status: "published"
+          status: "published",
+          sort_order: 0
         });
       }
 
@@ -225,7 +229,13 @@ export default function Knowledge() {
 
       if (error) throw error;
 
-      // 添加到本地状态
+      // 添加到本地状态（排到最后）
+      const nextOrder = courses.length > 0 ? Math.max(...courses.map(c => c.sort_order)) + 1 : 1;
+      await supabaseWithAuth
+        .from("course_settings")
+        .update({ sort_order: nextOrder })
+        .eq("id", newId);
+
       setCourses(prev => [...prev, {
         id: newId,
         title: createForm.title || "",
@@ -234,7 +244,8 @@ export default function Knowledge() {
         first_lesson_id: null,
         lesson_count: 0,
         is_free: true,
-        status: "published"
+        status: "published",
+        sort_order: nextOrder
       }]);
 
       setIsCreating(false);
@@ -254,8 +265,63 @@ export default function Knowledge() {
     }
   };
 
+  // 删除课程
+  const handleDeleteCourse = async (course: Course) => {
+    const ok = window.confirm(
+      `确定要删除课程「${course.title}」吗？\n\n该操作不会删除课节内容，只会移除课程入口。`
+    );
+    if (!ok) return;
+
+    try {
+      const { error } = await supabaseWithAuth
+        .from("course_settings")
+        .delete()
+        .eq("id", course.id);
+
+      if (error) throw error;
+
+      setCourses(prev => prev.filter(c => c.id !== course.id));
+    } catch (err: any) {
+      console.error("删除失败", err);
+      alert("删除失败：" + err.message);
+    }
+  };
+
+  // 交换两个课程的排序
+  const handleMoveCourse = async (course: Course, direction: "up" | "down") => {
+    const index = courses.findIndex(c => c.id === course.id);
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= courses.length) return;
+
+    const target = courses[targetIndex];
+    const a = { ...course, sort_order: target.sort_order };
+    const b = { ...target, sort_order: course.sort_order };
+
+    // 乐观更新
+    const next = [...courses];
+    next[index] = direction === "up" ? b : a;
+    next[targetIndex] = direction === "up" ? a : b;
+    next.sort((x, y) => x.sort_order - y.sort_order);
+    setCourses(next);
+
+    try {
+      const { error } = await supabaseWithAuth
+        .from("course_settings")
+        .upsert([
+          { id: a.id, sort_order: a.sort_order },
+          { id: b.id, sort_order: b.sort_order }
+        ]);
+      if (error) throw error;
+    } catch (err: any) {
+      console.error("排序失败", err);
+      alert("排序失败：" + err.message);
+      // 回滚
+      setCourses(courses);
+    }
+  };
+
   // 渲染课程卡片
-  const renderCourseCard = (course: Course) => {
+  const renderCourseCard = (course: Course, index: number) => {
     const isEditing = editingCourse === course.id;
 
     if (isEditing) {
@@ -329,16 +395,44 @@ export default function Knowledge() {
     }
 
     // 正常展示模式
+    const isFirst = index === 0;
+    const isLast = index === courses.length - 1;
     return (
       <div key={course.id} className="group relative rounded-xl border bg-card overflow-hidden hover:shadow-lg transition-all duration-300">
-        {/* 编辑按钮（仅管理员可见） */}
+        {/* 管理员操作栏 */}
         {isLoggedIn && (
-          <button
-            onClick={() => handleEdit(course)}
-            className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/90 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
-          >
-            <Edit2 className="h-4 w-4 text-muted-foreground" />
-          </button>
+          <div className="absolute top-3 right-3 z-10 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button
+              onClick={() => handleMoveCourse(course, "up")}
+              disabled={isFirst}
+              title="上移"
+              className="p-2 rounded-full bg-white/90 shadow-sm hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <ArrowUp className="h-4 w-4 text-muted-foreground" />
+            </button>
+            <button
+              onClick={() => handleMoveCourse(course, "down")}
+              disabled={isLast}
+              title="下移"
+              className="p-2 rounded-full bg-white/90 shadow-sm hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <ArrowDown className="h-4 w-4 text-muted-foreground" />
+            </button>
+            <button
+              onClick={() => handleEdit(course)}
+              title="编辑"
+              className="p-2 rounded-full bg-white/90 shadow-sm hover:bg-white"
+            >
+              <Edit2 className="h-4 w-4 text-muted-foreground" />
+            </button>
+            <button
+              onClick={() => handleDeleteCourse(course)}
+              title="删除"
+              className="p-2 rounded-full bg-white/90 shadow-sm hover:bg-red-50"
+            >
+              <Trash2 className="h-4 w-4 text-red-500" />
+            </button>
+          </div>
         )}
 
         <Link
@@ -378,10 +472,6 @@ export default function Knowledge() {
               <div className="flex items-center gap-1">
                 <BookOpen className="h-3.5 w-3.5" />
                 <span>{course.lesson_count} 节课</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Users className="h-3.5 w-3.5" />
-                <span>1000+ 学员</span>
               </div>
             </div>
           </div>
@@ -477,7 +567,7 @@ export default function Knowledge() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {courses.map(renderCourseCard)}
+            {courses.map((course, index) => renderCourseCard(course, index))}
           </div>
         )}
       </main>

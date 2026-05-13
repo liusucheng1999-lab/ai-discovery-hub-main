@@ -406,35 +406,29 @@ export default function Admin() {
   // 上传课程封面
   const handleCoverUpload = async () => {
     if (!coverFile) return;
-    
+
     setCoverUploading(true);
     try {
+      // 确保 bucket 存在（已存在时忽略错误）
+      await supabase.storage.createBucket('course-assets', { public: true });
+
       const fileExt = coverFile.name.split('.').pop();
       const fileName = `course-cover-${Date.now()}.${fileExt}`;
       const filePath = `course-covers/${fileName}`;
 
-      // 上传到 Supabase Storage
       const { error: uploadError } = await supabase.storage
         .from('course-assets')
         .upload(filePath, coverFile);
 
-      if (uploadError) {
-        // 如果 bucket 不存在，尝试创建
-        if (uploadError.message.includes('bucket')) {
-          alert('请先创建 course-assets bucket');
-          return;
-        }
-        throw uploadError;
-      }
+      if (uploadError) throw uploadError;
 
-      // 获取公开 URL
       const { data: { publicUrl } } = supabase.storage
         .from('course-assets')
         .getPublicUrl(filePath);
 
       setCourseForm(prev => ({ ...prev, cover_url: publicUrl }));
       setCoverFile(null);
-      alert('封面上传成功！');
+      alert('封面上传成功！请点击「保存课程信息」以保存封面 URL。');
     } catch (err: any) {
       console.error('上传封面失败', err);
       alert('上传失败：' + err.message);
