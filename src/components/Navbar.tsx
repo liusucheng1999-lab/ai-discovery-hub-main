@@ -4,6 +4,7 @@ import { useTheme } from "./ThemeProvider";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { useState, useEffect } from "react";
+import ContactDialog from "./ContactDialog";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -58,6 +59,8 @@ export default function Navbar() {
         <div className="flex-grow" />
 
         <div className="flex items-center gap-2">
+          <ContactDialog />
+
           {isLoggedIn ? (
             <>
               <Link
@@ -81,7 +84,7 @@ export default function Navbar() {
               管理员登录
             </Link>
           )}
-          
+
           <Button variant="ghost" size="icon" onClick={toggleTheme}>
             {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
           </Button>
