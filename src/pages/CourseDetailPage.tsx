@@ -16,7 +16,6 @@ import {
   Maximize2,
   ImagePlus,
   Eye,
-  X,
 } from "lucide-react";
 import { supabase, supabaseWithAuth } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -955,16 +954,7 @@ export default function CourseDetailPage() {
                 <Save className="h-3 w-3" />
                 {savingLesson ? "保存中..." : "保存"}
               </Button>
-              <Button
-                type="button"
-                size="icon"
-                variant="ghost"
-                className="h-7 w-7"
-                onClick={() => setHtmlEditorOpen(false)}
-                aria-label="关闭"
-              >
-                <X className="h-4 w-4" />
-              </Button>
+              <span className="w-8" aria-hidden />
             </div>
           </div>
           <div className="flex-1 flex overflow-hidden">
