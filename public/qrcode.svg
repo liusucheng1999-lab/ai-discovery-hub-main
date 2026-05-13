@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <pattern id="qr-grid" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="16" height="16" fill="white"/>
+    </pattern>
+  </defs>
+  <rect width="256" height="256" fill="white"/>
+  <rect width="256" height="256" fill="url(#qr-grid)"/>
+  
+  <!-- QR Code Pattern (placeholder) -->
+  <g fill="black">
+    <!-- Top-left finder pattern -->
+    <rect x="16" y="16" width="48" height="48"/>
+    <rect x="32" y="32" width="16" height="16" fill="white"/>
+    <rect x="40" y="40" width="8" height="8" fill="black"/>
+    
+    <!-- Top-right finder pattern -->
+    <rect x="192" y="16" width="48" height="48"/>
+    <rect x="208" y="32" width="16" height="16" fill="white"/>
+    <rect x="216" y="40" width="8" height="8" fill="black"/>
+    
+    <!-- Bottom-left finder pattern -->
+    <rect x="16" y="192" width="48" height="48"/>
+    <rect x="32" y="208" width="16" height="16" fill="white"/>
+    <rect x="40" y="216" width="8" height="8" fill="black"/>
+    
+    <!-- Data pattern (random-like squares) -->
+    <rect x="80" y="80" width="96" height="96"/>
+    <rect x="96" y="96" width="64" height="64" fill="white"/>
+    <rect x="104" y="104" width="48" height="48" fill="black"/>
+    <rect x="120" y="120" width="16" height="16" fill="white"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="128" y="240" font-size="14" text-anchor="middle" fill="black">
+    请替换为真实二维码
+  </text>
+</svg>
