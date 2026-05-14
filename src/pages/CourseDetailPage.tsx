@@ -104,6 +104,123 @@ const inputClass =
   "focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent " +
   "placeholder:text-muted-foreground transition-shadow";
 
+const SITE_URL = "https://aimakerbox.com";
+
+const LESSON_SEO_COPY: Record<
+  string,
+  { summary: string; excerpt: string; keywords: string[] }
+> = {
+  "你每天在用的 AI，到底是什么东西？": {
+    summary:
+      "从大模型、上下文到生成机制，快速建立 AI 入门认知，理解你每天在用的 AI 工具到底是如何工作的。",
+    excerpt:
+      "这节预备课适合第一次系统学习 AI 的用户，用更少的术语讲清 AI 的基本运行逻辑，帮助你在后续学习 AI 工具、提示词和工作流之前，先建立正确的理解框架。",
+    keywords: ["AI入门", "大模型", "AI基础认知"],
+  },
+  "什么样的工作应该交给 AI": {
+    summary:
+      "理解哪些任务适合交给 AI，哪些任务仍需要人工判断，建立 AI 任务分配与工作流拆解能力。",
+    excerpt:
+      "这节课围绕工作任务判断展开，帮助你识别重复性、结构化、信息密集型工作的 AI 适配度，学会把 AI 用在合适的位置，而不是盲目替代人工。",
+    keywords: ["AI工作流", "任务拆解", "AI效率提升"],
+  },
+  "上下文窗口：为什么 AI 会忘记，怎么让它记住": {
+    summary:
+      "搞懂上下文窗口、记忆限制与信息组织方式，理解 AI 为什么会忘记，以及怎样让 AI 输出更稳定。",
+    excerpt:
+      "这节课会把上下文窗口讲清楚，并结合真实使用场景说明为什么 AI 会在长对话里丢信息、跑偏或重复，从而帮助你掌握更有效的上下文管理方法。",
+    keywords: ["上下文窗口", "AI记忆", "提示词优化"],
+  },
+  "AI 为什么会一本正经地胡说？": {
+    summary:
+      "理解 AI 幻觉、虚构信息与错误推理的成因，掌握更安全地核验 AI 输出的方法。",
+    excerpt:
+      "这节课会拆解 AI 一本正经说错话的底层原因，帮助你区分哪些内容可以放心参考，哪些内容必须二次验证，尤其适合在分析、写作和资料整理场景中使用 AI 的人。",
+    keywords: ["AI幻觉", "事实核验", "AI风险"],
+  },
+  "为什么你用 AI 用不深": {
+    summary:
+      "分析多数人 AI 使用停留在浅层的原因，建立从提问到拆解再到协作的更深层 AI 使用方式。",
+    excerpt:
+      "这节课聚焦 AI 使用深度不足的问题，帮你从“偶尔问一句”升级到“围绕一个任务持续与 AI 协作”，真正把 AI 变成稳定可复用的工作助手。",
+    keywords: ["AI协作", "AI深度使用", "职场AI"],
+  },
+  多视角AI协作法: {
+    summary:
+      "学习让 AI 扮演多个角色协同思考的方法，用多视角问答提升分析质量、方案完整度和产品思考深度。",
+    excerpt:
+      "这节课会把多角色协作法拆成可执行步骤，让 AI 分别站在用户、产品、运营、老板等不同视角输出判断，适合复杂分析、方案推演和产品设计场景。",
+    keywords: ["多角色提示词", "产品设计", "AI分析"],
+  },
+  "AI 会被你带偏": {
+    summary:
+      "理解用户输入如何影响 AI 判断，避免因为问题设定错误而把 AI 一步步带偏。",
+    excerpt:
+      "这节课核心在于训练你的提问意识。很多 AI 输出错误，并不是模型不会，而是问题本身预设了错误路径。课程会帮你识别这些偏差并修正提问方式。",
+    keywords: ["AI提问", "提示词偏差", "AI输出质量"],
+  },
+  "画出你的个人 AI 任务地图": {
+    summary:
+      "通过一张个人 AI 任务地图，梳理你的工作流程、识别 AI 可介入环节，并建立可长期复用的 AI 使用体系。",
+    excerpt:
+      "这节工作坊课不是单纯讲概念，而是带你把自己的任务、职责和信息流真正画出来，从而知道 AI 应该放在哪些环节，怎样形成自己的 AI 工作地图。",
+    keywords: ["AI任务地图", "AI工作法", "个人工作流"],
+  },
+  "多模态：AI 能力与工具选择": {
+    summary:
+      "理解文本、图片、音频、视频等多模态 AI 能力差异，学会根据任务目标选择合适的 AI 工具。",
+    excerpt:
+      "这节课会帮你建立多模态 AI 的整体认知，不再只盯着聊天机器人，而是知道不同模态分别适合什么任务，以及如何做更高效的工具组合。",
+    keywords: ["多模态AI", "AI工具选择", "AI能力边界"],
+  },
+  "让 AI 帮你做工具": {
+    summary:
+      "学习如何借助 AI 做自动化工具、微应用和简单产品，让不会写代码的人也能更快动手。",
+    excerpt:
+      "这节课聚焦 AI 辅助做工具的思路，帮助你从需求、流程和组件角度理解如何让 AI 参与产品搭建与自动化实现，非常适合想把想法快速做出来的人。",
+    keywords: ["AI做工具", "自动化", "AI产品搭建"],
+  },
+  "AI工作流设计 × Coze 实战教程": {
+    summary:
+      "围绕 Coze 实战学习 AI 工作流设计方法，理解从节点、触发到结果交付的完整流程搭建逻辑。",
+    excerpt:
+      "这节课不仅讲 Coze 怎么用，更重要的是讲清楚什么是 AI 工作流、怎么设计节点和判断链路，以及怎样让一个 AI 流程真正能在业务场景中落地。",
+    keywords: ["Coze教程", "AI工作流", "流程设计"],
+  },
+  "AI 挂知识库，到底是在挂什么": {
+    summary:
+      "讲清知识库、RAG 检索与参数配置的核心原理，帮助你理解 AI 知识库到底解决什么问题。",
+    excerpt:
+      "这节课会把知识库相关概念拆开讲清楚，不只是教你怎么接入，而是帮助你理解检索、召回、上下文注入与配置参数分别在系统里发挥什么作用。",
+    keywords: ["AI知识库", "RAG", "检索增强生成"],
+  },
+  "AI 模型选择攻略：怎么挑、为什么挑、给企业怎么配": {
+    summary:
+      "从能力、速度、成本和使用场景出发，系统理解 AI 模型怎么选，以及企业如何搭配模型体系。",
+    excerpt:
+      "这节课适合已经开始接触多个 AI 模型的人。你会学到不同模型的能力差异、选择逻辑与企业配置思路，避免在成本和效果之间反复试错。",
+    keywords: ["AI模型选择", "模型对比", "企业AI配置"],
+  },
+};
+
+function stripHtmlTags(content: string) {
+  return content
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function truncateText(content: string, maxLength: number) {
+  if (content.length <= maxLength) return content;
+  return `${content.slice(0, maxLength).trim()}...`;
+}
+
 export default function CourseDetailPage() {
   const { courseId, lessonId } = useParams<{ courseId: string; lessonId?: string }>();
   const navigate = useNavigate();
@@ -578,12 +695,58 @@ export default function CourseDetailPage() {
       : lessonForm.doc_embed_url;
   const inlineHtml = activeLesson?.html_content?.trim() || "";
   const hasInlineHtml = inlineHtml.length > 0;
+  const currentLessonPath = activeLesson ? buildLessonPath(course.id, activeLesson.id) : `/knowledge/course/${course.id}`;
+  const canonicalUrl = `${SITE_URL}${currentLessonPath}`;
+  const fallbackText = hasInlineHtml ? stripHtmlTags(inlineHtml) : "";
+  const lessonSeoCopy = activeLesson ? LESSON_SEO_COPY[activeLesson.title] : null;
+  const lessonDescription = activeLesson?.description?.trim() || "";
+  const lessonSummary = truncateText(
+    lessonSeoCopy?.summary || lessonDescription || fallbackText || course.description,
+    160
+  );
+  const lessonExcerpt = truncateText(
+    lessonSeoCopy?.excerpt || fallbackText || lessonDescription || course.description,
+    320
+  );
+  const lessonKeywords = lessonSeoCopy?.keywords || [];
+  const activeLessonIndex = activeLesson ? lessons.findIndex((lesson) => lesson.id === activeLesson.id) : -1;
+  const prevLesson = activeLessonIndex > 0 ? lessons[activeLessonIndex - 1] : null;
+  const nextLesson = activeLessonIndex >= 0 && activeLessonIndex < lessons.length - 1 ? lessons[activeLessonIndex + 1] : null;
+  const structuredData = activeLesson
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: activeLesson.title,
+        description: lessonSummary,
+        isPartOf: {
+          "@type": "Course",
+          name: course.title,
+          description: course.description,
+          url: `${SITE_URL}/knowledge/course/${course.id}`,
+        },
+        url: canonicalUrl,
+        dateModified: activeLesson.updated_at,
+      }
+    : null;
 
   return (
     <>
       <Helmet>
-        <title>{course.title} - AI创客</title>
-        <meta name="description" content={course.description} />
+        <title>{activeLesson ? `${activeLesson.title} | ${course.title} | AI创客` : `${course.title} - AI创客`}</title>
+        <meta name="description" content={lessonSummary} />
+        <meta name="robots" content="index,follow,max-image-preview:large" />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={activeLesson ? `${activeLesson.title} | ${course.title}` : course.title} />
+        <meta property="og:description" content={lessonSummary} />
+        <meta property="og:url" content={canonicalUrl} />
+        {lessonKeywords.length > 0 && <meta name="keywords" content={lessonKeywords.join(",")} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={activeLesson ? `${activeLesson.title} | ${course.title}` : course.title} />
+        <meta name="twitter:description" content={lessonSummary} />
+        {structuredData && (
+          <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
+        )}
       </Helmet>
 
       {/* 全屏双栏布局，紧贴 navbar 下方 */}
@@ -674,10 +837,10 @@ export default function CourseDetailPage() {
                         const globalIdx = sorted.findIndex((l) => l.id === lesson.id);
                         return (
                           <div key={lesson.id} className="group relative">
-                            <button
+                            <Link
+                              to={buildLessonPath(course.id, lesson.id)}
                               onClick={() => {
                                 setActiveLesson(lesson);
-                                navigate(buildLessonPath(course.id, lesson.id));
                                 setEditPanelOpen(false);
                               }}
                               className={`w-full text-left px-2 py-2 rounded-md transition-colors text-sm ${
@@ -701,7 +864,7 @@ export default function CourseDetailPage() {
                                   )}
                                 </div>
                               </div>
-                            </button>
+                            </Link>
                             {isLoggedIn && (
                               <div className="absolute right-1 top-1 hidden group-hover:flex flex-col gap-0.5">
                                 <button
@@ -873,6 +1036,62 @@ export default function CourseDetailPage() {
 
           {/* 可滚动内容区 - 包含iframe和评论 */}
           <div className="flex-1 flex flex-col min-w-0">
+            {activeLesson && (
+              <section className="border-b bg-background px-4 py-4">
+                <div className="mx-auto w-full max-w-4xl space-y-3">
+                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                    {activeLesson.section_label || course.title}
+                  </div>
+                  <h1 className="text-2xl font-semibold leading-tight text-foreground">
+                    {activeLesson.title}
+                  </h1>
+                  <p className="text-sm leading-6 text-muted-foreground">
+                    {lessonSummary}
+                  </p>
+                  {lessonKeywords.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {lessonKeywords.map((keyword) => (
+                        <span
+                          key={keyword}
+                          className="rounded-full border px-2.5 py-1 text-[11px] text-muted-foreground"
+                        >
+                          {keyword}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {lessonExcerpt && lessonExcerpt !== lessonSummary && (
+                    <p className="text-sm leading-7 text-foreground/85">
+                      {lessonExcerpt}
+                    </p>
+                  )}
+                  <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+                    <Link to="/knowledge" className="hover:text-foreground">
+                      课程中心
+                    </Link>
+                    <Link to={`/knowledge/course/${course.id}`} className="hover:text-foreground">
+                      {course.title}
+                    </Link>
+                    {prevLesson && (
+                      <Link
+                        to={buildLessonPath(course.id, prevLesson.id)}
+                        className="hover:text-foreground"
+                      >
+                        上一节：{prevLesson.title}
+                      </Link>
+                    )}
+                    {nextLesson && (
+                      <Link
+                        to={buildLessonPath(course.id, nextLesson.id)}
+                        className="hover:text-foreground"
+                      >
+                        下一节：{nextLesson.title}
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </section>
+            )}
             {/* iframe 区域 */}
             <div className="h-screen overflow-hidden">
             {activeLesson ? (

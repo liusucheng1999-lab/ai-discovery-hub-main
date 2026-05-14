@@ -1,10 +1,9 @@
 User-agent: *
 Allow: /
 
-# 允许抓取首页
-Allow: /
-
-# 允许抓取分类页面
+# 允许抓取课程与分类页面
+Allow: /knowledge
+Allow: /knowledge/course/
 Allow: /ai-writing
 Allow: /ai-drawing
 Allow: /ai-office
@@ -25,9 +24,6 @@ Disallow: /tools/submit
 Disallow: /api/
 Disallow: /_next/
 Disallow: /static/
-Disallow: /*.js$
-Disallow: /*.css$
-Disallow: /*.json$
 
 # 站点地图
 Sitemap: https://aimakerbox.com/sitemap.xml

@@ -47,6 +47,21 @@ async function generateSitemap() {
 
     if (toolsError) throw toolsError;
 
+    // 获取课程与课节
+    const { data: courses, error: coursesError } = await supabase
+      .from('course_settings')
+      .select('id,updated_at');
+
+    if (coursesError) throw coursesError;
+
+    const { data: lessons, error: lessonsError } = await supabase
+      .from('knowledge_lessons')
+      .select('id,course_id,created_at,updated_at,status')
+      .eq('status', 'published')
+      .order('sort_order', { ascending: true });
+
+    if (lessonsError) throw lessonsError;
+
     // 生成sitemap内容
     const baseUrl = 'https://aimakerbox.com';
     const currentDate = new Date().toISOString();
@@ -54,6 +69,7 @@ async function generateSitemap() {
     // 静态页面
     const staticPages = [
       { url: '', priority: '1.0', changefreq: 'daily' },
+      { url: '/knowledge', priority: '0.9', changefreq: 'daily' },
       { url: '/ai-writing', priority: '0.9', changefreq: 'daily' },
       { url: '/ai-drawing', priority: '0.9', changefreq: 'daily' },
       { url: '/ai-office', priority: '0.9', changefreq: 'daily' },
@@ -69,8 +85,23 @@ async function generateSitemap() {
       lastmod: tool.updated_at || tool.created_at || currentDate
     }));
 
+    const defaultCourseId = courses?.[0]?.id || '1';
+    const coursePages = (courses || []).map((course) => ({
+      url: `/knowledge/course/${course.id}`,
+      priority: '0.8',
+      changefreq: 'weekly',
+      lastmod: course.updated_at || currentDate,
+    }));
+
+    const lessonPages = (lessons || []).map((lesson) => ({
+      url: `/knowledge/course/${lesson.course_id || defaultCourseId}/lesson/${lesson.id}`,
+      priority: '0.7',
+      changefreq: 'weekly',
+      lastmod: lesson.updated_at || lesson.created_at || currentDate,
+    }));
+
     // 组合所有页面
-    const allPages = [...staticPages, ...toolPages];
+    const allPages = [...staticPages, ...coursePages, ...lessonPages, ...toolPages];
 
     // 生成XML
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -91,6 +122,8 @@ ${allPages.map(page => `  <url>
     console.log(`📁 输出文件: ${outputPath}`);
     console.log(`📊 总页面数: ${allPages.length}`);
     console.log(`🔧 工具页面: ${toolPages.length}`);
+    console.log(`🎓 课程页面: ${coursePages.length}`);
+    console.log(`📝 课节页面: ${lessonPages.length}`);
     console.log(`📁 静态页面: ${staticPages.length}`);
 
   } catch (error) {

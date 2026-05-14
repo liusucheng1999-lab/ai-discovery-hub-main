@@ -25,6 +25,26 @@ interface LessonSummary {
   week_title: string | null;
 }
 
+const SITE_URL = "https://aimakerbox.com";
+
+const COURSE_FAQS = [
+  {
+    question: "这门课程适合什么人学习？",
+    answer:
+      "适合希望把 AI 真正用进工作的人，包括内容运营、产品经理、市场、咨询、销售、管理者，以及想系统建立 AI 工作流的职场人。",
+  },
+  {
+    question: "课程会讲哪些核心能力？",
+    answer:
+      "课程会覆盖 AI 底层认知、工具选择、提示与协作方式、知识库、工作流设计，以及如何把 AI 用到写作、分析、决策和产品设计场景中。",
+  },
+  {
+    question: "学完之后能获得什么？",
+    answer:
+      "你会建立一套更完整的 AI 使用方法，不只是会用某个工具，而是能判断何时用 AI、怎么用、怎样把 AI 嵌入自己的工作流程并持续提效。",
+  },
+];
+
 export default function Knowledge() {
   const { isLoggedIn } = useAuth();
   const [courses, setCourses] = useState<Course[]>([]);
@@ -46,6 +66,59 @@ export default function Knowledge() {
   });
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+
+  const structuredData = useMemo(() => {
+    const breadcrumbData = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "AI创客",
+          item: `${SITE_URL}/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "课程中心",
+          item: `${SITE_URL}/knowledge`,
+        },
+      ],
+    };
+
+    const faqData = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: COURSE_FAQS.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
+      })),
+    };
+
+    const courseData = courses
+      .filter((course) => course.first_lesson_id)
+      .map((course) => ({
+        "@context": "https://schema.org",
+        "@type": "Course",
+        name: course.title,
+        description: course.description,
+        provider: {
+          "@type": "Organization",
+          name: "AI创客",
+          url: SITE_URL,
+        },
+        isAccessibleForFree: course.is_free,
+        numberOfCredits: course.lesson_count,
+        url: `${SITE_URL}${course.first_lesson_id ? `/knowledge/course/${course.id}/lesson/${course.first_lesson_id}` : `/knowledge/course/${course.id}`}`,
+      }));
+
+    return [breadcrumbData, faqData, ...courseData];
+  }, [courses]);
 
   // 加载课程列表
   useEffect(() => {
@@ -484,8 +557,24 @@ export default function Knowledge() {
     <>
       <Helmet>
         <title>课程中心 - AI创客</title>
-        <meta name="description" content="AI创客课程中心，提供AI实战课程。" />
-        <link rel="canonical" href="https://aimakerbox.com/knowledge" />
+        <meta
+          name="description"
+          content="AI创客课程中心，提供面向职场人的 AI 实战课程，覆盖 AI 工具掌控、工作流设计、知识库、产品设计与效率提升。"
+        />
+        <meta name="robots" content="index,follow,max-image-preview:large" />
+        <link rel="canonical" href={`${SITE_URL}/knowledge`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="课程中心 - AI创客" />
+        <meta
+          property="og:description"
+          content="系统化学习 AI 工具、工作流与产品设计，把 AI 真正用进工作。"
+        />
+        <meta property="og:url" content={`${SITE_URL}/knowledge`} />
+        {structuredData.map((item, index) => (
+          <script key={index} type="application/ld+json">
+            {JSON.stringify(item)}
+          </script>
+        ))}
       </Helmet>
 
       <main className="mx-auto max-w-[1280px] px-6 pt-24 pb-12">
@@ -505,6 +594,38 @@ export default function Knowledge() {
             </Button>
           )}
         </div>
+
+        <section className="mb-10 rounded-2xl border bg-card p-6 md:p-8">
+          <div className="max-w-4xl space-y-5">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight">把 AI 真正用进工作，而不是只停留在“会用工具”</h2>
+              <p className="mt-3 text-base leading-8 text-muted-foreground">
+                这里的课程不是零散教程，而是围绕真实工作场景设计的系统化内容。你会学习如何建立 AI 底层认知，
+                理解不同 AI 工具的边界，搭建自己的 AI 工作流，并把这些能力应用到写作、分析、知识管理、产品设计和决策支持中。
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="rounded-xl border bg-background p-4">
+                <h3 className="text-sm font-semibold">适合谁学</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  适合想提升效率、增强思考能力、建立 AI 方法论的职场人和产品人。
+                </p>
+              </div>
+              <div className="rounded-xl border bg-background p-4">
+                <h3 className="text-sm font-semibold">你会学到什么</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  AI 工具掌控、提示与协作、知识库、工作流设计，以及更高质量的分析和决策方式。
+                </p>
+              </div>
+              <div className="rounded-xl border bg-background p-4">
+                <h3 className="text-sm font-semibold">课程风格</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  以实操为主，以结果为导向，每一节课都尽量让你学完就能在工作里直接使用。
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* 新增课程表单 */}
         {isCreating && (
@@ -566,9 +687,33 @@ export default function Knowledge() {
             <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {courses.map((course, index) => renderCourseCard(course, index))}
-          </div>
+          <>
+            <section className="mb-10">
+              <div className="mb-4">
+                <h2 className="text-2xl font-semibold tracking-tight">全部课程</h2>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                  从 AI 入门认知到工作流设计，再到知识库与产品设计，逐步建立你自己的 AI 方法体系。
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {courses.map((course, index) => renderCourseCard(course, index))}
+              </div>
+            </section>
+
+            <section className="rounded-2xl border bg-card p-6 md:p-8">
+              <div className="max-w-4xl">
+                <h2 className="text-2xl font-semibold tracking-tight">常见问题</h2>
+                <div className="mt-6 space-y-5">
+                  {COURSE_FAQS.map((faq) => (
+                    <article key={faq.question} className="rounded-xl border bg-background p-5">
+                      <h3 className="text-base font-semibold">{faq.question}</h3>
+                      <p className="mt-2 text-sm leading-7 text-muted-foreground">{faq.answer}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </>
         )}
       </main>
     </>
