@@ -595,38 +595,6 @@ export default function Knowledge() {
           )}
         </div>
 
-        <section className="mb-10 rounded-2xl border bg-card p-6 md:p-8">
-          <div className="max-w-4xl space-y-5">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight">把 AI 真正用进工作，而不是只停留在“会用工具”</h2>
-              <p className="mt-3 text-base leading-8 text-muted-foreground">
-                这里的课程不是零散教程，而是围绕真实工作场景设计的系统化内容。你会学习如何建立 AI 底层认知，
-                理解不同 AI 工具的边界，搭建自己的 AI 工作流，并把这些能力应用到写作、分析、知识管理、产品设计和决策支持中。
-              </p>
-            </div>
-            <div className="grid gap-4 md:grid-cols-3">
-              <div className="rounded-xl border bg-background p-4">
-                <h3 className="text-sm font-semibold">适合谁学</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  适合想提升效率、增强思考能力、建立 AI 方法论的职场人和产品人。
-                </p>
-              </div>
-              <div className="rounded-xl border bg-background p-4">
-                <h3 className="text-sm font-semibold">你会学到什么</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  AI 工具掌控、提示与协作、知识库、工作流设计，以及更高质量的分析和决策方式。
-                </p>
-              </div>
-              <div className="rounded-xl border bg-background p-4">
-                <h3 className="text-sm font-semibold">课程风格</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  以实操为主，以结果为导向，每一节课都尽量让你学完就能在工作里直接使用。
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* 新增课程表单 */}
         {isCreating && (
           <div className="mb-8 p-6 rounded-xl border bg-card">
@@ -687,33 +655,9 @@ export default function Knowledge() {
             <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
           </div>
         ) : (
-          <>
-            <section className="mb-10">
-              <div className="mb-4">
-                <h2 className="text-2xl font-semibold tracking-tight">全部课程</h2>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">
-                  从 AI 入门认知到工作流设计，再到知识库与产品设计，逐步建立你自己的 AI 方法体系。
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {courses.map((course, index) => renderCourseCard(course, index))}
-              </div>
-            </section>
-
-            <section className="rounded-2xl border bg-card p-6 md:p-8">
-              <div className="max-w-4xl">
-                <h2 className="text-2xl font-semibold tracking-tight">常见问题</h2>
-                <div className="mt-6 space-y-5">
-                  {COURSE_FAQS.map((faq) => (
-                    <article key={faq.question} className="rounded-xl border bg-background p-5">
-                      <h3 className="text-base font-semibold">{faq.question}</h3>
-                      <p className="mt-2 text-sm leading-7 text-muted-foreground">{faq.answer}</p>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            </section>
-          </>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {courses.map((course, index) => renderCourseCard(course, index))}
+          </div>
         )}
       </main>
     </>

@@ -709,9 +709,6 @@ export default function CourseDetailPage() {
     320
   );
   const lessonKeywords = lessonSeoCopy?.keywords || [];
-  const activeLessonIndex = activeLesson ? lessons.findIndex((lesson) => lesson.id === activeLesson.id) : -1;
-  const prevLesson = activeLessonIndex > 0 ? lessons[activeLessonIndex - 1] : null;
-  const nextLesson = activeLessonIndex >= 0 && activeLessonIndex < lessons.length - 1 ? lessons[activeLessonIndex + 1] : null;
   const structuredData = activeLesson
     ? {
         "@context": "https://schema.org",
@@ -843,7 +840,7 @@ export default function CourseDetailPage() {
                                 setActiveLesson(lesson);
                                 setEditPanelOpen(false);
                               }}
-                              className={`w-full text-left px-2 py-2 rounded-md transition-colors text-sm ${
+                              className={`block w-full text-left px-2 py-2 rounded-md transition-colors text-sm ${
                                 isActive
                                   ? "bg-primary/10 text-primary font-medium"
                                   : "text-foreground hover:bg-muted"
@@ -855,7 +852,7 @@ export default function CourseDetailPage() {
                                     isActive ? "text-primary" : "text-muted-foreground"
                                   }`}
                                 />
-                                <div className="min-w-0 pr-6">
+                                <div className="min-w-0 flex-1 pr-8">
                                   <div className="leading-snug break-words text-sm">{lesson.title}</div>
                                   {lesson.description && (
                                     <div className="text-xs text-muted-foreground mt-0.5 line-clamp-2 break-words">
@@ -1036,62 +1033,6 @@ export default function CourseDetailPage() {
 
           {/* 可滚动内容区 - 包含iframe和评论 */}
           <div className="flex-1 flex flex-col min-w-0">
-            {activeLesson && (
-              <section className="border-b bg-background px-4 py-4">
-                <div className="mx-auto w-full max-w-4xl space-y-3">
-                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                    {activeLesson.section_label || course.title}
-                  </div>
-                  <h1 className="text-2xl font-semibold leading-tight text-foreground">
-                    {activeLesson.title}
-                  </h1>
-                  <p className="text-sm leading-6 text-muted-foreground">
-                    {lessonSummary}
-                  </p>
-                  {lessonKeywords.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {lessonKeywords.map((keyword) => (
-                        <span
-                          key={keyword}
-                          className="rounded-full border px-2.5 py-1 text-[11px] text-muted-foreground"
-                        >
-                          {keyword}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  {lessonExcerpt && lessonExcerpt !== lessonSummary && (
-                    <p className="text-sm leading-7 text-foreground/85">
-                      {lessonExcerpt}
-                    </p>
-                  )}
-                  <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
-                    <Link to="/knowledge" className="hover:text-foreground">
-                      课程中心
-                    </Link>
-                    <Link to={`/knowledge/course/${course.id}`} className="hover:text-foreground">
-                      {course.title}
-                    </Link>
-                    {prevLesson && (
-                      <Link
-                        to={buildLessonPath(course.id, prevLesson.id)}
-                        className="hover:text-foreground"
-                      >
-                        上一节：{prevLesson.title}
-                      </Link>
-                    )}
-                    {nextLesson && (
-                      <Link
-                        to={buildLessonPath(course.id, nextLesson.id)}
-                        className="hover:text-foreground"
-                      >
-                        下一节：{nextLesson.title}
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </section>
-            )}
             {/* iframe 区域 */}
             <div className="h-screen overflow-hidden">
             {activeLesson ? (
