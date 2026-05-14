@@ -4,7 +4,7 @@
 -- 创建表
 CREATE TABLE IF NOT EXISTS course_settings (
     id TEXT PRIMARY KEY DEFAULT '1',
-    title TEXT NOT NULL DEFAULT '打工人进化论',
+    title TEXT NOT NULL DEFAULT '超级个体：AI工具掌控与产品设计指南',
     description TEXT NOT NULL DEFAULT '用 AI 把你从「执行者」变成「决策者」',
     cover_url TEXT,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS course_settings (
 
 -- 初始化默认数据
 INSERT INTO course_settings (id, title, description)
-VALUES ('1', '打工人进化论', '用 AI 把你从「执行者」变成「决策者」。系统化的 AI 实战课程，助你掌握 AI 工具，提升工作效率。')
+VALUES ('1', '超级个体：AI工具掌控与产品设计指南', '用 AI 把你从「执行者」变成「决策者」。系统化的 AI 实战课程，助你掌握 AI 工具，提升工作效率。')
 ON CONFLICT (id) DO NOTHING;
 
 -- 添加注释

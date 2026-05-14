@@ -435,14 +435,14 @@ export default function Home() {
                   </div>
                   <div className="am-course-body">
                     <div className="am-course-status am-status-free">免费</div>
-                    <h3 className="am-course-title">AI提示词从入门到精通</h3>
-                    <div className="am-course-meta">🕐 共12节 · 视频课程 · 适合新手</div>
-                    <p className="am-text">系统学习提示词工程，掌握与AI高效沟通的核心技巧</p>
+                    <h3 className="am-course-title">超级个体：AI工具掌控与产品设计指南</h3>
+                    <div className="am-course-meta">🕐 系统课程 · AI实战 · 适合职场人</div>
+                    <p className="am-text">用 AI 把你从「执行者」变成「决策者」。系统化的 AI 实战课程，助你掌握 AI 工具，提升工作效率。</p>
                     <div className="am-course-learn">学完你能</div>
                     <ul className="am-list">
-                      <li>写出专业级提示词</li>
-                      <li>让AI产出高质量内容</li>
-                      <li>解决90%日常AI使用问题</li>
+                      <li>建立真正能用上的 AI 底层认知</li>
+                      <li>把 AI 用进写作、分析和日常工作流</li>
+                      <li>从会用工具走向提升效率与决策质量</li>
                     </ul>
                     <a className="am-btn am-btn-primary am-btn-block" href="/knowledge" rel="nofollow">
                       立即学习 →

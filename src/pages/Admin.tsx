@@ -82,7 +82,7 @@ export default function Admin() {
   // 课程管理状态
   const [courseInfo, setCourseInfo] = useState<CourseInfo>({
     id: '1',
-    title: '打工人进化论',
+    title: '超级个体：AI工具掌控与产品设计指南',
     description: '用 AI 把你从「执行者」变成「决策者」。系统化的 AI 实战课程，助你掌握 AI 工具，提升工作效率。',
     cover_url: null,
     lesson_count: 0,
@@ -349,7 +349,7 @@ export default function Admin() {
           
           // 初始化表单
           setCourseForm({
-            title: '打工人进化论',
+            title: '超级个体：AI工具掌控与产品设计指南',
             description: '用 AI 把你从「执行者」变成「决策者」。系统化的 AI 实战课程，助你掌握 AI 工具，提升工作效率。',
             cover_url: ''
           });

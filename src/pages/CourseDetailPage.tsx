@@ -16,6 +16,7 @@ import {
   Maximize2,
   ImagePlus,
   Eye,
+  Share2,
 } from "lucide-react";
 import { supabase, supabaseWithAuth } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -125,9 +126,35 @@ export default function CourseDetailPage() {
   const [htmlEditorOpen, setHtmlEditorOpen] = useState(false);
   const [previewMode, setPreviewMode] = useState<"split" | "code" | "preview">("split");
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [shareText, setShareText] = useState("分享");
 
   const buildLessonPath = (targetCourseId: string, targetLessonId: string) =>
     `/knowledge/course/${targetCourseId}/lesson/${targetLessonId}`;
+
+  const handleShareLesson = async () => {
+    if (!activeLesson || !courseId || typeof window === "undefined") return;
+
+    const shareUrl = `${window.location.origin}${buildLessonPath(courseId, activeLesson.id)}`;
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+      } else {
+        const input = document.createElement("input");
+        input.value = shareUrl;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+      }
+
+      setShareText("已复制");
+      window.setTimeout(() => setShareText("分享"), 2000);
+    } catch (error) {
+      console.error("复制分享链接失败", error);
+      alert("复制失败，请稍后重试");
+    }
+  };
 
   const validateDocUrl = (url: string, setError: (value: string) => void) => {
     if (!url.trim()) {
@@ -732,6 +759,17 @@ export default function CourseDetailPage() {
                 </span>
               )}
             </div>
+            {activeLesson && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex-shrink-0 gap-1.5 h-7 text-xs"
+                onClick={handleShareLesson}
+              >
+                <Share2 className="h-3 w-3" />
+                {shareText}
+              </Button>
+            )}
             {isLoggedIn && activeLesson && (
               <Button
                 variant={editPanelOpen ? "secondary" : "outline"}

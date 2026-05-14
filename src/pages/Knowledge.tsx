@@ -103,8 +103,8 @@ export default function Knowledge() {
           });
         });
       } else {
-        // 默认显示打工人进化论
-        const defaultTitle = "打工人进化论";
+        // 默认显示课程名称
+        const defaultTitle = "超级个体：AI工具掌控与产品设计指南";
         courseList.push({
           id: "1",
           title: defaultTitle,
