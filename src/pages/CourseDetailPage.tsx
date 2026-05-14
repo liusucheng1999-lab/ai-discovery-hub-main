@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   ChevronDown,
   FileText,
@@ -104,7 +104,8 @@ const inputClass =
   "placeholder:text-muted-foreground transition-shadow";
 
 export default function CourseDetailPage() {
-  const { courseId } = useParams<{ courseId: string }>();
+  const { courseId, lessonId } = useParams<{ courseId: string; lessonId?: string }>();
+  const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
 
   const [lessons, setLessons] = useState<Lesson[]>([]);
@@ -124,6 +125,9 @@ export default function CourseDetailPage() {
   const [htmlEditorOpen, setHtmlEditorOpen] = useState(false);
   const [previewMode, setPreviewMode] = useState<"split" | "code" | "preview">("split");
   const [uploadingImage, setUploadingImage] = useState(false);
+
+  const buildLessonPath = (targetCourseId: string, targetLessonId: string) =>
+    `/knowledge/course/${targetCourseId}/lesson/${targetLessonId}`;
 
   const validateDocUrl = (url: string, setError: (value: string) => void) => {
     if (!url.trim()) {
@@ -220,7 +224,10 @@ export default function CourseDetailPage() {
 
       setActiveLesson((prev) => {
         const nextActive =
-          lessonData?.find((lesson) => lesson.id === prev?.id) || lessonData?.[0] || null;
+          lessonData?.find((lesson) => lesson.id === lessonId) ||
+          lessonData?.find((lesson) => lesson.id === prev?.id) ||
+          lessonData?.[0] ||
+          null;
         syncLessonForm(nextActive);
         return nextActive;
       });
@@ -358,6 +365,7 @@ export default function CourseDetailPage() {
       setLessons(nextLessons);
       setActiveLesson(createdLesson);
       syncLessonForm(createdLesson);
+      navigate(buildLessonPath(course.id, createdLesson.id));
       setNewLessonForm(EMPTY_LESSON_FORM);
       setNewLessonDocUrlError("");
       setNewLessonOpen(false);
@@ -382,6 +390,11 @@ export default function CourseDetailPage() {
         const next = nextLessons[0] || null;
         setActiveLesson(next);
         syncLessonForm(next);
+        if (next && courseId) {
+          navigate(buildLessonPath(courseId, next.id), { replace: true });
+        } else if (courseId) {
+          navigate(`/knowledge/course/${courseId}`, { replace: true });
+        }
       }
     } catch (error: any) {
       alert(`删除失败：${error.message}`);
@@ -479,11 +492,17 @@ export default function CourseDetailPage() {
       setLoading(false);
     };
     fetchCourseData();
-  }, [courseId]);
+  }, [courseId, lessonId]);
 
   useEffect(() => {
     syncLessonForm(activeLesson);
   }, [activeLesson]);
+
+  useEffect(() => {
+    if (!courseId || !activeLesson) return;
+    if (lessonId === activeLesson.id) return;
+    navigate(buildLessonPath(courseId, activeLesson.id), { replace: true });
+  }, [activeLesson, courseId, lessonId, navigate]);
 
   const groupedLessons = useMemo(() => {
     const sortedLessons = [...lessons].sort((a, b) => a.sort_order - b.sort_order);
@@ -631,6 +650,7 @@ export default function CourseDetailPage() {
                             <button
                               onClick={() => {
                                 setActiveLesson(lesson);
+                                navigate(buildLessonPath(course.id, lesson.id));
                                 setEditPanelOpen(false);
                               }}
                               className={`w-full text-left px-2 py-2 rounded-md transition-colors text-sm ${
