@@ -9,6 +9,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import SiteVisitTracker from "@/components/SiteVisitTracker";
 import Home from "./pages/Home";
 import Index from "./pages/Index";
 import CategoryPage from "./pages/CategoryPage";
@@ -19,6 +20,7 @@ import Login from "./pages/Login";
 import SetupAdmin from "./pages/SetupAdmin";
 import CreateAdmin from "./pages/CreateAdmin";
 import Admin from "./pages/Admin";
+import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
 import Knowledge from "./pages/Knowledge";
 
@@ -34,6 +36,7 @@ const App = () => {
               <Toaster />
               <Sonner />
               <BrowserRouter>
+                <SiteVisitTracker />
                 <div className="flex min-h-screen flex-col">
                   <Navbar />
                   <div className="flex-1">
@@ -50,7 +53,22 @@ const App = () => {
                       <Route path="/login" element={<Login />} />
                       <Route path="/setup-admin" element={<SetupAdmin />} />
                       <Route path="/create-admin" element={<CreateAdmin />} />
-                      <Route path="/admin" element={<Admin />} />
+                      <Route
+                        path="/admin"
+                        element={
+                          <ProtectedRoute>
+                            <Admin />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/analytics"
+                        element={
+                          <ProtectedRoute>
+                            <Analytics />
+                          </ProtectedRoute>
+                        }
+                      />
                       <Route path="/knowledge" element={<Knowledge />} />
                       <Route path="/knowledge/course/:courseId" element={<CourseDetailPage />} />
                       <Route path="/knowledge/course/:courseId/lesson/:lessonId" element={<CourseDetailPage />} />

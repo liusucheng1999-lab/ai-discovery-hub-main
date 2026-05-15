@@ -69,6 +69,12 @@ export default function Navbar() {
               >
                 审核管理
               </Link>
+              <Link
+                to="/analytics"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                访问统计
+              </Link>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span>{username}</span>
                 <Button variant="ghost" size="sm" onClick={handleLogout}>

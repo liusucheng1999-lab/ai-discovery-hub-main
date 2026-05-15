@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/lib/supabase";
+import { fetchSiteAnalyticsSummary, type SiteAnalyticsSummary } from "@/lib/site-analytics";
 import { deepSeekService, type AIReviewResult } from "@/lib/deepseek-service";
 import { autoAiReviewService, type ReviewLog } from "@/lib/auto-ai-review-service";
 import { batchReviewService, type BatchReviewProgress } from "@/lib/batch-review-service";
@@ -13,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { Check, X, Eye, ExternalLink, Bot, AlertCircle, Star, Copy, Calendar, Clock, Play, Trash2, Filter, BookOpen, Save, Upload } from "lucide-react";
 import { getToolLogo, getFallbackLogo } from "@/lib/logo-utils";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 interface ToolSubmission {
   id: string;
@@ -96,6 +98,23 @@ export default function Admin() {
   const [courseSaving, setCourseSaving] = useState(false);
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [coverUploading, setCoverUploading] = useState(false);
+  const [siteAnalytics, setSiteAnalytics] = useState<SiteAnalyticsSummary | null>(null);
+  const [siteAnalyticsLoading, setSiteAnalyticsLoading] = useState(true);
+  const [siteAnalyticsError, setSiteAnalyticsError] = useState<string | null>(null);
+
+  const loadSiteAnalytics = async () => {
+    try {
+      setSiteAnalyticsLoading(true);
+      setSiteAnalyticsError(null);
+      const summary = await fetchSiteAnalyticsSummary();
+      setSiteAnalytics(summary);
+    } catch (error: any) {
+      console.error("加载站点访问统计失败:", error);
+      setSiteAnalyticsError(error?.message || "加载站点访问统计失败");
+    } finally {
+      setSiteAnalyticsLoading(false);
+    }
+  };
 
   // 加载待审核工具
   useEffect(() => {
@@ -213,6 +232,10 @@ export default function Admin() {
 
     loadSubmissions();
   }, [activeTab, aiReviewFilter, sourceFilter]);
+
+  useEffect(() => {
+    loadSiteAnalytics();
+  }, []);
 
   // 监控后台任务进度
   useEffect(() => {
@@ -1134,6 +1157,98 @@ export default function Admin() {
             </div>
           </div>
         </div>
+
+        <Card className="mb-6">
+          <CardHeader>
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <CardTitle className="text-lg">📈 站点访问统计</CardTitle>
+                <p className="text-sm text-muted-foreground mt-1">
+                  统计规则：同一浏览器 30 分钟内只记 1 次访问，按自然日汇总
+                </p>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={loadSiteAnalytics}
+                disabled={siteAnalyticsLoading}
+              >
+                刷新统计
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {siteAnalyticsError ? (
+              <div className="rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+                {siteAnalyticsError}
+                <div className="mt-2 text-muted-foreground">
+                  如果你还没建表，请先执行 `database/migrations/create_site_visits.sql`。
+                </div>
+              </div>
+            ) : null}
+
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="text-sm text-muted-foreground">今日访问</div>
+                  <div className="mt-2 text-3xl font-bold">
+                    {siteAnalyticsLoading ? "..." : siteAnalytics?.today ?? 0}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="text-sm text-muted-foreground">昨日访问</div>
+                  <div className="mt-2 text-3xl font-bold">
+                    {siteAnalyticsLoading ? "..." : siteAnalytics?.yesterday ?? 0}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="text-sm text-muted-foreground">近 7 天访问</div>
+                  <div className="mt-2 text-3xl font-bold">
+                    {siteAnalyticsLoading ? "..." : siteAnalytics?.last7Days ?? 0}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="text-sm text-muted-foreground">近 30 天访问</div>
+                  <div className="mt-2 text-3xl font-bold">
+                    {siteAnalyticsLoading ? "..." : siteAnalytics?.last30Days ?? 0}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="h-72 w-full rounded-lg border p-4">
+              {siteAnalyticsLoading ? (
+                <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+                  正在加载访问趋势...
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={(siteAnalytics?.daily || []).slice(-14).map((item) => ({
+                      ...item,
+                      label: item.date.slice(5),
+                    }))}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                    <XAxis dataKey="label" />
+                    <YAxis allowDecimals={false} />
+                    <Tooltip
+                      formatter={(value: number) => [`${value} 次`, "访问"]}
+                      labelFormatter={(label) => `日期 ${label}`}
+                    />
+                    <Bar dataKey="visits" fill="#2563eb" radius={[6, 6, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </CardContent>
+        </Card>
 
         {/* AI审核结果筛选 */}
         <div className="mb-6 flex items-center gap-4">
