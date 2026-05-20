@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
-import { Check, X, Eye, ExternalLink, Bot, AlertCircle, Star, Copy, Calendar, Clock, Play, Trash2, Filter, BookOpen, Save, Upload } from "lucide-react";
+import { Check, X, Eye, ExternalLink, Bot, AlertCircle, Star, Copy, Calendar, Clock, Play, Trash2, Filter, BookOpen, Save, Upload, Plus, Edit2 } from "lucide-react";
 import { getToolLogo, getFallbackLogo } from "@/lib/logo-utils";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
@@ -48,7 +48,7 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [processing, setProcessing] = useState(false);
-  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected' | 'course'>('pending');
+  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected' | 'course' | 'resources'>('pending');
   const [aiReviews, setAiReviews] = useState<AIReviewCache>({});
   const [aiProcessing, setAiProcessing] = useState<string[]>([]);
   const [showAiReview, setShowAiReview] = useState<string | null>(null);
@@ -101,6 +101,30 @@ export default function Admin() {
   const [siteAnalytics, setSiteAnalytics] = useState<SiteAnalyticsSummary | null>(null);
   const [siteAnalyticsLoading, setSiteAnalyticsLoading] = useState(true);
   const [siteAnalyticsError, setSiteAnalyticsError] = useState<string | null>(null);
+
+  // 资源管理状态
+  interface Resource {
+    id: string;
+    name: string;
+    description: string;
+    keywords: string;
+    cover_url: string | null;
+    sort_order: number;
+    status: string;
+  }
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [resourcesLoading, setResourcesLoading] = useState(true);
+  const [editingResource, setEditingResource] = useState<string | null>(null);
+  const [resourceForm, setResourceForm] = useState({
+    name: '',
+    description: '',
+    keywords: '',
+    cover_url: '',
+    status: 'published'
+  });
+  const [isCreatingResource, setIsCreatingResource] = useState(false);
+  const [resourceFile, setResourceFile] = useState<File | null>(null);
+  const [resourceFileUploading, setResourceFileUploading] = useState(false);
 
   const loadSiteAnalytics = async () => {
     try {
@@ -457,6 +481,154 @@ export default function Admin() {
       alert('上传失败：' + err.message);
     } finally {
       setCoverUploading(false);
+    }
+  };
+
+  // 加载资源列表
+  const loadResources = async () => {
+    try {
+      setResourcesLoading(true);
+      const { data, error } = await supabase
+        .from('ai_resources')
+        .select('*')
+        .eq('is_deleted', false)
+        .order('sort_order', { ascending: true });
+
+      if (error) throw error;
+      setResources(data || []);
+    } catch (err) {
+      console.error('加载资源失败', err);
+      alert('加载资源失败');
+    } finally {
+      setResourcesLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'resources') {
+      loadResources();
+    }
+  }, [activeTab]);
+
+  // 创建资源
+  const handleCreateResource = async () => {
+    if (!resourceForm.name || !resourceForm.description) {
+      alert('请填写资源名称和简介');
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('ai_resources')
+        .insert([
+          {
+            name: resourceForm.name,
+            description: resourceForm.description,
+            keywords: resourceForm.keywords,
+            cover_url: resourceForm.cover_url,
+            sort_order: resources.length,
+            status: resourceForm.status
+          }
+        ]);
+
+      if (error) throw error;
+      alert('资源创建成功！');
+      setIsCreatingResource(false);
+      setResourceForm({
+        name: '',
+        description: '',
+        keywords: '',
+        cover_url: '',
+        status: 'published'
+      });
+      loadResources();
+    } catch (err: any) {
+      alert('创建失败：' + err.message);
+    }
+  };
+
+  // 更新资源
+  const handleSaveResource = async (resourceId: string) => {
+    if (!resourceForm.name || !resourceForm.description) {
+      alert('请填写资源名称和简介');
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('ai_resources')
+        .update({
+          name: resourceForm.name,
+          description: resourceForm.description,
+          keywords: resourceForm.keywords,
+          cover_url: resourceForm.cover_url,
+          status: resourceForm.status
+        })
+        .eq('id', resourceId);
+
+      if (error) throw error;
+      alert('资源更新成功！');
+      setEditingResource(null);
+      setResourceForm({
+        name: '',
+        description: '',
+        keywords: '',
+        cover_url: '',
+        status: 'published'
+      });
+      loadResources();
+    } catch (err: any) {
+      alert('更新失败：' + err.message);
+    }
+  };
+
+  // 删除资源
+  const handleDeleteResource = async (resourceId: string) => {
+    if (!confirm('确定要删除这个资源吗？')) return;
+
+    try {
+      const { error } = await supabase
+        .from('ai_resources')
+        .update({ is_deleted: true })
+        .eq('id', resourceId);
+
+      if (error) throw error;
+      alert('资源已删除！');
+      loadResources();
+    } catch (err: any) {
+      alert('删除失败：' + err.message);
+    }
+  };
+
+  // 上传资源封面
+  const handleResourceCoverUpload = async () => {
+    if (!resourceFile) return;
+
+    setResourceFileUploading(true);
+    try {
+      await supabase.storage.createBucket('course-assets', { public: true });
+
+      const fileExt = resourceFile.name.split('.').pop();
+      const fileName = `resource-cover-${Date.now()}.${fileExt}`;
+      const filePath = `resource-covers/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('course-assets')
+        .upload(filePath, resourceFile);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('course-assets')
+        .getPublicUrl(filePath);
+
+      setResourceForm(prev => ({ ...prev, cover_url: publicUrl }));
+      setResourceFile(null);
+      alert('封面上传成功！');
+    } catch (err: any) {
+      alert('上传失败：' + err.message);
+    } finally {
+      setResourceFileUploading(false);
     }
   };
 
@@ -1553,13 +1725,24 @@ export default function Admin() {
           <button
             onClick={() => setActiveTab('course')}
             className={`px-4 py-2 font-medium transition-colors ${
-              activeTab === 'course' 
-                ? 'text-primary border-b-2 border-primary' 
+              activeTab === 'course'
+                ? 'text-primary border-b-2 border-primary'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             <BookOpen className="h-4 w-4 inline mr-1" />
             课程管理
+          </button>
+          <button
+            onClick={() => setActiveTab('resources')}
+            className={`px-4 py-2 font-medium transition-colors ${
+              activeTab === 'resources'
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <BookOpen className="h-4 w-4 inline mr-1" />
+            资源管理
           </button>
         </div>
 
@@ -1979,8 +2162,285 @@ export default function Admin() {
           </Card>
         )}
 
+        {/* 资源管理 */}
+        {activeTab === 'resources' && (
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <BookOpen className="h-5 w-5" />
+                  AI资源管理
+                </CardTitle>
+                {!isCreatingResource && (
+                  <Button
+                    onClick={() => {
+                      setIsCreatingResource(true);
+                      setResourceForm({
+                        name: '',
+                        description: '',
+                        keywords: '',
+                        cover_url: '',
+                        status: 'published'
+                      });
+                    }}
+                    className="gap-2"
+                  >
+                    <Plus className="h-4 w-4" />
+                    新增资源
+                  </Button>
+                )}
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {resourcesLoading ? (
+                <div className="text-center py-8">
+                  <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full mx-auto" />
+                </div>
+              ) : isCreatingResource ? (
+                <div className="space-y-4 p-4 border rounded-lg">
+                  <h3 className="font-medium text-sm">新增资源</h3>
+
+                  {/* 资源名称 */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">资源名称</label>
+                    <input
+                      type="text"
+                      value={resourceForm.name}
+                      onChange={(e) => setResourceForm(prev => ({ ...prev, name: e.target.value }))}
+                      className="w-full h-10 px-3 rounded-md border bg-background text-sm"
+                      placeholder="请输入资源名称"
+                    />
+                  </div>
+
+                  {/* 资源简介 */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">资源简介</label>
+                    <textarea
+                      value={resourceForm.description}
+                      onChange={(e) => setResourceForm(prev => ({ ...prev, description: e.target.value }))}
+                      rows={3}
+                      className="w-full px-3 py-2 rounded-md border bg-background text-sm resize-none"
+                      placeholder="请输入资源简介"
+                    />
+                  </div>
+
+                  {/* 关键词 */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">关键词（逗号分隔）</label>
+                    <input
+                      type="text"
+                      value={resourceForm.keywords}
+                      onChange={(e) => setResourceForm(prev => ({ ...prev, keywords: e.target.value }))}
+                      className="w-full h-10 px-3 rounded-md border bg-background text-sm"
+                      placeholder="例：书籍,AI,学习"
+                    />
+                  </div>
+
+                  {/* 封面图片 */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">封面图片</label>
+                    <div className="flex items-start gap-4">
+                      <div className="w-32 h-40 rounded-lg border bg-muted flex items-center justify-center overflow-hidden">
+                        {resourceForm.cover_url ? (
+                          <img
+                            src={resourceForm.cover_url}
+                            alt="资源封面"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="text-center text-muted-foreground">
+                            <BookOpen className="h-6 w-6 mx-auto mb-1" />
+                            <span className="text-xs">暂无封面</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 space-y-3">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => setResourceFile(e.target.files?.[0] || null)}
+                          className="block w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-primary-foreground"
+                        />
+                        {resourceFile && (
+                          <Button
+                            size="sm"
+                            onClick={handleResourceCoverUpload}
+                            disabled={resourceFileUploading}
+                          >
+                            {resourceFileUploading ? '上传中...' : '上传封面'}
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 状态 */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">状态</label>
+                    <select
+                      value={resourceForm.status}
+                      onChange={(e) => setResourceForm(prev => ({ ...prev, status: e.target.value }))}
+                      className="w-full h-10 px-3 rounded-md border bg-background text-sm"
+                    >
+                      <option value="published">已发布</option>
+                      <option value="draft">草稿</option>
+                    </select>
+                  </div>
+
+                  {/* 操作按钮 */}
+                  <div className="flex justify-end gap-2 pt-4 border-t">
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setIsCreatingResource(false);
+                        setResourceForm({
+                          name: '',
+                          description: '',
+                          keywords: '',
+                          cover_url: '',
+                          status: 'published'
+                        });
+                      }}
+                    >
+                      取消
+                    </Button>
+                    <Button
+                      onClick={handleCreateResource}
+                      className="gap-2"
+                    >
+                      <Plus className="h-4 w-4" />
+                      创建资源
+                    </Button>
+                  </div>
+                </div>
+              ) : resources.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  暂无资源
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {resources.map((resource, index) => (
+                    <div key={resource.id} className="p-4 border rounded-lg space-y-4">
+                      {editingResource === resource.id ? (
+                        <>
+                          {/* 编辑模式 */}
+                          <div className="space-y-2">
+                            <label className="text-sm font-medium">资源名称</label>
+                            <input
+                              type="text"
+                              value={resourceForm.name}
+                              onChange={(e) => setResourceForm(prev => ({ ...prev, name: e.target.value }))}
+                              className="w-full h-10 px-3 rounded-md border bg-background text-sm"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <label className="text-sm font-medium">资源简介</label>
+                            <textarea
+                              value={resourceForm.description}
+                              onChange={(e) => setResourceForm(prev => ({ ...prev, description: e.target.value }))}
+                              rows={2}
+                              className="w-full px-3 py-2 rounded-md border bg-background text-sm resize-none"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <label className="text-sm font-medium">关键词</label>
+                            <input
+                              type="text"
+                              value={resourceForm.keywords}
+                              onChange={(e) => setResourceForm(prev => ({ ...prev, keywords: e.target.value }))}
+                              className="w-full h-10 px-3 rounded-md border bg-background text-sm"
+                            />
+                          </div>
+                          <div className="flex justify-end gap-2 pt-4">
+                            <Button
+                              variant="outline"
+                              onClick={() => {
+                                setEditingResource(null);
+                                setResourceForm({
+                                  name: '',
+                                  description: '',
+                                  keywords: '',
+                                  cover_url: '',
+                                  status: 'published'
+                                });
+                              }}
+                            >
+                              取消
+                            </Button>
+                            <Button
+                              onClick={() => handleSaveResource(resource.id)}
+                              className="gap-2"
+                            >
+                              <Save className="h-4 w-4" />
+                              保存
+                            </Button>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          {/* 查看模式 */}
+                          <div className="flex items-start gap-4">
+                            {resource.cover_url && (
+                              <img
+                                src={resource.cover_url}
+                                alt={resource.name}
+                                className="w-24 h-32 object-cover rounded"
+                              />
+                            )}
+                            <div className="flex-1">
+                              <h4 className="font-medium text-sm mb-1">{resource.name}</h4>
+                              <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{resource.description}</p>
+                              {resource.keywords && (
+                                <div className="flex flex-wrap gap-1 mb-2">
+                                  {resource.keywords.split(',').map((kw, idx) => (
+                                    <Badge key={idx} variant="secondary" className="text-xs">
+                                      {kw.trim()}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              )}
+                              <Badge variant={resource.status === 'published' ? 'default' : 'outline'} className="text-xs">
+                                {resource.status === 'published' ? '已发布' : '草稿'}
+                              </Badge>
+                            </div>
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => {
+                                  setEditingResource(resource.id);
+                                  setResourceForm({
+                                    name: resource.name,
+                                    description: resource.description,
+                                    keywords: resource.keywords,
+                                    cover_url: resource.cover_url || '',
+                                    status: resource.status
+                                  });
+                                }}
+                              >
+                                <Edit2 className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={() => handleDeleteResource(resource.id)}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
+
         {/* 空状态 */}
-        {currentTabSubmissions.length === 0 && activeTab !== 'logs' && activeTab !== 'course' && (
+        {currentTabSubmissions.length === 0 && activeTab !== 'logs' && activeTab !== 'course' && activeTab !== 'resources' && (
           <Card>
             <CardContent className="py-12 text-center">
               <div className="text-muted-foreground">

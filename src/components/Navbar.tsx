@@ -26,6 +26,7 @@ export default function Navbar() {
     { label: "首页", to: "/" },
     { label: "AI工具", to: "/tools" },
     { label: "AI课程", to: "/knowledge" },
+    { label: "AI资源", to: "/resources" },
   ];
 
   return (

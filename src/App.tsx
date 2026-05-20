@@ -23,6 +23,8 @@ import Admin from "./pages/Admin";
 import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
 import Knowledge from "./pages/Knowledge";
+import Resources from "./pages/Resources";
+import ResourceDetailPage from "./pages/ResourceDetailPage";
 
 const queryClient = new QueryClient();
 
@@ -72,6 +74,8 @@ const App = () => {
                       <Route path="/knowledge" element={<Knowledge />} />
                       <Route path="/knowledge/course/:courseId" element={<CourseDetailPage />} />
                       <Route path="/knowledge/course/:courseId/lesson/:lessonId" element={<CourseDetailPage />} />
+                      <Route path="/resources" element={<Resources />} />
+                      <Route path="/resources/:resourceId" element={<ResourceDetailPage />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </div>
