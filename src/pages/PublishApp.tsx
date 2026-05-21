@@ -1,0 +1,43 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AppUpload } from '@/components/AppUpload';
+import { appService } from '@/lib/appService';
+import { toast } from 'sonner';
+
+export function PublishApp() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (data: {
+    name: string;
+    description: string;
+    file: File;
+  }) => {
+    try {
+      setIsLoading(true);
+      const result = await appService.uploadApp({
+        name: data.name,
+        description: data.description,
+        file: data.file,
+      });
+
+      toast.success('应用发布成功！');
+      navigate(`/apps/${result.app_id}`);
+    } catch (error) {
+      console.error('Upload error:', error);
+      toast.error(
+        error instanceof Error ? error.message : '发布应用失败，请重试'
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="container mx-auto py-8 px-4">
+      <div className="max-w-2xl mx-auto">
+        <AppUpload onSubmit={handleSubmit} isLoading={isLoading} />
+      </div>
+    </div>
+  );
+}

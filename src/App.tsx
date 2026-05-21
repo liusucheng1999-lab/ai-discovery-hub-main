@@ -25,6 +25,10 @@ import NotFound from "./pages/NotFound";
 import Knowledge from "./pages/Knowledge";
 import Resources from "./pages/Resources";
 import ResourceDetailPage from "./pages/ResourceDetailPage";
+import { PublishApp } from "./pages/PublishApp";
+import { AppDetail } from "./pages/AppDetail";
+import { PublishedApps } from "./pages/PublishedApps";
+import { AppManagement } from "./pages/AppManagement";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +80,10 @@ const App = () => {
                       <Route path="/knowledge/course/:courseId/lesson/:lessonId" element={<CourseDetailPage />} />
                       <Route path="/resources" element={<Resources />} />
                       <Route path="/resources/:resourceId" element={<ResourceDetailPage />} />
+                      <Route path="/publish" element={<ProtectedRoute><PublishApp /></ProtectedRoute>} />
+                      <Route path="/apps/:id" element={<AppDetail />} />
+                      <Route path="/published-apps" element={<PublishedApps />} />
+                      <Route path="/my-apps" element={<ProtectedRoute><AppManagement /></ProtectedRoute>} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </div>

@@ -27,6 +27,7 @@ export default function Navbar() {
     { label: "AI工具", to: "/tools" },
     { label: "AI课程", to: "/knowledge" },
     { label: "AI资源", to: "/resources" },
+    { label: "应用库", to: "/published-apps" },
   ];
 
   return (
@@ -64,6 +65,18 @@ export default function Navbar() {
 
           {isLoggedIn ? (
             <>
+              <Link
+                to="/publish"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                发布应用
+              </Link>
+              <Link
+                to="/my-apps"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                我的应用
+              </Link>
               <Link
                 to="/admin"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
