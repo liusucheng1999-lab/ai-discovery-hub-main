@@ -18,6 +18,16 @@ export interface SiteAnalyticsSummary {
   daily: DailyVisitStat[];
 }
 
+export interface VisitDetail {
+  id: string;
+  visitor_id: string;
+  entry_path: string;
+  ip_address: string | null;
+  user_agent: string | null;
+  referrer: string | null;
+  created_at: string;
+}
+
 function getVisitorId() {
   const existing = localStorage.getItem(VISITOR_ID_KEY);
   if (existing) return existing;
@@ -35,6 +45,19 @@ function shouldSkipTracking(pathname: string) {
   return EXCLUDED_PATHS.has(pathname) || pathname.startsWith("/admin/");
 }
 
+async function getClientIP(): Promise<string | null> {
+  try {
+    const response = await fetch("https://api.ipify.org?format=json", {
+      signal: AbortSignal.timeout(3000),
+    });
+    const data = await response.json();
+    return data.ip || null;
+  } catch (error) {
+    console.warn("获取IP失败:", error);
+    return null;
+  }
+}
+
 export async function trackSiteVisit(pathname: string) {
   if (typeof window === "undefined" || shouldSkipTracking(pathname)) {
     return;
@@ -48,12 +71,15 @@ export async function trackSiteVisit(pathname: string) {
   }
 
   const visitorId = getVisitorId();
+  const ipAddress = await getClientIP();
+
   const payload = {
     visitor_id: visitorId,
     session_id: `${visitorId}-${now}`,
     entry_path: pathname,
     referrer: document.referrer || null,
     user_agent: navigator.userAgent || null,
+    ip_address: ipAddress,
   };
 
   const { error } = await supabase.from("site_visits").insert(payload);
@@ -124,5 +150,25 @@ export async function fetchSiteAnalyticsSummary(): Promise<SiteAnalyticsSummary>
     last7Days,
     last30Days,
     daily,
+  };
+}
+
+export async function fetchVisitDetails(
+  limit: number = 100,
+  offset: number = 0
+): Promise<{ data: VisitDetail[]; total: number }> {
+  const { data, error, count } = await supabase
+    .from("site_visits")
+    .select("*", { count: "exact" })
+    .order("created_at", { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error) {
+    throw error;
+  }
+
+  return {
+    data: (data || []) as VisitDetail[],
+    total: count || 0,
   };
 }
