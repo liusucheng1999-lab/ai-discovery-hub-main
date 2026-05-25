@@ -3,12 +3,17 @@ import { Helmet } from "react-helmet-async";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { fetchSiteAnalyticsSummary, type SiteAnalyticsSummary } from "@/lib/site-analytics";
+import { fetchSiteAnalyticsSummary, fetchVisitDetails, type SiteAnalyticsSummary, type VisitDetail } from "@/lib/site-analytics";
 
 export default function Analytics() {
   const [siteAnalytics, setSiteAnalytics] = useState<SiteAnalyticsSummary | null>(null);
+  const [visitDetails, setVisitDetails] = useState<VisitDetail[]>([]);
   const [loading, setLoading] = useState(true);
+  const [detailsLoading, setDetailsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalDetails, setTotalDetails] = useState(0);
+  const pageSize = 20;
 
   const loadAnalytics = async () => {
     try {
@@ -24,8 +29,23 @@ export default function Analytics() {
     }
   };
 
+  const loadDetails = async (page: number = 0) => {
+    try {
+      setDetailsLoading(true);
+      const { data, total } = await fetchVisitDetails(pageSize, page * pageSize);
+      setVisitDetails(data);
+      setTotalDetails(total);
+      setCurrentPage(page);
+    } catch (err: any) {
+      console.error("加载详细记录失败:", err);
+    } finally {
+      setDetailsLoading(false);
+    }
+  };
+
   useEffect(() => {
     loadAnalytics();
+    loadDetails(0);
   }, []);
 
   return (
@@ -119,11 +139,90 @@ export default function Analytics() {
 
         <Card>
           <CardHeader>
+            <CardTitle>访问详情</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {detailsLoading && !visitDetails.length ? (
+              <div className="py-8 text-center text-sm text-muted-foreground">
+                加载详细记录中...
+              </div>
+            ) : visitDetails.length > 0 ? (
+              <>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="px-3 py-3 text-left font-semibold">访问时间</th>
+                        <th className="px-3 py-3 text-left font-semibold">IP 地址</th>
+                        <th className="px-3 py-3 text-left font-semibold">进入路径</th>
+                        <th className="px-3 py-3 text-left font-semibold">设备信息</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {visitDetails.map((visit) => (
+                        <tr key={visit.id} className="border-b hover:bg-muted/30">
+                          <td className="px-3 py-3 text-xs">
+                            {new Date(visit.created_at).toLocaleString("zh-CN")}
+                          </td>
+                          <td className="px-3 py-3 font-mono text-xs">
+                            {visit.ip_address || <span className="text-muted-foreground">-</span>}
+                          </td>
+                          <td className="px-3 py-3 max-w-xs truncate text-xs">
+                            {visit.entry_path}
+                          </td>
+                          <td className="px-3 py-3 max-w-xs truncate text-xs text-muted-foreground">
+                            {visit.user_agent
+                              ? visit.user_agent.split(" ").slice(0, 2).join(" ")
+                              : "-"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="mt-4 flex items-center justify-between gap-4">
+                  <div className="text-xs text-muted-foreground">
+                    共 {totalDetails} 条记录，第 {currentPage + 1} 页
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => loadDetails(currentPage - 1)}
+                      disabled={currentPage === 0 || detailsLoading}
+                    >
+                      上一页
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => loadDetails(currentPage + 1)}
+                      disabled={
+                        (currentPage + 1) * pageSize >= totalDetails || detailsLoading
+                      }
+                    >
+                      下一页
+                    </Button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="py-8 text-center text-sm text-muted-foreground">
+                暂无访问记录
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
             <CardTitle>统计说明</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm text-muted-foreground">
             <p>同一浏览器 30 分钟内重复进入，只记 1 次访问。</p>
             <p>不统计 `/admin`、`/login` 等后台页面。</p>
+            <p>IP 地址通过 ipify API 获取（可能不显示或延迟）。</p>
             <p>数据来自 Supabase 表 `site_visits`。</p>
           </CardContent>
         </Card>
