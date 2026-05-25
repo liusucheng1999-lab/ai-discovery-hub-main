@@ -66,7 +66,7 @@ export function AppDetail() {
   }
 
   return (
-    <div className="container mx-auto py-8 px-4">
+    <div className="pt-20 container mx-auto py-8 px-4">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* App Header */}
         <div>
