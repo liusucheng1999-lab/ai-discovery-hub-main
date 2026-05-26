@@ -130,7 +130,7 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
 
         if (cancelled) return;
 
-        const toolsResult = await fetchHomeToolsList(supabase, true); // 初始只加载 100 条
+        const toolsResult = await fetchHomeToolsList(supabase, false); // 一次加载全部数据，避免显示不正确的数量
 
         if (cancelled) return;
 
@@ -138,8 +138,8 @@ export default function IndexPage({ searchQuery: initialSearchQuery }: IndexPage
           console.error("首页：工具查询失败", toolsResult.error);
         }
 
-        // 检查是否还有更多数据
-        setHasMore(toolsResult.data?.length === 100);
+        // 无需再加载更多数据
+        setHasMore(false);
 
         if (categoriesResult.data) {
           const allCategories = [
