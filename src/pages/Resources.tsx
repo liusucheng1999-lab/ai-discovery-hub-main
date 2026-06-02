@@ -392,36 +392,39 @@ export default function Resources() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-col gap-6">
             {resources.map((resource) => (
               <Link
                 key={resource.id}
                 to={`/resources/${resource.id}`}
-                className="group relative rounded-xl border bg-card overflow-hidden hover:shadow-lg transition-all duration-300"
+                className="group rounded-xl border bg-card overflow-hidden hover:shadow-lg transition-all duration-300"
               >
-                <div className="h-full flex flex-col">
+                <div className="flex items-stretch h-48 gap-4">
                   {/* Cover Image */}
-                  {resource.cover_url && (
-                    <div className="relative h-48 overflow-hidden bg-muted">
+                  <div className="w-48 h-48 flex-shrink-0 bg-muted overflow-hidden">
+                    {resource.cover_url ? (
                       <img
                         src={resource.cover_url}
                         alt={resource.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <BookOpen className="w-8 h-8 text-muted-foreground" />
+                      </div>
+                    )}
+                  </div>
 
                   {/* Content */}
-                  <div className="p-6 space-y-4 flex-1 flex flex-col">
+                  <div className="flex-1 p-6 flex flex-col gap-4">
                     <div>
                       <h3 className="font-semibold text-lg mb-2 line-clamp-2">
                         {resource.name}
                       </h3>
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                      <p className="text-sm text-muted-foreground line-clamp-3">
                         {resource.description}
                       </p>
                     </div>
-
 
                     {/* Action Buttons */}
                     <div className="flex gap-2 mt-auto" onClick={(e) => e.preventDefault()}>
