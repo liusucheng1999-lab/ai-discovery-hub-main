@@ -433,7 +433,6 @@ export default function Resources() {
                           e.preventDefault();
                           handleDownload(resource);
                         }}
-                        className="flex-1"
                         variant="default"
                       >
                         <Download className="w-4 h-4 mr-2" />
