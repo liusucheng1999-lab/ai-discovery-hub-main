@@ -422,23 +422,6 @@ export default function Resources() {
                       </p>
                     </div>
 
-                    {/* Keywords */}
-                    {resource.keywords && (
-                      <div className="flex flex-wrap gap-2">
-                        {resource.keywords.split(",").map((keyword, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-xs">
-                            {keyword.trim()}
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Status */}
-                    <div className="flex justify-between items-center">
-                      <Badge variant={resource.status === "published" ? "default" : "outline"} className="text-xs">
-                        {resource.status === "published" ? "已发布" : "草稿"}
-                      </Badge>
-                    </div>
 
                     {/* Action Buttons */}
                     <div className="flex gap-2 mt-auto" onClick={(e) => e.preventDefault()}>
