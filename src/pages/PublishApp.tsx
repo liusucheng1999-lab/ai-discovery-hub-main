@@ -39,7 +39,7 @@ export function PublishApp() {
       <div className="max-w-2xl mx-auto">
         <div className="mb-6 flex items-center gap-2">
           <Link to="/published-apps">
-            <Button variant="outline">← 返回应用库</Button>
+            <Button variant="outline">← 返回项目展示</Button>
           </Link>
         </div>
         <AppUpload onSubmit={handleSubmit} isLoading={isLoading} />

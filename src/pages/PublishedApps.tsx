@@ -35,8 +35,8 @@ export function PublishedApps() {
       <div className="max-w-5xl mx-auto">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">应用库</h1>
-            <p className="text-gray-600">发现和使用社区创作的应用</p>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">项目展示</h1>
+            <p className="text-gray-600">发现和使用社区创作的项目</p>
           </div>
           {isLoggedIn && (
             <div className="flex gap-2">
@@ -58,7 +58,7 @@ export function PublishedApps() {
           </div>
         ) : apps.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-600">还没有发布的应用</p>
+            <p className="text-gray-600">还没有发布的项目</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -64,7 +64,7 @@ export function AppManagement() {
           </div>
           <div className="flex gap-2">
             <Link to="/published-apps">
-              <Button variant="outline">🏠 应用库</Button>
+              <Button variant="outline">🏠 项目展示</Button>
             </Link>
             <Link to="/publish">
               <Button>➕ 发布新应用</Button>
