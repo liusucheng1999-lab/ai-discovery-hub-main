@@ -1,5 +1,5 @@
 import { supabase } from './supabase';
-import { processUploadedFile } from './fileService';
+import { processUploadedFile, getContentType } from './fileService';
 import type { HostedApp, CreateAppInput, UpdateAppInput, AppUploadResponse } from '../types/app';
 
 export const appService = {
@@ -33,7 +33,10 @@ export const appService = {
         const filePath = `${user.id}/${appData.id}/${file.path}`;
         const { error: uploadError } = await supabase.storage
           .from('hosted-apps')
-          .upload(filePath, file.content, { upsert: false });
+          .upload(filePath, file.content, {
+            upsert: false,
+            contentType: getContentType(file.name),
+          });
 
         if (uploadError) throw uploadError;
         return filePath;
@@ -144,7 +147,7 @@ export const appService = {
       if (deleteFileError) console.error('Error deleting file:', deleteFileError);
     }
 
-    // Delete app record (will cascade delete files)
+    // Delete app record
     const { error } = await supabase
       .from('hosted_apps')
       .delete()
@@ -168,6 +171,36 @@ export const appService = {
     return data.publicUrl;
   },
 
+  // 抓取入口 HTML 内容（以 UTF-8 解码），并注入 <base> 让相对资源正确加载
+  // 用于 iframe srcdoc 渲染，绕开 Storage 的 Content-Type/编码问题
+  async getAppHtmlContent(filePath: string): Promise<string> {
+    const fileUrl = await this.getAppFileUrl(filePath);
+
+    // 计算文件夹 URL（用于 <base href>），让相对路径资源指向 Storage 目录
+    const baseHref = fileUrl.substring(0, fileUrl.lastIndexOf('/') + 1);
+
+    const res = await fetch(fileUrl);
+    if (!res.ok) throw new Error('无法加载应用文件');
+
+    // 用 TextDecoder 强制以 UTF-8 解码，避免中文乱码
+    const buffer = await res.arrayBuffer();
+    let html = new TextDecoder('utf-8').decode(buffer);
+
+    // 注入 <base> 标签（如果还没有）
+    if (!/<base\s/i.test(html)) {
+      const baseTag = `<base href="${baseHref}">`;
+      if (/<head[^>]*>/i.test(html)) {
+        html = html.replace(/<head[^>]*>/i, (m) => `${m}\n${baseTag}`);
+      } else if (/<html[^>]*>/i.test(html)) {
+        html = html.replace(/<html[^>]*>/i, (m) => `${m}\n<head>${baseTag}</head>`);
+      } else {
+        html = `${baseTag}\n${html}`;
+      }
+    }
+
+    return html;
+  },
+
   // Increment view count
   async incrementViewCount(appId: string): Promise<void> {
     const { data } = await supabase
@@ -180,6 +213,22 @@ export const appService = {
       await supabase
         .from('hosted_apps')
         .update({ view_count: (data.view_count || 0) + 1 })
+        .eq('id', appId);
+    }
+  },
+
+  // Increment run count（用户实际运行应用时调用）
+  async incrementRunCount(appId: string): Promise<void> {
+    const { data } = await supabase
+      .from('hosted_apps')
+      .select('run_count')
+      .eq('id', appId)
+      .single();
+
+    if (data) {
+      await supabase
+        .from('hosted_apps')
+        .update({ run_count: (data.run_count || 0) + 1 })
         .eq('id', appId);
     }
   },

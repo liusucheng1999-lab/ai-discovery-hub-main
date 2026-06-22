@@ -99,3 +99,30 @@ async function processHtmlFile(file: File): Promise<{
 export function blobToFile(blob: Blob, fileName: string): File {
   return new File([blob], fileName, { type: blob.type });
 }
+
+/**
+ * 根据文件名推断 Content-Type（带 UTF-8 编码声明）
+ */
+export function getContentType(fileName: string): string {
+  const ext = fileName.split('.').pop()?.toLowerCase();
+  const map: Record<string, string> = {
+    html: 'text/html; charset=utf-8',
+    htm: 'text/html; charset=utf-8',
+    css: 'text/css; charset=utf-8',
+    js: 'application/javascript; charset=utf-8',
+    mjs: 'application/javascript; charset=utf-8',
+    json: 'application/json; charset=utf-8',
+    svg: 'image/svg+xml',
+    png: 'image/png',
+    jpg: 'image/jpeg',
+    jpeg: 'image/jpeg',
+    gif: 'image/gif',
+    webp: 'image/webp',
+    ico: 'image/x-icon',
+    woff: 'font/woff',
+    woff2: 'font/woff2',
+    ttf: 'font/ttf',
+    txt: 'text/plain; charset=utf-8',
+  };
+  return map[ext || ''] || 'application/octet-stream';
+}

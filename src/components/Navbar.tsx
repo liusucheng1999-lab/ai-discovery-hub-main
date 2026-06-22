@@ -27,7 +27,7 @@ export default function Navbar() {
     { label: "AI工具", to: "/tools" },
     { label: "AI课程", to: "/knowledge" },
     { label: "AI资源", to: "/resources" },
-    // { label: "应用库", to: "/published-apps" }, // TODO: 暂未开放
+    { label: "项目展示", to: "/published-apps" },
   ];
 
   return (
@@ -52,10 +52,6 @@ export default function Navbar() {
               </Link>
             );
           })}
-
-          <span className="px-3 py-1.5 text-sm font-medium rounded-md text-muted-foreground/70 select-none cursor-not-allowed">
-            实战项目
-          </span>
         </nav>
 
         <div className="flex-grow" />
@@ -65,20 +61,6 @@ export default function Navbar() {
 
           {isLoggedIn ? (
             <>
-              {/* 应用库功能暂未开放
-              <Link
-                to="/publish"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                发布应用
-              </Link>
-              <Link
-                to="/my-apps"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                我的应用
-              </Link>
-              */}
               <Link
                 to="/admin"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"

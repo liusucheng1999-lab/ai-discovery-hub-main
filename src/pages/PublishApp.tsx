@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AppUpload } from '@/components/AppUpload';
+import { Button } from '@/components/ui/button';
 import { appService } from '@/lib/appService';
 import { toast } from 'sonner';
 
@@ -34,8 +35,13 @@ export function PublishApp() {
   };
 
   return (
-    <div className="container mx-auto py-8 px-4">
+    <div className="pt-20 container mx-auto py-8 px-4">
       <div className="max-w-2xl mx-auto">
+        <div className="mb-6 flex items-center gap-2">
+          <Link to="/published-apps">
+            <Button variant="outline">← 返回项目展示</Button>
+          </Link>
+        </div>
         <AppUpload onSubmit={handleSubmit} isLoading={isLoading} />
       </div>
     </div>
