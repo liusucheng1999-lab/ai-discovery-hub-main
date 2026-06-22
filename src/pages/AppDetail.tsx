@@ -3,13 +3,14 @@ import { useParams } from 'react-router-dom';
 import { appService } from '@/lib/appService';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import type { HostedApp } from '@/types/app';
 
 export function AppDetail() {
   const { id } = useParams<{ id: string }>();
   const [app, setApp] = useState<HostedApp | null>(null);
-  const [appUrl, setAppUrl] = useState<string | null>(null);
+  const [appHtml, setAppHtml] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,9 +23,9 @@ export function AppDetail() {
         const appData = await appService.getApp(id);
         setApp(appData);
 
-        // Get the signed URL for the app file
-        const url = await appService.getAppFileUrl(appData.app_file_path);
-        setAppUrl(url);
+        // 抓取 HTML 内容用于 srcdoc 渲染（绕开 Content-Type/编码问题）
+        const html = await appService.getAppHtmlContent(appData.app_file_path);
+        setAppHtml(html);
 
         // Increment view count
         await appService.incrementViewCount(id);
@@ -80,6 +81,11 @@ export function AppDetail() {
             <span>浏览: {app.view_count}</span>
             <span>运行: {app.run_count}</span>
           </div>
+          <div className="mt-6">
+            <a href={`/run/${app.id}`} target="_blank" rel="noopener noreferrer">
+              <Button size="lg">🚀 全屏运行应用</Button>
+            </a>
+          </div>
         </div>
 
         {/* App Display */}
@@ -88,14 +94,14 @@ export function AppDetail() {
             <CardTitle>应用预览</CardTitle>
           </CardHeader>
           <CardContent>
-            {appUrl ? (
+            {appHtml ? (
               <div className="bg-gray-100 rounded-lg overflow-hidden">
                 <iframe
-                  src={appUrl}
+                  srcDoc={appHtml}
                   title={app.name}
                   className="w-full border-0"
                   style={{ height: '600px' }}
-                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                  sandbox="allow-scripts allow-forms allow-popups allow-modals"
                 />
               </div>
             ) : (

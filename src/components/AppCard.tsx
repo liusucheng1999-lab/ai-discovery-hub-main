@@ -53,10 +53,13 @@ export function AppCard({
 
           {/* Actions */}
           <div className="flex gap-2">
-            <Link to={`/apps/${app.id}`} className="flex-1">
+            <Link to={`/run/${app.id}`} className="flex-1">
               <Button variant="default" className="w-full">
                 查看应用
               </Button>
+            </Link>
+            <Link to={`/apps/${app.id}`}>
+              <Button variant="outline">详情</Button>
             </Link>
             {showActions && (
               <>

@@ -50,36 +50,27 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const login = async (username: string, password: string) => {
     try {
-      // 实际验证用户名和密码
-      const { data, error } = await supabase
-        .from('admin_secure')
-        .select('*')
-        .eq('username', username)
-        .single();
+      // 使用 Supabase 认证
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: username, // 用 username 作为 email
+        password: password,
+      });
 
       if (error) {
-        console.error('数据库查询错误:', error);
-        return { success: false, error: '用户名或密码错误' };
+        console.error('Supabase 认证错误:', error);
+        return { success: false, error: error.message || '登录失败' };
       }
 
-      if (data) {
-        // 使用新的复杂密码验证
-        // 新密码：Admin@2024!AI#Discovery
-        const isPasswordValid = password === 'Admin@2024!AI#Discovery';
-        
-        if (isPasswordValid && data.is_admin) {
-          setIsLoggedIn(true);
-          setUsername(username);
-          localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('username', username);
-          
-          console.log('登录成功:', username);
-          return { success: true };
-        } else {
-          return { success: false, error: '用户名或密码错误' };
-        }
+      if (data.user) {
+        setIsLoggedIn(true);
+        setUsername(data.user.email || username);
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('username', data.user.email || username);
+
+        console.log('登录成功:', data.user.email);
+        return { success: true };
       } else {
-        return { success: false, error: '用户名或密码错误' };
+        return { success: false, error: '登录失败' };
       }
     } catch (err) {
       console.error('登录过程错误:', err);
