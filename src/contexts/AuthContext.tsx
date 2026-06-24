@@ -14,6 +14,7 @@ interface AuthContextType {
   user: User | null;
   isLoggedIn: boolean;
   isAdmin: boolean;
+  adminLoaded: boolean;
   username: string | null;
   login: (email: string, password: string) => Promise<AuthResult>;
   register: (email: string, password: string) => Promise<AuthResult>;
@@ -51,6 +52,8 @@ async function checkIsAdmin(userId: string): Promise<boolean> {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  // 管理员身份是否已查完（异步）。未查完前不应据此做权限重定向，否则会误判
+  const [adminLoaded, setAdminLoaded] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
@@ -61,11 +64,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const loadAdmin = (u: User | null) => {
       if (!u) {
         setIsAdmin(false);
+        setAdminLoaded(true);
         return;
       }
+      setAdminLoaded(false);
       setTimeout(async () => {
         if (!mounted) return;
         setIsAdmin(await checkIsAdmin(u.id));
+        setAdminLoaded(true);
       }, 0);
     };
 
@@ -111,6 +117,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (data.user) {
       setUser(data.user);
       setIsAdmin(await checkIsAdmin(data.user.id));
+      setAdminLoaded(true);
       return { success: true };
     }
     return { success: false, error: '登录失败' };
@@ -129,6 +136,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (data.session && data.user) {
       setUser(data.user);
       setIsAdmin(false); // 新注册用户均为普通用户
+      setAdminLoaded(true);
       return { success: true };
     }
     // 若开启了邮箱验证，则需用户去邮箱确认
@@ -142,6 +150,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     await supabase.auth.signOut();
     setUser(null);
     setIsAdmin(false);
+    setAdminLoaded(true);
   };
 
   if (!isInitialized) {
@@ -159,6 +168,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         user,
         isLoggedIn: !!user,
         isAdmin,
+        adminLoaded,
         username: user?.email ?? null,
         login,
         register,
