@@ -145,6 +145,30 @@ export const appService = {
     return data;
   },
 
+  // 上传/更换封面图，返回公开 URL
+  async uploadCoverImage(appId: string, coverImage: File): Promise<string> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('User not authenticated');
+
+    const coverExt = coverImage.name.split('.').pop() || 'png';
+    const coverPath = `${user.id}/${appId}/__cover__.${coverExt}`;
+    const { error: coverError } = await supabase.storage
+      .from('hosted-apps')
+      .upload(coverPath, coverImage, {
+        upsert: true,
+        contentType: getContentType(coverImage.name),
+      });
+
+    if (coverError) throw coverError;
+
+    const { data: coverData } = supabase.storage
+      .from('hosted-apps')
+      .getPublicUrl(coverPath);
+
+    // 加时间戳避免浏览器缓存旧图
+    return `${coverData.publicUrl}?t=${Date.now()}`;
+  },
+
   // Delete app
   async deleteApp(appId: string): Promise<void> {
     const { data: { user } } = await supabase.auth.getUser();

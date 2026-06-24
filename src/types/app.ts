@@ -32,6 +32,7 @@ export interface UpdateAppInput {
   name?: string;
   description?: string;
   is_published?: boolean;
+  cover_image_url?: string | null;
 }
 
 export interface AppUploadResponse {

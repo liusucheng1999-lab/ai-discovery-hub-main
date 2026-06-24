@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { appService } from '@/lib/appService';
 import { AppCard } from '@/components/AppCard';
+import { AppEditDialog } from '@/components/AppEditDialog';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from 'sonner';
@@ -11,7 +12,10 @@ export function AppManagement() {
   const [apps, setApps] = useState<HostedApp[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [editingApp, setEditingApp] = useState<HostedApp | null>(null);
-  const [isPublishDialogOpen, setIsPublishDialogOpen] = useState(false);
+
+  const handleSaved = (updated: HostedApp) => {
+    setApps((prev) => prev.map((a) => (a.id === updated.id ? updated : a)));
+  };
 
   useEffect(() => {
     const loadApps = async () => {
@@ -110,6 +114,14 @@ export function AppManagement() {
           </div>
         )}
       </div>
+
+      {/* 编辑弹窗 */}
+      <AppEditDialog
+        app={editingApp}
+        open={editingApp !== null}
+        onClose={() => setEditingApp(null)}
+        onSaved={handleSaved}
+      />
     </div>
   );
 }
