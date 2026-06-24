@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { appService } from '@/lib/appService';
-import { ArrowLeft, Share2 } from 'lucide-react';
-import { toast } from 'sonner';
+import { ArrowLeft } from 'lucide-react';
 import type { HostedApp } from '@/types/app';
 
 /**
@@ -70,15 +69,6 @@ export function AppPreview() {
     );
   }
 
-  const handleShare = () => {
-    if (!app) return;
-    const shareUrl = `${window.location.origin}/share/${app.id}`;
-    navigator.clipboard.writeText(shareUrl).then(
-      () => toast.success('分享链接已复制，发给朋友试试吧 🎉'),
-      () => toast.error('复制失败，请手动复制链接')
-    );
-  };
-
   return (
     <div className="fixed inset-0 z-[100] bg-white">
       {/* 悬浮返回按钮 */}
@@ -90,18 +80,6 @@ export function AppPreview() {
         <ArrowLeft className="w-4 h-4" />
         返回
       </button>
-
-      {/* 悬浮分享按钮 */}
-      {app?.is_published && (
-        <button
-          onClick={handleShare}
-          className="fixed top-4 right-4 z-[110] flex items-center gap-1.5 px-3 py-2 bg-black/70 hover:bg-black/85 text-white text-sm rounded-full backdrop-blur transition-colors shadow-lg"
-          title="复制分享链接（可发微信）"
-        >
-          <Share2 className="w-4 h-4" />
-          分享
-        </button>
-      )}
 
       {/* 全屏应用 */}
       <iframe
