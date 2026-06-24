@@ -106,7 +106,7 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>AI创客 - 用AI武装自己，从这里开始</title>
+        <title>AI创客 - AI创作者的一站式网站</title>
         <meta
           name="description"
           content="AI创客，为你精选1000+最好用的AI工具，提供最实用的AI课程，帮助每个人真正用好AI。"
