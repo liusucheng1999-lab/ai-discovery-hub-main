@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Eye, Play, ImageIcon } from 'lucide-react';
+import { Play, ImageIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import type { HostedApp } from '@/types/app';
@@ -19,8 +19,8 @@ export function AppCard({
   onDelete,
 }: AppCardProps) {
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-      {/* 封面展示图 */}
+    <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+      {/* 整张卡片可点击进入应用 */}
       <Link to={`/run/${app.id}`} className="block">
         <div className="aspect-video w-full bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
           {app.cover_image_url ? (
@@ -36,71 +36,52 @@ export function AppCard({
             </div>
           )}
         </div>
-      </Link>
-      <CardHeader>
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <CardTitle className="text-lg">{app.name}</CardTitle>
-            {app.description && (
-              <CardDescription className="mt-1 line-clamp-2">
-                {app.description}
-              </CardDescription>
+        <CardHeader>
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <CardTitle className="text-lg">{app.name}</CardTitle>
+              {app.description && (
+                <CardDescription className="mt-1 line-clamp-2">
+                  {app.description}
+                </CardDescription>
+              )}
+            </div>
+            {!app.is_published && (
+              <span className="px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 rounded">
+                草稿
+              </span>
             )}
           </div>
-          {!app.is_published && (
-            <span className="px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 rounded">
-              草稿
-            </span>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-1 text-sm text-gray-500">
+            <Play className="w-4 h-4" />
+            <span>{app.run_count} 次运行</span>
+          </div>
+        </CardContent>
+      </Link>
+
+      {/* 管理操作按钮（仅在我的应用页显示，在 Link 外面避免嵌套点击） */}
+      {showActions && (onEdit || onDelete) && (
+        <div className="px-6 pb-4 flex gap-2">
+          {onEdit && (
+            <Button variant="outline" size="sm" onClick={() => onEdit(app)}>
+              编辑
+            </Button>
+          )}
+          {onDelete && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                if (confirm('确定删除此应用吗？')) onDelete(app.id);
+              }}
+            >
+              删除
+            </Button>
           )}
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          {/* Stats */}
-          <div className="flex gap-4 text-sm text-gray-600">
-            <div className="flex items-center gap-1">
-              <Eye className="w-4 h-4" />
-              <span>{app.view_count} 次浏览</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Play className="w-4 h-4" />
-              <span>{app.run_count} 次运行</span>
-            </div>
-          </div>
-
-          {/* Actions */}
-          <div className="flex gap-2">
-            <Link to={`/run/${app.id}`} className="flex-1">
-              <Button variant="default" className="w-full">
-                查看应用
-              </Button>
-            </Link>
-            {showActions && (
-              <>
-                {onEdit && (
-                  <Button
-                    variant="outline"
-                    onClick={() => onEdit(app)}
-                  >
-                    编辑
-                  </Button>
-                )}
-                {onDelete && (
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      if (confirm('确定删除此应用吗？'))
-                        onDelete(app.id);
-                    }}
-                  >
-                    删除
-                  </Button>
-                )}
-              </>
-            )}
-          </div>
-        </div>
-      </CardContent>
+      )}
     </Card>
   );
 }
