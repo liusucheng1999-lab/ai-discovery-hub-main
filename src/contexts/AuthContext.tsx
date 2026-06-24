@@ -56,27 +56,46 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     let mounted = true;
 
-    // 初始化：读取当前会话
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    // 异步加载管理员身份：用 setTimeout 推迟到认证锁释放之后再查库，
+    // 避免在 getSession / onAuthStateChange 持锁期间调用 supabase 导致死锁
+    const loadAdmin = (u: User | null) => {
+      if (!u) {
+        setIsAdmin(false);
+        return;
+      }
+      setTimeout(async () => {
+        if (!mounted) return;
+        setIsAdmin(await checkIsAdmin(u.id));
+      }, 0);
+    };
+
+    // 安全兜底：无论如何 3 秒后必须结束 loading，避免整站卡死
+    const safety = setTimeout(() => {
+      if (mounted) setIsInitialized(true);
+    }, 3000);
+
+    // 初始化：读取当前会话（拿到 session 后立即结束 loading，不等管理员查询）
+    supabase.auth.getSession().then(({ data: { session } }) => {
       if (!mounted) return;
       const u = session?.user ?? null;
       setUser(u);
-      setIsAdmin(u ? await checkIsAdmin(u.id) : false);
       setIsInitialized(true);
+      loadAdmin(u);
     });
 
-    // 监听登录状态变化
+    // 监听登录状态变化（回调里只做同步赋值，DB 查询推迟执行）
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+      (_event, session) => {
         if (!mounted) return;
         const u = session?.user ?? null;
         setUser(u);
-        setIsAdmin(u ? await checkIsAdmin(u.id) : false);
+        loadAdmin(u);
       }
     );
 
     return () => {
       mounted = false;
+      clearTimeout(safety);
       subscription.unsubscribe();
     };
   }, []);
