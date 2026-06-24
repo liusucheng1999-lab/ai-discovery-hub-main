@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Eye, Play, ImageIcon } from 'lucide-react';
+import { Eye, Play, ImageIcon, Share2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 import type { HostedApp } from '@/types/app';
 
 interface AppCardProps {
@@ -18,6 +19,14 @@ export function AppCard({
   onEdit,
   onDelete,
 }: AppCardProps) {
+  const handleShare = () => {
+    const shareUrl = `${window.location.origin}/share/${app.id}`;
+    navigator.clipboard.writeText(shareUrl).then(
+      () => toast.success('分享链接已复制，发给朋友试试吧 🎉'),
+      () => toast.error('复制失败，请手动复制链接')
+    );
+  };
+
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       {/* 封面展示图 */}
@@ -75,6 +84,17 @@ export function AppCard({
                 查看应用
               </Button>
             </Link>
+            {/* 分享按钮：发布状态的应用始终显示 */}
+            {app.is_published && (
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={handleShare}
+                title="复制分享链接（可发微信）"
+              >
+                <Share2 className="w-4 h-4" />
+              </Button>
+            )}
             {showActions && (
               <>
                 {onEdit && (
