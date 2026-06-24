@@ -224,7 +224,7 @@ function truncateText(content: string, maxLength: number) {
 export default function CourseDetailPage() {
   const { courseId, lessonId } = useParams<{ courseId: string; lessonId?: string }>();
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
+  const { isAdmin } = useAuth();
 
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [loading, setLoading] = useState(true);
@@ -384,7 +384,7 @@ export default function CourseDetailPage() {
   };
 
   const uploadImage = async (file: File): Promise<string | null> => {
-    if (!isLoggedIn) {
+    if (!isAdmin) {
       alert("请先登录后再上传图片");
       return null;
     }
@@ -421,7 +421,7 @@ export default function CourseDetailPage() {
   };
 
   const saveLesson = async () => {
-    if (!isLoggedIn || !activeLesson) return;
+    if (!isAdmin || !activeLesson) return;
     if (!lessonForm.title.trim()) {
       alert("请输入课节名称");
       return;
@@ -469,7 +469,7 @@ export default function CourseDetailPage() {
   };
 
   const createLesson = async () => {
-    if (!isLoggedIn || !course) return;
+    if (!isAdmin || !course) return;
     if (!newLessonForm.title.trim()) {
       alert("请输入课节名称");
       return;
@@ -523,7 +523,7 @@ export default function CourseDetailPage() {
   };
 
   const deleteLesson = async (lessonId: string) => {
-    if (!isLoggedIn) return;
+    if (!isAdmin) return;
     if (!window.confirm("确定删除这节课？此操作不可恢复。")) return;
     try {
       const { error } = await supabaseWithAuth.from("knowledge_lessons").delete().eq("id", lessonId);
@@ -546,7 +546,7 @@ export default function CourseDetailPage() {
   };
 
   const moveLesson = async (lessonId: string, direction: "up" | "down") => {
-    if (!isLoggedIn) return;
+    if (!isAdmin) return;
     const sorted = [...lessons].sort((a, b) => a.sort_order - b.sort_order);
     const idx = sorted.findIndex((l) => l.id === lessonId);
     const swapIdx = direction === "up" ? idx - 1 : idx + 1;
@@ -573,7 +573,7 @@ export default function CourseDetailPage() {
   };
 
   const moveSection = async (sectionName: string, direction: "up" | "down") => {
-    if (!isLoggedIn) return;
+    if (!isAdmin) return;
 
     const sortedLessons = [...lessons].sort((a, b) => a.sort_order - b.sort_order);
     const sectionGroups = sortedLessons.reduce<Array<{ name: string; lessons: Lesson[] }>>((acc, lesson) => {
@@ -764,7 +764,7 @@ export default function CourseDetailPage() {
               返回
             </Link>
             <div className="flex items-center gap-1">
-              {isLoggedIn && (
+              {isAdmin && (
                 <Button
                   size="icon"
                   variant="ghost"
@@ -803,7 +803,7 @@ export default function CourseDetailPage() {
                       </span>
                       <ChevronDown className="h-3 w-3 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
                     </CollapsibleTrigger>
-                    {isLoggedIn && groupedLessons.length > 1 && (
+                    {isAdmin && groupedLessons.length > 1 && (
                       <div className="hidden group-hover:flex items-center gap-0.5">
                         <button
                           type="button"
@@ -862,7 +862,7 @@ export default function CourseDetailPage() {
                                 </div>
                               </div>
                             </Link>
-                            {isLoggedIn && (
+                            {isAdmin && (
                               <div className="absolute right-1 top-1 hidden group-hover:flex flex-col gap-0.5">
                                 <button
                                   onClick={(e) => { e.stopPropagation(); moveLesson(lesson.id, "up"); }}
@@ -930,7 +930,7 @@ export default function CourseDetailPage() {
                 {shareText}
               </Button>
             )}
-            {isLoggedIn && activeLesson && (
+            {isAdmin && activeLesson && (
               <Button
                 variant={editPanelOpen ? "secondary" : "outline"}
                 size="sm"
@@ -944,7 +944,7 @@ export default function CourseDetailPage() {
           </div>
 
           {/* 编辑面板（折叠） */}
-          {isLoggedIn && editPanelOpen && activeLesson && (
+          {isAdmin && editPanelOpen && activeLesson && (
             <div className="border-b bg-muted/40 px-4 py-3 flex-shrink-0">
               <div className="flex flex-wrap gap-3 max-w-3xl">
                 <div className="flex-1 min-w-36">
@@ -1058,7 +1058,7 @@ export default function CourseDetailPage() {
                   <div className="text-center">
                     <FileText className="h-12 w-12 mx-auto mb-3 text-muted-foreground/40" />
                     <p className="text-sm text-muted-foreground">暂无文档内容</p>
-                    {isLoggedIn && (
+                    {isAdmin && (
                       <p className="text-xs text-muted-foreground mt-1">点击右上角「编辑」配置文档链接</p>
                     )}
                   </div>

@@ -8,7 +8,7 @@ import ContactDialog from "./ContactDialog";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
-  const { isLoggedIn, username, logout } = useAuth();
+  const { isLoggedIn, isAdmin, username, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [_, setIsOpen] = useState(false);
@@ -17,8 +17,8 @@ export default function Navbar() {
     setIsOpen(false);
   }, [location.pathname]);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate("/login");
   };
 
@@ -62,17 +62,39 @@ export default function Navbar() {
           {isLoggedIn ? (
             <>
               <Link
-                to="/admin"
+                to="/publish"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                审核管理
+                发布应用
               </Link>
               <Link
-                to="/analytics"
+                to="/my-apps"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                访问统计
+                我的应用
               </Link>
+              {isAdmin && (
+                <>
+                  <Link
+                    to="/app-review"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    应用审核
+                  </Link>
+                  <Link
+                    to="/admin"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    审核管理
+                  </Link>
+                  <Link
+                    to="/analytics"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    访问统计
+                  </Link>
+                </>
+              )}
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span>{username}</span>
                 <Button variant="ghost" size="sm" onClick={handleLogout}>
@@ -85,7 +107,7 @@ export default function Navbar() {
               to="/login"
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
             >
-              管理员登录
+              登录 / 注册
             </Link>
           )}
 

@@ -30,7 +30,7 @@ const QR_CODE_URL = import.meta.env.VITE_WECHAT_QR_CODE || "/qrcode.jpg";
 export default function ResourceDetailPage() {
   const { resourceId } = useParams<{ resourceId: string }>();
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
+  const { isAdmin } = useAuth();
 
   const [resource, setResource] = useState<Resource | null>(null);
   const [loading, setLoading] = useState(true);
@@ -209,7 +209,7 @@ export default function ResourceDetailPage() {
             返回资源列表
           </Link>
 
-          {isLoggedIn && !isEditing && (
+          {isAdmin && !isEditing && (
             <div className="flex gap-2">
               <Button
                 onClick={() => setIsEditing(true)}
@@ -232,7 +232,7 @@ export default function ResourceDetailPage() {
         </div>
 
         {/* Edit Form */}
-        {isEditing && isLoggedIn && (
+        {isEditing && isAdmin && (
           <div className="mb-8 p-6 border rounded-lg bg-card space-y-4">
             <h2 className="text-lg font-semibold">编辑资源</h2>
 

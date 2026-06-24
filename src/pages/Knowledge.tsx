@@ -46,7 +46,7 @@ const COURSE_FAQS = [
 ];
 
 export default function Knowledge() {
-  const { isLoggedIn } = useAuth();
+  const { isAdmin } = useAuth();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   
@@ -473,7 +473,7 @@ export default function Knowledge() {
     return (
       <div key={course.id} className="group relative rounded-xl border bg-card overflow-hidden hover:shadow-lg transition-all duration-300">
         {/* 管理员操作栏 */}
-        {isLoggedIn && (
+        {isAdmin && (
           <div className="absolute top-3 right-3 z-10 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
               onClick={() => handleMoveCourse(course, "up")}
@@ -587,7 +587,7 @@ export default function Knowledge() {
           </div>
           
           {/* 新增课程按钮（仅管理员可见） */}
-          {isLoggedIn && (
+          {isAdmin && (
             <Button onClick={() => setIsCreating(true)} className="gap-2">
               <Plus className="h-4 w-4" />
               新增课程

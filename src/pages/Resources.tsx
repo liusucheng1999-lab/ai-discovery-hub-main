@@ -28,7 +28,7 @@ const SITE_URL = "https://aimakerbox.com";
 const QR_CODE_URL = import.meta.env.VITE_WECHAT_QR_CODE || "/qrcode.jpg";
 
 export default function Resources() {
-  const { isLoggedIn } = useAuth();
+  const { isAdmin } = useAuth();
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
@@ -55,7 +55,7 @@ export default function Resources() {
   const loadResources = async () => {
     try {
       setLoading(true);
-      const query = isLoggedIn
+      const query = isAdmin
         ? supabaseWithAuth.from("ai_resources").select("*").eq("is_deleted", false)
         : supabase.from("ai_resources").select("*").eq("status", "published").eq("is_deleted", false);
 
@@ -254,7 +254,7 @@ export default function Resources() {
               精选AI学习资源，包含书籍简介和学习指南，帮助你系统学习AI知识。
             </p>
           </div>
-          {isLoggedIn && !editingId && !isCreating && (
+          {isAdmin && !editingId && !isCreating && (
             <Button
               onClick={() => {
                 setIsCreating(true);
@@ -275,7 +275,7 @@ export default function Resources() {
         </div>
 
         {/* 创建/编辑表单 */}
-        {(editingId || isCreating) && isLoggedIn && (
+        {(editingId || isCreating) && isAdmin && (
           <div className="mb-8 p-6 border rounded-lg bg-card space-y-4">
             <h2 className="text-lg font-semibold">
               {editingId ? "编辑资源" : "添加新资源"}
@@ -439,7 +439,7 @@ export default function Resources() {
                         获取资源
                       </Button>
 
-                      {isLoggedIn && (
+                      {isAdmin && (
                         <>
                           <Button
                             onClick={(e) => {

@@ -17,15 +17,15 @@ export function PublishApp() {
   }) => {
     try {
       setIsLoading(true);
-      const result = await appService.uploadApp({
+      await appService.uploadApp({
         name: data.name,
         description: data.description,
         file: data.file,
         coverImage: data.coverImage,
       });
 
-      toast.success('应用发布成功！');
-      navigate(`/run/${result.app_id}`);
+      toast.success('已提交，等待管理员审核通过后即可展示');
+      navigate('/my-apps');
     } catch (error) {
       console.error('Upload error:', error);
       toast.error(

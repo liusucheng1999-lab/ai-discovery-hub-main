@@ -29,6 +29,7 @@ import { PublishApp } from "./pages/PublishApp";
 import { AppPreview } from "./pages/AppPreview";
 import { PublishedApps } from "./pages/PublishedApps";
 import { AppManagement } from "./pages/AppManagement";
+import { AppReview } from "./pages/AppReview";
 
 const queryClient = new QueryClient();
 
@@ -57,20 +58,28 @@ const App = () => {
                       <Route path="/tool/:toolId" element={<ToolDetailPage />} />
                       <Route path="/tools/submit" element={<SubmitTool />} />
                       <Route path="/login" element={<Login />} />
-                      <Route path="/setup-admin" element={<SetupAdmin />} />
-                      <Route path="/create-admin" element={<CreateAdmin />} />
+                      <Route path="/setup-admin" element={<ProtectedRoute requireAdmin><SetupAdmin /></ProtectedRoute>} />
+                      <Route path="/create-admin" element={<ProtectedRoute requireAdmin><CreateAdmin /></ProtectedRoute>} />
                       <Route
                         path="/admin"
                         element={
-                          <ProtectedRoute>
+                          <ProtectedRoute requireAdmin>
                             <Admin />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/app-review"
+                        element={
+                          <ProtectedRoute requireAdmin>
+                            <AppReview />
                           </ProtectedRoute>
                         }
                       />
                       <Route
                         path="/analytics"
                         element={
-                          <ProtectedRoute>
+                          <ProtectedRoute requireAdmin>
                             <Analytics />
                           </ProtectedRoute>
                         }

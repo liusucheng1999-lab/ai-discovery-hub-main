@@ -132,7 +132,7 @@ interface ToolDetailModalProps {
 }
 
 export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailModalProps) {
-  const { isLoggedIn, username } = useAuth();
+  const { isAdmin, username } = useAuth();
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState<Partial<Tool>>({});
@@ -247,11 +247,11 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
     console.log('=== 开始软删除工具（使用status字段）===');
     console.log('工具名称:', safeTool.name);
     console.log('工具ID:', tool.id);
-    console.log('登录状态:', isLoggedIn);
+    console.log('登录状态:', isAdmin);
     console.log('用户名:', username);
     
     // 检查登录状态
-    if (!isLoggedIn || !username) {
+    if (!isAdmin || !username) {
       console.log('❌ 用户未登录，无法删除');
       alert('请先登录后再删除工具');
       return;
@@ -463,7 +463,7 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
 
             {/* 操作按钮 */}
             <div className="flex gap-3">
-              {isLoggedIn && (
+              {isAdmin && (
                 <>
                   <button
                     onClick={handleEdit}
@@ -482,7 +482,7 @@ export default function ToolDetailModal({ tool, isOpen, onClose }: ToolDetailMod
                   </button>
                 </>
               )}
-              {!isLoggedIn && (
+              {!isAdmin && (
                 <div className="text-xs text-muted-foreground px-2 py-1">
                   登录后可编辑和删除工具
                 </div>

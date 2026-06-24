@@ -45,17 +45,21 @@ export function AppManagement() {
     }
   };
 
-  const handlePublish = async (app: HostedApp) => {
+  const handleResubmit = async (app: HostedApp) => {
     try {
-      const updated = await appService.publishApp(app.id, !app.is_published);
+      const updated = await appService.resubmitApp(app.id);
       setApps(apps.map((a) => (a.id === app.id ? updated : a)));
-      toast.success(
-        updated.is_published ? '应用已发布' : '应用已取消发布'
-      );
+      toast.success('已重新提交，等待管理员审核');
     } catch (error) {
-      console.error('Error updating app:', error);
-      toast.error('更新应用失败');
+      console.error('Error resubmitting app:', error);
+      toast.error('重新提交失败');
     }
+  };
+
+  const statusLabel = (app: HostedApp) => {
+    if (app.status === 'approved') return { text: '已通过 · 展示中', cls: 'text-green-600' };
+    if (app.status === 'rejected') return { text: '已拒绝', cls: 'text-red-600' };
+    return { text: '审核中', cls: 'text-yellow-600' };
   };
 
   return (
@@ -91,26 +95,41 @@ export function AppManagement() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {apps.map((app) => (
-              <div key={app.id} className="relative">
-                <AppCard
-                  app={app}
-                  showActions={true}
-                  onEdit={() => setEditingApp(app)}
-                  onDelete={handleDelete}
-                />
-                <div className="mt-2 flex gap-2">
-                  <Button
-                    variant={app.is_published ? 'destructive' : 'outline'}
-                    size="sm"
-                    className="w-full"
-                    onClick={() => handlePublish(app)}
-                  >
-                    {app.is_published ? '取消发布' : '发布'}
-                  </Button>
+            {apps.map((app) => {
+              const status = statusLabel(app);
+              return (
+                <div key={app.id} className="relative">
+                  <AppCard
+                    app={app}
+                    showActions={true}
+                    onEdit={() => setEditingApp(app)}
+                    onDelete={handleDelete}
+                  />
+                  <div className="mt-2 space-y-2">
+                    <p className={`text-sm font-medium ${status.cls}`}>
+                      状态：{status.text}
+                    </p>
+                    {app.status === 'rejected' && (
+                      <>
+                        {app.review_note && (
+                          <p className="text-xs text-red-500 bg-red-50 rounded p-2">
+                            拒绝理由：{app.review_note}
+                          </p>
+                        )}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                          onClick={() => handleResubmit(app)}
+                        >
+                          重新提交审核
+                        </Button>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

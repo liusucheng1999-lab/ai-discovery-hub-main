@@ -1,3 +1,5 @@
+export type AppStatus = 'pending' | 'approved' | 'rejected';
+
 export interface HostedApp {
   id: string;
   user_id: string;
@@ -6,6 +8,9 @@ export interface HostedApp {
   app_file_path: string;
   cover_image_url: string | null;
   is_published: boolean;
+  status: AppStatus;
+  review_note: string | null;
+  reviewed_at: string | null;
   view_count: number;
   run_count: number;
   created_at: string;
@@ -33,6 +38,9 @@ export interface UpdateAppInput {
   description?: string;
   is_published?: boolean;
   cover_image_url?: string | null;
+  status?: AppStatus;
+  review_note?: string | null;
+  reviewed_at?: string | null;
 }
 
 export interface AppUploadResponse {

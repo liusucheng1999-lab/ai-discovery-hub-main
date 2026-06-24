@@ -20,6 +20,7 @@ export const appService = {
         description: input.description,
         app_file_path: '',
         is_published: false,
+        status: 'pending',
       })
       .select()
       .single();
@@ -97,14 +98,71 @@ export const appService = {
     return data;
   },
 
-  // Get all published apps
+  // Get all published apps (审核通过的才公开展示)
   async getPublishedApps(limit = 50, offset = 0): Promise<HostedApp[]> {
     const { data, error } = await supabase
       .from('hosted_apps')
       .select('*')
-      .eq('is_published', true)
+      .eq('status', 'approved')
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
+
+    if (error) throw error;
+    return data;
+  },
+
+  // 管理员：获取所有待审核应用
+  async getPendingApps(): Promise<HostedApp[]> {
+    const { data, error } = await supabase
+      .from('hosted_apps')
+      .select('*')
+      .eq('status', 'pending')
+      .order('created_at', { ascending: true });
+
+    if (error) throw error;
+    return data;
+  },
+
+  // 管理员：审核应用（通过 / 拒绝）
+  async reviewApp(
+    appId: string,
+    action: 'approved' | 'rejected',
+    note?: string
+  ): Promise<HostedApp> {
+    const { data, error } = await supabase
+      .from('hosted_apps')
+      .update({
+        status: action,
+        is_published: action === 'approved',
+        review_note: action === 'rejected' ? note?.trim() || null : null,
+        reviewed_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', appId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  },
+
+  // 用户：被拒后修改完重新提交，状态回到 pending
+  async resubmitApp(appId: string): Promise<HostedApp> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('User not authenticated');
+
+    const { data, error } = await supabase
+      .from('hosted_apps')
+      .update({
+        status: 'pending',
+        review_note: null,
+        reviewed_at: null,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', appId)
+      .eq('user_id', user.id)
+      .select()
+      .single();
 
     if (error) throw error;
     return data;
@@ -248,11 +306,6 @@ export const appService = {
       .eq('user_id', user.id);
 
     if (error) throw error;
-  },
-
-  // Publish/unpublish app
-  async publishApp(appId: string, isPublished: boolean): Promise<HostedApp> {
-    return this.updateApp(appId, { is_published: isPublished });
   },
 
   // Get signed URL for accessing app file

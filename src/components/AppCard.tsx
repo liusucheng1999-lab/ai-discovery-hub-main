@@ -46,9 +46,14 @@ export function AppCard({
                 </CardDescription>
               )}
             </div>
-            {!app.is_published && (
-              <span className="px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 rounded">
-                草稿
+            {app.status === 'pending' && (
+              <span className="px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 rounded whitespace-nowrap">
+                审核中
+              </span>
+            )}
+            {app.status === 'rejected' && (
+              <span className="px-2 py-1 text-xs font-semibold bg-red-100 text-red-700 rounded whitespace-nowrap">
+                已拒绝
               </span>
             )}
           </div>
