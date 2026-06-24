@@ -13,6 +13,7 @@ export function PublishApp() {
     name: string;
     description: string;
     file: File;
+    coverImage?: File;
   }) => {
     try {
       setIsLoading(true);
@@ -20,10 +21,11 @@ export function PublishApp() {
         name: data.name,
         description: data.description,
         file: data.file,
+        coverImage: data.coverImage,
       });
 
       toast.success('应用发布成功！');
-      navigate(`/apps/${result.app_id}`);
+      navigate(`/run/${result.app_id}`);
     } catch (error) {
       console.error('Upload error:', error);
       toast.error(

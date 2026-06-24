@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Eye, Play } from 'lucide-react';
+import { Eye, Play, ImageIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import type { HostedApp } from '@/types/app';
@@ -20,6 +20,23 @@ export function AppCard({
 }: AppCardProps) {
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+      {/* 封面展示图 */}
+      <Link to={`/run/${app.id}`} className="block">
+        <div className="aspect-video w-full bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+          {app.cover_image_url ? (
+            <img
+              src={app.cover_image_url}
+              alt={app.name}
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
+              <ImageIcon className="w-10 h-10 mb-2" />
+              <span className="text-xs">暂无展示图</span>
+            </div>
+          )}
+        </div>
+      </Link>
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="flex-1">
@@ -57,9 +74,6 @@ export function AppCard({
               <Button variant="default" className="w-full">
                 查看应用
               </Button>
-            </Link>
-            <Link to={`/apps/${app.id}`}>
-              <Button variant="outline">详情</Button>
             </Link>
             {showActions && (
               <>

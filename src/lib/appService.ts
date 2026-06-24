@@ -44,11 +44,31 @@ export const appService = {
 
       await Promise.all(uploadPromises);
 
+      // 上传封面图（如果有）
+      let coverImageUrl: string | null = null;
+      if (input.coverImage) {
+        const coverExt = input.coverImage.name.split('.').pop() || 'png';
+        const coverPath = `${user.id}/${appData.id}/__cover__.${coverExt}`;
+        const { error: coverError } = await supabase.storage
+          .from('hosted-apps')
+          .upload(coverPath, input.coverImage, {
+            upsert: true,
+            contentType: getContentType(input.coverImage.name),
+          });
+
+        if (!coverError) {
+          const { data: coverData } = supabase.storage
+            .from('hosted-apps')
+            .getPublicUrl(coverPath);
+          coverImageUrl = coverData.publicUrl;
+        }
+      }
+
       // Set the entry file path as the app's file path
       const entryFilePath = `${user.id}/${appData.id}/${entryFile.path}`;
       const { error: updateError } = await supabase
         .from('hosted_apps')
-        .update({ app_file_path: entryFilePath })
+        .update({ app_file_path: entryFilePath, cover_image_url: coverImageUrl })
         .eq('id', appData.id);
 
       if (updateError) throw updateError;

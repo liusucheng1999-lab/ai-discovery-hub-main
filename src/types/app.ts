@@ -25,6 +25,7 @@ export interface CreateAppInput {
   name: string;
   description?: string;
   file: File;
+  coverImage?: File;
 }
 
 export interface UpdateAppInput {

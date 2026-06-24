@@ -6,15 +6,31 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface AppUploadProps {
-  onSubmit: (data: { name: string; description: string; file: File }) => Promise<void>;
+  onSubmit: (data: { name: string; description: string; file: File; coverImage?: File }) => Promise<void>;
   isLoading?: boolean;
 }
 
 export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
   const [file, setFile] = useState<File | null>(null);
+  const [coverImage, setCoverImage] = useState<File | null>(null);
+  const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [isDragging, setIsDragging] = useState(false);
+
+  const handleCoverSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const img = e.target.files?.[0];
+    if (img) {
+      setCoverImage(img);
+      setCoverPreview(URL.createObjectURL(img));
+    }
+  };
+
+  const removeCover = () => {
+    setCoverImage(null);
+    if (coverPreview) URL.revokeObjectURL(coverPreview);
+    setCoverPreview(null);
+  };
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -46,7 +62,7 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
       alert('Please fill in all required fields');
       return;
     }
-    await onSubmit({ name, description, file });
+    await onSubmit({ name, description, file, coverImage: coverImage || undefined });
   };
 
   return (
@@ -142,6 +158,51 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
               placeholder="简单介绍你的应用功能"
               rows={4}
             />
+          </div>
+
+          {/* Cover Image */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              展示图（封面）
+            </label>
+            {coverPreview ? (
+              <div className="relative inline-block">
+                <img
+                  src={coverPreview}
+                  alt="封面预览"
+                  className="w-full max-w-sm aspect-video object-cover rounded-lg border"
+                />
+                <button
+                  type="button"
+                  onClick={removeCover}
+                  className="absolute top-2 right-2 p-1 bg-black/60 hover:bg-black/80 text-white rounded-full"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center bg-gray-50 hover:border-gray-400 transition-colors">
+                <Upload className="w-6 h-6 mx-auto mb-2 text-gray-400" />
+                <p className="text-sm text-gray-500 mb-3">
+                  上传一张展示图，会显示在项目卡片上
+                </p>
+                <input
+                  type="file"
+                  onChange={handleCoverSelect}
+                  accept="image/*"
+                  className="hidden"
+                  id="cover-input"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => document.getElementById('cover-input')?.click()}
+                >
+                  选择图片
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Submit Button */}
