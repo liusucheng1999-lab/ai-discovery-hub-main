@@ -145,6 +145,55 @@ export const appService = {
     return data;
   },
 
+  // 更换应用文件（HTML/ZIP），返回新的入口文件路径
+  async updateAppFile(appId: string, file: File): Promise<string> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('User not authenticated');
+
+    // 处理新文件（HTML 或 ZIP）
+    const { files, entryFile } = await processUploadedFile(file);
+
+    // 删除旧的应用文件（保留封面图 __cover__）
+    const { data: existing } = await supabase.storage
+      .from('hosted-apps')
+      .list(`${user.id}/${appId}`);
+
+    if (existing && existing.length > 0) {
+      const toRemove = existing
+        .filter((f) => !f.name.startsWith('__cover__'))
+        .map((f) => `${user.id}/${appId}/${f.name}`);
+      if (toRemove.length > 0) {
+        await supabase.storage.from('hosted-apps').remove(toRemove);
+      }
+    }
+
+    // 上传新文件
+    await Promise.all(
+      files.map(async (f) => {
+        const filePath = `${user.id}/${appId}/${f.path}`;
+        const { error: uploadError } = await supabase.storage
+          .from('hosted-apps')
+          .upload(filePath, f.content, {
+            upsert: true,
+            contentType: getContentType(f.name),
+          });
+        if (uploadError) throw uploadError;
+      })
+    );
+
+    // 更新入口文件路径
+    const entryFilePath = `${user.id}/${appId}/${entryFile.path}`;
+    const { error: updateError } = await supabase
+      .from('hosted_apps')
+      .update({ app_file_path: entryFilePath, updated_at: new Date().toISOString() })
+      .eq('id', appId)
+      .eq('user_id', user.id);
+
+    if (updateError) throw updateError;
+
+    return entryFilePath;
+  },
+
   // 上传/更换封面图，返回公开 URL
   async uploadCoverImage(appId: string, coverImage: File): Promise<string> {
     const { data: { user } } = await supabase.auth.getUser();

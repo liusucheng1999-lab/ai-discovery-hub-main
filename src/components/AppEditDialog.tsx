@@ -26,6 +26,7 @@ export function AppEditDialog({ app, open, onClose, onSaved }: AppEditDialogProp
   const [description, setDescription] = useState('');
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
+  const [appFile, setAppFile] = useState<File | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
   // 当打开的应用变化时，初始化表单
@@ -35,6 +36,7 @@ export function AppEditDialog({ app, open, onClose, onSaved }: AppEditDialogProp
       setDescription(app.description || '');
       setCoverPreview(app.cover_image_url || null);
       setCoverImage(null);
+      setAppFile(null);
     }
   }, [app]);
 
@@ -46,6 +48,11 @@ export function AppEditDialog({ app, open, onClose, onSaved }: AppEditDialogProp
     }
   };
 
+  const handleAppFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
+    if (f) setAppFile(f);
+  };
+
   const handleSave = async () => {
     if (!app) return;
     if (!name.trim()) {
@@ -55,6 +62,11 @@ export function AppEditDialog({ app, open, onClose, onSaved }: AppEditDialogProp
 
     try {
       setIsSaving(true);
+
+      // 如果换了应用文件，先更新文件
+      if (appFile) {
+        await appService.updateAppFile(app.id, appFile);
+      }
 
       // 如果换了新封面图，先上传
       let coverUrl: string | null | undefined = undefined;
@@ -109,6 +121,43 @@ export function AppEditDialog({ app, open, onClose, onSaved }: AppEditDialogProp
               onChange={(e) => setDescription(e.target.value)}
               placeholder="简单介绍你的应用功能"
               rows={3}
+            />
+          </div>
+
+          {/* 应用文件 */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              应用文件（可选更换）
+            </label>
+            <div className="flex items-center gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => document.getElementById('edit-appfile-input')?.click()}
+              >
+                <Upload className="w-4 h-4 mr-1" />
+                选择新文件
+              </Button>
+              <span className="text-sm text-gray-500 truncate">
+                {appFile ? appFile.name : '不更换则保留原文件'}
+              </span>
+              {appFile && (
+                <button
+                  type="button"
+                  onClick={() => setAppFile(null)}
+                  className="p-1 hover:bg-gray-200 rounded"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+            <input
+              type="file"
+              onChange={handleAppFileSelect}
+              accept=".html,.zip"
+              className="hidden"
+              id="edit-appfile-input"
             />
           </div>
 
