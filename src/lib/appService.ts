@@ -347,35 +347,13 @@ export const appService = {
     return html;
   },
 
-  // Increment view count
+  // Increment view count（单次原子自增）
   async incrementViewCount(appId: string): Promise<void> {
-    const { data } = await supabase
-      .from('hosted_apps')
-      .select('view_count')
-      .eq('id', appId)
-      .single();
-
-    if (data) {
-      await supabase
-        .from('hosted_apps')
-        .update({ view_count: (data.view_count || 0) + 1 })
-        .eq('id', appId);
-    }
+    await supabase.rpc('increment_view_count', { app_id: appId });
   },
 
-  // Increment run count（用户实际运行应用时调用）
+  // Increment run count（用户实际运行应用时调用，单次原子自增）
   async incrementRunCount(appId: string): Promise<void> {
-    const { data } = await supabase
-      .from('hosted_apps')
-      .select('run_count')
-      .eq('id', appId)
-      .single();
-
-    if (data) {
-      await supabase
-        .from('hosted_apps')
-        .update({ run_count: (data.run_count || 0) + 1 })
-        .eq('id', appId);
-    }
+    await supabase.rpc('increment_run_count', { app_id: appId });
   },
 };

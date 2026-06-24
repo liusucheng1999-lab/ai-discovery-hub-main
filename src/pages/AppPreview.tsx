@@ -29,8 +29,8 @@ export function AppPreview() {
         const html = await appService.getAppHtmlContent(appData.app_file_path);
         setAppHtml(html);
 
-        // 增加运行计数
-        await appService.incrementRunCount(id);
+        // 运行计数后台静默执行，不阻塞应用显示
+        void appService.incrementRunCount(id);
       } catch (err) {
         console.error('Error loading app:', err);
         setError(err instanceof Error ? err.message : '加载应用失败');
