@@ -14,6 +14,7 @@ export function PublishApp() {
     description: string;
     file: File;
     coverImage?: File;
+    githubUrl?: string;
   }) => {
     try {
       setIsLoading(true);
@@ -22,6 +23,7 @@ export function PublishApp() {
         description: data.description,
         file: data.file,
         coverImage: data.coverImage,
+        githubUrl: data.githubUrl,
       });
 
       toast.success('已提交，等待管理员审核通过后即可展示');
@@ -40,8 +42,8 @@ export function PublishApp() {
     <div className="pt-20 container mx-auto py-8 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="mb-6 flex items-center gap-2">
-          <Link to="/published-apps">
-            <Button variant="outline">← 返回项目展示</Button>
+          <Link to="/">
+            <Button variant="outline">← 返回产品社区</Button>
           </Link>
         </div>
         <AppUpload onSubmit={handleSubmit} isLoading={isLoading} />

@@ -76,9 +76,9 @@ export function AppPreview() {
     <div className="fixed inset-0 z-[100] bg-white">
       {/* 悬浮返回按钮 */}
       <button
-        onClick={() => navigate('/published-apps')}
+        onClick={() => navigate('/')}
         className="fixed top-4 left-4 z-[110] flex items-center gap-1.5 px-3 py-2 bg-black/70 hover:bg-black/85 text-white text-sm rounded-full backdrop-blur transition-colors shadow-lg"
-        title="返回项目展示"
+        title="返回产品社区"
       >
         <ArrowLeft className="w-4 h-4" />
         返回

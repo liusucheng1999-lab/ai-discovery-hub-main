@@ -83,8 +83,8 @@ export function AppManagement() {
             <p className="text-gray-600">管理你发布的所有应用</p>
           </div>
           <div className="flex gap-2">
-            <Link to="/published-apps">
-              <Button variant="outline">🏠 项目展示</Button>
+            <Link to="/">
+              <Button variant="outline">🏠 产品社区</Button>
             </Link>
             <Link to="/publish">
               <Button>➕ 发布新应用</Button>

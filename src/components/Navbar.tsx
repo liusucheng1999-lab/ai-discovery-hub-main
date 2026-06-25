@@ -23,11 +23,10 @@ export default function Navbar() {
   };
 
   const tabs = [
-    { label: "首页", to: "/" },
+    { label: "产品社区", to: "/" },
     { label: "AI工具", to: "/tools" },
     { label: "AI课程", to: "/knowledge" },
     { label: "AI资源", to: "/resources" },
-    { label: "项目展示", to: "/published-apps" },
   ];
 
   return (

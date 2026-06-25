@@ -55,6 +55,7 @@ export const appService = {
         app_file_path: '',
         is_published: false,
         status: 'pending',
+        github_url: input.githubUrl?.trim() || null,
       })
       .select()
       .single();

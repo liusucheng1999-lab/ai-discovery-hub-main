@@ -35,6 +35,8 @@ export interface CreateAppInput {
   description?: string;
   file: File;
   coverImage?: File;
+  /** 可选：绑定 GitHub 文件 URL，由服务端定时同步最新内容 */
+  githubUrl?: string;
 }
 
 export interface UpdateAppInput {
