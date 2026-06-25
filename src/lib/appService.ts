@@ -42,8 +42,68 @@ export const appService = {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('User not authenticated');
 
+    if (!input.file && !input.githubUrl) {
+      throw new Error('请上传应用文件或填写 GitHub 链接');
+    }
+
+    // GitHub-only 模式（无文件）：跳过文件处理，直接建记录后触发同步
+    if (!input.file && input.githubUrl) {
+      const { data: appData, error: appError } = await supabase
+        .from('hosted_apps')
+        .insert({
+          user_id: user.id,
+          name: input.name,
+          description: input.description,
+          app_file_path: '',        // 占位，sync 后会填充
+          is_published: false,
+          status: 'pending',
+          github_url: input.githubUrl.trim(),
+        })
+        .select()
+        .single();
+
+      if (appError) throw appError;
+      if (!appData) throw new Error('Failed to create app');
+
+      // 设置文件路径占位符
+      const entryFilePath = `${user.id}/${appData.id}/index.html`;
+      await supabase
+        .from('hosted_apps')
+        .update({ app_file_path: entryFilePath })
+        .eq('id', appData.id);
+
+      // 上传封面图（如果有）
+      if (input.coverImage) {
+        const coverExt = input.coverImage.name.split('.').pop() || 'png';
+        const coverPath = `${user.id}/${appData.id}/__cover__.${coverExt}`;
+        const { error: coverError } = await supabase.storage
+          .from('hosted-apps')
+          .upload(coverPath, input.coverImage, {
+            upsert: true,
+            contentType: getContentType(input.coverImage.name),
+          });
+        if (!coverError) {
+          const { data: coverData } = supabase.storage.from('hosted-apps').getPublicUrl(coverPath);
+          await supabase.from('hosted_apps').update({ cover_image_url: coverData.publicUrl }).eq('id', appData.id);
+        }
+      }
+
+      // 立即触发一次 GitHub 同步（拉取初始内容）
+      try {
+        await fetch(`/api/sync-app?app_id=${appData.id}`, { method: 'POST' });
+      } catch {
+        // 同步失败不阻断提交流程，后续可手动同步
+      }
+
+      return {
+        app_id: appData.id,
+        file_path: entryFilePath,
+        message: 'App created and synced from GitHub',
+      };
+    }
+
     // Process uploaded file (handle ZIP or HTML)
-    const { files, entryFile, isZip } = await processUploadedFile(input.file);
+    const { files, entryFile, isZip } = await processUploadedFile(input.file!);
 
     // Create app record
     const { data: appData, error: appError } = await supabase

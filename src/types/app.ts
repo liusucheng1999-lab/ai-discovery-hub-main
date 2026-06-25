@@ -33,9 +33,10 @@ export interface AppFile {
 export interface CreateAppInput {
   name: string;
   description?: string;
-  file: File;
+  /** 上传文件或 GitHub URL 二选一，至少填一个 */
+  file?: File;
   coverImage?: File;
-  /** 可选：绑定 GitHub 文件 URL，由服务端定时同步最新内容 */
+  /** 连接 GitHub 文件 URL，发布后立即同步，之后每次 push 自动更新 */
   githubUrl?: string;
 }
 
