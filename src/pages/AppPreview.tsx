@@ -26,7 +26,10 @@ export function AppPreview() {
         const appData = await appService.getApp(id);
         setApp(appData);
 
-        const html = await appService.getAppHtmlContent(appData.app_file_path);
+        const html = await appService.getAppHtmlContent(
+          appData.app_file_path,
+          appData.updated_at
+        );
         setAppHtml(html);
 
         // 运行计数后台静默执行，不阻塞应用显示

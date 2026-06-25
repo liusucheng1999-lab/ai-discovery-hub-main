@@ -37,6 +37,7 @@ export const appService = {
           .upload(filePath, file.content, {
             upsert: false,
             contentType: getContentType(file.name),
+            cacheControl: '0', // 不长期缓存，更换文件后能立即生效
           });
 
         if (uploadError) throw uploadError;
@@ -234,6 +235,7 @@ export const appService = {
           .upload(filePath, f.content, {
             upsert: true,
             contentType: getContentType(f.name),
+            cacheControl: '0', // 不长期缓存，更换文件后能立即生效
           });
         if (uploadError) throw uploadError;
       })
@@ -319,13 +321,15 @@ export const appService = {
 
   // 抓取入口 HTML 内容（以 UTF-8 解码），并注入 <base> 让相对资源正确加载
   // 用于 iframe srcdoc 渲染，绕开 Storage 的 Content-Type/编码问题
-  async getAppHtmlContent(filePath: string): Promise<string> {
+  async getAppHtmlContent(filePath: string, version?: string): Promise<string> {
     const fileUrl = await this.getAppFileUrl(filePath);
 
     // 计算文件夹 URL（用于 <base href>），让相对路径资源指向 Storage 目录
     const baseHref = fileUrl.substring(0, fileUrl.lastIndexOf('/') + 1);
 
-    const res = await fetch(fileUrl);
+    // 加版本号让 CDN/浏览器缓存失效，更换文件后能立即看到新内容
+    const cacheBust = version ? `?v=${new Date(version).getTime() || version}` : '';
+    const res = await fetch(`${fileUrl}${cacheBust}`, { cache: 'no-store' });
     if (!res.ok) throw new Error('无法加载应用文件');
 
     // 用 TextDecoder 强制以 UTF-8 解码，避免中文乱码
