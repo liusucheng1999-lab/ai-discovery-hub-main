@@ -11,6 +11,10 @@ export interface HostedApp {
   status: AppStatus;
   review_note: string | null;
   reviewed_at: string | null;
+  /** GitHub 仓库文件 URL（可选）。设置后由服务端定时同步最新内容到 Storage */
+  github_url: string | null;
+  /** 最后一次从 GitHub 成功同步的时间 */
+  github_synced_at: string | null;
   view_count: number;
   run_count: number;
   created_at: string;
@@ -41,6 +45,7 @@ export interface UpdateAppInput {
   status?: AppStatus;
   review_note?: string | null;
   reviewed_at?: string | null;
+  github_url?: string | null;
 }
 
 export interface AppUploadResponse {

@@ -2,6 +2,40 @@ import { supabase } from './supabase';
 import { processUploadedFile, getContentType } from './fileService';
 import type { HostedApp, CreateAppInput, UpdateAppInput, AppUploadResponse } from '../types/app';
 
+// ─── GitHub URL 工具函数 ──────────────────────────────────────────────────────
+
+/**
+ * 将用户粘贴的 GitHub URL 转成 raw 文件 URL。
+ * 支持两种格式：
+ *   - https://github.com/owner/repo/blob/branch/path/file.html
+ *   - https://raw.githubusercontent.com/owner/repo/branch/path/file.html
+ * 返回 null 表示识别不了。
+ */
+export function parseGithubToRawUrl(url: string): string | null {
+  try {
+    const u = url.trim();
+    // 已经是 raw URL
+    if (u.startsWith('https://raw.githubusercontent.com/')) return u;
+    // 标准 GitHub blob 预览链接
+    const blobMatch = u.match(/https:\/\/github\.com\/([^/]+\/[^/]+)\/blob\/(.+)/);
+    if (blobMatch) {
+      return `https://raw.githubusercontent.com/${blobMatch[1]}/${blobMatch[2]}`;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * 简单验证：URL 是否看起来是合法的 GitHub HTML 文件链接。
+ */
+export function isValidGithubHtmlUrl(url: string): boolean {
+  if (!url) return false;
+  const raw = parseGithubToRawUrl(url);
+  return raw !== null && /\.html?$/i.test(raw);
+}
+
 export const appService = {
   // Upload and create a new app
   async uploadApp(input: CreateAppInput): Promise<AppUploadResponse> {
@@ -349,6 +383,28 @@ export const appService = {
     }
 
     return html;
+  },
+
+  // 设置 / 清除 GitHub 同步 URL
+  async updateGithubUrl(appId: string, githubUrl: string | null): Promise<HostedApp> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('User not authenticated');
+
+    const { data, error } = await supabase
+      .from('hosted_apps')
+      .update({
+        github_url: githubUrl || null,
+        // 清除旧同步时间，让下次同步重新标记
+        github_synced_at: null,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', appId)
+      .eq('user_id', user.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
   },
 
   // Increment view count（单次原子自增）

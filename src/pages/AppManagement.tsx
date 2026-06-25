@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Github } from 'lucide-react';
 import { appService } from '@/lib/appService';
 import { AppCard } from '@/components/AppCard';
 import { AppEditDialog } from '@/components/AppEditDialog';
@@ -62,6 +63,17 @@ export function AppManagement() {
     return { text: '审核中', cls: 'text-yellow-600' };
   };
 
+  const formatSyncTime = (t: string | null) => {
+    if (!t) return null;
+    const diff = Date.now() - new Date(t).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return '刚刚';
+    if (mins < 60) return `${mins} 分钟前`;
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return `${hours} 小时前`;
+    return `${Math.floor(hours / 24)} 天前`;
+  };
+
   return (
     <div className="pt-20 container mx-auto py-8 px-4">
       <div className="max-w-5xl mx-auto">
@@ -109,6 +121,15 @@ export function AppManagement() {
                     <p className={`text-sm font-medium ${status.cls}`}>
                       状态：{status.text}
                     </p>
+                    {/* GitHub 同步状态 */}
+                    {app.github_url && (
+                      <p className="flex items-center gap-1 text-xs text-gray-500">
+                        <Github className="w-3.5 h-3.5 shrink-0" />
+                        {app.github_synced_at
+                          ? `GitHub 同步：${formatSyncTime(app.github_synced_at)}`
+                          : 'GitHub 已连接，等待首次同步'}
+                      </p>
+                    )}
                     {app.status === 'rejected' && (
                       <>
                         {app.review_note && (
