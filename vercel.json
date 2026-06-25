@@ -1,11 +1,5 @@
 {
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
-  ],
-  "crons": [
-    {
-      "path": "/api/sync-github-apps",
-      "schedule": "0 * * * *"
-    }
   ]
 }
