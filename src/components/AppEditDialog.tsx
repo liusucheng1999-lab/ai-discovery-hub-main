@@ -21,12 +21,24 @@ interface AppEditDialogProps {
   onSaved: (updated: HostedApp) => void;
 }
 
-/** 生成用户需要放进自己 GitHub 仓库的 Actions YAML */
-function buildActionsYaml(appId: string) {
-  return `name: 同步到 AI创客社区
+/** 从 GitHub 文件 URL 中提取仓库地址 */
+function extractRepoUrl(githubUrl: string): string {
+  try {
+    // https://github.com/owner/repo/blob/branch/... → https://github.com/owner/repo
+    const m = githubUrl.match(/https:\/\/github\.com\/([^/]+\/[^/]+)/);
+    return m ? `https://github.com/${m[1]}` : '你的 GitHub 仓库';
+  } catch {
+    return '你的 GitHub 仓库';
+  }
+}
+
+/** 生成喂给 AI 的提示词，让 AI 自动在 GitHub 仓库里创建 workflow 文件 */
+function buildAiPrompt(appId: string, githubUrl: string) {
+  const repoUrl = extractRepoUrl(githubUrl);
+  const yaml = `name: 同步到 AI创客社区
 on:
   push:
-    branches: [main]   # 改成你的主分支名
+    branches: [main]
 
 jobs:
   sync:
@@ -34,8 +46,23 @@ jobs:
     steps:
       - name: 触发同步
         run: |
-          curl -s -X POST "https://aimakerbox.com/api/sync-app?app_id=${appId}"
-`;
+          curl -s -X POST "https://aimakerbox.com/api/sync-app?app_id=${appId}"`;
+
+  return `请帮我在 GitHub 仓库 ${repoUrl} 中创建一个 GitHub Actions workflow 文件，实现每次推送代码后自动同步到 AI创客社区网站。
+
+请创建以下文件：
+文件路径：.github/workflows/sync-to-aimakerbox.yml
+文件内容：
+\`\`\`yaml
+${yaml}
+\`\`\`
+
+操作步骤：
+1. 在仓库根目录创建 .github/workflows/ 文件夹（如果不存在）
+2. 创建 sync-to-aimakerbox.yml 文件，填入上面的内容
+3. 提交并推送到主分支（main 或 master）
+
+完成后，每次我向这个仓库推送代码，网站上的应用就会自动更新为最新内容。`;
 }
 
 /** 格式化同步时间 */
@@ -98,9 +125,9 @@ export function AppEditDialog({ app, open, onClose, onSaved }: AppEditDialogProp
     }
   };
 
-  const handleCopyYaml = async () => {
+  const handleCopyPrompt = async () => {
     if (!savedApp) return;
-    await navigator.clipboard.writeText(buildActionsYaml(savedApp.id));
+    await navigator.clipboard.writeText(buildAiPrompt(savedApp.id, currentGithubUrl || githubUrl));
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -264,30 +291,32 @@ export function AppEditDialog({ app, open, onClose, onSaved }: AppEditDialogProp
                   </Button>
                 </div>
 
-                {/* GitHub Actions 配置说明 */}
-                <div className="rounded-lg bg-gray-950 dark:bg-black border border-gray-800 overflow-hidden">
-                  <div className="flex items-center justify-between px-3 py-2 border-b border-gray-800">
-                    <span className="text-xs text-gray-400 font-mono">
-                      .github/workflows/sync-to-aimakerbox.yml
+                {/* AI 提示词区域 */}
+                <div className="rounded-lg border border-border bg-muted/40 overflow-hidden">
+                  <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-muted/60">
+                    <span className="text-xs font-medium text-foreground">
+                      🤖 复制下方提示词，发给 AI 让它帮你配置
                     </span>
                     <button
-                      onClick={handleCopyYaml}
-                      className="flex items-center gap-1 text-xs text-gray-400 hover:text-white transition-colors"
+                      onClick={handleCopyPrompt}
+                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {copied
-                        ? <><Check className="w-3.5 h-3.5 text-green-400" /><span className="text-green-400">已复制</span></>
-                        : <><Copy className="w-3.5 h-3.5" />复制</>
+                        ? <><Check className="w-3.5 h-3.5 text-green-500" /><span className="text-green-500">已复制</span></>
+                        : <><Copy className="w-3.5 h-3.5" />复制提示词</>
                       }
                     </button>
                   </div>
-                  <pre className="p-3 text-xs text-gray-300 font-mono leading-relaxed overflow-x-auto whitespace-pre">
-                    {savedApp ? buildActionsYaml(savedApp.id) : ''}
-                  </pre>
+                  <p className="p-3 text-xs text-muted-foreground leading-relaxed line-clamp-4">
+                    {savedApp
+                      ? buildAiPrompt(savedApp.id, currentGithubUrl || githubUrl)
+                      : buildAiPrompt('（保存后生成）', githubUrl)}
+                  </p>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  把上面的文件放入你的 GitHub 仓库，每次 push 后应用会自动更新。
+                  把提示词发给 Claude / ChatGPT 等 AI，让它在你的仓库里创建配置文件，之后每次 push 即自动同步。
                   {!savedApp?.github_url && (
-                    <span className="text-amber-500 ml-1">（请先点保存，再配置 GitHub 仓库）</span>
+                    <span className="text-amber-500 ml-1">（建议先保存，再复制提示词）</span>
                   )}
                 </p>
               </div>
