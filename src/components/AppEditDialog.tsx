@@ -165,7 +165,8 @@ export function AppEditDialog({ app, open, onClose, onSaved }: AppEditDialogProp
     }
   };
 
-  const currentGithubUrl = savedApp?.github_url || null;
+  // 只要输入框里有合法 URL 就显示 YAML（不必等保存）
+  const currentGithubUrl = (!githubUrlError && githubUrl.trim()) ? githubUrl.trim() : (savedApp?.github_url || null);
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
@@ -285,6 +286,9 @@ export function AppEditDialog({ app, open, onClose, onSaved }: AppEditDialogProp
                 </div>
                 <p className="text-xs text-muted-foreground">
                   把上面的文件放入你的 GitHub 仓库，每次 push 后应用会自动更新。
+                  {!savedApp?.github_url && (
+                    <span className="text-amber-500 ml-1">（请先点保存，再配置 GitHub 仓库）</span>
+                  )}
                 </p>
               </div>
             )}
