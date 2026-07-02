@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { appService } from '@/lib/appService';
-import { ArrowLeft, Code2, X, Copy, Check, Download } from 'lucide-react';
+import { ArrowLeft, Code2, X, Copy, Check, Download, ChevronRight, ChevronLeft } from 'lucide-react';
 import type { HostedApp } from '@/types/app';
 
 /**
@@ -22,17 +22,8 @@ export function AppPreview() {
   const [showSource, setShowSource] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  // 工具栏显隐：鼠标移动时显示，静止 3 秒后淡出
-  const [showControls, setShowControls] = useState(false);
-  const hideTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const handleMouseMove = () => {
-    setShowControls(true);
-    if (hideTimer.current) clearTimeout(hideTimer.current);
-    hideTimer.current = setTimeout(() => setShowControls(false), 3000);
-  };
-
-  React.useEffect(() => () => { if (hideTimer.current) clearTimeout(hideTimer.current); }, []);
+  // 工具栏收起/展开（点击切换）
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const loadApp = async () => {
@@ -96,30 +87,38 @@ export function AppPreview() {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] bg-white" onMouseMove={handleMouseMove}>
-      {/* ── 悬浮工具栏（鼠标移动时显示，静止后淡出）── */}
-      <div className={`fixed top-4 left-4 z-[110] flex items-center gap-2 transition-opacity duration-500 ${showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        {/* 返回按钮 */}
-        <button
-          onClick={() => navigate('/')}
-          className="flex items-center gap-1.5 px-3 py-2 bg-black/70 hover:bg-black/85 text-white text-sm rounded-full backdrop-blur transition-colors shadow-lg"
-          title="返回产品社区"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          返回
-        </button>
+    <div className="fixed inset-0 z-[100] bg-white">
+      {/* ── 悬浮工具栏（点击展开/收起）── */}
+      <div className="fixed top-4 left-4 z-[110] flex items-center gap-2">
 
-        {/* 源码按钮（仅私密应用显示） */}
-        {app?.is_private && (
+        {/* 展开后显示的按钮 */}
+        <div className={`flex items-center gap-2 transition-all duration-300 overflow-hidden ${expanded ? 'max-w-xs opacity-100' : 'max-w-0 opacity-0 pointer-events-none'}`}>
           <button
-            onClick={() => setShowSource(true)}
-            className="flex items-center gap-1.5 px-3 py-2 bg-black/70 hover:bg-black/85 text-white text-sm rounded-full backdrop-blur transition-colors shadow-lg"
-            title="查看源代码"
+            onClick={() => navigate('/')}
+            className="flex items-center gap-1.5 px-3 py-2 bg-black/70 hover:bg-black/85 text-white text-sm rounded-full backdrop-blur transition-colors shadow-lg whitespace-nowrap"
           >
-            <Code2 className="w-4 h-4" />
-            源码
+            <ArrowLeft className="w-4 h-4" />
+            返回
           </button>
-        )}
+          {app?.is_private && (
+            <button
+              onClick={() => setShowSource(true)}
+              className="flex items-center gap-1.5 px-3 py-2 bg-black/70 hover:bg-black/85 text-white text-sm rounded-full backdrop-blur transition-colors shadow-lg whitespace-nowrap"
+            >
+              <Code2 className="w-4 h-4" />
+              源码
+            </button>
+          )}
+        </div>
+
+        {/* 始终显示的切换按钮 */}
+        <button
+          onClick={() => setExpanded((v) => !v)}
+          className="flex items-center justify-center w-8 h-8 bg-black/70 hover:bg-black/85 text-white rounded-full backdrop-blur transition-colors shadow-lg"
+          title={expanded ? '收起' : '展开菜单'}
+        >
+          {expanded ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+        </button>
       </div>
 
       {/* ── 全屏应用 ──────────────────────────────── */}
