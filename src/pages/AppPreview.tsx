@@ -22,6 +22,18 @@ export function AppPreview() {
   const [showSource, setShowSource] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  // 工具栏显隐：鼠标移动时显示，静止 3 秒后淡出
+  const [showControls, setShowControls] = useState(false);
+  const hideTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseMove = () => {
+    setShowControls(true);
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    hideTimer.current = setTimeout(() => setShowControls(false), 3000);
+  };
+
+  React.useEffect(() => () => { if (hideTimer.current) clearTimeout(hideTimer.current); }, []);
+
   useEffect(() => {
     const loadApp = async () => {
       if (!id) return;
@@ -84,9 +96,9 @@ export function AppPreview() {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] bg-white">
-      {/* ── 悬浮工具栏 ──────────────────────────── */}
-      <div className="fixed top-4 left-4 z-[110] flex items-center gap-2">
+    <div className="fixed inset-0 z-[100] bg-white" onMouseMove={handleMouseMove}>
+      {/* ── 悬浮工具栏（鼠标移动时显示，静止后淡出）── */}
+      <div className={`fixed top-4 left-4 z-[110] flex items-center gap-2 transition-opacity duration-500 ${showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         {/* 返回按钮 */}
         <button
           onClick={() => navigate('/')}
