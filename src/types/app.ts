@@ -11,6 +11,8 @@ export interface HostedApp {
   status: AppStatus;
   review_note: string | null;
   reviewed_at: string | null;
+  /** true = 私密应用，不出现在社区列表，仅通过链接访问 */
+  is_private: boolean;
   /** GitHub 仓库文件 URL（可选）。设置后由服务端定时同步最新内容到 Storage */
   github_url: string | null;
   /** 最后一次从 GitHub 成功同步的时间 */
@@ -38,12 +40,15 @@ export interface CreateAppInput {
   coverImage?: File;
   /** 连接 GitHub 文件 URL，发布后立即同步，之后每次 push 自动更新 */
   githubUrl?: string;
+  /** true = 私密应用，跳过审核，仅通过链接访问 */
+  isPrivate?: boolean;
 }
 
 export interface UpdateAppInput {
   name?: string;
   description?: string;
   is_published?: boolean;
+  is_private?: boolean;
   cover_image_url?: string | null;
   status?: AppStatus;
   review_note?: string | null;

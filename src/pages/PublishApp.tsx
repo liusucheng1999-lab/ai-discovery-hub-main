@@ -12,27 +12,31 @@ export function PublishApp() {
   const handleSubmit = async (data: {
     name: string;
     description: string;
-    file: File;
+    file?: File;
     coverImage?: File;
     githubUrl?: string;
+    isPrivate?: boolean;
   }) => {
     try {
       setIsLoading(true);
-      await appService.uploadApp({
+      const result = await appService.uploadApp({
         name: data.name,
         description: data.description,
         file: data.file,
         coverImage: data.coverImage,
         githubUrl: data.githubUrl,
+        isPrivate: data.isPrivate,
       });
 
-      toast.success('已提交，等待管理员审核通过后即可展示');
+      if (data.isPrivate) {
+        toast.success('私密应用已创建，可通过链接分享访问');
+      } else {
+        toast.success('已提交，等待管理员审核通过后即可展示');
+      }
       navigate('/my-apps');
     } catch (error) {
       console.error('Upload error:', error);
-      toast.error(
-        error instanceof Error ? error.message : '发布应用失败，请重试'
-      );
+      toast.error(error instanceof Error ? error.message : '发布应用失败，请重试');
     } finally {
       setIsLoading(false);
     }

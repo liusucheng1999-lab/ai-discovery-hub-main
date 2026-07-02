@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, X, Github, Copy, Check } from 'lucide-react';
+import { Upload, X, Github, Copy, Check, Lock, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -13,6 +13,7 @@ interface AppUploadProps {
     file?: File;
     coverImage?: File;
     githubUrl?: string;
+    isPrivate?: boolean;
   }) => Promise<void>;
   isLoading?: boolean;
 }
@@ -75,6 +76,7 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
   // 通用
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [isPrivate, setIsPrivate] = useState(false);
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
 
@@ -125,6 +127,7 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
       file: mode === 'file' ? (file ?? undefined) : undefined,
       coverImage: coverImage || undefined,
       githubUrl: mode === 'github' ? githubUrl.trim() : undefined,
+      isPrivate,
     });
   };
 
@@ -274,6 +277,43 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
             <label className="block text-sm font-medium text-foreground mb-2">应用描述</label>
             <Textarea value={description} onChange={(e) => setDescription(e.target.value)}
               placeholder="简单介绍你的应用功能、适合哪些场景…" rows={3} />
+          </div>
+
+          {/* ── 可见性 ──────────────────────────────── */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">可见性</label>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setIsPrivate(false)}
+                className={`flex items-center gap-2.5 p-3 rounded-xl border-2 text-left transition-all ${
+                  !isPrivate
+                    ? 'border-primary bg-primary/5 text-foreground'
+                    : 'border-border text-muted-foreground hover:border-muted-foreground/50'
+                }`}
+              >
+                <Globe className="w-4 h-4 shrink-0" />
+                <div>
+                  <p className="text-sm font-medium leading-tight">公开展示</p>
+                  <p className="text-xs opacity-70 mt-0.5">审核通过后显示在社区</p>
+                </div>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsPrivate(true)}
+                className={`flex items-center gap-2.5 p-3 rounded-xl border-2 text-left transition-all ${
+                  isPrivate
+                    ? 'border-primary bg-primary/5 text-foreground'
+                    : 'border-border text-muted-foreground hover:border-muted-foreground/50'
+                }`}
+              >
+                <Lock className="w-4 h-4 shrink-0" />
+                <div>
+                  <p className="text-sm font-medium leading-tight">私密链接</p>
+                  <p className="text-xs opacity-70 mt-0.5">仅通过链接访问，无需审核</p>
+                </div>
+              </button>
+            </div>
           </div>
 
           {/* ── 封面图 ──────────────────────────────── */}

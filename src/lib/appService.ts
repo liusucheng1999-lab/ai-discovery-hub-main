@@ -54,9 +54,11 @@ export const appService = {
           user_id: user.id,
           name: input.name,
           description: input.description,
-          app_file_path: '',        // 占位，sync 后会填充
+          app_file_path: '',
           is_published: false,
-          status: 'pending',
+          // 私密应用跳过审核直接批准；公开应用走正常审核流程
+          status: input.isPrivate ? 'approved' : 'pending',
+          is_private: input.isPrivate ?? false,
           github_url: input.githubUrl.trim(),
         })
         .select()
@@ -114,7 +116,8 @@ export const appService = {
         description: input.description,
         app_file_path: '',
         is_published: false,
-        status: 'pending',
+        status: input.isPrivate ? 'approved' : 'pending',
+        is_private: input.isPrivate ?? false,
         github_url: input.githubUrl?.trim() || null,
       })
       .select()
@@ -194,12 +197,13 @@ export const appService = {
     return data;
   },
 
-  // Get all published apps (审核通过的才公开展示)
+  // Get all published apps (审核通过 + 非私密 才公开展示)
   async getPublishedApps(limit = 50, offset = 0): Promise<HostedApp[]> {
     const { data, error } = await supabase
       .from('hosted_apps')
       .select('*')
       .eq('status', 'approved')
+      .eq('is_private', false)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
 
@@ -444,6 +448,29 @@ export const appService = {
     }
 
     return html;
+  },
+
+  // 切换私密 / 公开状态
+  async togglePrivate(appId: string, isPrivate: boolean): Promise<HostedApp> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('User not authenticated');
+
+    const { data, error } = await supabase
+      .from('hosted_apps')
+      .update({
+        is_private: isPrivate,
+        // 设为私密时自动批准（无需审核）；取消私密时回到 pending 等待审核
+        status: isPrivate ? 'approved' : 'pending',
+        review_note: isPrivate ? null : undefined,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', appId)
+      .eq('user_id', user.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
   },
 
   // 设置 / 清除 GitHub 同步 URL

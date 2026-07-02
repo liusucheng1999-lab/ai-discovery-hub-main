@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Github } from 'lucide-react';
+import { Github, Lock, Globe, Copy, Check } from 'lucide-react';
 import { appService } from '@/lib/appService';
 import { AppCard } from '@/components/AppCard';
 import { AppEditDialog } from '@/components/AppEditDialog';
@@ -46,6 +46,25 @@ export function AppManagement() {
     }
   };
 
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopyLink = (appId: string) => {
+    const url = `${window.location.origin}/run/${appId}`;
+    navigator.clipboard.writeText(url);
+    setCopiedId(appId);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const handleTogglePrivate = async (app: HostedApp) => {
+    try {
+      const updated = await appService.togglePrivate(app.id, !app.is_private);
+      setApps(apps.map((a) => (a.id === app.id ? updated : a)));
+      toast.success(updated.is_private ? '已设为私密链接' : '已改为公开，等待审核');
+    } catch {
+      toast.error('操作失败，请重试');
+    }
+  };
+
   const handleResubmit = async (app: HostedApp) => {
     try {
       const updated = await appService.resubmitApp(app.id);
@@ -58,6 +77,7 @@ export function AppManagement() {
   };
 
   const statusLabel = (app: HostedApp) => {
+    if (app.is_private) return { text: '私密链接', cls: 'text-purple-600' };
     if (app.status === 'approved') return { text: '已通过 · 展示中', cls: 'text-green-600' };
     if (app.status === 'rejected') return { text: '已拒绝', cls: 'text-red-600' };
     return { text: '审核中', cls: 'text-yellow-600' };
@@ -118,19 +138,44 @@ export function AppManagement() {
                     onDelete={handleDelete}
                   />
                   <div className="mt-2 space-y-2">
-                    <p className={`text-sm font-medium ${status.cls}`}>
-                      状态：{status.text}
-                    </p>
+                    <div className="flex items-center justify-between">
+                      <p className={`text-sm font-medium ${status.cls}`}>
+                        {app.is_private && <Lock className="inline w-3.5 h-3.5 mr-1 -mt-0.5" />}
+                        状态：{status.text}
+                      </p>
+                      {/* 复制链接按钮 */}
+                      <button
+                        onClick={() => handleCopyLink(app.id)}
+                        className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {copiedId === app.id
+                          ? <><Check className="w-3.5 h-3.5 text-green-500" /><span className="text-green-500">已复制</span></>
+                          : <><Copy className="w-3.5 h-3.5" />复制链接</>
+                        }
+                      </button>
+                    </div>
+
+                    {/* 私密 / 公开切换 */}
+                    <button
+                      onClick={() => handleTogglePrivate(app)}
+                      className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {app.is_private
+                        ? <><Globe className="w-3.5 h-3.5" />改为公开展示</>
+                        : <><Lock className="w-3.5 h-3.5" />改为私密链接</>
+                      }
+                    </button>
+
                     {/* GitHub 同步状态 */}
                     {app.github_url && (
-                      <p className="flex items-center gap-1 text-xs text-gray-500">
+                      <p className="flex items-center gap-1 text-xs text-muted-foreground">
                         <Github className="w-3.5 h-3.5 shrink-0" />
                         {app.github_synced_at
                           ? `GitHub 同步：${formatSyncTime(app.github_synced_at)}`
                           : 'GitHub 已连接，等待首次同步'}
                       </p>
                     )}
-                    {app.status === 'rejected' && (
+                    {app.status === 'rejected' && !app.is_private && (
                       <>
                         {app.review_note && (
                           <p className="text-xs text-red-500 bg-red-50 rounded p-2">
