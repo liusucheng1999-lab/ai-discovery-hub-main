@@ -143,4 +143,4 @@ Vercel 需配置以下环境变量：
 
 ## License
 
-MIT
+[CC BY-NC 4.0](LICENSE) · 可学习参考和二次开发，**不可用于商业用途**。
