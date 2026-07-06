@@ -320,6 +320,52 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
                 发布时会自动从 GitHub 拉取一次内容。之后每次你推送代码，
                 用上方提示词让 AI 配置好 GitHub Actions，网站就会自动同步最新版本。
               </p>
+
+              {/* 多文件提示 */}
+              <div className="rounded-lg border border-border overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setShowInlineTip((v) => !v)}
+                  className="w-full flex items-center justify-between px-3 py-2.5 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
+                >
+                  <span>📁 仓库里有单独的 CSS / JS 文件？点此查看处理方法</span>
+                  {showInlineTip
+                    ? <ChevronUp className="w-3.5 h-3.5 shrink-0" />
+                    : <ChevronDown className="w-3.5 h-3.5 shrink-0" />
+                  }
+                </button>
+                {showInlineTip && (
+                  <div className="border-t border-border">
+                    <p className="px-3 pt-3 pb-2 text-xs text-muted-foreground leading-relaxed">
+                      GitHub 同步只拉取你填写的那一个 <strong>.html</strong> 文件，不会拉取同目录下的 CSS / JS。
+                      建议让 AI 把所有样式和脚本内联进 HTML，变成一个独立文件再同步。
+                      复制下方提示词，把你的代码一起发给 AI 即可：
+                    </p>
+                    <div className="mx-3 mb-3 rounded-lg border border-border bg-muted/40 overflow-hidden">
+                      <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-muted/60">
+                        <span className="text-xs font-medium text-foreground">🤖 AI 内联提示词</span>
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            await navigator.clipboard.writeText(INLINE_PROMPT);
+                            setCopiedInline(true);
+                            setTimeout(() => setCopiedInline(false), 2000);
+                          }}
+                          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          {copiedInline
+                            ? <><Check className="w-3.5 h-3.5 text-green-500" /><span className="text-green-500">已复制</span></>
+                            : <><Copy className="w-3.5 h-3.5" />复制提示词</>
+                          }
+                        </button>
+                      </div>
+                      <p className="p-3 text-xs text-muted-foreground leading-relaxed whitespace-pre-wrap select-none">
+                        {INLINE_PROMPT}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
