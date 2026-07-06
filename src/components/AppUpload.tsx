@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, X, Github, Copy, Check, Lock, Globe } from 'lucide-react';
+import { Upload, X, Github, Copy, Check, Lock, Globe, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -25,6 +25,16 @@ function extractRepoUrl(url: string): string {
   const m = url.match(/https:\/\/github\.com\/([^/]+\/[^/]+)/);
   return m ? `https://github.com/${m[1]}` : '你的 GitHub 仓库';
 }
+
+/** 生成内联提示词（把多文件项目合并成单 HTML） */
+const INLINE_PROMPT = `我有一个网页项目，包含多个文件（HTML + CSS + JS）。请帮我把它们合并成一个可以独立运行的单 HTML 文件：
+
+1. 把所有 CSS 样式移入 <style> 标签（放在 <head> 内）
+2. 把所有 JavaScript 代码移入 <script> 标签（放在 </body> 前）
+3. 保持所有功能、样式完全不变
+4. 确保合并后的文件可以直接在浏览器中双击打开运行
+
+请把合并后的完整 HTML 代码输出给我，我会保存为 .html 文件上传。`;
 
 /** 生成 AI 提示词 */
 function buildAiPrompt(githubUrl: string, appId?: string) {
@@ -72,6 +82,8 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
   const [githubUrl, setGithubUrl] = useState('');
   const [githubUrlError, setGithubUrlError] = useState('');
   const [copied, setCopied] = useState(false);
+  const [copiedInline, setCopiedInline] = useState(false);
+  const [showInlineTip, setShowInlineTip] = useState(false);
 
   // 通用
   const [name, setName] = useState('');
@@ -202,6 +214,54 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
                     onClick={() => document.getElementById('file-input')?.click()}>
                     选择文件
                   </Button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ── 多文件提示（上传模式）─────────────── */}
+          {mode === 'file' && (
+            <div className="rounded-lg border border-border overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setShowInlineTip((v) => !v)}
+                className="w-full flex items-center justify-between px-3 py-2.5 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
+              >
+                <span>📁 有单独的 CSS / JS 文件？点此查看处理方法</span>
+                {showInlineTip
+                  ? <ChevronUp className="w-3.5 h-3.5 shrink-0" />
+                  : <ChevronDown className="w-3.5 h-3.5 shrink-0" />
+                }
+              </button>
+              {showInlineTip && (
+                <div className="border-t border-border">
+                  <p className="px-3 pt-3 pb-2 text-xs text-muted-foreground leading-relaxed">
+                    本平台支持单个 <strong>.html</strong> 文件或打包好的 <strong>.zip</strong>。
+                    如果你的项目有独立的 CSS / JS 文件，可以让 AI 帮你把它们内联合并成一个 HTML，
+                    再上传。复制下方提示词，把你的代码一起发给 AI 即可：
+                  </p>
+                  <div className="mx-3 mb-3 rounded-lg border border-border bg-muted/40 overflow-hidden">
+                    <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-muted/60">
+                      <span className="text-xs font-medium text-foreground">🤖 AI 内联提示词</span>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          await navigator.clipboard.writeText(INLINE_PROMPT);
+                          setCopiedInline(true);
+                          setTimeout(() => setCopiedInline(false), 2000);
+                        }}
+                        className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {copiedInline
+                          ? <><Check className="w-3.5 h-3.5 text-green-500" /><span className="text-green-500">已复制</span></>
+                          : <><Copy className="w-3.5 h-3.5" />复制提示词</>
+                        }
+                      </button>
+                    </div>
+                    <p className="p-3 text-xs text-muted-foreground leading-relaxed whitespace-pre-wrap select-none">
+                      {INLINE_PROMPT}
+                    </p>
+                  </div>
                 </div>
               )}
             </div>
