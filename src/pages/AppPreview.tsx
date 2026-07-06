@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { appService } from '@/lib/appService';
 import { Code2, X, Copy, Check, Download } from 'lucide-react';
 import type { HostedApp } from '@/types/app';
@@ -74,6 +75,16 @@ export function AppPreview() {
 
   return (
     <div className="fixed inset-0 z-[100] bg-white">
+      <Helmet>
+        <title>{app?.name ? `${app.name} - AI创客社区` : 'AI创客社区'}</title>
+        <meta name="description" content={app?.description ? `${app.description} - 在AI创客社区免费体验，点开即玩无需安装。` : '在AI创客社区免费体验 AI 创意应用，点开即玩无需安装。'} />
+        <meta property="og:title" content={app?.name ? `${app.name} - AI创客社区` : 'AI创客社区'} />
+        <meta property="og:description" content={app?.description || '在AI创客社区免费体验 AI 创意应用，点开即玩无需安装。'} />
+        {app?.cover_image_url && <meta property="og:image" content={app.cover_image_url} />}
+        <meta property="og:url" content={`https://aimakerbox.com/run/${id}`} />
+        <link rel="canonical" href={`https://aimakerbox.com/run/${id}`} />
+      </Helmet>
+
       {/* ── 全屏应用 ── */}
       <iframe
         srcDoc={appHtml}

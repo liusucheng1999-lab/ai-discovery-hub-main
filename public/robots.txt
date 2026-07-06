@@ -1,32 +1,17 @@
 User-agent: *
 Allow: /
 
-# 允许抓取课程与分类页面
-Allow: /knowledge
-Allow: /knowledge/course/
-Allow: /ai-writing
-Allow: /ai-drawing
-Allow: /ai-office
-Allow: /ai-video
-Allow: /ai-code
-
-# 允许抓取工具页面
-Allow: /tool/
-
-# 禁止抓取管理页面
-Disallow: /admin/
+# 禁止抓取管理和账户页面
+Disallow: /admin
 Disallow: /login
 Disallow: /setup-admin
 Disallow: /create-admin
-Disallow: /tools/submit
+Disallow: /my-apps
+Disallow: /publish
+Disallow: /app-review
 
-# 禁止抓取API和静态资源
+# 禁止抓取 API 接口
 Disallow: /api/
-Disallow: /_next/
-Disallow: /static/
 
-# 站点地图
-Sitemap: https://aimakerbox.com/sitemap.xml
-
-# 爬取延迟（可选）
-Crawl-delay: 1
+# 站点地图（动态生成，包含所有公开应用页面）
+Sitemap: https://aimakerbox.com/api/sitemap

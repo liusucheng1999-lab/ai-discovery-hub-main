@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Sparkles, Zap, Users } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import { appService } from '@/lib/appService';
 import { AppCard } from '@/components/AppCard';
 import { Button } from '@/components/ui/button';
@@ -47,6 +48,16 @@ export function PublishedApps() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>AI创客社区 - 发现和分享 AI 创意应用，点开即玩</title>
+        <meta name="description" content="发现 AI 创作者做的精彩工具和应用，免费使用，无需安装。也可以免费托管你的 AI HTML 应用，一个链接分享给所有人。" />
+        <meta name="keywords" content="AI应用,AI工具,HTML应用托管,AI创客,免费AI工具,AI创意" />
+        <meta property="og:title" content="AI创客社区 - 发现和分享 AI 创意应用" />
+        <meta property="og:description" content="发现 AI 创作者做的精彩工具和应用，免费使用，无需安装。免费托管你的 AI 应用，一个链接分享给所有人。" />
+        <meta property="og:url" content="https://aimakerbox.com/" />
+        <link rel="canonical" href="https://aimakerbox.com/" />
+      </Helmet>
+
       {/* ══ Hero ════════════════════════════════════════════════════ */}
       <div className="relative pt-24 pb-16 px-4 overflow-hidden">
         {/* 背景装饰 */}
