@@ -20,12 +20,6 @@ interface AppUploadProps {
 
 type Mode = 'file' | 'github';
 
-/** 从 GitHub 文件 URL 中提取仓库地址 */
-function extractRepoUrl(url: string): string {
-  const m = url.match(/https:\/\/github\.com\/([^/]+\/[^/]+)/);
-  return m ? `https://github.com/${m[1]}` : '你的 GitHub 仓库';
-}
-
 /** 生成内联提示词（把多文件项目合并成单 HTML） */
 const INLINE_PROMPT = `我有一个网页项目，包含多个文件（HTML + CSS + JS）。请帮我把它们合并成一个可以独立运行的单 HTML 文件：
 
@@ -35,41 +29,6 @@ const INLINE_PROMPT = `我有一个网页项目，包含多个文件（HTML + CS
 4. 确保合并后的文件可以直接在浏览器中双击打开运行
 
 请把合并后的完整 HTML 代码输出给我，我会保存为 .html 文件上传。`;
-
-/** 生成 AI 提示词 */
-function buildAiPrompt(githubUrl: string, appId?: string) {
-  const repoUrl = extractRepoUrl(githubUrl);
-  const syncUrl = appId
-    ? `https://aimakerbox.com/api/sync-app?app_id=${appId}`
-    : 'https://aimakerbox.com/api/sync-app?app_id=（发布后获取）';
-
-  return `请帮我在 GitHub 仓库 ${repoUrl} 中创建一个 GitHub Actions workflow 文件，实现每次推送代码后自动同步到 AI创客社区网站。
-
-请创建以下文件：
-文件路径：.github/workflows/sync-to-aimakerbox.yml
-文件内容：
-\`\`\`yaml
-name: 同步到 AI创客社区
-on:
-  push:
-    branches: [main]
-
-jobs:
-  sync:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 触发同步
-        run: |
-          curl -s -X POST "${syncUrl}"
-\`\`\`
-
-操作步骤：
-1. 在仓库根目录创建 .github/workflows/ 文件夹（如果不存在）
-2. 创建 sync-to-aimakerbox.yml 文件，填入上面的内容
-3. 提交并推送到主分支（main 或 master）
-
-完成后，每次我向这个仓库推送代码，网站上的应用就会自动更新为最新内容。`;
-}
 
 export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
   const [mode, setMode] = useState<Mode>('file');
@@ -81,7 +40,6 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
   // GitHub 模式
   const [githubUrl, setGithubUrl] = useState('');
   const [githubUrlError, setGithubUrlError] = useState('');
-  const [copied, setCopied] = useState(false);
   const [copiedInline, setCopiedInline] = useState(false);
   const [showInlineTip, setShowInlineTip] = useState(false);
 
@@ -118,12 +76,6 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
     } else {
       setGithubUrlError('');
     }
-  };
-
-  const handleCopyPrompt = async () => {
-    await navigator.clipboard.writeText(buildAiPrompt(githubUrl));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
 
   const canSubmit = !!name.trim() && !githubUrlError && (
@@ -295,30 +247,9 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
                 {githubUrlError && <p className="text-xs text-destructive mt-1.5">{githubUrlError}</p>}
               </div>
 
-              {/* AI 提示词（链接合法时显示） */}
-              {githubUrl && !githubUrlError && (
-                <div className="rounded-lg border border-border bg-muted/40 overflow-hidden">
-                  <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-muted/60">
-                    <span className="text-xs font-medium text-foreground">
-                      🤖 发布后，把下方提示词发给 AI，让它帮你配置自动同步
-                    </span>
-                    <button type="button" onClick={handleCopyPrompt}
-                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors">
-                      {copied
-                        ? <><Check className="w-3.5 h-3.5 text-green-500" /><span className="text-green-500">已复制</span></>
-                        : <><Copy className="w-3.5 h-3.5" />复制提示词</>
-                      }
-                    </button>
-                  </div>
-                  <p className="p-3 text-xs text-muted-foreground leading-relaxed line-clamp-4 select-none">
-                    {buildAiPrompt(githubUrl)}
-                  </p>
-                </div>
-              )}
-
               <p className="text-xs text-muted-foreground">
-                发布时会自动从 GitHub 拉取一次内容。之后每次你推送代码，
-                用上方提示词让 AI 配置好 GitHub Actions，网站就会自动同步最新版本。
+                发布时会自动从 GitHub 拉取一次内容。应用创建成功后，会弹出包含应用 ID 的提示词，
+                复制给 AI 配置 GitHub Actions 后，之后每次推送代码都会自动同步最新版本。
               </p>
 
               {/* 多文件提示 */}

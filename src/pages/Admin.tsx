@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
-import { Check, X, Eye, ExternalLink, Bot, AlertCircle, Star, Copy, Calendar, Clock, Play, Trash2, Filter, BookOpen, Save, Upload, Plus, Edit2 } from "lucide-react";
+import { Check, X, Eye, ExternalLink, Bot, AlertCircle, Star, Copy, Calendar, Clock, Play, Trash2, Filter } from "lucide-react";
 import { getToolLogo, getFallbackLogo } from "@/lib/logo-utils";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
@@ -30,16 +30,6 @@ interface ToolSubmission {
 
 interface AIReviewCache {
   [toolId: string]: AIReviewResult;
-}
-
-// 课程信息接口
-interface CourseInfo {
-  id: string;
-  title: string;
-  description: string;
-  cover_url: string | null;
-  lesson_count: number;
-  updated_at: string;
 }
 
 export default function Admin() {

@@ -16,7 +16,6 @@ import { PublishedApps } from "./pages/PublishedApps";
 
 const Index = lazy(() => import("./pages/Index"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
-const CourseDetailPage = lazy(() => import("./pages/CourseDetailPage"));
 const ToolDetailPage = lazy(() => import("./pages/ToolDetailPage"));
 const SubmitTool = lazy(() => import("./pages/SubmitTool"));
 const Login = lazy(() => import("./pages/Login"));
@@ -25,7 +24,6 @@ const CreateAdmin = lazy(() => import("./pages/CreateAdmin"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Analytics = lazy(() => import("./pages/Analytics"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-const Knowledge = lazy(() => import("./pages/Knowledge"));
 const Resources = lazy(() => import("./pages/Resources"));
 const ResourceDetailPage = lazy(() => import("./pages/ResourceDetailPage"));
 const PublishApp = lazy(() => import("./pages/PublishApp").then((m) => ({ default: m.PublishApp })));
@@ -78,9 +76,6 @@ const App = () => {
                         <Route path="/app-review" element={<ProtectedRoute requireAdmin><AppReview /></ProtectedRoute>} />
                         <Route path="/analytics" element={<ProtectedRoute requireAdmin><Analytics /></ProtectedRoute>} />
 
-                        <Route path="/knowledge" element={<Knowledge />} />
-                        <Route path="/knowledge/course/:courseId" element={<CourseDetailPage />} />
-                        <Route path="/knowledge/course/:courseId/lesson/:lessonId" element={<CourseDetailPage />} />
                         <Route path="/resources" element={<Resources />} />
                         <Route path="/resources/:resourceId" element={<ResourceDetailPage />} />
 
