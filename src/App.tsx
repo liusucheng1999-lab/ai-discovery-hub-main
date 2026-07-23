@@ -28,7 +28,6 @@ const Resources = lazy(() => import("./pages/Resources"));
 const ResourceDetailPage = lazy(() => import("./pages/ResourceDetailPage"));
 const PublishApp = lazy(() => import("./pages/PublishApp").then((m) => ({ default: m.PublishApp })));
 const AppPreview = lazy(() => import("./pages/AppPreview").then((m) => ({ default: m.AppPreview })));
-const AppManagement = lazy(() => import("./pages/AppManagement").then((m) => ({ default: m.AppManagement })));
 const AppReview = lazy(() => import("./pages/AppReview").then((m) => ({ default: m.AppReview })));
 
 const queryClient = new QueryClient();
@@ -81,7 +80,7 @@ const App = () => {
 
                         <Route path="/publish" element={<ProtectedRoute><PublishApp /></ProtectedRoute>} />
                         <Route path="/run/:id" element={<AppPreview />} />
-                        <Route path="/my-apps" element={<ProtectedRoute><AppManagement /></ProtectedRoute>} />
+                        <Route path="/my-apps" element={<Navigate to="/?tab=my-apps" replace />} />
 
                         <Route path="*" element={<NotFound />} />
                       </Routes>

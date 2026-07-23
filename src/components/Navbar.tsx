@@ -37,7 +37,9 @@ export default function Navbar() {
 
         <nav className="flex items-center gap-1">
           {tabs.map((t) => {
-            const isActive = location.pathname === t.to;
+            const isActive = t.to === "/"
+              ? location.pathname === "/"
+              : location.pathname === t.to;
             return (
               <Link
                 key={t.to}
@@ -64,12 +66,6 @@ export default function Navbar() {
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 发布应用
-              </Link>
-              <Link
-                to="/my-apps"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                我的应用
               </Link>
               {isAdmin && (
                 <>
