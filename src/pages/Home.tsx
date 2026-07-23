@@ -109,7 +109,7 @@ export default function Home() {
         <title>AI创客 - AI创作者的一站式网站</title>
         <meta
           name="description"
-          content="AI创客，为你精选1000+最好用的AI工具，提供最实用的AI课程，帮助每个人真正用好AI。"
+          content="AI创客，为你精选1000+最好用的AI工具和实用AI资源，帮助每个人真正用好AI。"
         />
         <link rel="canonical" href="https://aimakerbox.com/" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -146,8 +146,8 @@ export default function Home() {
                   <a className="am-btn am-btn-primary" href="/tools" rel="nofollow">
                     探索AI工具库
                   </a>
-                  <a className="am-btn am-btn-secondary" href="/knowledge" rel="nofollow">
-                    查看AI课程
+                  <a className="am-btn am-btn-secondary" href="/resources" rel="nofollow">
+                    查看AI资源
                   </a>
                 </div>
 
@@ -166,8 +166,8 @@ export default function Home() {
             <div className="am-container">
               <div className="am-section-head" data-animate>
                 <div className="am-kicker">我们提供什么</div>
-                <h2 className="am-h2">一个平台，覆盖你学习和使用AI的全部需求</h2>
-                <p className="am-lead">从发现工具，到系统学习，到真实落地，AI创客陪你走完全程</p>
+                <h2 className="am-h2">一个平台，覆盖你发现和使用AI的全部需求</h2>
+                <p className="am-lead">从发现工具，到获取资源，到真实落地，AI创客陪你走完全程</p>
               </div>
 
               <div className="am-grid-3">
@@ -202,25 +202,25 @@ export default function Home() {
                   <div className="am-card-icon">
                     <i className="lucide lucide-book-open" aria-hidden="true" />
                   </div>
-                  <h3 className="am-h3">学AI，要学真正能用上的</h3>
+                  <h3 className="am-h3">找资源，要找真正能用上的</h3>
                   <p className="am-text">
-                    没有废话，没有水课。每一节课都围绕"做出来"设计，跟着学完，你能立刻用AI解决实际问题。
+                    收集提示词模板、工具包和学习资料，帮你把好东西直接带进自己的工作流。
                   </p>
                   <ul className="am-list">
                     <li>
-                      <i className="lucide lucide-check" aria-hidden="true" /> 视频课程 + 图文教程
+                      <i className="lucide lucide-check" aria-hidden="true" /> 提示词模板 + 实用工具包
                     </li>
                     <li>
-                      <i className="lucide lucide-check" aria-hidden="true" /> 实操为主，结果导向
+                      <i className="lucide lucide-check" aria-hidden="true" /> 分类清晰，按需查找
                     </li>
                     <li>
-                      <i className="lucide lucide-check" aria-hidden="true" /> 从零基础到能独立完成项目
+                      <i className="lucide lucide-check" aria-hidden="true" /> 围绕真实使用场景整理
                     </li>
                   </ul>
-                  <a className="am-link" href="/knowledge" rel="nofollow">
-                    查看课程 →
+                  <a className="am-link" href="/resources" rel="nofollow">
+                    查看资源 →
                   </a>
-                  <div className="am-tags">#AI绘画 #AI写作 #提示词工程 #AI副业</div>
+                  <div className="am-tags">#提示词 #工具包 #学习资料 #工作流</div>
                 </article>
 
                 <article className="am-card" data-animate>
@@ -418,65 +418,6 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="am-section am-section-lilac" id="courses">
-            <div className="am-container">
-              <div className="am-section-head" data-animate>
-                <div className="am-kicker">AI课程</div>
-                <h2 className="am-h2">不是让你"了解AI"，而是让你"用好AI"</h2>
-                <p className="am-lead">每一节课都围绕实操设计，学完能立刻上手</p>
-              </div>
-
-              <div className="am-grid-2" data-animate>
-                <article className="am-course-card">
-                  <div className="am-course-cover am-course-cover-gradient">
-                    <div className="am-course-play">
-                      <i className="lucide lucide-play" aria-hidden="true" />
-                    </div>
-                  </div>
-                  <div className="am-course-body">
-                    <div className="am-course-status am-status-free">免费</div>
-                    <h3 className="am-course-title">超级个体：AI工具掌控与产品设计指南</h3>
-                    <div className="am-course-meta">🕐 系统课程 · AI实战 · 适合职场人</div>
-                    <p className="am-text">用 AI 把你从「执行者」变成「决策者」。系统化的 AI 实战课程，助你掌握 AI 工具，提升工作效率。</p>
-                    <div className="am-course-learn">学完你能</div>
-                    <ul className="am-list">
-                      <li>建立真正能用上的 AI 底层认知</li>
-                      <li>把 AI 用进写作、分析和日常工作流</li>
-                      <li>从会用工具走向提升效率与决策质量</li>
-                    </ul>
-                    <a className="am-btn am-btn-primary am-btn-block" href="/knowledge" rel="nofollow">
-                      立即学习 →
-                    </a>
-                  </div>
-                </article>
-
-                <article className="am-course-card">
-                  <div className="am-course-cover am-course-cover-upcoming">
-                    <div className="am-course-upcoming">
-                      <i className="lucide lucide-clock" aria-hidden="true" />
-                      即将上线
-                    </div>
-                  </div>
-                  <div className="am-course-body">
-                    <div className="am-course-status am-status-upcoming">即将上线</div>
-                    <h3 className="am-course-title">用AI做副业：0基础月入过万实操</h3>
-                    <div className="am-course-meta">🕐 共8节 · 视频课程 · 实战向</div>
-                    <p className="am-text">从0搭建AI副业工作流，手把手带你实现持续变现</p>
-                    <div className="am-course-learn">学完你能</div>
-                    <ul className="am-list">
-                      <li>搭建完整AI副业工作流</li>
-                      <li>掌握多个可落地的变现方向</li>
-                      <li>实现AI驱动的持续收入</li>
-                    </ul>
-                    <span className="am-btn am-btn-disabled am-btn-block" aria-disabled="true">
-                      敬请期待
-                    </span>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </section>
-
           <section className="am-section" id="projects">
             <div className="am-container">
               <div className="am-section-head" data-animate>
@@ -497,7 +438,7 @@ export default function Home() {
                   <div className="am-mini-icon">⚡</div>
                   <div>
                     <div className="am-mini-title">实用优先，结果导向</div>
-                    <div className="am-mini-text">所有课程和内容围绕"能用上"设计，不讲虚的，只讲能立刻上手的</div>
+                    <div className="am-mini-text">所有工具和资源围绕"能用上"设计，不讲虚的，只讲能立刻上手的</div>
                   </div>
                 </article>
                 <article className="am-mini-card">
@@ -510,8 +451,8 @@ export default function Home() {
                 <article className="am-mini-card">
                   <div className="am-mini-icon">🧩</div>
                   <div>
-                    <div className="am-mini-title">工具+课程+项目，形成完整闭环</div>
-                    <div className="am-mini-text">从发现工具，到系统学习，到真实落地，一个平台走完全程</div>
+                    <div className="am-mini-title">工具+资源+项目，形成完整闭环</div>
+                    <div className="am-mini-text">从发现工具，到获取资源，到真实落地，一个平台走完全程</div>
                   </div>
                 </article>
                 <article className="am-mini-card">
@@ -536,10 +477,10 @@ export default function Home() {
                 </div>
                 <div className="am-stat-sep" aria-hidden="true" />
                 <div className="am-stat">
-                  <div className="am-stat-num" data-count="50+">
+                  <div className="am-stat-num" data-count="100+">
                     0
                   </div>
-                  <div className="am-stat-label">课程内容节数</div>
+                  <div className="am-stat-label">实用AI资源</div>
                 </div>
                 <div className="am-stat-sep" aria-hidden="true" />
                 <div className="am-stat">

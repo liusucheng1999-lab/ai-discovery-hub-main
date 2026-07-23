@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AppUpload } from '@/components/AppUpload';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { appService } from '@/lib/appService';
 import { toast } from 'sonner';
 import { Copy, Check, ArrowRight } from 'lucide-react';
@@ -101,56 +108,7 @@ export function PublishApp() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // 发布成功 + GitHub 模式：显示提示词面板
-  if (successState) {
-    const prompt = buildAiPrompt(successState.githubUrl, successState.appId);
-    return (
-      <div className="pt-20 container mx-auto py-8 px-4">
-        <div className="max-w-2xl mx-auto space-y-6">
-          {/* 成功提示 */}
-          <div className="rounded-2xl border border-green-200 bg-green-50 p-5">
-            <p className="text-green-800 font-semibold text-base mb-1">✅ 应用发布成功！</p>
-            <p className="text-green-700 text-sm">
-              {successState.isPrivate
-                ? '私密应用已创建，可通过链接分享访问。'
-                : '已提交，等待管理员审核通过后即可展示。'}
-            </p>
-          </div>
-
-          {/* AI 提示词面板 */}
-          <div className="rounded-2xl border border-border overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-3 bg-muted/60 border-b border-border">
-              <span className="text-sm font-medium">
-                🤖 把下方提示词发给 AI，让它帮你配置自动同步
-              </span>
-              <button
-                onClick={handleCopy}
-                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {copied
-                  ? <><Check className="w-4 h-4 text-green-500" /><span className="text-green-500">已复制</span></>
-                  : <><Copy className="w-4 h-4" />复制提示词</>
-                }
-              </button>
-            </div>
-            <pre className="p-4 text-xs text-muted-foreground font-mono leading-relaxed whitespace-pre-wrap break-all bg-muted/20 max-h-64 overflow-auto">
-              {prompt}
-            </pre>
-          </div>
-
-          <p className="text-xs text-muted-foreground text-center">
-            提示词里已包含你的应用 ID，复制后发给任意 AI 即可完成配置。
-          </p>
-
-          {/* 跳转按钮 */}
-          <Button className="w-full" onClick={() => navigate('/my-apps')}>
-            前往我的应用
-            <ArrowRight className="w-4 h-4 ml-1.5" />
-          </Button>
-        </div>
-      </div>
-    );
-  }
+  const prompt = successState ? buildAiPrompt(successState.githubUrl, successState.appId) : '';
 
   return (
     <div className="pt-20 container mx-auto py-8 px-4">
@@ -162,6 +120,54 @@ export function PublishApp() {
         </div>
         <AppUpload onSubmit={handleSubmit} isLoading={isLoading} />
       </div>
+
+      <Dialog
+        open={!!successState}
+        onOpenChange={(open) => {
+          if (!open) navigate('/my-apps');
+        }}
+      >
+        <DialogContent className="sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>✅ 应用创建成功</DialogTitle>
+            <DialogDescription>
+              {successState?.isPrivate
+                ? '私密应用已创建，可通过链接分享访问。'
+                : '已提交，等待管理员审核通过后即可展示。'}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="rounded-2xl border border-border overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 bg-muted/60 border-b border-border">
+              <span className="text-sm font-medium">
+                🤖 把下方提示词发给 AI，让它帮你配置自动同步
+              </span>
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {copied
+                  ? <><Check className="w-4 h-4 text-green-500" /><span className="text-green-500">已复制</span></>
+                  : <><Copy className="w-4 h-4" />复制提示词</>
+                }
+              </button>
+            </div>
+            <pre className="p-4 text-xs text-muted-foreground font-mono leading-relaxed whitespace-pre-wrap break-all bg-muted/20 max-h-72 overflow-auto">
+              {prompt}
+            </pre>
+          </div>
+
+          <p className="text-xs text-muted-foreground">
+            提示词里已包含你的应用 ID，复制后发给任意 AI 即可完成配置。
+          </p>
+
+          <Button className="w-full" onClick={() => navigate('/my-apps')}>
+            前往我的应用
+            <ArrowRight className="w-4 h-4 ml-1.5" />
+          </Button>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -9,7 +9,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from 'sonner';
 import type { HostedApp } from '@/types/app';
 
-export function AppManagement() {
+type AppManagementProps = {
+  embedded?: boolean;
+};
+
+export function AppManagement({ embedded = false }: AppManagementProps) {
   const [apps, setApps] = useState<HostedApp[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [editingApp, setEditingApp] = useState<HostedApp | null>(null);
@@ -95,7 +99,7 @@ export function AppManagement() {
   };
 
   return (
-    <div className="pt-20 container mx-auto py-8 px-4">
+    <div className={embedded ? "container mx-auto py-8 px-4" : "pt-20 container mx-auto py-8 px-4"}>
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -103,9 +107,11 @@ export function AppManagement() {
             <p className="text-gray-600">管理你发布的所有应用</p>
           </div>
           <div className="flex gap-2">
-            <Link to="/">
-              <Button variant="outline">🏠 产品社区</Button>
-            </Link>
+            {!embedded && (
+              <Link to="/">
+                <Button variant="outline">🏠 产品社区</Button>
+              </Link>
+            )}
             <Link to="/publish">
               <Button>➕ 发布新应用</Button>
             </Link>
