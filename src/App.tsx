@@ -29,6 +29,7 @@ const ResourceDetailPage = lazy(() => import("./pages/ResourceDetailPage"));
 const PublishApp = lazy(() => import("./pages/PublishApp").then((m) => ({ default: m.PublishApp })));
 const AppPreview = lazy(() => import("./pages/AppPreview").then((m) => ({ default: m.AppPreview })));
 const AppReview = lazy(() => import("./pages/AppReview").then((m) => ({ default: m.AppReview })));
+const ConnectorAuthorize = lazy(() => import("./pages/ConnectorAuthorize"));
 
 const queryClient = new QueryClient();
 
@@ -68,6 +69,7 @@ const App = () => {
                         <Route path="/tool/:toolId" element={<ToolDetailPage />} />
                         <Route path="/tools/submit" element={<SubmitTool />} />
                         <Route path="/login" element={<Login />} />
+                        <Route path="/connector/authorize" element={<ProtectedRoute><ConnectorAuthorize /></ProtectedRoute>} />
 
                         <Route path="/setup-admin" element={<ProtectedRoute requireAdmin><SetupAdmin /></ProtectedRoute>} />
                         <Route path="/create-admin" element={<ProtectedRoute requireAdmin><CreateAdmin /></ProtectedRoute>} />

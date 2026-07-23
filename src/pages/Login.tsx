@@ -33,7 +33,8 @@ export default function Login() {
   const location = useLocation();
 
   const redirectAfter = () => {
-    const from = (location.state as any)?.from?.pathname || "/published-apps";
+    const saved = (location.state as any)?.from;
+    const from = saved ? `${saved.pathname || ''}${saved.search || ''}` : "/published-apps";
     navigate(from, { replace: true });
   };
 
