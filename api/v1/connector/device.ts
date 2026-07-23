@@ -18,6 +18,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
     if (error) throw error;
     return res.status(201).json({
+      connector_version: 1,
       device_code: deviceCode,
       user_code: userCode,
       verification_url: `https://aimakerbox.com/connector/authorize?code=${encodeURIComponent(userCode)}`,
