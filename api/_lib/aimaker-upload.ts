@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { createHash } from 'node:crypto';
 import JSZip from 'jszip';
 
 const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || '';
@@ -22,7 +23,32 @@ export function clients() {
 export async function authenticatedUser(authorization?: string) {
   const token = authorization?.match(/^Bearer\s+(.+)$/i)?.[1];
   if (!token) throw new Error('请先连接 AI 创客账号');
-  const { auth } = clients();
+  const { auth, admin } = clients();
+
+  if (token.startsWith('amk_')) {
+    const tokenHash = createHash('sha256').update(token).digest('hex');
+    const { data: connectorToken, error: connectorError } = await admin
+      .from('ai_connector_tokens')
+      .select('id, user_id, expires_at, revoked_at')
+      .eq('token_hash', tokenHash)
+      .maybeSingle();
+    if (
+      connectorError ||
+      !connectorToken ||
+      connectorToken.revoked_at ||
+      (connectorToken.expires_at && new Date(connectorToken.expires_at) <= new Date())
+    ) {
+      throw new Error('AI 创客连接已失效，请重新连接账号');
+    }
+    const { data: userData, error: userError } = await admin.auth.admin.getUserById(connectorToken.user_id);
+    if (userError || !userData.user) throw new Error('AI 创客用户不存在');
+    await admin
+      .from('ai_connector_tokens')
+      .update({ last_used_at: new Date().toISOString() })
+      .eq('id', connectorToken.id);
+    return userData.user;
+  }
+
   const { data, error } = await auth.auth.getUser(token);
   if (error || !data.user) throw new Error('AI 创客登录已失效，请重新连接账号');
   return data.user;
