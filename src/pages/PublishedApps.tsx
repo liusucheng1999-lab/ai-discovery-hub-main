@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Plus, Rocket, Zap, Users } from 'lucide-react';
+import { Plus, Rocket, Zap, Users, Sparkles, ArrowRight } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { appService } from '@/lib/appService';
 import { AppCard } from '@/components/AppCard';
@@ -116,6 +116,14 @@ export function PublishedApps() {
               </Link>
             )}
           </div>
+          <Link
+            to={isLoggedIn ? '/publish' : '/login'}
+            className="group mt-5 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-background/70 px-3.5 py-2 text-xs text-muted-foreground shadow-sm backdrop-blur transition-colors hover:border-primary/30 hover:text-foreground"
+          >
+            <Sparkles className="h-3.5 w-3.5 text-primary" />
+            <span><strong className="font-semibold text-foreground">新功能：</strong>用 Codex 一键构建并发布，无需 GitHub</span>
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </Link>
         </div>
       </div>
 
