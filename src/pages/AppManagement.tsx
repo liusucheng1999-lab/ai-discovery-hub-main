@@ -101,22 +101,22 @@ export function AppManagement({ embedded = false }: AppManagementProps) {
   return (
     <div className={embedded ? "container mx-auto py-8 px-4" : "pt-20 container mx-auto py-8 px-4"}>
       <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">我的应用</h1>
-            <p className="text-gray-600">管理你发布的所有应用</p>
-          </div>
-          <div className="flex gap-2">
-            {!embedded && (
+        {!embedded && (
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">我的应用</h1>
+              <p className="text-gray-600">管理你发布的所有应用</p>
+            </div>
+            <div className="flex gap-2">
               <Link to="/">
                 <Button variant="outline">🏠 产品社区</Button>
               </Link>
-            )}
-            <Link to="/publish">
-              <Button>➕ 发布新应用</Button>
-            </Link>
+              <Link to="/publish">
+                <Button>➕ 发布新应用</Button>
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
 
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

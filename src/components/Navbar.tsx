@@ -61,12 +61,6 @@ export default function Navbar() {
 
           {isLoggedIn ? (
             <>
-              <Link
-                to="/publish"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                发布应用
-              </Link>
               {isAdmin && (
                 <>
                   <Link

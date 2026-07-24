@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Upload, X, Github, Copy, Check, Lock, Globe, ChevronDown, ChevronUp } from 'lucide-react';
+import {
+  Upload, X, Github, Copy, Check, Lock, Globe, ChevronDown, ChevronUp,
+  Sparkles, ShieldCheck, Zap, Download, Puzzle,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -18,7 +21,9 @@ interface AppUploadProps {
   isLoading?: boolean;
 }
 
-type Mode = 'file' | 'github';
+type Mode = 'file' | 'codex' | 'github';
+
+const CODEX_PUBLISH_PROMPT = '使用 AI 创客插件，把当前项目构建并发布为私密应用。';
 
 /** 生成内联提示词（把多文件项目合并成单 HTML） */
 const INLINE_PROMPT = `我有一个网页项目，包含多个文件（HTML + CSS + JS）。请帮我把它们合并成一个可以独立运行的单 HTML 文件：
@@ -41,6 +46,7 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
   const [githubUrl, setGithubUrl] = useState('');
   const [githubUrlError, setGithubUrlError] = useState('');
   const [copiedInline, setCopiedInline] = useState(false);
+  const [copiedCodex, setCopiedCodex] = useState(false);
   const [showInlineTip, setShowInlineTip] = useState(false);
 
   // 通用
@@ -78,7 +84,7 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
     }
   };
 
-  const canSubmit = !!name.trim() && !githubUrlError && (
+  const canSubmit = mode !== 'codex' && !!name.trim() && !githubUrlError && (
     mode === 'file' ? !!file : !!githubUrl.trim()
   );
 
@@ -99,13 +105,13 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
     <Card className="w-full">
       <CardHeader>
         <CardTitle>发布应用</CardTitle>
-        <CardDescription>上传 HTML 文件，或连接 GitHub 仓库自动同步</CardDescription>
+        <CardDescription>选择适合你的方式，把作品发布到 AI 创客</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
 
           {/* ── 模式切换 ──────────────────────────── */}
-          <div className="grid grid-cols-2 gap-2 p-1 bg-muted rounded-xl">
+          <div className="grid grid-cols-3 gap-2 p-1 bg-muted rounded-xl">
             <button
               type="button"
               onClick={() => setMode('file')}
@@ -117,6 +123,21 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
             >
               <Upload className="w-4 h-4" />
               上传文件
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode('codex')}
+              className={`relative flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                mode === 'codex'
+                  ? 'bg-background shadow text-primary'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <Sparkles className="w-4 h-4" />
+              Codex 一键发布
+              <span className="absolute -top-2 -right-1 rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-semibold leading-none text-primary-foreground">
+                推荐
+              </span>
             </button>
             <button
               type="button"
@@ -132,6 +153,90 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
             </button>
           </div>
 
+          {mode === 'codex' && (
+            <div className="overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-background to-background">
+              <div className="border-b border-primary/10 p-5 sm:p-6">
+                <div className="mb-3 flex items-center gap-2">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                    <Sparkles className="h-4 w-4" />
+                  </span>
+                  <div>
+                    <h3 className="font-semibold text-foreground">不用打包，不用 GitHub</h3>
+                    <p className="text-xs text-muted-foreground">让 Codex 自动构建、上传并返回链接</p>
+                  </div>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {[
+                    ['1', '连接账号', '在 Codex 中连接你的 AI 创客账号'],
+                    ['2', '发送指令', '告诉 Codex 发布当前项目'],
+                    ['3', '获得链接', '自动完成构建、上传和验证'],
+                  ].map(([step, title, text]) => (
+                    <div key={step} className="rounded-xl border border-border/70 bg-background/80 p-3">
+                      <div className="mb-2 flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
+                        {step}
+                      </div>
+                      <p className="text-sm font-medium text-foreground">{title}</p>
+                      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{text}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-5">
+                  <p className="mb-3 text-sm font-medium text-foreground">先下载 AI 创客发布工具</p>
+                  <div>
+                    <a
+                      href="/downloads/ai-maker-codex-plugin.zip"
+                      download
+                      className="group flex items-center gap-3 rounded-xl border border-primary/25 bg-primary/5 p-4 transition-colors hover:border-primary/50 hover:bg-primary/10"
+                    >
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                        <Puzzle className="h-5 w-5" />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm font-semibold text-foreground">下载完整 Codex 插件</span>
+                        <span className="mt-0.5 block text-xs text-muted-foreground">包含 MCP、Skill 和运行依赖 · 约 5 MB</span>
+                      </span>
+                      <Download className="h-4 w-4 shrink-0 text-primary transition-transform group-hover:translate-y-0.5" />
+                    </a>
+                  </div>
+                  <div className="mt-3 rounded-lg border border-border/70 bg-background/70 px-3 py-2.5 text-xs leading-relaxed text-muted-foreground">
+                    下载完整插件后解压，把插件文件夹交给 Codex 并说“请安装这个本地插件”。安装完成后新建任务，再连接 AI 创客账号。
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3 p-5 sm:p-6">
+                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  <Zap className="h-4 w-4 text-primary" />
+                  把这句话发给 Codex
+                </div>
+                <div className="flex flex-col gap-2 rounded-xl border border-border bg-muted/40 p-3 sm:flex-row sm:items-center">
+                  <code className="flex-1 whitespace-normal text-sm text-foreground">{CODEX_PUBLISH_PROMPT}</code>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={async () => {
+                      await navigator.clipboard.writeText(CODEX_PUBLISH_PROMPT);
+                      setCopiedCodex(true);
+                      setTimeout(() => setCopiedCodex(false), 2000);
+                    }}
+                  >
+                    {copiedCodex ? <Check className="mr-1.5 h-4 w-4 text-green-500" /> : <Copy className="mr-1.5 h-4 w-4" />}
+                    {copiedCodex ? '已复制' : '复制指令'}
+                  </Button>
+                </div>
+                <div className="flex items-start gap-2 rounded-lg bg-muted/40 px-3 py-2.5 text-xs leading-relaxed text-muted-foreground">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  首次使用时，Codex 会打开 AI 创客授权页。你确认后即可长期快捷发布，插件不会获取你的密码。
+                </div>
+              </div>
+            </div>
+          )}
+
+          {mode !== 'codex' && (
+            <>
           {/* ── 上传文件模式 ──────────────────────── */}
           {mode === 'file' && (
             <div
@@ -389,6 +494,8 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
           <p className="text-xs text-center text-muted-foreground -mt-3">
             提交后需管理员审核通过，才会在产品社区展示
           </p>
+            </>
+          )}
         </form>
       </CardContent>
     </Card>
