@@ -1,5 +1,9 @@
 {
   "rewrites": [
+    {
+      "source": "/api/v1/apps/:appId/deploy",
+      "destination": "/api/v1/apps-deploy?appId=:appId"
+    },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
