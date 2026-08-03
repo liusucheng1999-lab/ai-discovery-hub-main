@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { appService } from '@/lib/appService';
+import { safeStorage } from '@/lib/safe-storage';
+import { injectStorageShim, readHostedAppStorageMessage, storageKeyFor } from '@/lib/hosted-app-storage-bridge';
 import { Code2, X, Copy, Check, Download } from 'lucide-react';
 import type { HostedApp } from '@/types/app';
 
@@ -9,11 +11,13 @@ export function AppPreview() {
   const { id } = useParams<{ id: string }>();
   const [app, setApp] = useState<HostedApp | null>(null);
   const [appHtml, setAppHtml] = useState<string | null>(null);
+  const [renderHtml, setRenderHtml] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const [showSource, setShowSource] = useState(false);
   const [copied, setCopied] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
     const loadApp = async () => {
@@ -24,6 +28,20 @@ export function AppPreview() {
         setApp(appData);
         const html = await appService.getAppHtmlContent(appData.app_file_path, appData.updated_at);
         setAppHtml(html);
+
+        // 给托管应用注入一个 localStorage 的 shim：读写都落在这份从父页面
+        // 恢复出来的内存快照上，写入时再同步回父页面（见下方 message 监听）。
+        // 应用视角看起来就是正常的 localStorage，实际持久化点在访问者浏览器
+        // 里本站自己的 localStorage（按 appId 隔离），不经过任何数据库。
+        let initialData: Record<string, string> = {};
+        try {
+          const raw = safeStorage.getItem(storageKeyFor(id));
+          if (raw) initialData = JSON.parse(raw);
+        } catch {
+          initialData = {};
+        }
+        setRenderHtml(injectStorageShim(html, id, initialData));
+
         void appService.incrementRunCount(id);
       } catch (err) {
         setError(err instanceof Error ? err.message : '加载应用失败');
@@ -32,6 +50,22 @@ export function AppPreview() {
       }
     };
     loadApp();
+  }, [id]);
+
+  useEffect(() => {
+    if (!id) return;
+    const handleMessage = (event: MessageEvent) => {
+      if (!iframeRef.current || event.source !== iframeRef.current.contentWindow) return;
+      const message = readHostedAppStorageMessage(event);
+      if (!message || message.appId !== id) return;
+      try {
+        safeStorage.setItem(storageKeyFor(id), JSON.stringify(message.data));
+      } catch {
+        // ignore
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
   }, [id]);
 
   const handleCopy = async () => {
@@ -63,7 +97,7 @@ export function AppPreview() {
     );
   }
 
-  if (error || !appHtml) {
+  if (error || !renderHtml) {
     return (
       <div className="fixed inset-0 z-[100] flex items-center justify-center bg-white">
         <div className="text-center">
@@ -87,7 +121,8 @@ export function AppPreview() {
 
       {/* ── 全屏应用 ── */}
       <iframe
-        srcDoc={appHtml}
+        ref={iframeRef}
+        srcDoc={renderHtml}
         title={app?.name || '应用'}
         className="w-full h-full border-0"
         sandbox="allow-scripts allow-forms allow-popups allow-modals"

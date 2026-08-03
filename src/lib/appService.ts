@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
 import { processUploadedFile, getContentType } from './fileService';
+import { prepareHostedAppHtml } from './hosted-app-html';
 import type { HostedApp, CreateAppInput, UpdateAppInput, AppUploadResponse } from '../types/app';
 
 // ─── GitHub URL 工具函数 ──────────────────────────────────────────────────────
@@ -433,21 +434,11 @@ export const appService = {
 
     // 用 TextDecoder 强制以 UTF-8 解码，避免中文乱码
     const buffer = await res.arrayBuffer();
-    let html = new TextDecoder('utf-8').decode(buffer);
+    const html = new TextDecoder('utf-8').decode(buffer);
 
-    // 注入 <base> 标签（如果还没有）
-    if (!/<base\s/i.test(html)) {
-      const baseTag = `<base href="${baseHref}">`;
-      if (/<head[^>]*>/i.test(html)) {
-        html = html.replace(/<head[^>]*>/i, (m) => `${m}\n${baseTag}`);
-      } else if (/<html[^>]*>/i.test(html)) {
-        html = html.replace(/<html[^>]*>/i, (m) => `${m}\n<head>${baseTag}</head>`);
-      } else {
-        html = `${baseTag}\n${html}`;
-      }
-    }
-
-    return html;
+    // srcDoc 中 `/assets/...` 会错误地指向 aimakerbox.com 根目录。
+    // 除了注入 <base>，还需将入口 HTML 内的根相对 URL 映射到应用的 Storage 目录。
+    return prepareHostedAppHtml(html, baseHref);
   },
 
   // 切换私密 / 公开状态
