@@ -83,7 +83,12 @@ async function processHtmlFile(file: File): Promise<{
   const fileInfo: FileInfo = {
     name: file.name,
     content: file,
-    path: file.name,
+    // Storage object keys reject some otherwise-valid local filename characters
+    // (for example Chinese characters, spaces, and parentheses). A standalone
+    // HTML file has no sibling assets whose relative paths need preserving, so
+    // use a stable, storage-safe entry name while retaining the original name
+    // above for display and content-type detection.
+    path: 'index.html',
   };
 
   return {
