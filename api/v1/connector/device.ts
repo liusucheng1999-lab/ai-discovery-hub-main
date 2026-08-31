@@ -4,6 +4,22 @@ import { clients } from '../../_lib/aimaker-upload.js';
 
 const hash = (value: string) => createHash('sha256').update(value).digest('hex');
 
+function connectorErrorDetails(error: unknown) {
+  if (error instanceof Error) {
+    return { message: error.message, stack: error.stack };
+  }
+  if (error && typeof error === 'object') {
+    const value = error as Record<string, unknown>;
+    return {
+      code: value.code,
+      message: value.message,
+      details: value.details,
+      hint: value.hint,
+    };
+  }
+  return { message: String(error) };
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   try {
@@ -26,6 +42,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       interval: 2,
     });
   } catch (error) {
-    return res.status(500).json({ error: error instanceof Error ? error.message : '无法创建连接请求' });
+    const details = connectorErrorDetails(error);
+    console.error('[connector/device] failed to create device code', details);
+    return res.status(500).json({
+      error: '无法创建连接请求',
+      code: typeof details.code === 'string' ? details.code : 'CONNECTOR_DEVICE_CREATE_FAILED',
+    });
   }
 }
