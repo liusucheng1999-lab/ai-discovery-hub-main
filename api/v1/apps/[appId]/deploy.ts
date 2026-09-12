@@ -3,11 +3,10 @@ import {
   appUrl,
   authenticatedUser,
   clients,
+  consumeStagedArchive,
   extractArchive,
   uploadFiles,
 } from '../../../_lib/aimaker-upload.js';
-
-export const config = { api: { bodyParser: { sizeLimit: '25mb' } } };
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -15,8 +14,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const user = await authenticatedUser(req.headers.authorization);
     const appId = String(req.query.appId || '');
+    const archivePath = req.body?.archive_path;
     const archiveBase64 = req.body?.archive_base64;
-    if (!appId || typeof archiveBase64 !== 'string') {
+    if (!appId || (typeof archivePath !== 'string' && typeof archiveBase64 !== 'string')) {
       return res.status(400).json({ error: '缺少应用 ID 或发布包' });
     }
 
@@ -29,7 +29,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       .single();
     if (appError || !app) return res.status(404).json({ error: '没有找到属于当前用户的应用' });
 
-    const files = await extractArchive(archiveBase64);
+    const files = typeof archivePath === 'string'
+      ? await consumeStagedArchive(user.id, archivePath)
+      : await extractArchive(archiveBase64);
     await uploadFiles(user.id, app.id, files);
     const { error: updateError } = await admin
       .from('hosted_apps')

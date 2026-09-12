@@ -63,7 +63,10 @@ function safePath(path: string) {
 }
 
 export async function extractArchive(archiveBase64: string) {
-  const archive = Buffer.from(archiveBase64, 'base64');
+  return extractArchiveBuffer(Buffer.from(archiveBase64, 'base64'));
+}
+
+export async function extractArchiveBuffer(archive: Buffer) {
   if (!archive.length || archive.length > MAX_ARCHIVE_BYTES) {
     throw new Error('发布包为空或超过 18 MB 限制');
   }
@@ -88,6 +91,23 @@ export async function extractArchive(archiveBase64: string) {
     throw new Error('发布包根目录缺少 index.html');
   }
   return files;
+}
+
+export async function consumeStagedArchive(userId: string, archivePath: string) {
+  const expectedPrefix = `${userId}/_uploads/`;
+  if (!archivePath.startsWith(expectedPrefix) || !archivePath.endsWith('.zip')) {
+    throw new Error('发布包引用无效');
+  }
+
+  const { admin } = clients();
+  const { data, error } = await admin.storage.from('hosted-apps').download(archivePath);
+  if (error || !data) throw new Error(`读取发布包失败：${error?.message || '文件不存在'}`);
+
+  try {
+    return await extractArchiveBuffer(Buffer.from(await data.arrayBuffer()));
+  } finally {
+    await admin.storage.from('hosted-apps').remove([archivePath]);
+  }
 }
 
 function contentType(path: string) {

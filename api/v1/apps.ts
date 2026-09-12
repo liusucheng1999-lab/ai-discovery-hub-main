@@ -3,26 +3,27 @@ import {
   appUrl,
   authenticatedUser,
   clients,
+  consumeStagedArchive,
   extractArchive,
   uploadFiles,
 } from '../_lib/aimaker-upload.js';
-
-export const config = { api: { bodyParser: { sizeLimit: '25mb' } } };
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
     const user = await authenticatedUser(req.headers.authorization);
-    const { name, description = '', is_private = true, archive_base64 } = req.body || {};
+    const { name, description = '', is_private = true, archive_path, archive_base64 } = req.body || {};
     if (typeof name !== 'string' || !name.trim()) {
       return res.status(400).json({ error: '缺少应用名称' });
     }
-    if (typeof archive_base64 !== 'string') {
+    if (typeof archive_path !== 'string' && typeof archive_base64 !== 'string') {
       return res.status(400).json({ error: '缺少发布包' });
     }
 
-    const files = await extractArchive(archive_base64);
+    const files = typeof archive_path === 'string'
+      ? await consumeStagedArchive(user.id, archive_path)
+      : await extractArchive(archive_base64);
     const { admin } = clients();
     const { data: app, error: createError } = await admin
       .from('hosted_apps')
