@@ -1,1 +1,1 @@
-export { default, maxDuration } from './deploy.js';
+export { default } from './deploy.js';
