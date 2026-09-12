@@ -133,17 +133,26 @@ function contentType(path: string) {
 
 export async function uploadFiles(userId: string, appId: string, files: Awaited<ReturnType<typeof extractArchive>>) {
   const { admin } = clients();
-  const uploaded: string[] = [];
-  for (const file of files) {
-    const storagePath = `${userId}/${appId}/${file.path}`;
-    const { error } = await admin.storage.from('hosted-apps').upload(storagePath, file.content, {
-      upsert: true,
-      contentType: file.contentType,
-      cacheControl: '0',
-    });
-    if (error) throw new Error(`上传 ${file.path} 失败：${error.message}`);
-    uploaded.push(storagePath);
+  const uploaded = new Array<string>(files.length);
+  let nextIndex = 0;
+
+  async function uploadNext() {
+    while (nextIndex < files.length) {
+      const index = nextIndex++;
+      const file = files[index];
+      const storagePath = `${userId}/${appId}/${file.path}`;
+      const { error } = await admin.storage.from('hosted-apps').upload(storagePath, file.content, {
+        upsert: true,
+        contentType: file.contentType,
+        cacheControl: '0',
+      });
+      if (error) throw new Error(`上传 ${file.path} 失败：${error.message}`);
+      uploaded[index] = storagePath;
+    }
   }
+
+  const concurrency = Math.min(6, files.length);
+  await Promise.all(Array.from({ length: concurrency }, () => uploadNext()));
   return uploaded;
 }
 
