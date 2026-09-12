@@ -13,8 +13,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const user = await authenticatedUser(req.headers.authorization);
-    const { name, description = '', is_private = true, archive_path, archive_base64 } = req.body || {};
-    if (typeof name !== 'string' || !name.trim()) {
+    const { app_id, name, description = '', is_private = true, archive_path, archive_base64 } = req.body || {};
+    if (!app_id && (typeof name !== 'string' || !name.trim())) {
       return res.status(400).json({ error: '缺少应用名称' });
     }
     if (typeof archive_path !== 'string' && typeof archive_base64 !== 'string') {
@@ -25,6 +25,39 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ? await consumeStagedArchive(user.id, archive_path)
       : await extractArchive(archive_base64);
     const { admin } = clients();
+
+    if (app_id) {
+      const appId = String(app_id);
+      const { data: existingApp, error: appError } = await admin
+        .from('hosted_apps')
+        .select('id, user_id, name, is_private')
+        .eq('id', appId)
+        .eq('user_id', user.id)
+        .single();
+      if (appError || !existingApp) {
+        return res.status(404).json({ error: '没有找到属于当前用户的应用' });
+      }
+
+      await uploadFiles(user.id, existingApp.id, files);
+      const { error: updateError } = await admin
+        .from('hosted_apps')
+        .update({
+          app_file_path: `${user.id}/${existingApp.id}/index.html`,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', existingApp.id)
+        .eq('user_id', user.id);
+      if (updateError) throw new Error(updateError.message);
+
+      return res.json({
+        success: true,
+        app_id: existingApp.id,
+        name: existingApp.name,
+        app_url: appUrl(existingApp.id),
+        is_private: existingApp.is_private,
+      });
+    }
+
     const { data: app, error: createError } = await admin
       .from('hosted_apps')
       .insert({
