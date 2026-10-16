@@ -125,7 +125,7 @@ export function AppPreview() {
         srcDoc={renderHtml}
         title={app?.name || '应用'}
         className="w-full h-full border-0"
-        sandbox="allow-scripts allow-forms allow-popups allow-modals"
+        sandbox="allow-scripts allow-forms allow-popups allow-modals allow-downloads allow-popups-to-escape-sandbox"
       />
 
       {/* ── 底部居中源码入口（仅私密应用）── */}
