@@ -3,6 +3,8 @@ export type AppStatus = 'pending' | 'approved' | 'rejected';
 export interface HostedApp {
   id: string;
   user_id: string;
+  publisher_avatar_url?: string | null;
+  publisher_name?: string | null;
   name: string;
   description: string | null;
   app_file_path: string;

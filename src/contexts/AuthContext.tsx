@@ -35,6 +35,26 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+const AUTH_REQUEST_TIMEOUT_MS = 15_000;
+
+async function withAuthTimeout<T>(request: PromiseLike<T>): Promise<T> {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+  try {
+    return await Promise.race([
+      Promise.resolve(request),
+      new Promise<never>((_, reject) => {
+        timeoutId = setTimeout(
+          () => reject(new Error('AUTH_REQUEST_TIMEOUT')),
+          AUTH_REQUEST_TIMEOUT_MS,
+        );
+      }),
+    ]);
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
+}
+
 // 查询某用户是否为管理员
 async function checkIsAdmin(userId: string): Promise<boolean> {
   try {
@@ -124,11 +144,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const register = async (email: string, password: string): Promise<AuthResult> => {
-    const { data, error } = await supabase.auth.signUp({
-      email: email.trim(),
-      password,
-      options: { emailRedirectTo: `${window.location.origin}/login` },
-    });
+    let response;
+    try {
+      response = await withAuthTimeout(supabase.auth.signUp({
+        email: email.trim(),
+        password,
+        options: { emailRedirectTo: `${window.location.origin}/login` },
+      }));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : '';
+      return { success: false, error: translateAuthError(message) };
+    }
+
+    const { data, error } = response;
     if (error) {
       return { success: false, error: translateAuthError(error.message) };
     }
@@ -187,5 +215,8 @@ function translateAuthError(msg: string): string {
   if (/Password should be at least/i.test(msg)) return '密码至少需要 6 位';
   if (/Unable to validate email address/i.test(msg)) return '邮箱格式不正确';
   if (/Email not confirmed/i.test(msg)) return '邮箱尚未验证，请先查收验证邮件';
+  if (/email rate limit exceeded/i.test(msg)) return '验证邮件发送过于频繁，请稍后再试';
+  if (/AUTH_REQUEST_TIMEOUT/i.test(msg)) return '注册请求超时，请检查网络后重试';
+  if (/Failed to fetch|NetworkError|Load failed/i.test(msg)) return '网络连接失败，请检查网络后重试';
   return msg || '操作失败，请重试';
 }

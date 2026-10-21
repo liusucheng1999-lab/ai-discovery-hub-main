@@ -18,6 +18,7 @@ const Index = lazy(() => import("./pages/Index"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const ToolDetailPage = lazy(() => import("./pages/ToolDetailPage"));
 const SubmitTool = lazy(() => import("./pages/SubmitTool"));
+const Profile = lazy(() => import("./pages/Profile"));
 const Login = lazy(() => import("./pages/Login"));
 const SetupAdmin = lazy(() => import("./pages/SetupAdmin"));
 const CreateAdmin = lazy(() => import("./pages/CreateAdmin"));
@@ -68,6 +69,7 @@ const App = () => {
                         <Route path="/ai-code" element={<CategoryPage />} />
                         <Route path="/tool/:toolId" element={<ToolDetailPage />} />
                         <Route path="/tools/submit" element={<SubmitTool />} />
+                        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/connector/authorize" element={<ProtectedRoute><ConnectorAuthorize /></ProtectedRoute>} />
 

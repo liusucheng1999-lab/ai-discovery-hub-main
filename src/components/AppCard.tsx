@@ -1,4 +1,5 @@
 import React from 'react';
+import { AccountAvatar } from './AccountAvatar';
 import { Link } from 'react-router-dom';
 import { Play, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -77,6 +78,10 @@ export function AppCard({ app, showActions = false, onEdit, onDelete }: AppCardP
             {app.description}
           </p>
         )}
+        <div className="mt-2 text-xs text-muted-foreground space-y-1">
+          <div className="flex items-center gap-2"><AccountAvatar name={app.publisher_name || '用户'} url={app.publisher_avatar_url} className="h-6 w-6 text-xs" /><p className="truncate">发布人：{app.publisher_name || '未知'}</p></div>
+          <p>上传时间：{new Date(app.created_at).toLocaleString('zh-CN', { hour12: false })}</p>
+        </div>
         <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground/70">
           <Play className="w-3 h-3 fill-current" />
           <span>{app.run_count.toLocaleString()} 次运行</span>

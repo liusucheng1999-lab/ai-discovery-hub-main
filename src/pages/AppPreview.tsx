@@ -5,6 +5,7 @@ import { appService } from '@/lib/appService';
 import { safeStorage } from '@/lib/safe-storage';
 import { injectStorageShim, readHostedAppStorageMessage, storageKeyFor } from '@/lib/hosted-app-storage-bridge';
 import { Code2, X, Copy, Check, Download } from 'lucide-react';
+import { AppComments } from '@/components/AppComments';
 import type { HostedApp } from '@/types/app';
 
 export function AppPreview() {
@@ -127,6 +128,8 @@ export function AppPreview() {
         className="w-full h-full border-0"
         sandbox="allow-scripts allow-forms allow-popups allow-modals allow-downloads allow-popups-to-escape-sandbox"
       />
+
+      {app && !app.is_private && app.status === 'approved' && <AppComments key={app.id} app={app} />}
 
       {/* ── 底部居中源码入口（仅私密应用）── */}
       {app?.is_private && !showSource && (

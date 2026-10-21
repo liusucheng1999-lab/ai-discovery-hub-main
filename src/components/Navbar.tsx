@@ -1,3 +1,4 @@
+import { AccountAvatar } from "./AccountAvatar";
 import { Sun, Moon, LogOut } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "./ThemeProvider";
@@ -8,7 +9,7 @@ import ContactDialog from "./ContactDialog";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
-  const { isLoggedIn, isAdmin, username, logout } = useAuth();
+  const { isLoggedIn, isAdmin, username, user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [_, setIsOpen] = useState(false);
@@ -84,8 +85,11 @@ export default function Navbar() {
                 </>
               )}
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span>{username}</span>
-                <Button variant="ghost" size="sm" onClick={handleLogout}>
+                <Link to="/profile" aria-label="个人资料" className="flex items-center gap-2 rounded-md hover:text-primary">
+                  <AccountAvatar name={user?.user_metadata?.display_name || username || '用户'} url={user?.user_metadata?.avatar_url} />
+                  <span className="max-w-28 truncate hidden sm:inline">{user?.user_metadata?.display_name || '个人资料'}</span>
+                </Link>
+                <Button variant="ghost" size="sm" aria-label="退出登录" onClick={handleLogout}>
                   <LogOut className="h-4 w-4" />
                 </Button>
               </div>

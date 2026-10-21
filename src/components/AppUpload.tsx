@@ -36,7 +36,7 @@ const INLINE_PROMPT = `我有一个网页项目，包含多个文件（HTML + CS
 请把合并后的完整 HTML 代码输出给我，我会保存为 .html 文件上传。`;
 
 export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
-  const [mode, setMode] = useState<Mode>('file');
+  const [mode, setMode] = useState<Mode>('codex');
 
   // 文件模式
   const [file, setFile] = useState<File | null>(null);
@@ -114,18 +114,6 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
           <div className="grid grid-cols-3 gap-2 p-1 bg-muted rounded-xl">
             <button
               type="button"
-              onClick={() => setMode('file')}
-              className={`flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                mode === 'file'
-                  ? 'bg-background shadow text-foreground'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              <Upload className="w-4 h-4" />
-              上传文件
-            </button>
-            <button
-              type="button"
               onClick={() => setMode('codex')}
               className={`relative flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 mode === 'codex'
@@ -138,6 +126,18 @@ export function AppUpload({ onSubmit, isLoading = false }: AppUploadProps) {
               <span className="absolute -top-2 -right-1 rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-semibold leading-none text-primary-foreground">
                 推荐
               </span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode('file')}
+              className={`flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                mode === 'file'
+                  ? 'bg-background shadow text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <Upload className="w-4 h-4" />
+              上传文件
             </button>
             <button
               type="button"
